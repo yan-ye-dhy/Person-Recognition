@@ -62,6 +62,9 @@ class Work:
     media_type: str
     year: int | None
     search_queries: tuple[str, ...] = ()
+    # 作品归属核验（screening）用：
+    trusted_domains: tuple[str, ...] = ()   # 可信来源域（官方/权威平台，仍需搭配作品标识才判 verified）
+    evidence_aliases: tuple[str, ...] = ()  # 作品标识补充（英文名/别名，用于标题与 URL 匹配）
 
     def to_dict(self) -> dict[str, Any]:
         return {
@@ -71,6 +74,8 @@ class Work:
             "media_type": self.media_type,
             "year": self.year,
             "search_queries": list(self.search_queries),
+            "trusted_domains": list(self.trusted_domains),
+            "evidence_aliases": list(self.evidence_aliases),
         }
 
 
@@ -103,6 +108,8 @@ def load_works() -> list[Work]:
                 media_type=str(item["media_type"]),
                 year=int(year) if year is not None else None,
                 search_queries=tuple(str(q) for q in item.get("search_queries", [])),
+                trusted_domains=tuple(str(d).lower() for d in item.get("trusted_domains", [])),
+                evidence_aliases=tuple(str(a) for a in item.get("evidence_aliases", [])),
             )
         )
     return works

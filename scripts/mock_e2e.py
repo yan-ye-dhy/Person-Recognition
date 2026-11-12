@@ -92,6 +92,11 @@ def main() -> None:
                 "target_bbox": [0.15, 0.1, 0.65, 0.9] if multi else None,
                 "tags": [],
             })
+            # 归属核验门禁：演示数据全部标记为已核实（真实流程须人工批量审核）
+            store.set_attribution(
+                [row["pk"]], "verified", ["Mock 演示数据，归属核验默认通过"],
+                actor="user",
+            )
 
     # 2) 导出匿名化正式集
     dataset_json = export_dataset(store, works, out_dir=DEMO / "final",

@@ -21,13 +21,18 @@ from tests.conftest import make_work
 def test_bing_parse_html():
     src = BingImageSource(user_agent="test")
     html = (
-        '<div class="iusc" m=\'{"murl":"https://a.com/1.jpg"}\'></div>'
+        '<div class="iusc" m=\'{"t":"《狂飙》剧照","murl":"https://a.com/1.jpg",'
+        '"purl":"https://www.iqiyi.com/a.html"}\'></div>'
         '<div class="iusc" m=\'{"murl":"https://b.com/2.png"}\'></div>'
         '<div class="iusc" m=\'{"murl":"https://a.com/1.jpg"}\'></div>'
     )
     hits = src.parse_html(html)
     assert [h.url for h in hits] == ["https://a.com/1.jpg", "https://b.com/2.png"]
     assert all(h.source_type == "web_image" for h in hits)
+    # 归属证据随命中带出（页面标题/页面 URL）
+    assert hits[0].page_title == "《狂飙》剧照"
+    assert hits[0].page_url == "https://www.iqiyi.com/a.html"
+    assert hits[1].page_title == "" and hits[1].page_url == ""
 
 
 def test_bing_search_network_blocked_returns_empty():
@@ -76,16 +81,13 @@ def test_download_hits_filters(tmp_path):
     from vcrb.collectors.web_collector import CollectReport
 
     report = CollectReport(work_slug="test")
-    hits = [
-        type("H", (), {"url": "https://ok/1.jpg", "source_type": "web_image",
-                       "license_note": "", "referer": ""})(),
-        type("H", (), {"url": "https://dup/2.jpg", "source_type": "web_image",
-                       "license_note": "", "referer": ""})(),
-        type("H", (), {"url": "https://small/3.jpg", "source_type": "web_image",
-                       "license_note": "", "referer": ""})(),
-        type("H", (), {"url": "https://dead/4.jpg", "source_type": "web_image",
-                       "license_note": "", "referer": ""})(),
-    ]
+    def _hit(url):
+        return type("H", (), {"url": url, "source_type": "web_image",
+                              "license_note": "", "referer": "",
+                              "page_url": "", "page_title": "狂飙 页面"})()
+
+    hits = [_hit(u) for u in
+            ("https://ok/1.jpg", "https://dup/2.jpg", "https://small/3.jpg", "https://dead/4.jpg")]
     download_hits(
         hits,
         raw_dir=tmp_path / "raw",
@@ -120,9 +122,18 @@ def test_collect_web_with_stubbed_search(tmp_path, monkeypatch):
         )
 
     def fake_search(self, query, limit=35):
-        h = type("H", (), {"url": f"https://img/{abs(hash(query)) % 1000}.jpg",
-                           "source_type": "web_image", "license_note": "", "referer": ""})()
-        return [h]
+        # 第一条命中带作品标识标题（可下载）；第二条无任何证据（默认被预检跳过）
+        qh = abs(hash(query)) % 1000
+        with_ev = type("H", (), {
+            "url": f"https://img/{qh}.jpg", "source_type": "web_image",
+            "license_note": "", "referer": "",
+            "page_url": "https://www.iqiyi.com/lib/k.html", "page_title": "狂飙 电视剧 剧照",
+        })()
+        no_ev = type("H", (), {
+            "url": f"https://img/noev-{qh}.jpg", "source_type": "web_image",
+            "license_note": "", "referer": "", "page_url": "", "page_title": "功夫足球",
+        })()
+        return [with_ev, no_ev]
 
     monkeypatch.setattr(BingImageSource, "search", fake_search)
     settings = load_settings()
@@ -133,8 +144,9 @@ def test_collect_web_with_stubbed_search(tmp_path, monkeypatch):
         work, settings, raw_dir=tmp_path / "raw", url_list_dir=tmp_path / "lists",
         limit=5, client=_fake_client(handler),
     )
-    # 工厂作品带 3 个查询词，每个查询 1 个命中且全部可下载（上限 5 未触顶）
+    # 工厂作品带 3 个查询词，每个查询 2 条命中（1 条有作品标识 + 1 条无证据）
     assert report.downloaded == 3
+    assert report.skipped_no_evidence == 3
     manifest = [
         json.loads(line)
         for line in (tmp_path / "raw" / "manifest.jsonl").read_text(encoding="utf-8").splitlines()

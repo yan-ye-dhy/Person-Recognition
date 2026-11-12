@@ -23,6 +23,9 @@ class ImageHit:
     source_type: str = "web_image"
     license_note: str = ""
     referer: str = ""
+    # 作品归属核验证据（screening）：来源页 URL 与页面标题
+    page_url: str = ""
+    page_title: str = ""
 
     def to_dict(self) -> dict[str, Any]:
         return {
@@ -30,6 +33,8 @@ class ImageHit:
             "source_type": self.source_type,
             "license_note": self.license_note,
             "referer": self.referer,
+            "page_url": self.page_url,
+            "page_title": self.page_title,
         }
 
 
@@ -69,26 +74,37 @@ class BingImageSource:
             return []  # 网络受阻：如实返回空，由上层记录
         return self.parse_html(resp.text, referer=f"https://www.bing.com/search?q={quote_plus(query)}")
 
+    _ITEM_RE = re.compile(r"\{[^{}]*\"murl\"[^{}]*\}")
     _MURL_RE = re.compile(r'"murl"\s*:\s*"(https?://[^"]+)"')
+    _PURL_RE = re.compile(r'"purl"\s*:\s*"(https?://[^"]+)"')
+    _TITLE_RE = re.compile(r'"t"\s*:\s*"([^"]*)"')
 
     def parse_html(self, html: str, referer: str = "") -> list[ImageHit]:
         # cn.bing.com 会把属性做 HTML 实体编码（murl&quot;:...），先反转义再匹配
         import html as _html
 
         text = _html.unescape(html)
-        urls = self._MURL_RE.findall(text)
         seen: set[str] = set()
         hits: list[ImageHit] = []
-        for url in urls:
+        for block in self._ITEM_RE.finditer(text):
+            item = block.group(0)
+            m_url = self._MURL_RE.search(item)
+            if not m_url:
+                continue
+            url = m_url.group(1)
             if url in seen:
                 continue
             seen.add(url)
+            p_url = self._PURL_RE.search(item)
+            title = self._TITLE_RE.search(item)
             hits.append(
                 ImageHit(
                     url=url,
                     source_type="web_image",
                     license_note="Bing 图片搜索结果，来源以 source_url 为准",
                     referer=referer,
+                    page_url=p_url.group(1) if p_url else "",
+                    page_title=title.group(1) if title else "",
                 )
             )
         return hits

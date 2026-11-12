@@ -53,17 +53,22 @@ def make_image(tmp_path):
 def make_work(slug: str = "kuangbiao") -> Work:
     meta = {
         "kuangbiao": ("狂飙", "modern_drama", "电视剧", 2023,
-                      ("狂飙 电视剧 剧照 高启强", "狂飙 电视剧 截图 角色", "狂飙 安欣 剧照")),
+                      ("狂飙 电视剧 剧照 高启强", "狂飙 电视剧 截图 角色", "狂飙 安欣 剧照"),
+                      ("iqiyi.com", "ent.sina.com.cn"), ("The Knockout",)),
         "langyabang": ("琅琊榜", "costume_drama", "电视剧", 2015,
-                       ("琅琊榜 电视剧 剧照 梅长苏", "琅琊榜 靖王 剧照")),
+                       ("琅琊榜 电视剧 剧照 梅长苏", "琅琊榜 靖王 剧照"),
+                       ("iqiyi.com", "ent.sina.com.cn", "doubanio.com"), ("Nirvana in Fire",)),
         "gongfunvzu": ("功夫女足", "recent_movie", "电影", None,
-                       ("功夫女足 电影 剧照", "功夫女足 电影 截图 角色")),
+                       ("功夫女足 电影 剧照", "功夫女足 电影 截图 角色"),
+                       ("doubanio.com", "1905.com"), ()),
         "jianlai": ("剑来", "animation", "动画", 2024,
-                    ("剑来 动画 剧照 陈平安", "剑来 动漫 截图 角色")),
+                    ("剑来 动画 剧照 陈平安", "剑来 动漫 截图 角色"),
+                    ("v.qq.com", "qpic.cn"), ()),
     }
-    name, category, media_type, year, queries = meta[slug]
+    name, category, media_type, year, queries, trusted, aliases = meta[slug]
     return Work(slug=slug, name=name, category=category, media_type=media_type,
-                year=year, search_queries=queries)
+                year=year, search_queries=queries,
+                trusted_domains=trusted, evidence_aliases=aliases)
 
 
 def make_sample(

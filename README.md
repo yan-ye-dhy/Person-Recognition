@@ -60,8 +60,9 @@ vcrb collect video --work langyabang --video /path/to/episode01.mp4 --strategy s
 vcrb collect import --work gongfunvzu
 ```
 
-- 每张图在 `data/raw/{slug}/manifest.jsonl` 记录来源 URL、素材类型（剧照/截图/抽帧/手动）、获取时间与许可备注
-- 补充通道：`data/url_lists/{slug}.txt`（每行一个 URL，支持 JSON 行带 source_type）
+- 每张图在 `data/raw/{slug}/manifest.jsonl` 记录来源 URL、**来源页 URL 与页面标题**（作品归属核验证据）、素材类型（剧照/截图/抽帧/手动）、获取时间与许可备注
+- **证据预检默认开启**：仅下载页面标题/URL 含作品标识（如「琅琊榜」「langyabang」）的命中，无证据的通用搜索结果直接跳过（`--no-evidence-check` 可关闭）——防止关键词搜索混入其他作品/无关素材
+- 补充通道：`data/url_lists/{slug}.txt`（每行一个 URL，支持 JSON 行带 source_type；人工清单视为已核，不做预检）
 
 ### 3.2 清洗
 
@@ -70,7 +71,36 @@ vcrb clean                 # 全部作品
 vcrb clean --work jianlai
 ```
 
-流水线：文件有效性 → 精确去重(md5) → 感知哈希近重复去重 → 质量筛选（最小尺寸、纯色剔除）→ `data/candidates/{slug}/`。
+流水线：文件有效性 → 精确去重(md5) → 感知哈希近重复去重 → 质量筛选（最小尺寸、纯色剔除）→ `data/candidates/{slug}/`（候选以内容 md5 为身份登记进标注库，重跑 clean 重新编号不会丢失已有标注）。
+
+### 3.2b 作品归属核验与素材批量审核（数据质量红线）
+
+关键词图片搜索的候选池会混入其他作品海报、宣传拼贴、漫画/二创等污染素材。正式导出前必须过归属核验：
+
+```bash
+vcrb screen run            # 证据规则 + 视觉启发式自动筛查（离线，不调模型 API）
+vcrb screen backfill       # 重放搜索词回补「来源页标题/URL」证据后自动重筛（免费搜索）
+vcrb screen report         # 六项数字：候选/自动排除/归属核实/待人工/可入评测/缺口
+```
+
+判定规则（`vcrb/screening/`，全部离线启发式，不依赖任何大模型）：
+
+| 状态 | 自动判定条件 |
+|---|---|
+| `verified` | 可信域（works.yaml `trusted_domains`，如 iqiyi/新浪/百科/腾讯视频/豆瓣）**且**页面标题或 URL 含作品标识——只有来源证据能给出该状态，纯视觉信号永远不能 |
+| `rejected` | 二创平台拉黑域（pixiv/civitai/lofter）；动画作品中的黑白图（漫画截图嫌疑）。被排除素材**保留原文件与记录，仅隔离**，不再进入正式集，也不会被重新采集复活 |
+| `needs_review` | 有作品标识但域不可信 / 可信域无标识 / 竖版海报嫌疑 / 异常画幅 / 插画留白嫌疑 / 疑似拼贴（启发式实测有误报——水墨云雾、贯穿字幕条也会触发，故不自动排除，交人工） |
+
+已知局限（如实声明）：Cosplay、同画风二创、AI 生成图无法离线可靠识别，依赖来源证据与人工批量审核兜底；拼贴检测只对「单方向 ≥2 条等距贯穿分割线」的 3 联以上组图有效。
+
+**Streamlit「素材批量审核」页**（`vcrb annotate` 后第 1 个页面）：
+1. 左侧选作品 → 点「▶ 自动筛查本作品」
+2. 4 列缩略图网格浏览（每张显示归属徽章 + 首条理由，展开可见页面标题/URL/视觉标记）
+3. 勾选图片 → 填操作原因 → 「✅ 确认归属 / 🗑 排除并隔离 / ❓ 设为待人工复核」→ 预览即将更改的缩略图 → 确认执行
+4. 全选/清空本页、按状态筛选、分页（24 张/页）批量处理
+5. 每次变更（自动或人工）都写入 `attribution_log` 审计表（actor + 原因 + 前后状态），自动筛查不会覆盖人工决定（`--force` 才会）
+
+> 导入门禁：只有 `标注 verified` **且** `归属 verified` 的样本才会进入正式测试集；被排除素材不计入、可随时在审核页翻查。
 
 ### 3.3 人工标注（Ground Truth）
 
@@ -78,13 +108,14 @@ vcrb clean --work jianlai
 vcrb annotate              # 启动 Streamlit（默认 http://localhost:8501）
 ```
 
-标注页四个页面：
-1. **标注**：浏览候选 → 红框框选目标人物（canvas 框选，归一化坐标自动换算）→ 选择角色 → 三维度独立标注（人物重要度/视觉难度/多人同框）→ 状态改为「已确认」保存
+标注页五个页面：
+0. **素材批量审核**：见 3.2b（归属核验，先于标注）
+1. **标注**：浏览候选 → 红框框选目标人物（canvas 框选，归一化坐标自动换算）→ 选择角色 → 三维度独立标注（人物重要度/视觉难度/多人同框）→ 状态改为「已确认」保存（默认隐藏已排除素材）
 2. **角色名单**：维护别名/演员/重要度（评分时演员名命中 → `答演员名`，不算正确；不确定条目保留 ⚠️待确认）
-3. **进度总览**：四作品 × 状态计数 + 五组配额达成表
+3. **进度总览**：四作品 × 状态计数 + 归属筛查计数 + 五组配额达成表
 4. **人工复核**：评分后对模糊匹配项改判
 
-> 只有 `annotation_status=verified` 的样本才会进入正式测试集；有争议的保持「待确认」。
+> 只有 `annotation_status=verified` 且归属核验 `verified` 的样本才会进入正式测试集；有争议的保持「待确认」。
 
 ### 3.4 导出与校验
 
@@ -137,13 +168,14 @@ vcrb report                      # 图表×6 + Markdown + HTML 错误案例浏�
 
 | 命令 | 作用 |
 |---|---|
-| `vcrb status` | 四作品数据进度 + 最近运行 + 连通性验证结果 |
+| `vcrb status` | 四作品数据进度 + 归属筛查状态 + 最近运行 + 连通性验证结果 |
 | `vcrb models list [--all]` / `models verify --yes` | 模型注册表 / 实测视觉能力 |
-| `vcrb collect web\|video\|import` | 三通道素材采集 |
+| `vcrb collect web\|video\|import` | 三通道素材采集（web 默认证据预检） |
 | `vcrb roster show --work …` / `roster build` | 角色名单查看 / 生成模板 |
 | `vcrb clean [--work]` | 清洗去重 |
-| `vcrb annotate` | Streamlit 标注页 |
-| `vcrb export-dataset` / `validate-dataset` | 匿名化导出 / 校验 |
+| `vcrb screen run\|backfill\|report` | 归属核验：自动筛查 / 证据回填 / 六项数字报告 |
+| `vcrb annotate` | Streamlit 标注页（含素材批量审核） |
+| `vcrb export-dataset` / `validate-dataset` | 匿名化导出（归属+标注双门禁）/ 校验 |
 | `vcrb run …[--yes]` | 执行评测（幂等断点续跑） |
 | `vcrb score` / `report` / `review` | 评分 / 报告 / 复核 |
 

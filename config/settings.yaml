@@ -39,3 +39,21 @@ pilot:
   per_model_connectivity: 1    # 分级验证①：每模型 1 张连通性检查
   per_model_small: 10          # 分级验证②：每模型 8-12 张小规模预检（默认 10）
   per_work_formal: 10          # 分级验证③：每作品 10 张 × 4 作品 = 40 张正式预检
+
+screening:                    # 作品归属核验与素材清洗（详见 vcrb/screening/）
+  grayscale_sat_mean: 0.05    # 平均饱和度低于此值 → 灰度/黑白图标记
+  grayscale_sat_p95: 0.12
+  poster_aspect_max: 0.85     # 高宽比低于此值 → 竖版海报嫌疑（needs_review）
+  odd_aspect_min: 1.30        # 宽高比低于此值（或 > 2.45）→ 疑非正片画幅
+  odd_aspect_max: 2.45
+  white_border_frac: 0.60     # 边缘近白像素比例高于此值 → 插画/留白图嫌疑（动画类）
+  white_border_threshold: 235
+  collage_peak_ratio: 3.0     # 行/列梯度投影峰值 > 中位数×该值 → 候选分割线
+  collage_span_min: 0.85      # 分割线须贯穿 ≥85% 行/列（排除人物轮廓/立柱局部边缘）
+  collage_min_peaks: 2        # 单方向至少 2 条等距贯穿分割线 → 拼贴图
+  collage_spacing_cv: 0.35    # 分割线间距变异系数上限（近似等距才算网格）
+  blocklist_domains:          # 二创/同人平台 → 直接排除
+    - pixiv.net
+    - pximg.net                # pixiv 图片 CDN（i.pximg.net）
+    - civitai.com
+    - lofter.com

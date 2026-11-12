@@ -7,6 +7,12 @@ works:
     category: modern_drama
     media_type: 电视剧
     year: 2023
+    trusted_domains:            # 可信域（官方平台/权威娱乐媒体；仅配合作品标识才判 verified，可人工增删）
+      - iqiyi.com
+      - sina.com.cn             # 覆盖 ent./news./k. 等新浪子域
+      - sina.cn
+      - baike.baidu.com         # 百科词条页（图床 bcebos 不整体信任，以页面域为准）
+    evidence_aliases: ["The Knockout"]
     search_queries:
       - "狂飙 电视剧 剧照 高启强"
       - "狂飙 电视剧 安欣 剧照"
@@ -22,6 +28,13 @@ works:
     category: costume_drama
     media_type: 电视剧
     year: 2015
+    trusted_domains:
+      - iqiyi.com
+      - sina.com.cn
+      - sina.cn
+      - baike.baidu.com
+      - doubanio.com            # 豆瓣条目图库（页面域 movie.douban.com 时同样可信）
+    evidence_aliases: ["Nirvana in Fire"]
     search_queries:
       - "琅琊榜 电视剧 剧照 梅长苏"
       - "琅琊榜 靖王 誉王 剧照"
@@ -37,19 +50,36 @@ works:
     category: recent_movie
     media_type: 电影
     year: 2026   # 2026-11-12 网络核实：2026-07-11 中国大陆上映，导演周星驰
-    search_queries:
-      - "功夫女足 电影 剧照"
-      - "功夫女足 电影 角色 截图"
-      - "功夫女足 主演 剧照"
-      - "功夫女足 电影 高清剧照"
-      - "功夫女足 海报 照片"
-      - "功夫女足 女足 训练 剧照"
+    trusted_domains:
+      - doubanio.com
+      - sina.com.cn
+      - sina.cn
+      - baike.baidu.com
+      - v.qq.com                # 腾讯视频影片页（本次池中主要来源）
+      - qpic.cn
+      - m1905.com
+      - 1905.com
+    evidence_aliases: ["Shaolin Women's Soccer", "Kung Fu Women's Soccer"]
+    search_queries:             # 整词加引号：Bing 会把"功夫女足"分词成"功夫"，导致混入 2004《功夫》素材（已实证）
+      - "\"功夫女足\" 电影 剧照"
+      - "\"功夫女足\" 张小斐 剧照"
+      - "\"功夫女足\" 迪丽热巴 剧照"
+      - "\"功夫女足\" 电影 截图 角色"
+      - "\"功夫女足\" 周星驰 剧照"
+      - "\"功夫女足\" 高清剧照"
 
   - slug: jianlai
     name: 剑来
     category: animation
     media_type: 动画
     year: 2024
+    trusted_domains:
+      - v.qq.com
+      - qpic.cn
+      - bilibili.com
+      - hdslb.com
+      - baike.baidu.com
+    evidence_aliases: ["Sword of Coming"]
     search_queries:
       - "剑来 动画 剧照 陈平安"
       - "剑来 动漫 截图 角色"

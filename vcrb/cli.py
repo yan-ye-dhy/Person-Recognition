@@ -36,10 +36,12 @@ models_app = typer.Typer(help="模型注册表", no_args_is_help=True)
 collect_app = typer.Typer(help="素材采集", no_args_is_help=True)
 roster_app = typer.Typer(help="角色名单", no_args_is_help=True)
 review_app = typer.Typer(help="评分人工复核", no_args_is_help=True)
+screen_app = typer.Typer(help="作品归属核验与素材清洗", no_args_is_help=True)
 app.add_typer(models_app, name="models")
 app.add_typer(collect_app, name="collect")
 app.add_typer(roster_app, name="roster")
 app.add_typer(review_app, name="review")
+app.add_typer(screen_app, name="screen")
 
 console = Console()
 
@@ -166,6 +168,10 @@ def models_verify(
 def collect_web_cmd(
     work: str = typer.Option(..., "--work", help=f"作品 slug：{'/'.join(WORK_SLUGS)}"),
     limit: int = typer.Option(0, "--limit", help="本次采集上限（0=用 settings 上限）"),
+    no_evidence_check: bool = typer.Option(
+        False, "--no-evidence-check",
+        help="跳过来源证据预检（默认仅下载标题/页面含作品标识的命中）",
+    ),
 ):
     """网络图片采集（Bing 搜索 + data/url_lists/{slug}.txt 清单）。"""
     from .collectors import collect_web
@@ -174,13 +180,16 @@ def collect_web_cmd(
     if work not in works:
         _fail(f"未知作品：{work}（可选 {list(works)}）")
     settings = load_settings()
-    report = collect_web(works[work], settings, RAW_DIR / work, limit=limit or None)
+    report = collect_web(
+        works[work], settings, RAW_DIR / work, limit=limit or None,
+        require_evidence=not no_evidence_check,
+    )
     table = Table(title=f"《{works[work].name}》网络采集报告")
-    for col in ["命中", "下载", "过小跳过", "重复跳过", "失败"]:
+    for col in ["命中", "下载", "无证据跳过", "过小跳过", "重复跳过", "失败"]:
         table.add_column(col, justify="right")
     table.add_row(
-        str(report.hits), str(report.downloaded), str(report.skipped_small),
-        str(report.skipped_duplicate), str(report.failed),
+        str(report.hits), str(report.downloaded), str(report.skipped_no_evidence),
+        str(report.skipped_small), str(report.skipped_duplicate), str(report.failed),
     )
     console.print(table)
     for err in report.errors[:5]:
@@ -285,6 +294,101 @@ def roster_build(work: str = typer.Option(..., "--work")):
         _fail(f"未知作品：{work}")
     path = build_template(works[work])
     console.print(f"模板已生成：{path}（请人工核实后填写，不确定条目保留 needs_review: true）")
+
+
+# ================================================================ screen
+
+
+@screen_app.command("run")
+def screen_run_cmd(
+    work: Optional[str] = typer.Option(None, "--work", help="不指定则筛查全部作品"),
+    force: bool = typer.Option(False, "--force", help="覆盖人工已决定的样本（默认跳过）"),
+):
+    """证据规则 + 视觉启发式 归属筛查（离线，不调模型 API）。"""
+    from .dataset.store import AnnotationStore
+    from .screening.service import run_screening
+
+    settings = load_settings()
+    works = [w for w in load_works() if work in (None, w.slug)]
+    if not works:
+        _fail(f"未知作品：{work}")
+    store = AnnotationStore()
+    table = Table(title="作品归属筛查结果（自动）")
+    for col in ["作品", "候选", "判定", "verified", "rejected", "needs_review", "保留人工决定", "文件缺失"]:
+        table.add_column(col, justify="right")
+    for w in works:
+        rep = run_screening(store, w, settings, force=force)
+        counts = rep.counts
+        table.add_row(
+            w.name, str(rep.total), str(rep.decided),
+            str(counts.get("verified", 0)), str(counts.get("rejected", 0)),
+            str(counts.get("needs_review", 0)),
+            str(rep.kept_user), str(rep.skipped_missing_file),
+        )
+    console.print(table)
+    console.print(
+        "自动判定仅供预筛：verified 需来源证据支持，needs_review 请在标注页"
+        "「素材批量审核」人工处置（vcrb annotate）。"
+    )
+
+
+@screen_app.command("backfill")
+def screen_backfill_cmd(
+    work: Optional[str] = typer.Option(None, "--work", help="不指定则回填全部作品"),
+):
+    """重放搜索词回补来源页标题/URL 证据（免费搜索，非模型 API），并重筛。"""
+    from .dataset.store import AnnotationStore
+    from .screening.service import backfill_evidence
+
+    settings = load_settings()
+    works = [w for w in load_works() if work in (None, w.slug)]
+    if not works:
+        _fail(f"未知作品：{work}")
+    store = AnnotationStore()
+    for w in works:
+        rep = backfill_evidence(store, w, settings)
+        table = Table(title=f"《{w.name}》证据回填")
+        for col in ["查询词", "命中", "URL 匹配", "新证据", "重筛"]:
+            table.add_column(col, justify="right")
+        table.add_row(
+            str(rep.queries), str(rep.hits), str(rep.matched),
+            str(rep.updated), str(rep.rescreened),
+        )
+        console.print(table)
+        for err in rep.errors[:3]:
+            console.print(f"  [dim]{err}[/dim]")
+
+
+@screen_app.command("report")
+def screen_report_cmd(
+    json_out: bool = typer.Option(False, "--json", help="输出 JSON"),
+):
+    """六项数字报告：候选/自动排除/归属核实/待人工/可入评测/缺口。"""
+    from .dataset.store import AnnotationStore
+    from .screening.service import report_screening
+
+    settings = load_settings()
+    target = int(settings.get("export", {}).get("target_per_work", 100))
+    store = AnnotationStore()
+    rows = report_screening(store, load_works(), target_per_work=target)
+    if json_out:
+        console.print_json(json.dumps(rows, ensure_ascii=False))
+        return
+    table = Table(title=f"素材筛查与缺口报告（目标 {target}/部）")
+    for col in ["作品", "原始候选", "自动排除", "归属已核实", "待人工复核", "可入正式评测", "缺口"]:
+        table.add_column(col, justify="right")
+    for r in rows:
+        table.add_row(
+            r["work"], str(r["candidates"]), str(r["auto_rejected"]),
+            str(r["attribution_verified"]), str(r["needs_human"]),
+            str(r["benchmark_ready"]), str(r["gap_to_100"]),
+        )
+    console.print(table)
+    console.print(
+        "[dim]可入正式评测 = 归属 verified 且标注 verified；缺口 = 目标 100 − 可入数。"
+        "素材不足将如实报告，不以重复图/其他作品/二创凑数；"
+        "可后续用已授权视频抽帧补齐（vcrb collect video）。[/dim]"
+    )
 
 
 # ================================================================ clean / annotate / export
@@ -766,6 +870,22 @@ def status_cmd():
             str(bucket.get("pending", 0)), str(bucket.get("uncertain", 0)),
         )
     console.print(table)
+
+    # 归属筛查状态
+    try:
+        attr = store.attribution_stats() if store else {}
+    except Exception:
+        attr = {}
+    t_attr = Table(title="素材归属筛查")
+    for col in ["作品", "待筛查", "已核实", "已排除(隔离)", "待人工复核"]:
+        t_attr.add_column(col, justify="right")
+    for w in works:
+        b = attr.get(w.slug, {})
+        t_attr.add_row(
+            w.name, str(b.get("pending", 0)), str(b.get("verified", 0)),
+            str(b.get("rejected", 0)), str(b.get("needs_review", 0)),
+        )
+    console.print(t_attr)
     if DATASET_JSON.exists():
         payload = json.loads(DATASET_JSON.read_text(encoding="utf-8"))
         console.print(f"正式集：{payload['total']} 样本（{DATASET_JSON}）")

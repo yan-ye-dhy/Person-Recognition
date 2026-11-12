@@ -109,6 +109,12 @@ def page_annotate() -> None:
             f"《{work.name}》暂无候选图片。请先执行：vcrb clean --work {work.slug}"
         )
         return
+    hide_rejected = st.sidebar.checkbox("隐藏已排除素材（隔离区）", value=True)
+    if hide_rejected:
+        rows = [r for r in rows if (r.get("attribution_status") or "pending") != "rejected"]
+        if not rows:
+            st.info("当前筛选下没有样本（全部已排除/隔离）。")
+            return
     status_filter = st.sidebar.selectbox(
         "按状态筛选",
         ["全部", "pending", "verified", "invalid", "uncertain"],
@@ -331,6 +337,160 @@ def page_roster() -> None:
             st.rerun()
 
 
+# ================================================================ 素材批量审核页
+
+ATTR_BADGES = {
+    "verified": "🟢已核实",
+    "rejected": "🔴已排除",
+    "needs_review": "🟡待人工复核",
+    "pending": "⚪未筛查",
+}
+REJECT_PRESETS = [
+    "其他作品画面",
+    "宣传拼贴/组图",
+    "漫画/小说插画",
+    "二创/同人图",
+    "Cosplay",
+    "海报（非正片截图）",
+    "低质/无关",
+]
+
+
+def page_screen() -> None:
+    """作品归属批量审核：网格缩略图 + 批量确认/排除/待复核 + 审计。"""
+    from vcrb.screening.service import run_screening
+
+    st.title("素材批量审核（作品归属核验）")
+    works = get_works()
+    work = st.sidebar.selectbox(
+        "选择作品", works, format_func=lambda w: f"{w.name}（{w.slug}）"
+    )
+    store = get_store()
+    store.sync_candidates(work.slug, CANDIDATES_DIR / work.slug)
+
+    if st.sidebar.button("▶ 自动筛查本作品（证据规则+视觉启发式）", use_container_width=True):
+        rep = run_screening(store, work, get_settings())
+        st.toast(
+            f"自动判定 {rep.decided} 张：verified {rep.counts.get('verified', 0)} / "
+            f"rejected {rep.counts.get('rejected', 0)} / needs_review {rep.counts.get('needs_review', 0)}"
+            f"（保留人工决定 {rep.kept_user} 张）"
+        )
+        st.rerun()
+
+    rows = store.samples(work.slug)
+    if not rows:
+        st.warning("该作品暂无候选图片。")
+        return
+    counts = {"pending": 0, "verified": 0, "rejected": 0, "needs_review": 0}
+    for r in rows:
+        counts[r.get("attribution_status") or "pending"] += 1
+    m1, m2, m3, m4 = st.columns(4)
+    m1.metric("候选总数", len(rows))
+    m2.metric("归属已核实", counts["verified"])
+    m3.metric("已排除（隔离）", counts["rejected"])
+    m4.metric("待人工复核", counts["needs_review"] + counts["pending"])
+
+    status_filter = st.sidebar.multiselect(
+        "按归属状态筛选",
+        ["needs_review", "pending", "verified", "rejected"],
+        default=["needs_review", "pending"],
+        format_func=lambda s: ATTR_BADGES[s],
+    )
+    filtered = [
+        r for r in rows
+        if (r.get("attribution_status") or "pending") in (status_filter or [])
+    ]
+    if not filtered:
+        st.info("当前筛选下没有图片。调整左侧筛选或先执行自动筛查。")
+        return
+
+    PAGE = 24
+    pages = max(1, (len(filtered) + PAGE - 1) // PAGE)
+    page_no = st.sidebar.selectbox("页码", range(1, pages + 1))
+    chunk = filtered[(page_no - 1) * PAGE: page_no * PAGE]
+    st.caption(f"第 {page_no}/{pages} 页 · 显示 {len(chunk)} / 筛选后 {len(filtered)} 张")
+
+    sel_keys = [f"sel_{r['pk']}" for r in chunk]
+    top = st.columns([1, 1, 1])
+    if top[0].button("☑ 全选本页"):
+        for k in sel_keys:
+            st.session_state[k] = True
+        st.rerun()
+    if top[1].button("☐ 清空本页"):
+        for k in sel_keys:
+            st.session_state[k] = False
+        st.rerun()
+
+    cols = st.columns(4)
+    for i, r in enumerate(chunk):
+        cell = cols[i % 4]
+        img_path = CANDIDATES_DIR / work.slug / r["filename"]
+        with cell:
+            if img_path.exists():
+                st.image(str(img_path), use_container_width=True)
+            else:
+                st.error("图片缺失")
+            status = r.get("attribution_status") or "pending"
+            st.checkbox(
+                f"{ATTR_BADGES[status]} · {r['filename']}",
+                key=f"sel_{r['pk']}",
+            )
+            reasons = r.get("attribution_reasons") or []
+            if reasons:
+                st.caption(f"理由：{reasons[0][:44]}")
+            ev = r.get("attribution_evidence") or {}
+            with st.expander("来源与依据"):
+                st.caption(f"pk #{r['pk']} · 标注状态 {STATUS_LABELS.get(r['status'], r['status'])}")
+                st.caption(f"页面标题：{r.get('page_title') or '（无）'}")
+                st.caption(f"页面 URL：{r.get('page_url') or '（无）'}")
+                st.caption(f"图片 URL：{r.get('source_url') or '（无）'}")
+                for reason in reasons:
+                    st.markdown(f"- {reason}")
+                flags = (ev or {}).get("visual_flags") or []
+                if flags:
+                    st.caption(f"视觉标记：{'、'.join(flags)}")
+
+    selected = [
+        r for r in chunk if st.session_state.get(f"sel_{r['pk']}")
+    ]
+    st.divider()
+    st.subheader(f"批量操作（已选 {len(selected)} 张）")
+    reason = st.text_input(
+        "操作原因（写入审计日志，必填）",
+        key="screen_reason",
+    )
+    c1, c2, c3 = st.columns(3)
+    act = None
+    if c1.button("✅ 确认归属（verified）", disabled=not selected or not reason.strip()):
+        act = "verified"
+    preset = st.selectbox("排除原因模板", ["（手填）"] + REJECT_PRESETS)
+    if c2.button("🗑 排除并隔离（rejected）", disabled=not selected or not reason.strip()):
+        act = "rejected"
+    if c3.button("❓ 设为待人工复核", disabled=not selected or not reason.strip()):
+        act = "needs_review"
+
+    if act and selected and reason.strip():
+        st.warning(f"即将把 {len(selected)} 张图片设为 **{ATTR_BADGES[act]}**，原因：{reason.strip()}")
+        preview = st.columns(min(8, len(selected)))
+        for j, r in enumerate(selected[:8]):
+            p = CANDIDATES_DIR / work.slug / r["filename"]
+            if p.exists():
+                preview[j % len(preview)].image(str(p), width=96)
+        if len(selected) > 8:
+            st.caption(f"…共 {len(selected)} 张")
+        if st.button("⚠️ 确认执行", type="primary"):
+            changed = store.set_attribution(
+                [r["pk"] for r in selected], act,
+                reasons=[reason.strip()],
+                actor="user",
+            )
+            for k in sel_keys:
+                st.session_state[k] = False
+            st.session_state["screen_reason"] = ""
+            st.toast(f"已更新 {changed} 张")
+            st.rerun()
+
+
 # ================================================================ 进度页
 
 def page_progress() -> None:
@@ -341,11 +501,19 @@ def page_progress() -> None:
     stats = store.stats()
     works = get_works()
     cols = st.columns(len(works))
+    attr = store.attribution_stats()
     for col, work in zip(cols, works):
         bucket = stats.get(work.slug, {})
         verified = bucket.get("verified", 0)
+        ab = attr.get(work.slug, {})
+        attr_verified = ab.get("verified", 0)
+        attr_rejected = ab.get("rejected", 0)
         with col:
             st.metric(work.name, f"{sum(bucket.values())} 候选 / {verified} 已确认")
+            st.caption(
+                f"归属：🟢{attr_verified} · 🔴{attr_rejected} · "
+                f"🟡{ab.get('needs_review', 0) + ab.get('pending', 0)}"
+            )
     st.divider()
     rows = store.samples(status="verified")
     table = {}
@@ -428,9 +596,11 @@ def page_review() -> None:
 def main() -> None:
     st.sidebar.title("影视角色标注台")
     page = st.sidebar.radio(
-        "页面", ["标注", "角色名单", "进度总览", "人工复核"]
+        "页面", ["素材批量审核", "标注", "角色名单", "进度总览", "人工复核"]
     )
-    if page == "标注":
+    if page == "素材批量审核":
+        page_screen()
+    elif page == "标注":
         page_annotate()
     elif page == "角色名单":
         page_roster()

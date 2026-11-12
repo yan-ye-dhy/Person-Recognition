@@ -28,6 +28,7 @@ class CollectReport:
     downloaded: int = 0
     skipped_small: int = 0
     skipped_duplicate: int = 0
+    skipped_no_evidence: int = 0   # 来源证据预检未通过（标题/页面无作品标识）
     failed: int = 0
     errors: list[str] = field(default_factory=list)
 
@@ -38,6 +39,7 @@ class CollectReport:
             "downloaded": self.downloaded,
             "skipped_small": self.skipped_small,
             "skipped_duplicate": self.skipped_duplicate,
+            "skipped_no_evidence": self.skipped_no_evidence,
             "failed": self.failed,
         }
 
@@ -45,6 +47,21 @@ class CollectReport:
 def _is_image_response(resp: httpx.Response) -> bool:
     ctype = resp.headers.get("content-type", "").lower()
     return ctype.startswith("image/") or ctype == "application/octet-stream"
+
+
+def has_work_evidence(hit: ImageHit, work: Work) -> bool:
+    """来源证据预检：页面标题 / 页面 URL / 图片 URL 中出现作品标识。
+
+    仅凭关键词搜索命中的图片默认不可信（用户要求 8），无作品标识的
+    通用搜索结果不进入候选库。
+    """
+    from urllib.parse import unquote
+
+    tokens = [work.name, work.slug, *work.evidence_aliases]
+    haystack = unquote(
+        f"{hit.page_title} {hit.page_url} {hit.url}"
+    ).lower()
+    return any(t.lower() in haystack for t in tokens if t)
 
 
 def download_hits(
@@ -109,6 +126,8 @@ def download_hits(
                 "file": filename,
                 "source_type": hit.source_type,
                 "source_url": hit.url,
+                "page_url": hit.page_url,
+                "page_title": hit.page_title,
                 "retrieved_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
                 "license_note": hit.license_note or "来源许可以 source_url 所示页面为准",
                 "md5": digest,
@@ -129,8 +148,14 @@ def collect_web(
     url_list_dir: Path | None = None,
     limit: int | None = None,
     client: httpx.Client | None = None,
+    require_evidence: bool = True,
 ) -> CollectReport:
-    """按 works.yaml 的查询词采集图片到 raw_dir。"""
+    """按 works.yaml 的查询词采集图片到 raw_dir。
+
+    require_evidence=True（默认）：仅下载来源标题/页面带作品标识的命中，
+    无证据的通用搜索结果直接跳过并计数（skipped_no_evidence）。
+    UrlListSource 手动清单视为人工已核，不参与预检。
+    """
     cfg = settings.get("collect", {})
     report = CollectReport(work_slug=work.slug)
     max_total = int(limit or cfg.get("max_images_per_work", 150))
@@ -145,22 +170,26 @@ def collect_web(
         for hit in bing.search(query):
             hit.source_type = stype
             all_hits.append(hit)
-    # 静态 URL 清单通道（存在即并入）
+    # 静态 URL 清单通道（存在即并入；人工清单视为已核）
     list_dir = url_list_dir
     if list_dir is None:
         from ..paths import DATA_DIR
 
         list_dir = DATA_DIR / "url_lists"
     url_source = UrlListSource(list_dir / f"{work.slug}.txt")
-    all_hits.extend(url_source.hits())
+    manual_hits = url_source.hits()
 
     # 去重 URL
     seen: set[str] = set()
     deduped: list[ImageHit] = []
-    for hit in all_hits:
-        if hit.url not in seen:
-            seen.add(hit.url)
-            deduped.append(hit)
+    for hit in [*all_hits, *manual_hits]:
+        if hit.url in seen:
+            continue
+        seen.add(hit.url)
+        if require_evidence and not has_work_evidence(hit, work):
+            report.skipped_no_evidence += 1
+            continue
+        deduped.append(hit)
 
     download_hits(
         deduped,

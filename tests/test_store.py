@@ -167,6 +167,9 @@ def test_export_dataset_anonymized(tmp_path, make_image):
             "is_multi_person": 0, "target_bbox": None,
         },
     )
+    # 导出门禁：归属核验通过才可进入正式集
+    store.set_attribution([rows[0]["pk"], rows[1]["pk"]], "verified",
+                          ["测试用：可信域+作品标识"], actor="user")
 
     out_dir = tmp_path / "final"
     path = export_dataset(
@@ -183,6 +186,42 @@ def test_export_dataset_anonymized(tmp_path, make_image):
         assert s["annotation_status"] == "verified"
     assert (out_dir / "kuangbiao" / "kuangbiao_0001.jpg").is_file()
     assert (out_dir / "kuangbiao" / "kuangbiao_0002.jpg").is_file()
+
+
+def test_export_quarantines_unverified_attribution(tmp_path, make_image):
+    """归属未核实（rejected/needs_review/pending）的样本不得进入正式集。"""
+    import shutil as _shutil
+
+    candidates = tmp_path / "candidates" / "kuangbiao"
+    candidates.mkdir(parents=True)
+    for name in ("cand_0001.jpg", "cand_0002.jpg", "cand_0003.jpg"):
+        make_image(name=name)
+        _shutil.move(tmp_path / name, candidates / name)
+
+    store = AnnotationStore(tmp_path / "annotations.db")
+    store.register_candidates(
+        "kuangbiao",
+        [CandidateItem("kuangbiao", n, 640, 360) for n in
+         ("cand_0001.jpg", "cand_0002.jpg", "cand_0003.jpg")],
+        None,
+    )
+    rows = store.samples("kuangbiao")
+    for r, attr in zip(rows, ("verified", "rejected", "needs_review")):
+        store.update_annotation(
+            r["pk"],
+            {"status": "verified", "target_character": "高启强",
+             "character_importance": "main", "visual_difficulty": "normal",
+             "is_multi_person": 0},
+        )
+        store.set_attribution([r["pk"]], attr, ["测试"], actor="user")
+
+    path = export_dataset(
+        store, [make_work("kuangbiao")], out_dir=tmp_path / "final",
+        candidates_dir=tmp_path / "candidates",
+    )
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    assert payload["total"] == 1  # 仅归属 verified 的那张
+    assert payload["quarantined_not_exported"]["kuangbiao"] == 2
 
 
 def test_export_skips_unverified(tmp_path, make_image):

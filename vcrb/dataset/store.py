@@ -44,6 +44,21 @@ CREATE TABLE IF NOT EXISTS samples (
 CREATE INDEX IF NOT EXISTS idx_samples_work_status ON samples(work_slug, status);
 """
 
+_ATTRIBUTION_SCHEMA = """
+CREATE TABLE IF NOT EXISTS attribution_log (
+    pk INTEGER PRIMARY KEY AUTOINCREMENT,
+    sample_pk INTEGER NOT NULL,
+    old_status TEXT,
+    new_status TEXT NOT NULL,
+    actor TEXT NOT NULL,          -- auto:rules / auto:visual / user
+    reasons TEXT DEFAULT '[]',    -- JSON 数组，逐条筛判依据
+    created_at TEXT NOT NULL
+);
+CREATE INDEX IF NOT EXISTS idx_attr_log_sample ON attribution_log(sample_pk);
+"""
+
+ATTRIBUTION_STATUSES = ("pending", "verified", "rejected", "needs_review")
+
 _IMAGE_SUFFIXES = {".jpg", ".jpeg", ".png", ".webp"}
 
 
@@ -87,17 +102,137 @@ class AnnotationStore:
         self.conn = sqlite3.connect(db_path)
         self.conn.row_factory = sqlite3.Row
         self.conn.executescript(_SCHEMA)
+        self.conn.executescript(_ATTRIBUTION_SCHEMA)
         self._migrate()
         self.conn.commit()
 
     def _migrate(self) -> None:
-        """老库补列（无 md5 列的旧 schema），再建依赖该列的索引。"""
+        """老库补列（无 md5 / 归属核验列的旧 schema），再建依赖列的索引。"""
         cols = {r[1] for r in self.conn.execute("PRAGMA table_info(samples)")}
         if "md5" not in cols:
             self.conn.execute("ALTER TABLE samples ADD COLUMN md5 TEXT")
+        for col, default in (
+            ("attribution_status", "TEXT DEFAULT 'pending'"),
+            ("attribution_reasons", "TEXT DEFAULT '[]'"),
+            ("attribution_evidence", "TEXT DEFAULT '{}'"),
+            ("page_url", "TEXT DEFAULT ''"),
+            ("page_title", "TEXT DEFAULT ''"),
+        ):
+            if col not in cols:
+                self.conn.execute(f"ALTER TABLE samples ADD COLUMN {col} {default}")
         self.conn.execute(
             "CREATE INDEX IF NOT EXISTS idx_samples_work_md5 ON samples(work_slug, md5)"
         )
+
+    # ---- 归属核验（screening） ----
+    def set_attribution(
+        self,
+        pks: list[int],
+        status: str,
+        reasons: list[str],
+        evidence: dict[str, Any] | None = None,
+        actor: str = "user",
+    ) -> int:
+        """批量写归属状态（verified/rejected/needs_review），append 审计日志。
+
+        evidence 仅在提供时覆盖（自动规则可携带指标；人工操作保留原证据）。
+        返回实际变更条数（状态相同的不重复写）。
+        """
+        if status not in ATTRIBUTION_STATUSES:
+            raise ValueError(f"非法归属状态：{status}")
+        changed = 0
+        now = _now()
+        for pk in pks:
+            row = self.conn.execute(
+                "SELECT attribution_status FROM samples WHERE pk = ?", (pk,)
+            ).fetchone()
+            if row is None:
+                continue
+            old = row["attribution_status"] or "pending"
+            sets = [
+                "attribution_status = ?",
+                "attribution_reasons = ?",
+            ]
+            values: list[Any] = [
+                status,
+                json.dumps(reasons, ensure_ascii=False),
+            ]
+            if evidence is not None:
+                sets.append("attribution_evidence = ?")
+                values.append(json.dumps(evidence, ensure_ascii=False))
+            sets.append("updated_at = ?")
+            values.append(now)
+            values.append(pk)
+            self.conn.execute(
+                f"UPDATE samples SET {', '.join(sets)} WHERE pk = ?", values
+            )
+            self.conn.execute(
+                """
+                INSERT INTO attribution_log
+                (sample_pk, old_status, new_status, actor, reasons, created_at)
+                VALUES (?, ?, ?, ?, ?, ?)
+                """,
+                (
+                    pk,
+                    old,
+                    status,
+                    actor,
+                    json.dumps(reasons, ensure_ascii=False),
+                    now,
+                ),
+            )
+            changed += 1
+        self.conn.commit()
+        return changed
+
+    def last_attribution_actor(self, pk: int) -> str | None:
+        rows = self.conn.execute(
+            "SELECT actor FROM attribution_log WHERE sample_pk = ? ORDER BY pk DESC LIMIT 1",
+            (pk,),
+        ).fetchall()
+        return rows[0]["actor"] if rows else None
+
+    def attribution_stats(self) -> dict[str, dict[str, int]]:
+        """每作品 × 归属状态计数。"""
+        rows = self.conn.execute(
+            "SELECT work_slug, attribution_status, COUNT(*) AS n FROM samples "
+            "GROUP BY work_slug, attribution_status"
+        ).fetchall()
+        out: dict[str, dict[str, int]] = {}
+        for row in rows:
+            out.setdefault(row["work_slug"], {})[row["attribution_status"] or "pending"] = row["n"]
+        return out
+
+    def attribution_log(self, sample_pk: int) -> list[dict[str, Any]]:
+        rows = self.conn.execute(
+            "SELECT * FROM attribution_log WHERE sample_pk = ? ORDER BY pk",
+            (sample_pk,),
+        ).fetchall()
+        out = []
+        for row in rows:
+            item = dict(row)
+            try:
+                item["reasons"] = json.loads(item.get("reasons") or "[]")
+            except (json.JSONDecodeError, TypeError):
+                item["reasons"] = []
+            out.append(item)
+        return out
+
+    def set_page_evidence(self, pk: int, page_url: str, page_title: str) -> bool:
+        """回填来源页证据（仅当原先为空时写入），返回是否写入。"""
+        row = self.conn.execute(
+            "SELECT page_url, page_title FROM samples WHERE pk = ?", (pk,)
+        ).fetchone()
+        if row is None:
+            return False
+        if row["page_url"] or row["page_title"]:
+            return False
+        self.conn.execute(
+            "UPDATE samples SET page_url = ?, page_title = ?, updated_at = ? WHERE pk = ?",
+            (page_url, page_title, _now(), pk),
+        )
+        self.conn.commit()
+        return True
 
     def close(self) -> None:
         self.conn.close()
@@ -196,6 +331,20 @@ class AnnotationStore:
                     )
                     self.conn.commit()
                     result["relinked"] += 1
+                # 顺手回填缺失的来源页证据（manifest 更新后重跑 sync 即可补上）
+                if not (row["page_url"] or row["page_title"]):
+                    meta0 = manifest.get(path.name) or manifest.get(row["filename"]) or {}
+                    if meta0.get("page_url") or meta0.get("page_title"):
+                        self.conn.execute(
+                            "UPDATE samples SET page_url = ?, page_title = ?, updated_at = ? WHERE pk = ?",
+                            (
+                                str(meta0.get("page_url", "")),
+                                str(meta0.get("page_title", "")),
+                                _now(),
+                                row["pk"],
+                            ),
+                        )
+                        self.conn.commit()
                 continue
 
             name_row = self.conn.execute(
@@ -227,8 +376,8 @@ class AnnotationStore:
                     """
                     INSERT INTO samples
                     (work_slug, image_path, filename, width, height,
-                     status, source_type, source_url, md5, updated_at)
-                    VALUES (?, ?, ?, ?, ?, 'pending', ?, ?, ?, ?)
+                     status, source_type, source_url, page_url, page_title, md5, updated_at)
+                    VALUES (?, ?, ?, ?, ?, 'pending', ?, ?, ?, ?, ?, ?)
                     """,
                     (
                         work_slug,
@@ -238,6 +387,8 @@ class AnnotationStore:
                         height,
                         str(meta.get("source_type", "unknown")),
                         str(meta.get("source_url", "")),
+                        str(meta.get("page_url", "")),
+                        str(meta.get("page_title", "")),
                         digest,
                         _now(),
                     ),
@@ -303,16 +454,16 @@ class AnnotationStore:
         out: list[dict[str, Any]] = []
         for row in rows:
             item = dict(row)
-            for key in ("character_aliases", "tags"):
+            for key in ("character_aliases", "tags", "attribution_reasons"):
                 try:
                     item[key] = json.loads(item.get(key) or "[]")
                 except (json.JSONDecodeError, TypeError):
                     item[key] = []
-            if item.get("target_bbox"):
+            for key in ("target_bbox", "attribution_evidence"):
                 try:
-                    item["target_bbox"] = json.loads(item["target_bbox"])
+                    item[key] = json.loads(item[key]) if item.get(key) else None
                 except (json.JSONDecodeError, TypeError):
-                    item["target_bbox"] = None
+                    item[key] = None
             out.append(item)
         return out
 
@@ -348,7 +499,9 @@ def export_dataset(
 
     - 文件名统一 {slug}_{0001}.jpg，与角色身份无关；
     - 重存 JPEG 清除 EXIF；bbox 保持归一化（坐标与图片内容一一对应）；
-    - 配额达成情况写入 dataset.json 的 quota 字段，缺口如实展示。
+    - 配额达成情况写入 dataset.json 的 quota 字段，缺口如实展示；
+    - 导出门禁：标注 status=verified 且 **作品归属 attribution_status=verified**
+      才可进入正式集（归属 rejected/needs_review/pending 一律隔离）。
     """
     ensure_dirs()
     out_dir = out_dir or FINAL_DIR
@@ -358,8 +511,14 @@ def export_dataset(
 
     samples_out: list[dict[str, Any]] = []
     quota: dict[str, dict[str, int]] = {}
+    excluded_quarantine: dict[str, int] = {}
     for slug, work in work_by_slug.items():
-        rows = [r for r in store.verified() if r["work_slug"] == slug]
+        verified_rows = [r for r in store.verified() if r["work_slug"] == slug]
+        rows = [
+            r for r in verified_rows
+            if (r.get("attribution_status") or "pending") == "verified"
+        ]
+        excluded_quarantine[slug] = len(verified_rows) - len(rows)
         rows.sort(key=lambda r: r["pk"])  # 稳定顺序保证 sample_id 可复现
         groups: dict[str, int] = {}
         for idx, row in enumerate(rows, start=1):
@@ -405,6 +564,7 @@ def export_dataset(
         "total": len(samples_out),
         "quota_per_group": quota,
         "target_per_group": target_per_group,
+        "quarantined_not_exported": excluded_quarantine,
         "samples": samples_out,
     }
     (out_dir / "dataset.json").write_text(
