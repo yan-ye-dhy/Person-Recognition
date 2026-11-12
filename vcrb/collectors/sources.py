@@ -72,7 +72,11 @@ class BingImageSource:
     _MURL_RE = re.compile(r'"murl"\s*:\s*"(https?://[^"]+)"')
 
     def parse_html(self, html: str, referer: str = "") -> list[ImageHit]:
-        urls = self._MURL_RE.findall(html)
+        # cn.bing.com 会把属性做 HTML 实体编码（murl&quot;:...），先反转义再匹配
+        import html as _html
+
+        text = _html.unescape(html)
+        urls = self._MURL_RE.findall(text)
         seen: set[str] = set()
         hits: list[ImageHit] = []
         for url in urls:
