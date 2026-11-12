@@ -86,3 +86,40 @@ def test_empty_prediction():
     m = CharacterMatcher({"kuangbiao": _roster()})
     assert m.match(None, "kuangbiao", "高启强", []).kind == "empty"
     assert m.match("", "kuangbiao", "高启强", []).kind == "empty"
+
+
+def test_needs_review_alias_not_auto_correct():
+    """needs_review 条目的别名未经人工确认，不得作为评分别名自动判对。"""
+    roster = Roster(
+        work_slug="gongfunvzu",
+        work_name="功夫女足",
+        characters=[
+            CharacterEntry(
+                name="双双", aliases=["大小姐"], actors=["张小斐"],
+                importance="main", needs_review=True,
+            ),
+        ],
+    )
+    m = CharacterMatcher({"gongfunvzu": roster})
+    # 未确认别名（且与 GT 名无包含关系）：不判对
+    r = m.match("大小姐", "gongfunvzu", "双双", [])
+    assert not r.is_correct and r.kind == "none"
+    # canonical 名与演员名映射仍然生效
+    assert m.match("双双", "gongfunvzu", "双双", []).kind == "exact"
+    r2 = m.match("张小斐", "gongfunvzu", "双双", [])
+    assert r2.kind == "actor" and not r2.is_correct
+
+
+def test_confirmed_alias_still_matches():
+    roster = Roster(
+        work_slug="gongfunvzu",
+        work_name="功夫女足",
+        characters=[
+            CharacterEntry(
+                name="双双", aliases=["大小姐"], actors=["张小斐"],
+                importance="main", needs_review=False,
+            ),
+        ],
+    )
+    m = CharacterMatcher({"gongfunvzu": roster})
+    assert m.match("大小姐", "gongfunvzu", "双双", []).kind == "alias"

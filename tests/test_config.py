@@ -28,8 +28,8 @@ def test_load_works_four_fixed_works():
     assert by_slug["gongfunvzu"].category == "recent_movie"
     assert by_slug["gongfunvzu"].media_type == "电影"
     assert by_slug["jianlai"].category == "animation"
-    # 功夫女足年份未核实 → 必须为 None 而非臆造
-    assert by_slug["gongfunvzu"].year is None
+    # 功夫女足年份 2026-11-12 已核实（2026-07-11 上映，导演周星驰）
+    assert by_slug["gongfunvzu"].year == 2026
 
 
 def test_get_work_unknown_slug():

@@ -81,8 +81,11 @@ class CharacterMatcher:
             actor_map: dict[str, str] = {}
             for char in roster.characters:
                 name_map[normalize_name(char.name)] = char.name
-                for alias in char.aliases:
-                    name_map[normalize_name(alias)] = char.name
+                # needs_review 条目的别名未经人工确认，不得用于评分别名（防误判正确）；
+                # canonical 名保留（GT 由标注者从名单选取，相当于人工确认过名字本身）
+                if not char.needs_review:
+                    for alias in char.aliases:
+                        name_map[normalize_name(alias)] = char.name
                 for actor in char.actors:
                     actor_map[normalize_name(actor)] = char.name
             self._names[slug] = {k: v for k, v in name_map.items() if k}

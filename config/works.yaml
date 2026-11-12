@@ -36,7 +36,7 @@ works:
     name: 功夫女足
     category: recent_movie
     media_type: 电影
-    year: null   # 上映年份待网络核实后补记，不臆造
+    year: 2026   # 2026-11-12 网络核实：2026-07-11 中国大陆上映，导演周星驰
     search_queries:
       - "功夫女足 电影 剧照"
       - "功夫女足 电影 角色 截图"
