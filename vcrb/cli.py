@@ -368,6 +368,10 @@ def screen_purge_cmd(
     ),
     reason: str = typer.Option("", "--reason", help="删除原因（写入 purge_log）"),
     yes: bool = typer.Option(False, "--yes", help="确认执行（默认 dry-run 只打印计划）"),
+    force: bool = typer.Option(
+        False, "--force",
+        help="all 模式下连归属 verified 的样本一并删除（整池清空重采时用）",
+    ),
 ):
     """删除不可用素材：候选+原始文件、两份清单行、库行，全部留痕 purge_log。"""
     from .dataset.store import AnnotationStore
@@ -379,7 +383,7 @@ def screen_purge_cmd(
     if status not in ("rejected", "all"):
         _fail("--status 仅支持 rejected | all")
     store = AnnotationStore()
-    rep = purge_candidates(store, works[work], status, reason=reason, apply=yes)
+    rep = purge_candidates(store, works[work], status, reason=reason, apply=yes, force=force)
     title = f"《{works[work].name}》purge {'执行' if yes else '计划（dry-run，加 --yes 执行）'}"
     table = Table(title=title)
     for col in ["模式", "计划删除", "候选文件已删", "raw已删", "文件缺失"]:

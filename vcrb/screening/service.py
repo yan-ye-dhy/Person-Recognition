@@ -243,12 +243,15 @@ def purge_candidates(
     raw_dir: Path | None = None,
     apply: bool = False,
     reason: str = "",
+    force: bool = False,
 ) -> PurgeReport:
     """删除不可用素材：候选文件 + 候选清单行 + 原始文件 + 原始清单行 + 库行。
 
     - 默认 dry-run（apply=False 只统计不动手）；
     - 删除明细写入 purge_log 表（文件名/md5/来源/原因），可追溯；
-    - 原始 raw 文件一并删除，防止 `vcrb clean` 从 raw 复活被删素材。
+    - 原始 raw 文件一并删除，防止 `vcrb clean` 从 raw 复活被删素材；
+    - all 模式默认保护归属 verified 样本；force=True 解除保护
+      （仅在用户明确要求整池清空时使用）。
     """
     from ..paths import RAW_DIR
 
@@ -275,10 +278,10 @@ def purge_candidates(
         status = row.get("attribution_status") or "pending"
         if mode == "rejected" and status != "rejected":
             continue
-        if mode == "all" and status == "verified":
-            # 整池清空时保护已核实素材（防止误操作全清）
+        if mode == "all" and status == "verified" and not force:
+            # 整池清空时保护已核实素材（防止误操作全清）；--force 显式解除
             report.reasons.append(
-                f"跳过 {row['filename']}（归属已核实，--status all 不删除 verified）"
+                f"跳过 {row['filename']}（归属已核实，--status all 不删除 verified；如需清空加 --force）"
             )
             continue
         targets.append(

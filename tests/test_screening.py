@@ -372,6 +372,21 @@ def test_purge_all_protects_verified(tmp_path):
     assert len(remaining) == 1 and remaining[0]["attribution_status"] == "verified"
 
 
+def test_purge_all_force_removes_verified(tmp_path):
+    """--force 解除 verified 保护（用户明确要求整池清空时）。"""
+    from vcrb.screening.service import purge_candidates
+
+    work = make_work("jianlai")
+    store, cand, raw = _purge_fixture(tmp_path, work)
+    rep = purge_candidates(store, work, "all", candidates_dir=cand, raw_dir=raw,
+                           apply=True, force=True, reason="整池清空重采")
+    assert rep.planned == 3
+    assert not any(cand.glob("cand_*.jpg"))
+    assert store.samples(work.slug) == []
+    log = store.purge_log(work.slug)
+    assert len(log) == 3 and all(l["reason"] == "整池清空重采" for l in log)
+
+
 def test_purged_not_resurrected_by_clean_sync(tmp_path):
     """删除后 raw/candidates 都不再含该图，重跑 sync 不会复活。"""
     from vcrb.screening.service import purge_candidates
