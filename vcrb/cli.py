@@ -294,21 +294,24 @@ def roster_build(work: str = typer.Option(..., "--work")):
 def clean_cmd(
     work: Optional[str] = typer.Option(None, "--work", help="不指定则清洗全部作品"),
 ):
-    """清洗流水线：有效性→去重→质量→data/candidates/{slug}/。"""
+    """清洗流水线：有效性→去重→质量→data/candidates/{slug}/，并登记进标注库。"""
     from .dataset.cleaning import clean_work
+    from .dataset.store import AnnotationStore
 
     settings = load_settings()
     works = load_works()
     selected = [w for w in works if work in (None, w.slug)]
     table = Table(title="清洗报告")
-    for col in ["作品", "原始", "保留", "无效", "质量剔除", "精确重复", "近重复"]:
+    for col in ["作品", "原始", "保留", "无效", "质量剔除", "精确重复", "近重复", "新登记"]:
         table.add_column(col, justify="right")
+    store = AnnotationStore()
     for w in selected:
         report = clean_work(w.slug, RAW_DIR / w.slug, CANDIDATES_DIR / w.slug, settings)
+        sync = store.sync_candidates(w.slug, CANDIDATES_DIR / w.slug)
         table.add_row(
             w.name, str(report.total), str(report.kept), str(report.invalid),
             str(report.quality_rejected), str(report.exact_duplicates),
-            str(report.near_duplicates),
+            str(report.near_duplicates), str(sync["registered"]),
         )
     console.print(table)
     console.print("下一步：vcrb annotate 进入人工标注。")

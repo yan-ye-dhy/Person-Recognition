@@ -98,6 +98,11 @@ def page_annotate() -> None:
     roster = load_roster(work)
     store = get_store()
 
+    # 自愈：候选目录里有而标注库没有的图片自动登记（幂等，md5 身份）
+    sync = store.sync_candidates(work.slug, CANDIDATES_DIR / work.slug)
+    if sync["registered"]:
+        st.toast(f"自动登记 {sync['registered']} 张新候选")
+
     rows = store.samples(work.slug)
     if not rows:
         st.warning(

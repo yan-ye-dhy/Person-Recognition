@@ -25,6 +25,78 @@ def test_register_and_stats(tmp_path):
     assert stats["kuangbiao"]["pending"] == 2
 
 
+# ------------------------------------------------------- sync_candidates
+
+def _make_jpeg(path, color, size=(64, 48)):
+    from PIL import Image
+    path.parent.mkdir(parents=True, exist_ok=True)
+    Image.new("RGB", size, color).save(path, format="JPEG")
+
+
+def test_sync_registers_and_is_idempotent(tmp_path):
+    store = AnnotationStore(tmp_path / "db.sqlite")
+    cand = tmp_path / "candidates" / "kuangbiao"
+    _make_jpeg(cand / "cand_0001.jpg", (200, 30, 30))
+    _make_jpeg(cand / "cand_0002.jpg", (30, 30, 200))
+    (cand / "manifest.jsonl").write_text(
+        json.dumps({"file": "cand_0001.jpg", "source_type": "official_still",
+                    "source_url": "https://x/1"}, ensure_ascii=False) + "\n",
+        encoding="utf-8",
+    )
+    r1 = store.sync_candidates("kuangbiao", cand)
+    assert r1["registered"] == 2
+    assert r1["skipped"] == 0
+    r2 = store.sync_candidates("kuangbiao", cand)
+    assert r2["registered"] == 0 and r2["skipped"] == 2
+    rows = store.samples("kuangbiao")
+    assert len(rows) == 2
+    by_name = {r["filename"]: r for r in rows}
+    assert by_name["cand_0001.jpg"]["source_type"] == "official_still"
+    assert by_name["cand_0001.jpg"]["source_url"] == "https://x/1"
+    assert by_name["cand_0001.jpg"]["width"] == 64
+    assert by_name["cand_0002.jpg"]["source_type"] == "unknown"
+
+
+def test_sync_renumber_preserves_annotation(tmp_path):
+    """重跑 clean 重新编号：同内容换文件名 → relink 且标注保留。"""
+    store = AnnotationStore(tmp_path / "db.sqlite")
+    cand = tmp_path / "candidates" / "kuangbiao"
+    _make_jpeg(cand / "cand_0001.jpg", (10, 200, 10))
+    store.sync_candidates("kuangbiao", cand)
+    row = store.samples("kuangbiao")[0]
+    store.update_annotation(row["pk"], {"status": "verified", "target_character": "高启强"})
+
+    # 模拟重编号：同一张图改名为 cand_0007.jpg（旧文件消失）
+    (cand / "cand_0001.jpg").rename(cand / "cand_0007.jpg")
+    r = store.sync_candidates("kuangbiao", cand)
+    assert r["relinked"] == 1 and r["registered"] == 0
+    rows = store.samples("kuangbiao")
+    assert len(rows) == 1
+    assert rows[0]["filename"] == "cand_0007.jpg"
+    assert rows[0]["status"] == "verified"
+    assert rows[0]["target_character"] == "高启强"
+
+
+def test_sync_filename_collision_renames_on_disk(tmp_path):
+    """文件名被另一张图占用 → 磁盘改名登记，两行互不干扰。"""
+    store = AnnotationStore(tmp_path / "db.sqlite")
+    cand = tmp_path / "candidates" / "kuangbiao"
+    _make_jpeg(cand / "cand_0001.jpg", (0, 0, 0))
+    store.sync_candidates("kuangbiao", cand)
+    # 磁盘上 cand_0001.jpg 被替换为另一张图（重编号后同位置不同内容）
+    (cand / "cand_0001.jpg").unlink()
+    _make_jpeg(cand / "cand_0001.jpg", (255, 255, 255))
+    r = store.sync_candidates("kuangbiao", cand)
+    assert r["renamed"] == 1 and r["registered"] == 1
+    rows = store.samples("kuangbiao")
+    names = {row["filename"] for row in rows}
+    assert len(names) == 2
+    assert "cand_0001.jpg" in names  # 旧行保留（其文件已被 clean 重跑清掉）
+    renamed = [n for n in names if n != "cand_0001.jpg"]
+    assert len(renamed) == 1 and renamed[0].startswith("cand_0001_")
+    assert (cand / renamed[0]).exists()  # 新图改名后在磁盘上可访问
+
+
 def test_update_annotation_roundtrip(tmp_path):
     store = AnnotationStore(tmp_path / "db.sqlite")
     _register_two(store)

@@ -38,14 +38,36 @@ CREATE TABLE IF NOT EXISTS samples (
     source_type TEXT DEFAULT 'unknown',
     source_url TEXT DEFAULT '',
     note TEXT DEFAULT '',
+    md5 TEXT,                          -- 内容指纹：重跑 clean 重新编号时保持标注-图片对应
     updated_at TEXT NOT NULL
 );
 CREATE INDEX IF NOT EXISTS idx_samples_work_status ON samples(work_slug, status);
 """
 
+_IMAGE_SUFFIXES = {".jpg", ".jpeg", ".png", ".webp"}
+
 
 def _now() -> str:
     return datetime.now(timezone.utc).isoformat(timespec="seconds")
+
+
+def _file_md5(path: Path) -> str | None:
+    import hashlib
+
+    try:
+        return hashlib.md5(path.read_bytes()).hexdigest()
+    except OSError:
+        return None
+
+
+def _image_size(path: Path) -> tuple[int | None, int | None]:
+    from PIL import Image
+
+    try:
+        with Image.open(path) as img:
+            return img.size
+    except OSError:
+        return None, None
 
 
 @dataclass
@@ -65,25 +87,38 @@ class AnnotationStore:
         self.conn = sqlite3.connect(db_path)
         self.conn.row_factory = sqlite3.Row
         self.conn.executescript(_SCHEMA)
+        self._migrate()
         self.conn.commit()
+
+    def _migrate(self) -> None:
+        """老库补列（无 md5 列的旧 schema），再建依赖该列的索引。"""
+        cols = {r[1] for r in self.conn.execute("PRAGMA table_info(samples)")}
+        if "md5" not in cols:
+            self.conn.execute("ALTER TABLE samples ADD COLUMN md5 TEXT")
+        self.conn.execute(
+            "CREATE INDEX IF NOT EXISTS idx_samples_work_md5 ON samples(work_slug, md5)"
+        )
 
     def close(self) -> None:
         self.conn.close()
 
     # ---- 候选入库 ----
     def register_candidates(
-        self, work_slug: str, items: list[CandidateItem], candidates_dir: Path
+        self, work_slug: str, items: list[CandidateItem], candidates_dir: Path | None
     ) -> int:
         """登记候选样本（已存在路径则跳过），返回新增数量。"""
         added = 0
         for item in items:
+            digest: str | None = None
+            if candidates_dir is not None:
+                digest = _file_md5(candidates_dir / work_slug / item.filename)
             try:
                 self.conn.execute(
                     """
                     INSERT INTO samples
                     (work_slug, image_path, filename, width, height,
-                     status, source_type, source_url, updated_at)
-                    VALUES (?, ?, ?, ?, ?, 'pending', ?, ?, ?)
+                     status, source_type, source_url, md5, updated_at)
+                    VALUES (?, ?, ?, ?, ?, 'pending', ?, ?, ?, ?)
                     """,
                     (
                         work_slug,
@@ -93,6 +128,7 @@ class AnnotationStore:
                         item.height,
                         item.source_type,
                         item.source_url,
+                        digest,
                         _now(),
                     ),
                 )
@@ -101,6 +137,116 @@ class AnnotationStore:
                 continue  # 重复登记幂等
         self.conn.commit()
         return added
+
+    def sync_candidates(self, work_slug: str, candidates_dir: Path) -> dict[str, int]:
+        """把 candidates 目录中的 cand_* 图片同步入库（以内容 md5 为身份，幂等）。
+
+        解决的问题：`vcrb clean` 每次重跑都会按保留顺序重新编号
+        （cand_0003.jpg 可能换了一张图）。以文件名为身份会把旧标注错配到
+        新图；以 md5 为身份则：
+        - md5 已存在 → 跳过；若原文件已消失（重编号），把该行改指向新
+          文件名，已有标注原样保留；
+        - md5 不存在但文件名已被另一张图占用 → 磁盘改名
+          cand_XXXX_{md5前6}.jpg 再登记，避免覆盖他行；
+        - 其余 → 新增 pending 行。
+
+        返回 {"registered", "relinked", "renamed", "skipped"}。
+        """
+        import json as _json
+
+        result = {"registered": 0, "relinked": 0, "renamed": 0, "skipped": 0}
+        if not candidates_dir.exists():
+            return result
+
+        # 候选目录的 manifest（clean 产物，含 source 溯源）
+        manifest: dict[str, dict[str, Any]] = {}
+        manifest_path = candidates_dir / "manifest.jsonl"
+        if manifest_path.exists():
+            for line in manifest_path.read_text(encoding="utf-8").splitlines():
+                try:
+                    entry = _json.loads(line)
+                except _json.JSONDecodeError:
+                    continue
+                if isinstance(entry, dict) and entry.get("file"):
+                    manifest[str(entry["file"])] = entry
+
+        files = sorted(
+            p for p in candidates_dir.iterdir()
+            if p.name.startswith("cand_") and p.suffix.lower() in _IMAGE_SUFFIXES
+        )
+        for path in files:
+            digest = _file_md5(path)
+            if digest is None:
+                continue
+            row = self.conn.execute(
+                "SELECT * FROM samples WHERE work_slug = ? AND md5 = ?",
+                (work_slug, digest),
+            ).fetchone()
+            if row is not None:
+                old = candidates_dir / row["filename"]
+                if row["filename"] == path.name:
+                    result["skipped"] += 1
+                elif old.exists():
+                    # 同内容两个文件名同时在磁盘上（罕见）：保留原行不重复登记
+                    result["skipped"] += 1
+                else:
+                    self.conn.execute(
+                        "UPDATE samples SET filename = ?, image_path = ?, updated_at = ? WHERE pk = ?",
+                        (path.name, f"{work_slug}/{path.name}", _now(), row["pk"]),
+                    )
+                    self.conn.commit()
+                    result["relinked"] += 1
+                continue
+
+            name_row = self.conn.execute(
+                "SELECT * FROM samples WHERE work_slug = ? AND filename = ?",
+                (work_slug, path.name),
+            ).fetchone()
+            target_name = path.name
+            if name_row is not None:
+                if name_row["md5"] is None:
+                    # 旧库行无指纹：若其文件与当前同内容则补指纹并跳过
+                    old_digest = _file_md5(candidates_dir / name_row["filename"])
+                    if old_digest == digest:
+                        self.conn.execute(
+                            "UPDATE samples SET md5 = ? WHERE pk = ?", (digest, name_row["pk"])
+                        )
+                        self.conn.commit()
+                        result["skipped"] += 1
+                        continue
+                # 文件名冲突且内容不同 → 磁盘改名后登记
+                target_name = f"{path.stem}_{digest[:6]}{path.suffix.lower()}"
+                path.rename(candidates_dir / target_name)
+                path = candidates_dir / target_name
+                result["renamed"] += 1
+
+            meta = manifest.get(target_name) or manifest.get(path.name) or {}
+            width, height = _image_size(path)
+            try:
+                self.conn.execute(
+                    """
+                    INSERT INTO samples
+                    (work_slug, image_path, filename, width, height,
+                     status, source_type, source_url, md5, updated_at)
+                    VALUES (?, ?, ?, ?, ?, 'pending', ?, ?, ?, ?)
+                    """,
+                    (
+                        work_slug,
+                        f"{work_slug}/{target_name}",
+                        target_name,
+                        width,
+                        height,
+                        str(meta.get("source_type", "unknown")),
+                        str(meta.get("source_url", "")),
+                        digest,
+                        _now(),
+                    ),
+                )
+                self.conn.commit()
+                result["registered"] += 1
+            except sqlite3.IntegrityError:
+                result["skipped"] += 1
+        return result
 
     # ---- 标注更新 ----
     _EDITABLE = {
