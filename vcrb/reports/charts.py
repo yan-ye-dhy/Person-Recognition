@@ -57,8 +57,8 @@ def _has_data(result: ScoreResult) -> bool:
 
 
 def _accuracy_with_ci(ax, xs, accs, cis, width, colors):
-    lows = [a - ci[0] for a, ci in zip(accs, cis)]
-    highs = [ci[1] - a for a, ci in zip(accs, cis)]
+    lows = [max(0.0, a - ci[0]) for a, ci in zip(accs, cis)]
+    highs = [max(0.0, ci[1] - a) for a, ci in zip(accs, cis)]
     ax.bar(
         xs, accs, width=width, color=colors, yerr=[lows, highs],
         capsize=3, ecolor="#555", alpha=0.92,

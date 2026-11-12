@@ -381,6 +381,19 @@ def validate_dataset_cmd():
 # ================================================================ run
 
 
+def _mock_model(model_id: str) -> ModelSpec:
+    return ModelSpec(
+        id=model_id,
+        provider="mock",
+        vendor="Mock",
+        display_name=f"Mock·{model_id}",
+        official_series="离线测试桩（不产生任何费用）",
+        tier="standard",
+        supports_vision="doc",
+        enabled=True,
+    )
+
+
 def _resolve_models(
     registry: ModelRegistry,
     models: Optional[str],
@@ -388,11 +401,18 @@ def _resolve_models(
 ) -> list[ModelSpec]:
     if models:
         wanted = [m.strip() for m in models.split(",") if m.strip()]
-        try:
-            specs = [registry.get(m) for m in wanted]
-        except ConfigError as exc:
-            _fail(str(exc))
-            raise  # unreachable
+        specs: list[ModelSpec] = []
+        unknown: list[str] = []
+        for name in wanted:
+            if name == "mock":
+                specs.append(_mock_model("mock"))
+                continue
+            try:
+                specs.append(registry.get(name))
+            except ConfigError:
+                unknown.append(name)
+        if unknown:
+            _fail(f"未注册的模型 ID：{unknown}（vcrb models list 查看；mock 为离线测试桩）")
         ineligible = [m.id for m in specs if not m.is_vision_capable]
         if ineligible:
             _fail(

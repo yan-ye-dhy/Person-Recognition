@@ -54,7 +54,14 @@ def wilson_ci(k: int, n: int, z: float = 1.959963984540054) -> tuple[float, floa
     denom = 1 + z * z / n
     center = (phat + z * z / (2 * n)) / denom
     half = z * math.sqrt(phat * (1 - phat) / n + z * z / (4 * n * n)) / denom
-    return max(0.0, center - half), min(1.0, center + half)
+    lo = max(0.0, center - half)
+    hi = min(1.0, center + half)
+    # 吸附浮点噪声（如 k=0 时下界出现 2.7e-17，会导致误差棒为负）
+    if lo < 1e-12:
+        lo = 0.0
+    if hi > 1.0 - 1e-12:
+        hi = 1.0
+    return lo, hi
 
 
 def mcnemar(success_a: list[bool], success_b: list[bool]) -> dict[str, Any]:
