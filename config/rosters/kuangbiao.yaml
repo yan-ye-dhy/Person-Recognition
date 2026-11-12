@@ -1,0 +1,64 @@
+work_slug: kuangbiao
+work_name: 狂飙
+source_note: 电视剧《狂飙》(2023) 角色名单种子 —— needs_review 条目的演员映射待人工确认
+characters:
+  - name: 高启强
+    aliases: [强哥, 老高]
+    actors: [张颂文]
+    importance: main
+    needs_review: false
+  - name: 安欣
+    aliases: []
+    actors: [张译]
+    importance: main
+    needs_review: false
+  - name: 高启盛
+    aliases: []
+    actors: [苏小玎]
+    importance: key_supporting
+    needs_review: true
+  - name: 陈书婷
+    aliases: [大嫂]
+    actors: [高叶]
+    importance: key_supporting
+    needs_review: false
+  - name: 李响
+    aliases: []
+    actors: [李健]
+    importance: key_supporting
+    needs_review: true
+  - name: 徐忠
+    aliases: []
+    actors: [吴刚]
+    importance: key_supporting
+    needs_review: true
+  - name: 孟德海
+    aliases: []
+    actors: [张志坚]
+    importance: key_supporting
+    needs_review: true
+  - name: 老默
+    aliases: [冯兵]
+    actors: []
+    importance: key_supporting
+    needs_review: true
+  - name: 唐小龙
+    aliases: []
+    actors: [林家川]
+    importance: supporting
+    needs_review: true
+  - name: 唐小虎
+    aliases: []
+    actors: [孙岩]
+    importance: supporting
+    needs_review: true
+  - name: 孟钰
+    aliases: []
+    actors: [隆妮]
+    importance: supporting
+    needs_review: true
+  - name: 黄瑶
+    aliases: []
+    actors: []
+    importance: supporting
+    needs_review: true

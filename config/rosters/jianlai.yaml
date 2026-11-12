@@ -1,0 +1,54 @@
+work_slug: jianlai
+work_name: 剑来
+source_note: 动画《剑来》(2024-) 角色名单种子 —— 动画无真人演员；needs_review 条目待人工确认出场与名称
+characters:
+  - name: 陈平安
+    aliases: [平安]
+    actors: []
+    importance: main
+    needs_review: false
+  - name: 宁姚
+    aliases: []
+    actors: []
+    importance: key_supporting
+    needs_review: false
+  - name: 齐静春
+    aliases: [齐先生]
+    actors: []
+    importance: key_supporting
+    needs_review: false
+  - name: 刘羡阳
+    aliases: []
+    actors: []
+    importance: supporting
+    needs_review: true
+  - name: 顾璨
+    aliases: []
+    actors: []
+    importance: supporting
+    needs_review: true
+  - name: 阿良
+    aliases: []
+    actors: []
+    importance: key_supporting
+    needs_review: true
+  - name: 宋集薪
+    aliases: []
+    actors: []
+    importance: supporting
+    needs_review: true
+  - name: 马苦玄
+    aliases: []
+    actors: []
+    importance: supporting
+    needs_review: true
+  - name: 老秀才
+    aliases: [文圣]
+    actors: []
+    importance: supporting
+    needs_review: true
+  - name: 李柳
+    aliases: []
+    actors: []
+    importance: supporting
+    needs_review: true

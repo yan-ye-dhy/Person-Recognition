@@ -1,0 +1,41 @@
+# 全局设置（可在命令行或环境变量中覆盖的部分见 cli.py）
+retry:
+  max_attempts: 4          # 单任务内总尝试次数（含首次）
+  backoff_base_seconds: 2.0  # 指数退避基数：sleep = base * 2^(attempt-1)
+  timeout_seconds: 120       # 单次 HTTP 请求超时
+
+generation:
+  temperature: 0.1          # 所有接受该参数的模型统一使用（Kimi k2.5/k2.6 不传，已记录）
+  max_tokens: 512
+
+collect:
+  request_timeout_seconds: 15
+  max_images_per_work: 150     # 候选池上限（目标 100 张审核通过）
+  min_image_bytes: 10240       # 小于 10KB 视为无效
+  user_agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36"
+
+clean:
+  min_width: 300
+  min_height: 200
+  phash_hamming_threshold: 8   # 感知哈希汉明距离 <= 该值视为近重复
+  allowed_formats: [jpg, jpeg, png, webp]
+
+export:
+  target_per_group: 20         # 每部作品 5 组采样配额各 20 张（目标，如实报告达成情况）
+  target_per_work: 100
+
+scoring:
+  fuzzy_review_threshold: 0.9  # 字符串相似度达到该值但未精确命中 → needs_review，不自动判对
+  refusal_keywords:            # 拒答检测关键词（保守：需内容命中才判 refused）
+    - "无法识别身份"
+    - "不能识别人脸"
+    - "无法识别人脸"
+    - "不进行人脸识别"
+    - "涉及隐私"
+    - "无法确认人物身份"
+    - "我不能识别"
+
+pilot:
+  per_model_connectivity: 1    # 分级验证①：每模型 1 张连通性检查
+  per_model_small: 10          # 分级验证②：每模型 8-12 张小规模预检（默认 10）
+  per_work_formal: 10          # 分级验证③：每作品 10 张 × 4 作品 = 40 张正式预检

@@ -1,0 +1,302 @@
+# =====================================================================
+# 模型注册表 —— 2026-11 经各厂商官方文档核实
+#
+# supports_vision 取值：
+#   doc       官方文档明确支持图片输入（可用）
+#   none      官方文档明确不支持图片输入（仅登记说明，禁止用于视觉评测）
+#   unverified 存疑待实测（不得进入正式评测，需 models verify 通过后手动改 doc）
+#
+# 字段说明：
+#   official_series : 厂商官方系列定位（原文摘录，不代表本项目结论）
+#   tier            : 本项目的对比分组标签（flagship/flagship_fast/standard/flash/
+#                     legacy/text），仅用于分组统计，最终性能以实测准确率为准
+#   enabled         : true=首批入选（每家 2-3 个）；false=可选，随时切换
+#   params          : 适配器参数
+#                     pass_temperature: false 表示该模型禁止显式采样参数（Kimi k2.5/k2.6）
+#                     extra_body: 厂商私有参数（如 Qwen enable_thinking）
+#
+# 实测状态（连通性/视觉能力验证）记录在 results/runs.db 的 verify 表，
+# 由 `vcrb models verify --yes` 写入，不回写本文件。
+# =====================================================================
+
+providers:
+  deepseek:
+    base_url: https://api.deepseek.com
+    api_key_env: DEEPSEEK_API_KEY
+  moonshot:
+    base_url: https://api.moonshot.cn/v1
+    api_key_env: MOONSHOT_API_KEY
+  zhipu:
+    base_url: https://open.bigmodel.cn/api/paas/v4
+    api_key_env: ZHIPU_API_KEY
+  dashscope:
+    base_url: https://dashscope.aliyuncs.com/compatible-mode/v1
+    api_key_env: DASHSCOPE_API_KEY
+
+models:
+  # ------------------------- DeepSeek -------------------------
+  - id: deepseek-flash
+    provider: deepseek
+    vendor: DeepSeek
+    display_name: DeepSeek Flash (V4.1-Flash-1017)
+    official_series: "官方定价表 Flash 档：Vision ✓，JSON Output ✓，1M 上下文"
+    tier: flash
+    supports_vision: doc
+    enabled: true
+    notes: >-
+      thinking 默认开启；切换方式以官方 Thinking Mode 文档为准，本轮保持默认并在
+      run 元数据记录差异。
+    params: {}
+
+  - id: deepseek-v4-pro
+    provider: deepseek
+    vendor: DeepSeek
+    display_name: DeepSeek V4 Pro (0813)
+    official_series: "官方定价表 Pro 旗舰档：Vision = Not supported"
+    tier: text
+    supports_vision: none
+    enabled: false
+    notes: "纯文本模型。登记于此仅为说明其不支持视觉，不参与任何视觉评测。"
+    params: {}
+
+  # ------------------------- Kimi / Moonshot -------------------------
+  - id: kimi-k3.1-pro
+    provider: moonshot
+    vendor: Kimi
+    display_name: Kimi K3.1 Pro
+    official_series: "官方最新旗舰：3 万亿级参数、1M 上下文，原生视觉理解（平台快速开始页明确 K3.1 Pro/K3 支持文本、图片与视频输入）"
+    tier: flagship
+    supports_vision: doc
+    enabled: true
+    notes: >-
+      模型列表页（/docs/models）暂未列出 K3.1 Pro，以平台快速开始页与 K3.1 Pro
+      专页为准；中国站 API 实际可调用性以 `vcrb models verify` 连通性检查为准，
+      失败则如实报告并降级。
+    params: {}
+
+  - id: kimi-k2.6
+    provider: moonshot
+    vendor: Kimi
+    display_name: Kimi K2.6
+    official_series: "官方模型列表『多模态模型』：支持视觉输入，K2.6 额外支持视频理解"
+    tier: flagship
+    supports_vision: doc
+    enabled: true
+    notes: "官方参数说明：k2.5/k2.6 指定 temperature/top_p 等采样参数会报错，适配器不传（pass_temperature=false）；thinking 默认 enabled。"
+    params:
+      pass_temperature: false
+
+  - id: kimi-k2.5
+    provider: moonshot
+    vendor: Kimi
+    display_name: Kimi K2.5
+    official_series: "官方模型列表『多模态模型』：Agent/代码/视觉理解，支持视觉与文本输入"
+    tier: standard
+    supports_vision: doc
+    enabled: true
+    notes: "同 k2.6：不传显式采样参数。"
+    params:
+      pass_temperature: false
+
+  - id: moonshot-v1-128k-vision-preview
+    provider: moonshot
+    vendor: Kimi
+    display_name: Moonshot V1 Vision 128k (preview)
+    official_series: "上一代 Vision 视觉模型（官方模型列表仍在售）"
+    tier: legacy
+    supports_vision: doc
+    enabled: false
+    notes: "可选对照模型。仅支持 base64 图片（不支持 URL），v1 系列 8k/32k/128k 仅上下文长度不同。"
+    params: {}
+
+  # ------------------------- GLM / 智谱 -------------------------
+  - id: glm-5.3-flash
+    provider: zhipu
+    vendor: GLM
+    display_name: GLM-5.3-Flash
+    official_series: "官方 GLM-5 系列首个原生多模态前沿模型（Flash 系列普惠定价：320B 总参/18B 激活，AA 指数 57 超 GLM-5.2；输入模态含图片/视频/文件）"
+    tier: flagship
+    supports_vision: doc
+    enabled: true
+    notes: "thinking.type 仅支持 enabled（不可关闭）；官方推荐 temperature=1/top_p=0.95，本项目统一 temperature=0.1 并在 run 元数据记录差异。"
+    params: {}
+
+  - id: glm-5.3-flashx
+    provider: zhipu
+    vendor: GLM
+    display_name: GLM-5.3-FlashX
+    official_series: "GLM-5.3-Flash 高速版（200 tokens/s）"
+    tier: flagship_fast
+    supports_vision: doc
+    enabled: false
+    notes: "可选：与 glm-5.3-flash 同能力高速对照。"
+    params: {}
+
+  - id: glm-5v-turbo
+    provider: zhipu
+    vendor: GLM
+    display_name: GLM-5V-Turbo
+    official_series: "官方视觉理解模型：多模态 Coding 基座，兼顾视觉理解/推理/代码生成"
+    tier: standard
+    supports_vision: doc
+    enabled: false
+    notes: "可选对照。"
+    params: {}
+
+  - id: glm-4.6v
+    provider: zhipu
+    vendor: GLM
+    display_name: GLM-4.6V
+    official_series: "官方视觉理解模型：原生支持工具调用，128K 上下文"
+    tier: standard
+    supports_vision: doc
+    enabled: true
+    notes: ""
+    params: {}
+
+  - id: glm-4.6v-flash
+    provider: zhipu
+    vendor: GLM
+    display_name: GLM-4.6V-Flash（免费）
+    official_series: "官方免费模型：支持视觉推理，128K 上下文"
+    tier: flash
+    supports_vision: doc
+    enabled: true
+    notes: "免费档代表。"
+    params: {}
+
+  - id: glm-4.1v-thinking-flash
+    provider: zhipu
+    vendor: GLM
+    display_name: GLM-4.1V-Thinking-Flash（免费）
+    official_series: "官方免费模型：擅长复杂场景理解与多步骤分析（视觉推理）"
+    tier: flash
+    supports_vision: doc
+    enabled: false
+    notes: "可选：thinking 型视觉推理对照。"
+    params: {}
+
+  - id: glm-4v-flash
+    provider: zhipu
+    vendor: GLM
+    display_name: GLM-4V-Flash（免费）
+    official_series: "官方免费模型：图像理解，16K 上下文/最大输出 1K"
+    tier: flash
+    supports_vision: doc
+    enabled: false
+    notes: "可选：注意 max_tokens 上限 1024。"
+    params: {}
+
+  - id: glm-5.3
+    provider: zhipu
+    vendor: GLM
+    display_name: GLM-5.3（文本）
+    official_series: "旗舰文本模型（模型概览『文本模型』分类）"
+    tier: text
+    supports_vision: none
+    enabled: false
+    notes: "纯文本模型，仅登记说明，不参与视觉评测。"
+    params: {}
+
+  - id: glm-4.6
+    provider: zhipu
+    vendor: GLM
+    display_name: GLM-4.6（文本）
+    official_series: "文本模型（模型概览『文本模型』分类）"
+    tier: text
+    supports_vision: none
+    enabled: false
+    notes: "纯文本模型，仅登记说明，不参与视觉评测。"
+    params: {}
+
+  # ------------------------- Qwen / 阿里云百炼 -------------------------
+  - id: qwen3.8-max
+    provider: dashscope
+    vendor: Qwen
+    display_name: Qwen3.8-Max
+    official_series: "百炼推荐模型（旗舰）：智能体时代全能旗舰，官方视觉理解文档确认 Qwen3.8 系列支持图片输入"
+    tier: flagship
+    supports_vision: doc
+    enabled: true
+    notes: "混合思考模型，统一关闭 thinking（enable_thinking=false）以保证各模型条件一致。"
+    params:
+      extra_body:
+        enable_thinking: false
+
+  - id: qwen3.7-plus
+    provider: dashscope
+    vendor: Qwen
+    display_name: Qwen3.7-Plus
+    official_series: "百炼推荐模型：性能、速度与成本均衡，视觉理解推荐档"
+    tier: standard
+    supports_vision: doc
+    enabled: true
+    notes: "混合思考模型，统一关闭 thinking。"
+    params:
+      extra_body:
+        enable_thinking: false
+
+  - id: qwen3.8-flash
+    provider: dashscope
+    vendor: Qwen
+    display_name: Qwen3.8-Flash
+    official_series: "百炼推荐模型：快速且低成本；官方视觉理解文档将 Qwen3.8 系列列入图片输入限额表（支持视觉）"
+    tier: flash
+    supports_vision: doc
+    enabled: true
+    notes: "连通性检查中实测确认图片输入能力（推荐页与视觉文档均提及）。"
+    params:
+      extra_body:
+        enable_thinking: false
+
+  - id: qwen3.7-flash
+    provider: dashscope
+    vendor: Qwen
+    display_name: Qwen3.7-Flash
+    official_series: "视觉理解文档支持系列（Qwen3.7 系列）"
+    tier: flash
+    supports_vision: doc
+    enabled: false
+    notes: "可选对照。"
+    params:
+      extra_body:
+        enable_thinking: false
+
+  - id: qwen3.6-plus
+    provider: dashscope
+    vendor: Qwen
+    display_name: Qwen3.6-Plus
+    official_series: "视觉理解文档支持系列（Qwen3.6 系列）"
+    tier: standard
+    supports_vision: doc
+    enabled: false
+    notes: "可选对照（上一代 Plus）。"
+    params:
+      extra_body:
+        enable_thinking: false
+
+  - id: qwen3-vl-plus
+    provider: dashscope
+    vendor: Qwen
+    display_name: Qwen3-VL-Plus
+    official_series: "Qwen3-VL 视觉线（视觉 Coding、空间感知、多模态思考）"
+    tier: legacy
+    supports_vision: doc
+    enabled: false
+    notes: "可选对照；enable_thinking 默认 false，仍显式传入保持一致。"
+    params:
+      extra_body:
+        enable_thinking: false
+
+  - id: qwen3.8-omni-flash
+    provider: dashscope
+    vendor: Qwen
+    display_name: Qwen3.8-Omni-Flash
+    official_series: "百炼推荐模型（全模态）：音视频分析与文本生成，支持视觉理解（Chat Completions 调用）"
+    tier: flash
+    supports_vision: doc
+    enabled: false
+    notes: "可选：全模态档对照，走 Chat Completions 图片输入。"
+    params:
+      extra_body:
+        enable_thinking: false

@@ -1,0 +1,6 @@
+# 便捷安装入口：完整开发环境（含测试、标注页面、视频抽帧）
+# 用法：pip install -r requirements.txt
+-e ".[dev]"
+
+# 可选：McNemar 精确检验（不装则自动使用正态近似并在报告中标注方法）
+# scipy>=1.11

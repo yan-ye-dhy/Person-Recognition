@@ -1,0 +1,79 @@
+work_slug: langyabang
+work_name: 琅琊榜
+source_note: 电视剧《琅琊榜》(2015) 角色名单种子 —— needs_review 条目待人工确认
+characters:
+  - name: 梅长苏
+    aliases: [苏哲, 林殊, 宗主, 苏先生]
+    actors: [胡歌]
+    importance: main
+    needs_review: false
+  - name: 萧景琰
+    aliases: [靖王, 水牛]
+    actors: [王凯]
+    importance: main
+    needs_review: false
+  - name: 蒙挚
+    aliases: [蒙大统领]
+    actors: [陈龙]
+    importance: key_supporting
+    needs_review: false
+  - name: 霓凰郡主
+    aliases: [霓凰, 穆霓凰]
+    actors: [刘涛]
+    importance: key_supporting
+    needs_review: false
+  - name: 誉王
+    aliases: [萧景桓]
+    actors: [黄维德]
+    importance: key_supporting
+    needs_review: false
+  - name: 谢玉
+    aliases: [谢侯爷]
+    actors: [刘奕君]
+    importance: key_supporting
+    needs_review: false
+  - name: 夏江
+    aliases: []
+    actors: [王永泉]
+    importance: key_supporting
+    needs_review: true
+  - name: 飞流
+    aliases: [小飞流]
+    actors: [吴磊]
+    importance: key_supporting
+    needs_review: false
+  - name: 蔺晨
+    aliases: []
+    actors: [靳东]
+    importance: key_supporting
+    needs_review: true
+  - name: 静妃
+    aliases: []
+    actors: [刘敏涛]
+    importance: key_supporting
+    needs_review: true
+  - name: 梁帝
+    aliases: [萧选]
+    actors: [丁勇岱]
+    importance: key_supporting
+    needs_review: true
+  - name: 秦般弱
+    aliases: []
+    actors: [王鸥]
+    importance: supporting
+    needs_review: true
+  - name: 萧景睿
+    aliases: [景睿]
+    actors: []
+    importance: supporting
+    needs_review: true
+  - name: 言豫津
+    aliases: [豫津]
+    actors: []
+    importance: supporting
+    needs_review: true
+  - name: 夏冬
+    aliases: []
+    actors: []
+    importance: supporting
+    needs_review: true

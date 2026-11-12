@@ -1,0 +1,48 @@
+# 四部首轮测试作品（固定，不得擅自更换）
+# category 取值：modern_drama 现代剧 | costume_drama 古装剧 | recent_movie 近期电影 | animation 国产动漫
+# media_type 用于实验 B 提示词中的作品类型描述（电视剧/电影/动画）
+works:
+  - slug: kuangbiao
+    name: 狂飙
+    category: modern_drama
+    media_type: 电视剧
+    year: 2023
+    search_queries:
+      - "狂飙 电视剧 剧照 高启强"
+      - "狂飙 电视剧 安欣 剧照"
+      - "狂飙 电视剧 截图 角色"
+      - "狂飙 高启盛 陈书婷 剧照"
+      - "狂飙 剧照 多人"
+
+  - slug: langyabang
+    name: 琅琊榜
+    category: costume_drama
+    media_type: 电视剧
+    year: 2015
+    search_queries:
+      - "琅琊榜 电视剧 剧照 梅长苏"
+      - "琅琊榜 靖王 誉王 剧照"
+      - "琅琊榜 电视剧 截图 角色"
+      - "琅琊榜 霓凰 蒙挚 剧照"
+      - "琅琊榜 剧照 多人"
+
+  - slug: gongfunvzu
+    name: 功夫女足
+    category: recent_movie
+    media_type: 电影
+    year: null   # 上映年份待 M3 网络核实后补记，不臆造
+    search_queries:
+      - "功夫女足 电影 剧照"
+      - "功夫女足 电影 角色 截图"
+      - "功夫女足 主演 剧照"
+
+  - slug: jianlai
+    name: 剑来
+    category: animation
+    media_type: 动画
+    year: 2024
+    search_queries:
+      - "剑来 动画 剧照 陈平安"
+      - "剑来 动漫 截图 角色"
+      - "剑来 宁姚 齐先生 剧照"
+      - "剑来 动画 剧照 多人"
