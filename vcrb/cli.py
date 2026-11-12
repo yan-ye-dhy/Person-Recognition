@@ -359,6 +359,49 @@ def screen_backfill_cmd(
             console.print(f"  [dim]{err}[/dim]")
 
 
+@screen_app.command("purge")
+def screen_purge_cmd(
+    work: str = typer.Option(..., "--work", help="作品 slug"),
+    status: str = typer.Option(
+        "rejected", "--status",
+        help="rejected=仅删除已排除素材 | all=清空整池（归属 verified 的样本受保护不删）",
+    ),
+    reason: str = typer.Option("", "--reason", help="删除原因（写入 purge_log）"),
+    yes: bool = typer.Option(False, "--yes", help="确认执行（默认 dry-run 只打印计划）"),
+):
+    """删除不可用素材：候选+原始文件、两份清单行、库行，全部留痕 purge_log。"""
+    from .dataset.store import AnnotationStore
+    from .screening.service import purge_candidates
+
+    works = {w.slug: w for w in load_works()}
+    if work not in works:
+        _fail(f"未知作品：{work}（可选 {list(works)}）")
+    if status not in ("rejected", "all"):
+        _fail("--status 仅支持 rejected | all")
+    store = AnnotationStore()
+    rep = purge_candidates(store, works[work], status, reason=reason, apply=yes)
+    title = f"《{works[work].name}》purge {'执行' if yes else '计划（dry-run，加 --yes 执行）'}"
+    table = Table(title=title)
+    for col in ["模式", "计划删除", "候选文件已删", "raw已删", "文件缺失"]:
+        table.add_column(col, justify="right")
+    table.add_row(
+        rep.mode, str(rep.planned), str(rep.deleted_candidates),
+        str(rep.deleted_raws), str(rep.missing_files),
+    )
+    console.print(table)
+    for note in rep.reasons[:5]:
+        console.print(f"  [yellow]{note}[/yellow]")
+    if yes:
+        console.print(
+            "[green]已删除并写入 purge_log（文件名/md5/来源/原因），raw 一并清除，"
+            "重跑 clean 不会复活。[/green]"
+        )
+    elif rep.planned:
+        console.print(
+            f"[yellow]dry-run：{rep.planned} 张待删。确认无误后加 --yes 执行。[/yellow]"
+        )
+
+
 @screen_app.command("report")
 def screen_report_cmd(
     json_out: bool = typer.Option(False, "--json", help="输出 JSON"),

@@ -293,6 +293,98 @@ def test_set_attribution_validates_status(tmp_path):
         store.set_attribution([pk], "maybe", ["非法状态"])
 
 
+# ---------------------------------------------------------------- purge
+
+def _purge_fixture(tmp_path, work):
+    """候选目录 + 原始目录 + 双清单 + 3 张图（1 verified / 1 rejected / 1 pending）。"""
+    import shutil as _shutil
+
+    cand = tmp_path / "candidates" / work.slug
+    raw = tmp_path / "raw" / work.slug
+    cand.mkdir(parents=True)
+    raw.mkdir(parents=True)
+    store = AnnotationStore(tmp_path / "db.sqlite")
+    for i, name in enumerate(("raw_1.jpg", "raw_2.jpg", "raw_3.jpg"), start=1):
+        Image.new("RGB", (64, 48), (i * 60, 30, 90)).save(raw / name)
+        (raw / "manifest.jsonl").open("a", encoding="utf-8").write(
+            json.dumps({"file": name, "source_url": f"https://x/{name}"}) + "\n"
+        )
+        cand_name = f"cand_{i:04d}.jpg"
+        _shutil.copyfile(raw / name, cand / cand_name)
+        (cand / "manifest.jsonl").open("a", encoding="utf-8").write(
+            json.dumps({"file": cand_name, "original_file": name}) + "\n"
+        )
+    store.sync_candidates(work.slug, cand)
+    rows = store.samples(work.slug)
+    store.set_attribution([rows[0]["pk"]], "verified", ["可信证据"], actor="auto:rules")
+    store.set_attribution([rows[1]["pk"]], "rejected", ["其他作品"], actor="auto:rules")
+    return store, cand, raw
+
+
+def test_purge_rejected_mode(tmp_path):
+    from vcrb.screening.service import purge_candidates
+
+    work = make_work("jianlai")
+    store, cand, raw = _purge_fixture(tmp_path, work)
+    rep = purge_candidates(store, work, "rejected", candidates_dir=cand, raw_dir=raw,
+                           apply=True, reason="黑白漫画")
+    assert rep.planned == 1
+    assert rep.deleted_candidates == 1 and rep.deleted_raws == 1
+    # 文件与原始文件都删除；verified/pending 保留
+    assert not (cand / "cand_0002.jpg").exists()
+    assert not (raw / "raw_2.jpg").exists()
+    assert (cand / "cand_0001.jpg").exists() and (cand / "cand_0003.jpg").exists()
+    # 库行删除、留痕完整
+    assert len(store.samples(work.slug)) == 2
+    log = store.purge_log(work.slug)
+    assert len(log) == 1
+    assert log[0]["reason"] == "黑白漫画" and log[0]["original_file"] == "raw_2.jpg"
+    # 两份 manifest 同步重写
+    assert "cand_0002.jpg" not in (cand / "manifest.jsonl").read_text(encoding="utf-8")
+    assert "raw_2.jpg" not in (raw / "manifest.jsonl").read_text(encoding="utf-8")
+    assert "cand_0001.jpg" in (cand / "manifest.jsonl").read_text(encoding="utf-8")
+
+
+def test_purge_dry_run_deletes_nothing(tmp_path):
+    from vcrb.screening.service import purge_candidates
+
+    work = make_work("jianlai")
+    store, cand, raw = _purge_fixture(tmp_path, work)
+    rep = purge_candidates(store, work, "rejected", candidates_dir=cand, raw_dir=raw,
+                           apply=False)
+    assert rep.planned == 1 and rep.deleted_candidates == 0
+    assert (cand / "cand_0002.jpg").exists()
+    assert len(store.samples(work.slug)) == 3
+    assert store.purge_log(work.slug) == []
+
+
+def test_purge_all_protects_verified(tmp_path):
+    from vcrb.screening.service import purge_candidates
+
+    work = make_work("jianlai")
+    store, cand, raw = _purge_fixture(tmp_path, work)
+    rep = purge_candidates(store, work, "all", candidates_dir=cand, raw_dir=raw, apply=True)
+    # verified 受保护，rejected + pending 删除
+    assert rep.planned == 2
+    assert (cand / "cand_0001.jpg").exists()
+    assert not (cand / "cand_0002.jpg").exists() and not (cand / "cand_0003.jpg").exists()
+    remaining = store.samples(work.slug)
+    assert len(remaining) == 1 and remaining[0]["attribution_status"] == "verified"
+
+
+def test_purged_not_resurrected_by_clean_sync(tmp_path):
+    """删除后 raw/candidates 都不再含该图，重跑 sync 不会复活。"""
+    from vcrb.screening.service import purge_candidates
+
+    work = make_work("jianlai")
+    store, cand, raw = _purge_fixture(tmp_path, work)
+    purge_candidates(store, work, "rejected", candidates_dir=cand, raw_dir=raw, apply=True)
+    again = store.sync_candidates(work.slug, cand)
+    assert again["registered"] == 0
+    assert len(store.samples(work.slug)) == 2
+    assert store.purge_log(work.slug)[0]["filename"] == "cand_0002.jpg"
+
+
 def test_rejected_not_reregistered_after_resync(tmp_path):
     """排除的素材在重跑 sync 后不会复活（md5 身份保留原行与归属状态）。"""
     work = make_work("kuangbiao")

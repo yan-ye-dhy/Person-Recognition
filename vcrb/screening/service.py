@@ -8,6 +8,7 @@
 
 from __future__ import annotations
 
+import json
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
@@ -213,4 +214,135 @@ def report_screening(
     return rows
 
 
-__all__ = ["BackfillReport", "ScreenReport", "backfill_evidence", "report_screening", "run_screening"]
+@dataclass
+class PurgeReport:
+    work_slug: str
+    mode: str
+    planned: int = 0
+    deleted_candidates: int = 0
+    deleted_raws: int = 0
+    missing_files: int = 0
+    reasons: list[str] = field(default_factory=list)
+
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "work_slug": self.work_slug,
+            "mode": self.mode,
+            "planned": self.planned,
+            "deleted_candidates": self.deleted_candidates,
+            "deleted_raws": self.deleted_raws,
+            "missing_files": self.missing_files,
+        }
+
+
+def purge_candidates(
+    store: AnnotationStore,
+    work: Work,
+    mode: str,                       # rejected=仅已排除 | all=整池清空（重采前用）
+    candidates_dir: Path | None = None,
+    raw_dir: Path | None = None,
+    apply: bool = False,
+    reason: str = "",
+) -> PurgeReport:
+    """删除不可用素材：候选文件 + 候选清单行 + 原始文件 + 原始清单行 + 库行。
+
+    - 默认 dry-run（apply=False 只统计不动手）；
+    - 删除明细写入 purge_log 表（文件名/md5/来源/原因），可追溯；
+    - 原始 raw 文件一并删除，防止 `vcrb clean` 从 raw 复活被删素材。
+    """
+    from ..paths import RAW_DIR
+
+    if mode not in ("rejected", "all"):
+        raise ValueError(f"非法 purge 模式：{mode}")
+    cdir = candidates_dir or (CANDIDATES_DIR / work.slug)
+    rdir = raw_dir or (RAW_DIR / work.slug)
+    report = PurgeReport(work_slug=work.slug, mode=mode)
+
+    # 候选 manifest：cand 文件名 → original_file
+    cand_manifest: dict[str, str] = {}
+    cand_manifest_path = cdir / "manifest.jsonl"
+    if cand_manifest_path.exists():
+        for line in cand_manifest_path.read_text(encoding="utf-8").splitlines():
+            try:
+                entry = json.loads(line)
+            except json.JSONDecodeError:
+                continue
+            if isinstance(entry, dict) and entry.get("file"):
+                cand_manifest[str(entry["file"])] = str(entry.get("original_file", ""))
+
+    targets: list[dict[str, Any]] = []
+    for row in store.samples(work.slug):
+        status = row.get("attribution_status") or "pending"
+        if mode == "rejected" and status != "rejected":
+            continue
+        if mode == "all" and status == "verified":
+            # 整池清空时保护已核实素材（防止误操作全清）
+            report.reasons.append(
+                f"跳过 {row['filename']}（归属已核实，--status all 不删除 verified）"
+            )
+            continue
+        targets.append(
+            {
+                "pk": row["pk"],
+                "work_slug": work.slug,
+                "filename": row["filename"],
+                "md5": row.get("md5"),
+                "source_url": row.get("source_url", ""),
+                "page_title": row.get("page_title", ""),
+                "original_file": cand_manifest.get(row["filename"], ""),
+                "reason": reason or (f"purge:{mode}"),
+                "status": status,
+            }
+        )
+    report.planned = len(targets)
+    if not apply:
+        return report
+
+    # 删文件 + 重写两份 manifest
+    keep_cand_manifest: set[str] = {t["filename"] for t in targets}
+    keep_raw_files: set[str] = {t["original_file"] for t in targets if t["original_file"]}
+    for t in targets:
+        cf = cdir / t["filename"]
+        if cf.exists():
+            cf.unlink()
+            report.deleted_candidates += 1
+        else:
+            report.missing_files += 1
+        if t["original_file"]:
+            rf = rdir / t["original_file"]
+            if rf.exists():
+                rf.unlink()
+                report.deleted_raws += 1
+
+    for manifest_path, key_field, excluded in (
+        (cand_manifest_path, "file", keep_cand_manifest),
+        (rdir / "manifest.jsonl", "file", keep_raw_files),
+    ):
+        if not manifest_path.exists():
+            continue
+        lines = manifest_path.read_text(encoding="utf-8").splitlines()
+        kept = []
+        for line in lines:
+            try:
+                entry = json.loads(line)
+            except json.JSONDecodeError:
+                kept.append(line)  # 坏行原样保留
+                continue
+            if isinstance(entry, dict) and str(entry.get(key_field, "")) in excluded:
+                continue
+            kept.append(line)
+        manifest_path.write_text("\n".join(kept) + ("\n" if kept else ""), encoding="utf-8")
+
+    store.purge_samples(targets)
+    return report
+
+
+__all__ = [
+    "BackfillReport",
+    "PurgeReport",
+    "ScreenReport",
+    "backfill_evidence",
+    "purge_candidates",
+    "report_screening",
+    "run_screening",
+]

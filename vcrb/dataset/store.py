@@ -55,6 +55,17 @@ CREATE TABLE IF NOT EXISTS attribution_log (
     created_at TEXT NOT NULL
 );
 CREATE INDEX IF NOT EXISTS idx_attr_log_sample ON attribution_log(sample_pk);
+CREATE TABLE IF NOT EXISTS purge_log (
+    pk INTEGER PRIMARY KEY AUTOINCREMENT,
+    work_slug TEXT NOT NULL,
+    filename TEXT NOT NULL,
+    original_file TEXT DEFAULT '',
+    md5 TEXT,
+    source_url TEXT DEFAULT '',
+    page_title TEXT DEFAULT '',
+    reason TEXT DEFAULT '',
+    deleted_at TEXT NOT NULL
+);
 """
 
 ATTRIBUTION_STATUSES = ("pending", "verified", "rejected", "needs_review")
@@ -202,6 +213,47 @@ class AnnotationStore:
         for row in rows:
             out.setdefault(row["work_slug"], {})[row["attribution_status"] or "pending"] = row["n"]
         return out
+
+    def purge_samples(self, items: list[dict[str, Any]]) -> int:
+        """删除 samples 行（连带归属日志），并写 purge_log 留痕。
+
+        items 每项需含 pk/filename/md5/source_url/page_title/reason
+        （文件删除由调用方负责，本方法只管数据库）。
+        """
+        now = _now()
+        for it in items:
+            self.conn.execute(
+                "DELETE FROM attribution_log WHERE sample_pk = ?", (it["pk"],)
+            )
+            self.conn.execute("DELETE FROM samples WHERE pk = ?", (it["pk"],))
+            self.conn.execute(
+                """
+                INSERT INTO purge_log
+                (work_slug, filename, original_file, md5, source_url, page_title, reason, deleted_at)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+                """,
+                (
+                    str(it.get("work_slug", "")),
+                    str(it.get("filename", "")),
+                    str(it.get("original_file", "")),
+                    it.get("md5"),
+                    str(it.get("source_url", "") or ""),
+                    str(it.get("page_title", "") or ""),
+                    str(it.get("reason", "")),
+                    now,
+                ),
+            )
+        self.conn.commit()
+        return len(items)
+
+    def purge_log(self, work_slug: str | None = None) -> list[dict[str, Any]]:
+        sql = "SELECT * FROM purge_log"
+        params: tuple[Any, ...] = ()
+        if work_slug:
+            sql += " WHERE work_slug = ?"
+            params = (work_slug,)
+        rows = self.conn.execute(sql + " ORDER BY pk DESC", params).fetchall()
+        return [dict(r) for r in rows]
 
     def attribution_log(self, sample_pk: int) -> list[dict[str, Any]]:
         rows = self.conn.execute(
