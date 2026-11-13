@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import base64
 import io
+import math
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
@@ -81,6 +82,66 @@ def draw_target_box(src: Path, dst: Path, bbox: list[float] | None) -> Path:
                 [left - offset, top - offset, right + offset, bottom + offset],
                 outline=(255, 0, 0),
             )
+    dst.parent.mkdir(parents=True, exist_ok=True)
+    img.save(dst, format="JPEG", quality=REQUEST_JPEG_QUALITY)
+    return dst
+
+
+def draw_target_boxes(src: Path, dst: Path, persons) -> Path:
+    """Draw numbered targets only; identity labels never enter model images.
+
+    The v1 single-box function is deliberately unchanged. Source bytes are never
+    overwritten. Bad boxes and duplicate identifiers fail before writing output.
+    """
+    from PIL import ImageDraw, ImageFont
+
+    if src.resolve() == dst.resolve():
+        raise ValueError("标注图不能覆盖原图")
+    targets, seen = [], set()
+    for person in persons:
+        pid = person.get("person_id") if isinstance(person, dict) else person.person_id
+        bbox = person.get("bbox") if isinstance(person, dict) else person.bbox
+        if type(pid) is not int or pid < 1 or pid in seen:
+            raise ValueError("人物编号必须是唯一正整数")
+        if (not isinstance(bbox, (list, tuple)) or len(bbox) != 4
+                or any(type(v) not in (int, float) or not math.isfinite(v) for v in bbox)
+                or not (0 <= bbox[0] < bbox[2] <= 1 and 0 <= bbox[1] < bbox[3] <= 1)):
+            raise ValueError("bbox需为归一化[x1,y1,x2,y2]")
+        seen.add(pid)
+        targets.append((pid, bbox))
+    img = load_rgb(src)
+    draw = ImageDraw.Draw(img)
+    w, h = img.size
+    thickness, size = max(3, w // 200), max(18, round(min(w, h) * .045))
+    try:
+        font = ImageFont.truetype("DejaVuSans-Bold.ttf", size)
+    except OSError:
+        try:
+            font = ImageFont.load_default(size=size)
+        except TypeError:  # Pillow 10.0 lacks the optional size argument.
+            font = ImageFont.load_default()
+    occupied = []
+    for pid, bbox in sorted(targets):
+        x1, y1, x2, y2 = (round(v * (w if i % 2 == 0 else h)) for i, v in enumerate(bbox))
+        x1, y1, x2, y2 = max(0, x1), max(0, y1), min(w - 1, x2), min(h - 1, y2)
+        draw.rectangle((x1, y1, x2, y2), outline="red", width=thickness)
+        label = str(pid)
+        bounds = draw.textbbox((0, 0), label, font=font)
+        bw, bh = bounds[2] - bounds[0] + 12, bounds[3] - bounds[1] + 12
+        # Prefer the lower edge (away from faces), then outside the top edge.
+        candidates = [(x1, y2 + 2), (x1, y1 - bh - 2),
+                      (x1 + thickness, y2 - bh - thickness), (x2 - bw - thickness, y2 - bh - thickness)]
+        choices = []
+        for x, y in candidates:
+            x, y = max(0, min(w - bw, x)), max(0, min(h - bh, y))
+            rect = (x, y, x + bw, y + bh)
+            overlap = sum(max(0, min(rect[2], r[2]) - max(rect[0], r[0])) *
+                          max(0, min(rect[3], r[3]) - max(rect[1], r[1])) for r in occupied)
+            choices.append((overlap, rect))
+        _, rect = min(choices, key=lambda item: item[0])
+        occupied.append(rect)
+        draw.rectangle(rect, fill="red")
+        draw.text((rect[0] + 6 - bounds[0], rect[1] + 6 - bounds[1]), label, font=font, fill="white")
     dst.parent.mkdir(parents=True, exist_ok=True)
     img.save(dst, format="JPEG", quality=REQUEST_JPEG_QUALITY)
     return dst

@@ -23,7 +23,7 @@ dependencies = [
 
 [project.optional-dependencies]
 # 标注页面
-ui = ["streamlit>=1.35", "streamlit-drawable-canvas>=0.9"]
+ui = ["streamlit>=1.35", "streamlit-drawable-canvas>=0.9,<0.10"]
 # 本地视频抽帧（自带 ffmpeg 二进制）
 video = ["imageio-ffmpeg>=0.4.9"]
 # 统计精确检验（缺失时自动降级为正态近似并标注）
@@ -32,7 +32,7 @@ dev = [
     "pytest>=8.0",
     "pytest-cov>=4.1",
     "streamlit>=1.35",
-    "streamlit-drawable-canvas>=0.9",
+    "streamlit-drawable-canvas>=0.9,<0.10",
     "imageio-ffmpeg>=0.4.9",
 ]
 

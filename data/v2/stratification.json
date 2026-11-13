@@ -1,0 +1,2091 @@
+{
+  "schema_version": "1.0",
+  "dataset_hash": "3373a465c55196e38a0984cbf7f7979aef129e849653b05dfa80d3b28ea2c12e",
+  "created_at": "2026-11-13T07:55:55.846875+00:00",
+  "purpose": "statistics_only_never_sent_to_models",
+  "policy": {
+    "face_orientation": {
+      "front": "近正面，两眼基本对称",
+      "three_quarter": "明显斜侧，仍可见大部五官",
+      "profile": "近纯侧，一侧轮廓",
+      "not_visible": "背面、斗笠遮脸或面部朝向不可判断"
+    },
+    "visibility": {
+      "clear": "面部范围清楚，普通低光/闭眼不单独算困难",
+      "occluded_or_blurry": "明显遮挡或面部虚焦/运动模糊"
+    },
+    "unit": "each annotated principal person; no tags inferred from model outputs"
+  },
+  "persons": [
+    {
+      "sample_id": "kuangbiao_0001",
+      "annotation_id": "kuangbiao_0001_mp4_20261113_1",
+      "person_id": 1,
+      "image_sha256": "ee9b5d854287d789a9dd9802281f8f8157f4e1b72a0b2bffdbd44d9b781c5a70",
+      "face_orientation": "three_quarter",
+      "visibility": "clear",
+      "note": "头部明显斜转，仍能看到双眼或大部分面部。 主要五官未被明显遮挡；普通阴影、眼镜及视线变化不单独算模糊。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "kuangbiao_0002",
+      "annotation_id": "kuangbiao_0002_mp4_20261113_1",
+      "person_id": 1,
+      "image_sha256": "6210c9c9a52e53a45161f788a38efc4c5df4a10d5adfc9aa408d4b9bcdb40c34",
+      "face_orientation": "front",
+      "visibility": "clear",
+      "note": "头部接近正面，双眼位置大致对称；视线方向不等于头部朝向。 主要五官未被明显遮挡；普通阴影、眼镜及视线变化不单独算模糊。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "kuangbiao_0003",
+      "annotation_id": "kuangbiao_0003_mp4_20261113_1",
+      "person_id": 1,
+      "image_sha256": "7965d2d9d973facf3d891d3eb035ffc4f641a8ab43ba9e3e54e6051858f30018",
+      "face_orientation": "three_quarter",
+      "visibility": "clear",
+      "note": "头部明显斜转，仍能看到双眼或大部分面部。 主要五官未被明显遮挡；普通阴影、眼镜及视线变化不单独算模糊。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "kuangbiao_0004",
+      "annotation_id": "kuangbiao_0004_mp4_20261113_1",
+      "person_id": 1,
+      "image_sha256": "a1c7f73a3d7e7298fdf7738435c8fcad552f1f1c359fff5d26c6b2339b871a23",
+      "face_orientation": "front",
+      "visibility": "clear",
+      "note": "铁栏处于面部两侧，眼鼻口基本完整；不能把铁栏靠近脸误作遮住五官。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "kuangbiao_0005",
+      "annotation_id": "kuangbiao_0005_mp4_20261113_1",
+      "person_id": 1,
+      "image_sha256": "5ae371b1d6dff3c1866f846c65b42f3f625402a6b7240175eb2f2046303b0f9c",
+      "face_orientation": "front",
+      "visibility": "clear",
+      "note": "托腮手贴近脸侧，主要眼鼻口仍可见，按近正面且清晰标注。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "kuangbiao_0006",
+      "annotation_id": "kuangbiao_0006_mp4_20261113_1",
+      "person_id": 1,
+      "image_sha256": "b4bc4f204fa7516c800d16486867d52de5355be4168a2749ea39444a1825504b",
+      "face_orientation": "front",
+      "visibility": "clear",
+      "note": "低头但头部接近正面；不因俯视或视线向下归入侧面。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "kuangbiao_0007",
+      "annotation_id": "kuangbiao_0007_mp4_20261113_1",
+      "person_id": 1,
+      "image_sha256": "0f0f9cdf7f176cef29599043702c884c0cb7d184e05ed1969ad901743c44488f",
+      "face_orientation": "front",
+      "visibility": "clear",
+      "note": "头部有侧倾和闭眼，仍属接近正面；闭眼不等于被遮挡。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "kuangbiao_0007",
+      "annotation_id": "kuangbiao_0007_mp4_20261113_2",
+      "person_id": 2,
+      "image_sha256": "0f0f9cdf7f176cef29599043702c884c0cb7d184e05ed1969ad901743c44488f",
+      "face_orientation": "three_quarter",
+      "visibility": "clear",
+      "note": "头部明显斜转，仍能看到双眼或大部分面部。 主要五官未被明显遮挡；普通阴影、眼镜及视线变化不单独算模糊。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "kuangbiao_0008",
+      "annotation_id": "kuangbiao_0008_mp4_20261113_1",
+      "person_id": 1,
+      "image_sha256": "50e5dd8c256f7a2a4d794ed747eac5601995f0186783228fe0e01d67c80f827a",
+      "face_orientation": "front",
+      "visibility": "clear",
+      "note": "头部接近正面，双眼位置大致对称；视线方向不等于头部朝向。 主要五官未被明显遮挡；普通阴影、眼镜及视线变化不单独算模糊。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "kuangbiao_0009",
+      "annotation_id": "kuangbiao_0009_mp4_20261113_1",
+      "person_id": 1,
+      "image_sha256": "351258ce7072e54d8fe5a345135cc12c656b5872ce90dddebfc4c19e7b18f9a2",
+      "face_orientation": "profile",
+      "visibility": "clear",
+      "note": "接近纯侧面，主要可见单侧眼鼻轮廓。 主要五官未被明显遮挡；普通阴影、眼镜及视线变化不单独算模糊。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "kuangbiao_0010",
+      "annotation_id": "kuangbiao_0010_user_correction_20261113_1",
+      "person_id": 1,
+      "image_sha256": "184e24983a2a55c4f5f9caaed0843347b376fc03ddd9320358e0ded7b6bfdbe1",
+      "face_orientation": "profile",
+      "visibility": "clear",
+      "note": "夜间近纯侧脸；低光但轮廓与五官清楚，不单凭光线暗归入模糊。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "kuangbiao_0011",
+      "annotation_id": "kuangbiao_0011_mp4_20261113_1",
+      "person_id": 1,
+      "image_sha256": "8ff46de3cf318d2d42a4a0f95c50beef734e9f75f0cbcc8ded353689c6c6ee4f",
+      "face_orientation": "profile",
+      "visibility": "clear",
+      "note": "接近纯侧面，主要可见单侧眼鼻轮廓。 主要五官未被明显遮挡；普通阴影、眼镜及视线变化不单独算模糊。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "kuangbiao_0011",
+      "annotation_id": "kuangbiao_0011_mp4_20261113_2",
+      "person_id": 2,
+      "image_sha256": "8ff46de3cf318d2d42a4a0f95c50beef734e9f75f0cbcc8ded353689c6c6ee4f",
+      "face_orientation": "profile",
+      "visibility": "clear",
+      "note": "接近纯侧面，主要可见单侧眼鼻轮廓。 主要五官未被明显遮挡；普通阴影、眼镜及视线变化不单独算模糊。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "kuangbiao_0012",
+      "annotation_id": "kuangbiao_0012_mp4_20261113_1",
+      "person_id": 1,
+      "image_sha256": "1d4842875f5be55f322f5554814d3b9e57c0f411ddeb6e2304d6c0b52a36f449",
+      "face_orientation": "three_quarter",
+      "visibility": "clear",
+      "note": "头部明显斜转，仍能看到双眼或大部分面部。 主要五官未被明显遮挡；普通阴影、眼镜及视线变化不单独算模糊。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "kuangbiao_0013",
+      "annotation_id": "kuangbiao_0013_mp4_20261113_1",
+      "person_id": 1,
+      "image_sha256": "fbe8c3f9f5ed6ebc3ed8f73bb1944a343b24d3a905a14f881f979f268545bfaf",
+      "face_orientation": "front",
+      "visibility": "clear",
+      "note": "头部接近正面，双眼位置大致对称；视线方向不等于头部朝向。 主要五官未被明显遮挡；普通阴影、眼镜及视线变化不单独算模糊。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "kuangbiao_0014",
+      "annotation_id": "kuangbiao_0014_mp4_20261113_1",
+      "person_id": 1,
+      "image_sha256": "c9cab054b266b3549d64296a1f57b2f20fcb900c5311d5dcd2e36b41f48ab67f",
+      "face_orientation": "front",
+      "visibility": "clear",
+      "note": "头部接近正面，双眼位置大致对称；视线方向不等于头部朝向。 主要五官未被明显遮挡；普通阴影、眼镜及视线变化不单独算模糊。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "kuangbiao_0015",
+      "annotation_id": "kuangbiao_0015_mp4_20261113_1",
+      "person_id": 1,
+      "image_sha256": "0ef3c17c7c7807d024cebbe2c5d562951bbf0884a670bb70d8b07f0e7ef6c41a",
+      "face_orientation": "three_quarter",
+      "visibility": "clear",
+      "note": "头部明显斜转，仍能看到双眼或大部分面部。 主要五官未被明显遮挡；普通阴影、眼镜及视线变化不单独算模糊。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "kuangbiao_0016",
+      "annotation_id": "kuangbiao_0016_user_correction_20261113_1",
+      "person_id": 1,
+      "image_sha256": "10f876b14fb8ac807ce8701c54cf3a7c18078d3510feaee10aa441cb07cc7d9e",
+      "face_orientation": "three_quarter",
+      "visibility": "clear",
+      "note": "头部明显斜转，仍能看到双眼或大部分面部。 主要五官未被明显遮挡；普通阴影、眼镜及视线变化不单独算模糊。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "kuangbiao_0017",
+      "annotation_id": "kuangbiao_0017_mp4_20261113_1",
+      "person_id": 1,
+      "image_sha256": "1fc763b5b63300825492f69fa8755a38be62ce65fe57f9c563295a23fa2b161d",
+      "face_orientation": "three_quarter",
+      "visibility": "clear",
+      "note": "头部明显斜转，仍能看到双眼或大部分面部。 主要五官未被明显遮挡；普通阴影、眼镜及视线变化不单独算模糊。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "kuangbiao_0018",
+      "annotation_id": "kuangbiao_0018_mp4_20261113_1",
+      "person_id": 1,
+      "image_sha256": "caeab20d4062f9a348030e33dd0c233e48dfe4dcb2040430a687a57a8edb2f7c",
+      "face_orientation": "three_quarter",
+      "visibility": "clear",
+      "note": "站立低头的安欣为斜侧脸，面部较小但主要轮廓仍清晰。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "kuangbiao_0018",
+      "annotation_id": "kuangbiao_0018_mp4_20261113_2",
+      "person_id": 2,
+      "image_sha256": "caeab20d4062f9a348030e33dd0c233e48dfe4dcb2040430a687a57a8edb2f7c",
+      "face_orientation": "profile",
+      "visibility": "clear",
+      "note": "坐在桌边向左说话，接近纯侧脸；手和桌面没有遮住面部。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "kuangbiao_0019",
+      "annotation_id": "kuangbiao_0019_mp4_20261113_1",
+      "person_id": 1,
+      "image_sha256": "be6129b7fd60e81f85dcc9afc808fba707cb3707c1d5560936b0b8955044afed",
+      "face_orientation": "three_quarter",
+      "visibility": "clear",
+      "note": "头部明显斜转，仍能看到双眼或大部分面部。 主要五官未被明显遮挡；普通阴影、眼镜及视线变化不单独算模糊。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "kuangbiao_0019",
+      "annotation_id": "kuangbiao_0019_mp4_20261113_2",
+      "person_id": 2,
+      "image_sha256": "be6129b7fd60e81f85dcc9afc808fba707cb3707c1d5560936b0b8955044afed",
+      "face_orientation": "profile",
+      "visibility": "clear",
+      "note": "夜间拿电话，接近纯侧脸；电话在耳侧，没有明显遮住主要五官。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "kuangbiao_0020",
+      "annotation_id": "kuangbiao_0020_mp4_20261113_1",
+      "person_id": 1,
+      "image_sha256": "c86ba8c696ca63230b8a0400aa549c6f4c2cbbbc4b3fbc7a92508ce632776e42",
+      "face_orientation": "three_quarter",
+      "visibility": "clear",
+      "note": "斜侧头部，眼镜不遮挡五官；手持物靠近嘴边但没有明显挡住口鼻。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "kuangbiao_0021",
+      "annotation_id": "kuangbiao_0021_mp4_20261113_1",
+      "person_id": 1,
+      "image_sha256": "9318d45974fe7c2ebf40ece678cef6bd80c477091816be1de1254b5d6d3e36d2",
+      "face_orientation": "three_quarter",
+      "visibility": "clear",
+      "note": "头部明显斜转，仍能看到双眼或大部分面部。 主要五官未被明显遮挡；普通阴影、眼镜及视线变化不单独算模糊。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "kuangbiao_0022",
+      "annotation_id": "kuangbiao_0022_mp4_20261113_1",
+      "person_id": 1,
+      "image_sha256": "b5e6b7d30cf8469bab7599be409041f418b99d7fb84456ebd29842df78188aa3",
+      "face_orientation": "front",
+      "visibility": "clear",
+      "note": "头部接近正面，双眼位置大致对称；视线方向不等于头部朝向。 主要五官未被明显遮挡；普通阴影、眼镜及视线变化不单独算模糊。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "kuangbiao_0023",
+      "annotation_id": "kuangbiao_0023_mp4_20261113_1",
+      "person_id": 1,
+      "image_sha256": "2a1b47c900cda51c286126c5000bf251d1c4c82fb07bd9f19b46b6c7f98c0500",
+      "face_orientation": "front",
+      "visibility": "clear",
+      "note": "头部接近正面，双眼位置大致对称；视线方向不等于头部朝向。 主要五官未被明显遮挡；普通阴影、眼镜及视线变化不单独算模糊。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "kuangbiao_0024",
+      "annotation_id": "kuangbiao_0024_mp4_20261113_1",
+      "person_id": 1,
+      "image_sha256": "3eb4649dd6c8f6bf0a61b5d7ea1b6cdf933346206cc7f7266ddb9de032039f7c",
+      "face_orientation": "three_quarter",
+      "visibility": "clear",
+      "note": "头部明显斜转，仍能看到双眼或大部分面部。 主要五官未被明显遮挡；普通阴影、眼镜及视线变化不单独算模糊。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "kuangbiao_0025",
+      "annotation_id": "kuangbiao_0025_mp4_20261113_1",
+      "person_id": 1,
+      "image_sha256": "9d8aab736bb0800535f4510ea313641030b1934502751f7b8c51bed12d1a1989",
+      "face_orientation": "front",
+      "visibility": "clear",
+      "note": "头部接近正面，双眼位置大致对称；视线方向不等于头部朝向。 主要五官未被明显遮挡；普通阴影、眼镜及视线变化不单独算模糊。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "kuangbiao_0026",
+      "annotation_id": "kuangbiao_0026_mp4_20261113_1",
+      "person_id": 1,
+      "image_sha256": "494e796c61047c0dbf546c5bc8c802969085a03e9143736a311422c7d7c45499",
+      "face_orientation": "front",
+      "visibility": "clear",
+      "note": "头部接近正面，双眼位置大致对称；视线方向不等于头部朝向。 主要五官未被明显遮挡；普通阴影、眼镜及视线变化不单独算模糊。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "kuangbiao_0027",
+      "annotation_id": "kuangbiao_0027_mp4_20261113_1",
+      "person_id": 1,
+      "image_sha256": "f31d62bdb31f5cdd04f1dd0ad458b41b90aa8be36df87d0e69b925b7feef92b6",
+      "face_orientation": "three_quarter",
+      "visibility": "clear",
+      "note": "头部明显斜转，仍能看到双眼或大部分面部。 主要五官未被明显遮挡；普通阴影、眼镜及视线变化不单独算模糊。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "kuangbiao_0028",
+      "annotation_id": "kuangbiao_0028_mp4_20261113_1",
+      "person_id": 1,
+      "image_sha256": "d27387392040b663e7ecabe4544adc8b049973df30077669a1f73e6aa90b159b",
+      "face_orientation": "front",
+      "visibility": "clear",
+      "note": "头部接近正面，双眼位置大致对称；视线方向不等于头部朝向。 主要五官未被明显遮挡；普通阴影、眼镜及视线变化不单独算模糊。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "kuangbiao_0029",
+      "annotation_id": "kuangbiao_0029_mp4_20261113_1",
+      "person_id": 1,
+      "image_sha256": "1d88d628188310d392c9d891c8a7b5f4d32af20ba3c90004470822650bead30d",
+      "face_orientation": "three_quarter",
+      "visibility": "clear",
+      "note": "头部明显斜转，仍能看到双眼或大部分面部。 主要五官未被明显遮挡；普通阴影、眼镜及视线变化不单独算模糊。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "kuangbiao_0029",
+      "annotation_id": "kuangbiao_0029_mp4_20261113_2",
+      "person_id": 2,
+      "image_sha256": "1d88d628188310d392c9d891c8a7b5f4d32af20ba3c90004470822650bead30d",
+      "face_orientation": "three_quarter",
+      "visibility": "clear",
+      "note": "头部明显斜转，仍能看到双眼或大部分面部。 主要五官未被明显遮挡；普通阴影、眼镜及视线变化不单独算模糊。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "kuangbiao_0030",
+      "annotation_id": "kuangbiao_0030_mp4_20261113_1",
+      "person_id": 1,
+      "image_sha256": "94382d29062b9a3da0dd255ba9361ae4e7fbb1995448adccc1445f04c84815c1",
+      "face_orientation": "three_quarter",
+      "visibility": "clear",
+      "note": "头部明显斜转，仍能看到双眼或大部分面部。 主要五官未被明显遮挡；普通阴影、眼镜及视线变化不单独算模糊。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "kuangbiao_0030",
+      "annotation_id": "kuangbiao_0030_mp4_20261113_2",
+      "person_id": 2,
+      "image_sha256": "94382d29062b9a3da0dd255ba9361ae4e7fbb1995448adccc1445f04c84815c1",
+      "face_orientation": "profile",
+      "visibility": "clear",
+      "note": "接近纯侧面，主要可见单侧眼鼻轮廓。 主要五官未被明显遮挡；普通阴影、眼镜及视线变化不单独算模糊。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "kuangbiao_0030",
+      "annotation_id": "kuangbiao_0030_mp4_20261113_3",
+      "person_id": 3,
+      "image_sha256": "94382d29062b9a3da0dd255ba9361ae4e7fbb1995448adccc1445f04c84815c1",
+      "face_orientation": "three_quarter",
+      "visibility": "clear",
+      "note": "亭台远处的安欣为斜侧脸，目标较小；原帧可辨面部，没有明显虚焦。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "kuangbiao_0031",
+      "annotation_id": "kuangbiao_0031_mp4_20261113_1",
+      "person_id": 1,
+      "image_sha256": "57a480d97770857bb45d6e41ebd6ac7025756e6dd56c2dea55d419c0628ab4eb",
+      "face_orientation": "profile",
+      "visibility": "clear",
+      "note": "接近纯侧面，主要可见单侧眼鼻轮廓。 主要五官未被明显遮挡；普通阴影、眼镜及视线变化不单独算模糊。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "kuangbiao_0032",
+      "annotation_id": "kuangbiao_0032_mp4_20261113_1",
+      "person_id": 1,
+      "image_sha256": "311da62885ea15fedd81a7feedd72c5e7d3c2caee18be00c35353a4c15387657",
+      "face_orientation": "front",
+      "visibility": "clear",
+      "note": "头部靠着绿色包袋，袋子接触脸侧但眼鼻口没有明显遮挡。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "kuangbiao_0033",
+      "annotation_id": "kuangbiao_0033_mp4_20261113_1",
+      "person_id": 1,
+      "image_sha256": "9cb6f34e6a9560f46f7a8cbe576f6323606e11589c195ab3762207976d3ea3a6",
+      "face_orientation": "three_quarter",
+      "visibility": "clear",
+      "note": "抬头且斜向右侧，仍可见大部面部；俯仰与左右朝向分开判断。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "kuangbiao_0033",
+      "annotation_id": "kuangbiao_0033_mp4_20261113_2",
+      "person_id": 2,
+      "image_sha256": "9cb6f34e6a9560f46f7a8cbe576f6323606e11589c195ab3762207976d3ea3a6",
+      "face_orientation": "front",
+      "visibility": "clear",
+      "note": "头部接近正面，双眼位置大致对称；视线方向不等于头部朝向。 主要五官未被明显遮挡；普通阴影、眼镜及视线变化不单独算模糊。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "kuangbiao_0034",
+      "annotation_id": "kuangbiao_0034_mp4_20261113_1",
+      "person_id": 1,
+      "image_sha256": "d071d5cfae855e15fb96539e6e0841a397750552be8562511ca85f9a0ef87695",
+      "face_orientation": "three_quarter",
+      "visibility": "clear",
+      "note": "头部明显斜转，仍能看到双眼或大部分面部。 主要五官未被明显遮挡；普通阴影、眼镜及视线变化不单独算模糊。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "kuangbiao_0034",
+      "annotation_id": "kuangbiao_0034_mp4_20261113_2",
+      "person_id": 2,
+      "image_sha256": "d071d5cfae855e15fb96539e6e0841a397750552be8562511ca85f9a0ef87695",
+      "face_orientation": "three_quarter",
+      "visibility": "clear",
+      "note": "头部明显斜转，仍能看到双眼或大部分面部。 主要五官未被明显遮挡；普通阴影、眼镜及视线变化不单独算模糊。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "kuangbiao_0035",
+      "annotation_id": "kuangbiao_0035_mp4_20261113_1",
+      "person_id": 1,
+      "image_sha256": "7eb38dd1667da1b8f9504561d785dcbc4f79b618764aa3718b6e512fa1929e8a",
+      "face_orientation": "profile",
+      "visibility": "clear",
+      "note": "接近纯侧面，主要可见单侧眼鼻轮廓。 主要五官未被明显遮挡；普通阴影、眼镜及视线变化不单独算模糊。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "kuangbiao_0035",
+      "annotation_id": "kuangbiao_0035_mp4_20261113_2",
+      "person_id": 2,
+      "image_sha256": "7eb38dd1667da1b8f9504561d785dcbc4f79b618764aa3718b6e512fa1929e8a",
+      "face_orientation": "three_quarter",
+      "visibility": "clear",
+      "note": "头部明显斜转，仍能看到双眼或大部分面部。 主要五官未被明显遮挡；普通阴影、眼镜及视线变化不单独算模糊。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "kuangbiao_0036",
+      "annotation_id": "kuangbiao_0036_mp4_20261113_1",
+      "person_id": 1,
+      "image_sha256": "bd642fb06eb56d0f3e30d63ca29c83fdd948937e2cf58cebc07bf7845b566261",
+      "face_orientation": "three_quarter",
+      "visibility": "clear",
+      "note": "头部明显斜转，仍能看到双眼或大部分面部。 主要五官未被明显遮挡；普通阴影、眼镜及视线变化不单独算模糊。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "kuangbiao_0037",
+      "annotation_id": "kuangbiao_0037_mp4_20261113_1",
+      "person_id": 1,
+      "image_sha256": "ef6c2af4c2905e94a199593d0d38c6e5ae8dbe67797fcc01ebca5f0de46978d2",
+      "face_orientation": "front",
+      "visibility": "clear",
+      "note": "低头、接近正面；透过前挡玻璃有轻微反光，未明显挡住主要五官。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "kuangbiao_0037",
+      "annotation_id": "kuangbiao_0037_mp4_20261113_2",
+      "person_id": 2,
+      "image_sha256": "ef6c2af4c2905e94a199593d0d38c6e5ae8dbe67797fcc01ebca5f0de46978d2",
+      "face_orientation": "three_quarter",
+      "visibility": "clear",
+      "note": "驾车斜侧脸，闭眼为表情状态，前挡玻璃未明显遮挡五官。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "kuangbiao_0038",
+      "annotation_id": "kuangbiao_0038_mp4_20261113_1",
+      "person_id": 1,
+      "image_sha256": "823070a998242239fc3ce9d65187239354631105b9661407227de05c6547e817",
+      "face_orientation": "profile",
+      "visibility": "clear",
+      "note": "接近纯侧面，主要可见单侧眼鼻轮廓。 主要五官未被明显遮挡；普通阴影、眼镜及视线变化不单独算模糊。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "kuangbiao_0039",
+      "annotation_id": "kuangbiao_0039_mp4_20261113_1",
+      "person_id": 1,
+      "image_sha256": "9a7fb8f1c4083b326432a2715a5520cfa5693ecf88d1e01bbde13edc3ae2fd14",
+      "face_orientation": "front",
+      "visibility": "clear",
+      "note": "头部接近正面，双眼位置大致对称；视线方向不等于头部朝向。 主要五官未被明显遮挡；普通阴影、眼镜及视线变化不单独算模糊。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "kuangbiao_0040",
+      "annotation_id": "kuangbiao_0040_mp4_20261113_1",
+      "person_id": 1,
+      "image_sha256": "f47801cf5d8bd72de4b61c1bd444bd1a3ab01eca8b2741aeab7289461b39a519",
+      "face_orientation": "front",
+      "visibility": "clear",
+      "note": "头部接近正面，双眼位置大致对称；视线方向不等于头部朝向。 主要五官未被明显遮挡；普通阴影、眼镜及视线变化不单独算模糊。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "qingyunian2_0001",
+      "annotation_id": "qingyunian2_0001_v2_review_1",
+      "person_id": 1,
+      "image_sha256": "4b9a2bc322f04264264c9a78375e278e1b02ee888a5f3b50723ebe30f89c1005",
+      "face_orientation": "three_quarter",
+      "visibility": "clear",
+      "note": "头部明显斜转，仍能看到双眼或大部分面部。 主要五官未被明显遮挡；普通阴影、眼镜及视线变化不单独算模糊。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "qingyunian2_0003",
+      "annotation_id": "qingyunian2_0003_v2_review_1",
+      "person_id": 1,
+      "image_sha256": "f20404144f52f345c77425f2b5c59752c2189934a1a5bd0028fab1b5fa15a9cf",
+      "face_orientation": "front",
+      "visibility": "clear",
+      "note": "头部接近正面，双眼位置大致对称；视线方向不等于头部朝向。 主要五官未被明显遮挡；普通阴影、眼镜及视线变化不单独算模糊。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "qingyunian2_0004",
+      "annotation_id": "qingyunian2_0004_v2_review_1",
+      "person_id": 1,
+      "image_sha256": "da59a121719078e47973d9b1b939cd1e020df81fa8835da613649490c12ac490",
+      "face_orientation": "three_quarter",
+      "visibility": "clear",
+      "note": "头部明显斜转，仍能看到双眼或大部分面部。 主要五官未被明显遮挡；普通阴影、眼镜及视线变化不单独算模糊。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "qingyunian2_0005",
+      "annotation_id": "qingyunian2_0005_v2_review_1",
+      "person_id": 1,
+      "image_sha256": "7139be0557c3b68341439159457220a0078da9d8c6d19b7e58c9c4f124eba46f",
+      "face_orientation": "front",
+      "visibility": "clear",
+      "note": "头部接近正面，双眼位置大致对称；视线方向不等于头部朝向。 主要五官未被明显遮挡；普通阴影、眼镜及视线变化不单独算模糊。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "qingyunian2_0006",
+      "annotation_id": "qingyunian2_0006_v2_review_1",
+      "person_id": 1,
+      "image_sha256": "79e2c67b61aab1873edf33a190882df0736be2719f2e5b052450ab202ca8a504",
+      "face_orientation": "front",
+      "visibility": "clear",
+      "note": "头部接近正面，双眼位置大致对称；视线方向不等于头部朝向。 主要五官未被明显遮挡；普通阴影、眼镜及视线变化不单独算模糊。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "qingyunian2_0007",
+      "annotation_id": "qingyunian2_0007_v2_review_1",
+      "person_id": 1,
+      "image_sha256": "f6d844f3e37fb593549be97d751bb93e350500746e0ee925b9d50607579f05f2",
+      "face_orientation": "profile",
+      "visibility": "clear",
+      "note": "接近纯侧面，主要可见单侧眼鼻轮廓。 主要五官未被明显遮挡；普通阴影、眼镜及视线变化不单独算模糊。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "qingyunian2_0008",
+      "annotation_id": "qingyunian2_0008_v2_review_1",
+      "person_id": 1,
+      "image_sha256": "66616f4e69ff3f04ee3285a64a1525d097d4b92e580e620659c308448381cd05",
+      "face_orientation": "front",
+      "visibility": "occluded_or_blurry",
+      "note": "接近正面低头，额前长发明显遮住一侧眼部。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "qingyunian2_0009",
+      "annotation_id": "qingyunian2_0009_v2_review_1",
+      "person_id": 1,
+      "image_sha256": "dac2c11610daf81384e0e7dc7676df7986ee05d889e0bcaef08385b31404c6d0",
+      "face_orientation": "three_quarter",
+      "visibility": "clear",
+      "note": "头部明显斜转，仍能看到双眼或大部分面部。 主要五官未被明显遮挡；普通阴影、眼镜及视线变化不单独算模糊。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "qingyunian2_0010",
+      "annotation_id": "qingyunian2_0010_v2_review_1",
+      "person_id": 1,
+      "image_sha256": "8ced51a9e3cfaf8c916e9d0a07074daf3c9620d0969c0bdbad11238b80c22526",
+      "face_orientation": "front",
+      "visibility": "clear",
+      "note": "头部接近正面，双眼位置大致对称；视线方向不等于头部朝向。 主要五官未被明显遮挡；普通阴影、眼镜及视线变化不单独算模糊。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "qingyunian2_0011",
+      "annotation_id": "qingyunian2_0011_v2_review_1",
+      "person_id": 1,
+      "image_sha256": "e987faff73febd7692d324aa5538d2fc9217761cefd2dc6c1933d677701c312e",
+      "face_orientation": "three_quarter",
+      "visibility": "occluded_or_blurry",
+      "note": "隔着纱帘的斜侧脸，帘子使五官对比度显著降低并部分遮挡。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "qingyunian2_0012",
+      "annotation_id": "qingyunian2_0012_v2_review_1",
+      "person_id": 1,
+      "image_sha256": "7151b6a93c00c9d0a82a7404977b3c76e2bbbedb062d7c1b54c7f82b934c7d4b",
+      "face_orientation": "three_quarter",
+      "visibility": "clear",
+      "note": "头部明显斜转，仍能看到双眼或大部分面部。 主要五官未被明显遮挡；普通阴影、眼镜及视线变化不单独算模糊。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "qingyunian2_0013",
+      "annotation_id": "qingyunian2_0013_v2_review_1",
+      "person_id": 1,
+      "image_sha256": "d70fa71080685974a197ca4f3133e488606fac4349d7e3a641f2e4a9e758be18",
+      "face_orientation": "front",
+      "visibility": "clear",
+      "note": "头部接近正面，双眼位置大致对称；视线方向不等于头部朝向。 主要五官未被明显遮挡；普通阴影、眼镜及视线变化不单独算模糊。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "qingyunian2_0014",
+      "annotation_id": "qingyunian2_0014_v2_review_1",
+      "person_id": 1,
+      "image_sha256": "b32704db24d3fa942eb9be66403f7ab3b2053dd3f3caf5b2e03fef8cb13cdfbf",
+      "face_orientation": "front",
+      "visibility": "clear",
+      "note": "头部接近正面，双眼位置大致对称；视线方向不等于头部朝向。 主要五官未被明显遮挡；普通阴影、眼镜及视线变化不单独算模糊。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "qingyunian2_0015",
+      "annotation_id": "qingyunian2_0015_v2_review_1",
+      "person_id": 1,
+      "image_sha256": "a380f20004d409d620bed8d32dd460f75bd09a97f00881aafd653dcf55920303",
+      "face_orientation": "front",
+      "visibility": "clear",
+      "note": "头部接近正面，双眼位置大致对称；视线方向不等于头部朝向。 主要五官未被明显遮挡；普通阴影、眼镜及视线变化不单独算模糊。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "qingyunian2_0016",
+      "annotation_id": "qingyunian2_0016_v2_review_1",
+      "person_id": 1,
+      "image_sha256": "30e529001a5ea5bfbd9a38a7c80d4109cf46832a8365f1a309c8457caf752cb5",
+      "face_orientation": "three_quarter",
+      "visibility": "clear",
+      "note": "头部明显斜转，仍能看到双眼或大部分面部。 主要五官未被明显遮挡；普通阴影、眼镜及视线变化不单独算模糊。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "qingyunian2_0017",
+      "annotation_id": "qingyunian2_0017_v2_review_1",
+      "person_id": 1,
+      "image_sha256": "06b6f6e1c148b74c62e1810c8231fe24ec73ef5dba94394184dc47377482374a",
+      "face_orientation": "front",
+      "visibility": "clear",
+      "note": "头部接近正面，双眼位置大致对称；视线方向不等于头部朝向。 主要五官未被明显遮挡；普通阴影、眼镜及视线变化不单独算模糊。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "qingyunian2_0018",
+      "annotation_id": "qingyunian2_0018_v2_review_1",
+      "person_id": 1,
+      "image_sha256": "8c4e084520d646615a804fb5436f2fc92b851071e2a5fea7a00671a3113b59a2",
+      "face_orientation": "front",
+      "visibility": "clear",
+      "note": "头部接近正面，双眼位置大致对称；视线方向不等于头部朝向。 主要五官未被明显遮挡；普通阴影、眼镜及视线变化不单独算模糊。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "qingyunian2_0018",
+      "annotation_id": "qingyunian2_0018_v2_review_2",
+      "person_id": 2,
+      "image_sha256": "8c4e084520d646615a804fb5436f2fc92b851071e2a5fea7a00671a3113b59a2",
+      "face_orientation": "front",
+      "visibility": "clear",
+      "note": "头部接近正面，双眼位置大致对称；视线方向不等于头部朝向。 主要五官未被明显遮挡；普通阴影、眼镜及视线变化不单独算模糊。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "qingyunian2_0019",
+      "annotation_id": "qingyunian2_0019_v2_review_1",
+      "person_id": 1,
+      "image_sha256": "6f53fa57d86920565314273c1e795bf83b100eb52baaf621b7b6c7cf07835ac9",
+      "face_orientation": "three_quarter",
+      "visibility": "clear",
+      "note": "躺卧、头部侧倾并仰起，仍可见大部分面部；不按身体横躺判断为背面。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "qingyunian2_0020",
+      "annotation_id": "qingyunian2_0020_v2_review_1",
+      "person_id": 1,
+      "image_sha256": "668b1dfa72ec95762d0824dea9b8dd85217a26ebfdaf81a9f0ba4bc5c321d5ab",
+      "face_orientation": "profile",
+      "visibility": "clear",
+      "note": "接近纯侧面，主要可见单侧眼鼻轮廓。 主要五官未被明显遮挡；普通阴影、眼镜及视线变化不单独算模糊。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "qingyunian2_0021",
+      "annotation_id": "qingyunian2_0021_v2_review_1",
+      "person_id": 1,
+      "image_sha256": "43e774f4896c556608c2f8362c2ed3563ba00c5f5130d6ac5db8974b0ee9fd7e",
+      "face_orientation": "front",
+      "visibility": "occluded_or_blurry",
+      "note": "近正面，双手明显挡住嘴部及下半张脸。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "qingyunian2_0022",
+      "annotation_id": "qingyunian2_0022_inherited",
+      "person_id": 1,
+      "image_sha256": "a304f39fb3430c22c564050ebea24c873b8565455a6ee77296ecea41c87b52f1",
+      "face_orientation": "front",
+      "visibility": "clear",
+      "note": "头部接近正面，双眼位置大致对称；视线方向不等于头部朝向。 主要五官未被明显遮挡；普通阴影、眼镜及视线变化不单独算模糊。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "qingyunian2_0023",
+      "annotation_id": "qingyunian2_0023_inherited",
+      "person_id": 1,
+      "image_sha256": "a3615180a75468d45d4bf548d730c7ac2f75c9b906960c024d7ef41f8119419d",
+      "face_orientation": "profile",
+      "visibility": "clear",
+      "note": "接近纯侧面，主要可见单侧眼鼻轮廓。 主要五官未被明显遮挡；普通阴影、眼镜及视线变化不单独算模糊。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "qingyunian2_0024",
+      "annotation_id": "qingyunian2_0024_inherited",
+      "person_id": 1,
+      "image_sha256": "3f5a0b6605b95cbb79a75264a2c0cd6dfa31bcf82061970ff0571b2cceaef4f1",
+      "face_orientation": "three_quarter",
+      "visibility": "clear",
+      "note": "头部明显斜转，仍能看到双眼或大部分面部。 主要五官未被明显遮挡；普通阴影、眼镜及视线变化不单独算模糊。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "qingyunian2_0025",
+      "annotation_id": "qingyunian2_0025_inherited",
+      "person_id": 1,
+      "image_sha256": "de5b1e1f6a5654905f8fc7de328bc33263721f181e4b3e819e98161e258528d9",
+      "face_orientation": "three_quarter",
+      "visibility": "clear",
+      "note": "头部明显斜转，仍能看到双眼或大部分面部。 主要五官未被明显遮挡；普通阴影、眼镜及视线变化不单独算模糊。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "qingyunian2_0026",
+      "annotation_id": "qingyunian2_0026_inherited",
+      "person_id": 1,
+      "image_sha256": "3aac972f3e2b841483ff61fc8594d2ec1e5a599c6b9191354b5becf8538b075c",
+      "face_orientation": "three_quarter",
+      "visibility": "clear",
+      "note": "头部明显斜转，仍能看到双眼或大部分面部。 主要五官未被明显遮挡；普通阴影、眼镜及视线变化不单独算模糊。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "qingyunian2_0027",
+      "annotation_id": "qingyunian2_0027_inherited",
+      "person_id": 1,
+      "image_sha256": "a2b67838f78a159e8ef315b5d1e6852184df8f8b92b7e62101ee3f4c64dd839e",
+      "face_orientation": "three_quarter",
+      "visibility": "clear",
+      "note": "头部明显斜转，仍能看到双眼或大部分面部。 主要五官未被明显遮挡；普通阴影、眼镜及视线变化不单独算模糊。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "qingyunian2_0028",
+      "annotation_id": "qingyunian2_0028_inherited",
+      "person_id": 1,
+      "image_sha256": "2cb8c4cf495dae38b4b2aa25c128332977e3c0ddb4edc3b496fcccce84e8c84e",
+      "face_orientation": "profile",
+      "visibility": "clear",
+      "note": "低头的近纯侧脸；原图中的鼻口轮廓可见，联系页上缘裁切不作为遮挡依据。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "qingyunian2_0029",
+      "annotation_id": "qingyunian2_0029_inherited",
+      "person_id": 1,
+      "image_sha256": "894716850e360d116c795700cca8794ab2b5ff266dd7aae2230ff3269fe3b1c9",
+      "face_orientation": "three_quarter",
+      "visibility": "clear",
+      "note": "头部明显斜转，仍能看到双眼或大部分面部。 主要五官未被明显遮挡；普通阴影、眼镜及视线变化不单独算模糊。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "qingyunian2_0030",
+      "annotation_id": "qingyunian2_0030_inherited",
+      "person_id": 1,
+      "image_sha256": "c763d43a14e0acc4acf91f26aefd9ef0688bbdf2883c211d282e72edcf7f540b",
+      "face_orientation": "front",
+      "visibility": "clear",
+      "note": "头部接近正面，双眼位置大致对称；视线方向不等于头部朝向。 主要五官未被明显遮挡；普通阴影、眼镜及视线变化不单独算模糊。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "qingyunian2_0031",
+      "annotation_id": "qingyunian2_0031_inherited",
+      "person_id": 1,
+      "image_sha256": "cfd21edc679327f20ce2fbf2fe94b3aee8e139e6f3c4dc8bc8931f0c35114b51",
+      "face_orientation": "three_quarter",
+      "visibility": "clear",
+      "note": "头部明显斜转，仍能看到双眼或大部分面部。 主要五官未被明显遮挡；普通阴影、眼镜及视线变化不单独算模糊。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "qingyunian2_0032",
+      "annotation_id": "qingyunian2_0032_inherited",
+      "person_id": 1,
+      "image_sha256": "bb16a0fb6df32e1d57ccc119853475e9ac4f06a6e7d5ba66394d767d6ae148e6",
+      "face_orientation": "three_quarter",
+      "visibility": "clear",
+      "note": "头部明显斜转，仍能看到双眼或大部分面部。 主要五官未被明显遮挡；普通阴影、眼镜及视线变化不单独算模糊。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "qingyunian2_0032",
+      "annotation_id": "qingyunian2_0032_assistant_multi_02",
+      "person_id": 2,
+      "image_sha256": "bb16a0fb6df32e1d57ccc119853475e9ac4f06a6e7d5ba66394d767d6ae148e6",
+      "face_orientation": "not_visible",
+      "visibility": "clear",
+      "note": "背面长发遮住整个正脸，只见少量侧颈/边缘轮廓；画面本身清楚，visibility为clear。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "qingyunian2_0033",
+      "annotation_id": "qingyunian2_0033_inherited",
+      "person_id": 1,
+      "image_sha256": "bd0c709df8bd1f84903e9d168c03f11e6402882826ff836a09ea5ee309ab99b6",
+      "face_orientation": "front",
+      "visibility": "clear",
+      "note": "头部接近正面，双眼位置大致对称；视线方向不等于头部朝向。 主要五官未被明显遮挡；普通阴影、眼镜及视线变化不单独算模糊。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "qingyunian2_0034",
+      "annotation_id": "qingyunian2_0034_inherited",
+      "person_id": 1,
+      "image_sha256": "be8da33d2fea2a364e235ab0c7b88e9ac81dae65920c34756747726744919811",
+      "face_orientation": "three_quarter",
+      "visibility": "clear",
+      "note": "头部明显斜转，仍能看到双眼或大部分面部。 主要五官未被明显遮挡；普通阴影、眼镜及视线变化不单独算模糊。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "qingyunian2_0034",
+      "annotation_id": "qingyunian2_0034_assistant_multi_02",
+      "person_id": 2,
+      "image_sha256": "be8da33d2fea2a364e235ab0c7b88e9ac81dae65920c34756747726744919811",
+      "face_orientation": "front",
+      "visibility": "clear",
+      "note": "头部接近正面，双眼位置大致对称；视线方向不等于头部朝向。 主要五官未被明显遮挡；普通阴影、眼镜及视线变化不单独算模糊。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "qingyunian2_0035",
+      "annotation_id": "qingyunian2_0035_inherited",
+      "person_id": 1,
+      "image_sha256": "1ecfb0694aa31cc67e81ad91ebf1e59ef10658a2b4bd6e93bea3955db5a3bca4",
+      "face_orientation": "profile",
+      "visibility": "clear",
+      "note": "抬头向右，接近纯侧脸；俯仰和身体侧倾不改变该左右朝向分类。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "qingyunian2_0036",
+      "annotation_id": "qingyunian2_0036_inherited",
+      "person_id": 1,
+      "image_sha256": "8856ca6b49ab66048dfa55fcba84af1695526700327214faab609075726ca045",
+      "face_orientation": "front",
+      "visibility": "clear",
+      "note": "头部接近正面，双眼位置大致对称；视线方向不等于头部朝向。 主要五官未被明显遮挡；普通阴影、眼镜及视线变化不单独算模糊。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "qingyunian2_0038",
+      "annotation_id": "qingyunian2_0038_inherited",
+      "person_id": 1,
+      "image_sha256": "eaa0c973b3283bbd3b61baf5cf30d9de324b9c9492c046486e8044bcad6e4b2c",
+      "face_orientation": "front",
+      "visibility": "clear",
+      "note": "头部接近正面，双眼位置大致对称；视线方向不等于头部朝向。 主要五官未被明显遮挡；普通阴影、眼镜及视线变化不单独算模糊。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "qingyunian2_0039",
+      "annotation_id": "qingyunian2_0039_inherited",
+      "person_id": 1,
+      "image_sha256": "396705342783fed899d9d32762075f33c536115da7ae838dea81fbbe76d8b69a",
+      "face_orientation": "front",
+      "visibility": "occluded_or_blurry",
+      "note": "接近正面，黑色眼罩完全遮住双眼。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "qingyunian2_0040",
+      "annotation_id": "qingyunian2_0040_inherited",
+      "person_id": 1,
+      "image_sha256": "897045f13924484cee34fbbe4d945875c9338367061e5ade3d3d02bdb1062370",
+      "face_orientation": "front",
+      "visibility": "clear",
+      "note": "头部接近正面，双眼位置大致对称；视线方向不等于头部朝向。 主要五官未被明显遮挡；普通阴影、眼镜及视线变化不单独算模糊。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "qingyunian2_0041",
+      "annotation_id": "qingyunian2_0041_inherited",
+      "person_id": 1,
+      "image_sha256": "d8e9a52fb073dd1856224bd06b1710eba780735672856a51057ee50d4ca81670",
+      "face_orientation": "three_quarter",
+      "visibility": "clear",
+      "note": "头部明显斜转，仍能看到双眼或大部分面部。 主要五官未被明显遮挡；普通阴影、眼镜及视线变化不单独算模糊。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "qingyunian2_0042",
+      "annotation_id": "qingyunian2_0042_assistant_multi_01",
+      "person_id": 1,
+      "image_sha256": "8365e4f366435efe404c4b88ede686e8891ca752aef83405f234f263d28ea3d4",
+      "face_orientation": "profile",
+      "visibility": "occluded_or_blurry",
+      "note": "左前景近纯侧脸，头部部分出画且明显虚焦；角色名已由用户确认，此处仅标面部可见性。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "qingyunian2_0042",
+      "annotation_id": "qingyunian2_0042_inherited",
+      "person_id": 2,
+      "image_sha256": "8365e4f366435efe404c4b88ede686e8891ca752aef83405f234f263d28ea3d4",
+      "face_orientation": "front",
+      "visibility": "clear",
+      "note": "头部接近正面，双眼位置大致对称；视线方向不等于头部朝向。 主要五官未被明显遮挡；普通阴影、眼镜及视线变化不单独算模糊。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "gongfunvzu_0001",
+      "annotation_id": "gongfunvzu_0001_inherited",
+      "person_id": 1,
+      "image_sha256": "3571ebe3fbc566553f2c03b50b8396811a0741ead07f3fd0c93376b7a1c4a351",
+      "face_orientation": "front",
+      "visibility": "clear",
+      "note": "眼神偏向画面右侧，头脸仍近正面，双眼基本对称。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "gongfunvzu_0001",
+      "annotation_id": "gongfunvzu_0001_assistant_multi_05",
+      "person_id": 2,
+      "image_sha256": "3571ebe3fbc566553f2c03b50b8396811a0741ead07f3fd0c93376b7a1c4a351",
+      "face_orientation": "three_quarter",
+      "visibility": "clear",
+      "note": "头脸朝画面左斜侧，双眼可见；闭眼表情不单独视为遮挡。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "gongfunvzu_0002",
+      "annotation_id": "gongfunvzu_0002_inherited",
+      "person_id": 1,
+      "image_sha256": "5d0d1affb121bbb239c7118f8a0730954a2793cc838ee6cdbf1017d5b820ec83",
+      "face_orientation": "three_quarter",
+      "visibility": "clear",
+      "note": "明显斜侧，仍可见两眼或大部分五官；主要面部区域可辨。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "gongfunvzu_0003",
+      "annotation_id": "gongfunvzu_0003_inherited",
+      "person_id": 1,
+      "image_sha256": "9a6fd037800b29386a8d8fc0eae1a061adb2bb0ce4ec94598fb1459c1641c1e7",
+      "face_orientation": "front",
+      "visibility": "clear",
+      "note": "近正面，双眼与鼻口基本对称；主要面部区域无遮挡。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "gongfunvzu_0004",
+      "annotation_id": "gongfunvzu_0004_inherited",
+      "person_id": 1,
+      "image_sha256": "e1b10d28ee95713abac82a124a0812c1108e7e6d8f767df9bf32934e11e02e51",
+      "face_orientation": "front",
+      "visibility": "clear",
+      "note": "近正面抬眼；动作中的手有拖影，面部五官仍可辨，未将手部运动算为面部模糊。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "gongfunvzu_0005",
+      "annotation_id": "gongfunvzu_0005_assistant_multi_03",
+      "person_id": 1,
+      "image_sha256": "e38c555e445514b86d2a4eab4d68d7f2efd7bb06b144a1b159d793bb072f0288",
+      "face_orientation": "three_quarter",
+      "visibility": "clear",
+      "note": "明显斜侧，仍可见两眼或大部分五官；主要面部区域可辨。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "gongfunvzu_0005",
+      "annotation_id": "gongfunvzu_0005_assistant_multi_05",
+      "person_id": 2,
+      "image_sha256": "e38c555e445514b86d2a4eab4d68d7f2efd7bb06b144a1b159d793bb072f0288",
+      "face_orientation": "front",
+      "visibility": "clear",
+      "note": "近正面，双眼与鼻口基本对称；主要面部区域无遮挡。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "gongfunvzu_0006",
+      "annotation_id": "gongfunvzu_0006_assistant_multi_02",
+      "person_id": 1,
+      "image_sha256": "5da8e01f1551c778959c8c00256c37ecb5f1841dffb4c6feaa5e470d4319b826",
+      "face_orientation": "front",
+      "visibility": "clear",
+      "note": "近正面，双眼与鼻口基本对称；主要面部区域无遮挡。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "gongfunvzu_0006",
+      "annotation_id": "gongfunvzu_0006_inherited",
+      "person_id": 2,
+      "image_sha256": "5da8e01f1551c778959c8c00256c37ecb5f1841dffb4c6feaa5e470d4319b826",
+      "face_orientation": "three_quarter",
+      "visibility": "clear",
+      "note": "明显斜侧，仍可见两眼或大部分五官；主要面部区域可辨。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "gongfunvzu_0007",
+      "annotation_id": "gongfunvzu_0007_inherited",
+      "person_id": 1,
+      "image_sha256": "ba126f88a6c251fe6b0dd2eb756f1745cf082ba52f054a6728d8f73d89777e33",
+      "face_orientation": "front",
+      "visibility": "clear",
+      "note": "近正面，双眼与鼻口基本对称；主要面部区域无遮挡。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "gongfunvzu_0008",
+      "annotation_id": "gongfunvzu_0008_inherited",
+      "person_id": 1,
+      "image_sha256": "c51e267b8455b95f7bb1450442b383a662715a186585c67b74f65d9b3fb41445",
+      "face_orientation": "front",
+      "visibility": "clear",
+      "note": "近正面，双眼与鼻口基本对称；主要面部区域无遮挡。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "gongfunvzu_0009",
+      "annotation_id": "gongfunvzu_0009_inherited",
+      "person_id": 1,
+      "image_sha256": "acff01f6151702bacf3433f52c955b0aae2beb9203dab3a767a743925b564e8e",
+      "face_orientation": "front",
+      "visibility": "clear",
+      "note": "近正面，双眼与鼻口基本对称；主要面部区域无遮挡。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "gongfunvzu_0009",
+      "annotation_id": "gongfunvzu_0009_assistant_multi_02",
+      "person_id": 2,
+      "image_sha256": "acff01f6151702bacf3433f52c955b0aae2beb9203dab3a767a743925b564e8e",
+      "face_orientation": "profile",
+      "visibility": "clear",
+      "note": "朝画面左方的近纯侧脸，仅一侧主要眼鼻轮廓。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "gongfunvzu_0010",
+      "annotation_id": "gongfunvzu_0010_inherited",
+      "person_id": 1,
+      "image_sha256": "4bf2e30af73a33f85aa6e5554310ddc466ca8a5519502b25713a625696585345",
+      "face_orientation": "three_quarter",
+      "visibility": "clear",
+      "note": "明显斜侧，仍可见两眼或大部分五官；主要面部区域可辨。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "gongfunvzu_0011",
+      "annotation_id": "gongfunvzu_0011_inherited",
+      "person_id": 1,
+      "image_sha256": "ea26662baae410fed162e0a1e193c4149615fa3f68c4ca9ca1cb2d1a166ddafa",
+      "face_orientation": "front",
+      "visibility": "clear",
+      "note": "远景人物面部较小但未见明显遮挡，双眼闭合属表情，不因小目标或闭眼归为模糊。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "gongfunvzu_0012",
+      "annotation_id": "gongfunvzu_0012_replacement_1",
+      "person_id": 1,
+      "image_sha256": "dc260665dc7981d8674e29917bb5c93d988085aa84383bac4cd4e81420a6c497",
+      "face_orientation": "front",
+      "visibility": "clear",
+      "note": "近正面，双眼与鼻口基本对称；主要面部区域无遮挡。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "gongfunvzu_0012",
+      "annotation_id": "gongfunvzu_0012_replacement_2",
+      "person_id": 2,
+      "image_sha256": "dc260665dc7981d8674e29917bb5c93d988085aa84383bac4cd4e81420a6c497",
+      "face_orientation": "three_quarter",
+      "visibility": "clear",
+      "note": "明显斜侧，仍可见两眼或大部分五官；主要面部区域可辨。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "gongfunvzu_0013",
+      "annotation_id": "gongfunvzu_0013_inherited",
+      "person_id": 1,
+      "image_sha256": "a201866cb72ab12c9cc29c5c966c2775bf4baea5e3986a7ee29a1095862031db",
+      "face_orientation": "three_quarter",
+      "visibility": "clear",
+      "note": "明显斜侧，仍可见两眼或大部分五官；主要面部区域可辨。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "gongfunvzu_0014",
+      "annotation_id": "gongfunvzu_0014_inherited",
+      "person_id": 1,
+      "image_sha256": "7e6a6ff503f9df5217c2590db37939b9ff4c0b8a2a4f660db96667f276e8802a",
+      "face_orientation": "front",
+      "visibility": "occluded_or_blurry",
+      "note": "近正面，黑色镜片遮住双眼，为明显面部遮挡。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "gongfunvzu_0015",
+      "annotation_id": "gongfunvzu_0015_inherited",
+      "person_id": 1,
+      "image_sha256": "a1caa7a84c596b5bd38b13b01b47856204e6700b5c76d6477ab69ee4a422c72a",
+      "face_orientation": "front",
+      "visibility": "clear",
+      "note": "近正面，双眼与鼻口基本对称；主要面部区域无遮挡。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "gongfunvzu_0016",
+      "annotation_id": "gongfunvzu_0016_inherited",
+      "person_id": 1,
+      "image_sha256": "65313795816f77202e48f3085290c0b259f1f4579d114a7cca12864541eec5c2",
+      "face_orientation": "three_quarter",
+      "visibility": "clear",
+      "note": "明显斜侧，仍可见两眼或大部分五官；主要面部区域可辨。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "gongfunvzu_0017",
+      "annotation_id": "gongfunvzu_0017_inherited",
+      "person_id": 1,
+      "image_sha256": "5f94843116515833aa1615785ed0a715c15bf5d9cf3f17f0359fe69390258cd7",
+      "face_orientation": "three_quarter",
+      "visibility": "clear",
+      "note": "明显斜侧，仍可见两眼或大部分五官；主要面部区域可辨。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "gongfunvzu_0018",
+      "annotation_id": "gongfunvzu_0018_inherited",
+      "person_id": 1,
+      "image_sha256": "63e24a02d011a6a2bc9a731a91e3d40fa64ad14893d9d757b12afe67b434de39",
+      "face_orientation": "front",
+      "visibility": "occluded_or_blurry",
+      "note": "面向镜头的动作画面，面部有运动虚化，双眼及鼻口细节偏软。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "gongfunvzu_0018",
+      "annotation_id": "gongfunvzu_0018_assistant_multi_02",
+      "person_id": 2,
+      "image_sha256": "63e24a02d011a6a2bc9a731a91e3d40fa64ad14893d9d757b12afe67b434de39",
+      "face_orientation": "three_quarter",
+      "visibility": "occluded_or_blurry",
+      "note": "斜侧动作画面，头脸有明显运动模糊；仍能判断朝向而不将朝向归为未知。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "gongfunvzu_0019",
+      "annotation_id": "gongfunvzu_0019_inherited",
+      "person_id": 1,
+      "image_sha256": "a2c85297931c1e161f3b56dea9b535c965611cb0fa7854f1a98fb331b8103dcf",
+      "face_orientation": "front",
+      "visibility": "clear",
+      "note": "俯头近正面；额头少量发丝，主要面部区域可见。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "gongfunvzu_0020",
+      "annotation_id": "gongfunvzu_0020_inherited",
+      "person_id": 1,
+      "image_sha256": "29e345871ffc48d31ffe02e2c22ac18ac176b816006e565fb3c4d3e4c0f9201c",
+      "face_orientation": "front",
+      "visibility": "clear",
+      "note": "眼神侧看但鼻梁和脸部朝向仍接近正面。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "gongfunvzu_0021",
+      "annotation_id": "gongfunvzu_0021_inherited",
+      "person_id": 1,
+      "image_sha256": "8c72fefa7c815664e8f22e04f23bae2bd67dc5c86e089566d417ad37fe49cd59",
+      "face_orientation": "front",
+      "visibility": "clear",
+      "note": "低头抬眼的近正面；俯仰不等同左右侧脸。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "gongfunvzu_0022",
+      "annotation_id": "gongfunvzu_0022_inherited",
+      "person_id": 1,
+      "image_sha256": "fef1fdc95cf7a66c0e78c0504930ca04f5bfa7b0277cff3bfdd72ee8033571a9",
+      "face_orientation": "three_quarter",
+      "visibility": "clear",
+      "note": "明显斜侧，仍可见两眼或大部分五官；主要面部区域可辨。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "gongfunvzu_0023",
+      "annotation_id": "gongfunvzu_0023_inherited",
+      "person_id": 1,
+      "image_sha256": "22783945b15a096ee21774f7482e423a1ff6f5fd2731e74eb32ac9188f7a50de",
+      "face_orientation": "three_quarter",
+      "visibility": "clear",
+      "note": "明显斜侧，仍可见两眼或大部分五官；主要面部区域可辨。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "gongfunvzu_0024",
+      "annotation_id": "gongfunvzu_0024_inherited",
+      "person_id": 1,
+      "image_sha256": "d1ef38c70629a80bfa4f24e7e1fbea8f587ef61a6bf124db4e683e1a9f92537a",
+      "face_orientation": "three_quarter",
+      "visibility": "clear",
+      "note": "明显斜侧，仍可见两眼或大部分五官；主要面部区域可辨。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "gongfunvzu_0025",
+      "annotation_id": "gongfunvzu_0025_inherited",
+      "person_id": 1,
+      "image_sha256": "bf8367bff1664ed3b3cada4e7d561d98a9b6e5f0d6828360170eda83bec5dd78",
+      "face_orientation": "front",
+      "visibility": "clear",
+      "note": "近正面，双眼与鼻口基本对称；主要面部区域无遮挡。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "gongfunvzu_0026",
+      "annotation_id": "gongfunvzu_0026_inherited",
+      "person_id": 1,
+      "image_sha256": "8483165992a243d254df426724eeb7fa2d48993cf9ea56f6dfe1e1db2a969e72",
+      "face_orientation": "three_quarter",
+      "visibility": "clear",
+      "note": "明显斜侧，仍可见两眼或大部分五官；主要面部区域可辨。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "gongfunvzu_0027",
+      "annotation_id": "gongfunvzu_0027_assistant_multi_01",
+      "person_id": 1,
+      "image_sha256": "806e4c82f54d96a10447d9a9ad163a6e5ce51613eac0653d5e43750e0f572422",
+      "face_orientation": "three_quarter",
+      "visibility": "clear",
+      "note": "明显斜侧，仍可见两眼或大部分五官；主要面部区域可辨。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "gongfunvzu_0027",
+      "annotation_id": "gongfunvzu_0027_assistant_multi_02",
+      "person_id": 2,
+      "image_sha256": "806e4c82f54d96a10447d9a9ad163a6e5ce51613eac0653d5e43750e0f572422",
+      "face_orientation": "profile",
+      "visibility": "clear",
+      "note": "朝画面左方纯侧面，鼻口轮廓和一侧眼可见。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "gongfunvzu_0028",
+      "annotation_id": "gongfunvzu_0028_inherited",
+      "person_id": 1,
+      "image_sha256": "43e8755be7ec6f09712b3a39d423d38b1f5ffc341d218097373ee3c81e1ce161",
+      "face_orientation": "three_quarter",
+      "visibility": "clear",
+      "note": "暖色较暗光线，五官仍可见；低照度本身未归为遮挡或模糊。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "gongfunvzu_0029",
+      "annotation_id": "gongfunvzu_0029_inherited",
+      "person_id": 1,
+      "image_sha256": "36e446209fda1ba58f021f028d754bb2148be254045428792d05614a02fbe8c2",
+      "face_orientation": "front",
+      "visibility": "clear",
+      "note": "双手放在头上，没有明显覆盖双眼、鼻口，面部可辨。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "gongfunvzu_0030",
+      "annotation_id": "gongfunvzu_0030_inherited",
+      "person_id": 1,
+      "image_sha256": "4e7cffa6b4dc2a87334d292fb685defaafb6da87a2e5780698af9514a9199004",
+      "face_orientation": "front",
+      "visibility": "clear",
+      "note": "近正面，双眼与鼻口基本对称；主要面部区域无遮挡。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "gongfunvzu_0030",
+      "annotation_id": "gongfunvzu_0030_assistant_multi_02",
+      "person_id": 2,
+      "image_sha256": "4e7cffa6b4dc2a87334d292fb685defaafb6da87a2e5780698af9514a9199004",
+      "face_orientation": "front",
+      "visibility": "clear",
+      "note": "手臂有运动拖影，面部双眼鼻口仍清楚，判面部可见性为clear。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "gongfunvzu_0031",
+      "annotation_id": "gongfunvzu_0031_inherited",
+      "person_id": 1,
+      "image_sha256": "afd5bac146fff95947c744c8900c956eae320055bd6906b9af80e8b6116ec6f7",
+      "face_orientation": "three_quarter",
+      "visibility": "clear",
+      "note": "明显斜侧，仍可见两眼或大部分五官；主要面部区域可辨。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "gongfunvzu_0032",
+      "annotation_id": "gongfunvzu_0032_inherited",
+      "person_id": 1,
+      "image_sha256": "fc8487d57d6aaeb81026c0b174fd79fd8e7871f4f039e6cda6acd433b41f8578",
+      "face_orientation": "front",
+      "visibility": "clear",
+      "note": "近正面，双眼与鼻口基本对称；主要面部区域无遮挡。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "gongfunvzu_0033",
+      "annotation_id": "gongfunvzu_0033_inherited",
+      "person_id": 1,
+      "image_sha256": "74114aebec4e771f09b203e83cf1eebc11051d582323bbf841a67776bb1be211",
+      "face_orientation": "three_quarter",
+      "visibility": "occluded_or_blurry",
+      "note": "斜侧脸，深色墨镜挡住双眼。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "gongfunvzu_0033",
+      "annotation_id": "gongfunvzu_0033_assistant_multi_03",
+      "person_id": 2,
+      "image_sha256": "74114aebec4e771f09b203e83cf1eebc11051d582323bbf841a67776bb1be211",
+      "face_orientation": "three_quarter",
+      "visibility": "occluded_or_blurry",
+      "note": "斜侧饮水画面，易拉罐覆盖嘴部和部分下脸，属明显局部遮挡。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "gongfunvzu_0034",
+      "annotation_id": "gongfunvzu_0034_inherited",
+      "person_id": 1,
+      "image_sha256": "c0e66da1983751e9dd0430e4fd2b440b99e835a332bac5d656e9fee5337cde36",
+      "face_orientation": "profile",
+      "visibility": "clear",
+      "note": "朝画面右方的近纯侧脸，鼻口侧轮廓明显。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "gongfunvzu_0034",
+      "annotation_id": "gongfunvzu_0034_assistant_multi_02",
+      "person_id": 2,
+      "image_sha256": "c0e66da1983751e9dd0430e4fd2b440b99e835a332bac5d656e9fee5337cde36",
+      "face_orientation": "profile",
+      "visibility": "clear",
+      "note": "低头侧身，能看到一侧完整眼鼻轮廓。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "gongfunvzu_0035",
+      "annotation_id": "gongfunvzu_0035_inherited",
+      "person_id": 1,
+      "image_sha256": "e64a989b0074edad0544e65e0f81e0a57f454c990c479759b4478cf530a3ce62",
+      "face_orientation": "front",
+      "visibility": "occluded_or_blurry",
+      "note": "近正面，前景深色衣肩遮住右侧下半脸的一部分。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "gongfunvzu_0036",
+      "annotation_id": "gongfunvzu_0036_inherited",
+      "person_id": 1,
+      "image_sha256": "30e4273602618ace602049fef7af22d673f570edfca874bb3b2c28620f665ce8",
+      "face_orientation": "front",
+      "visibility": "clear",
+      "note": "仰头近正面，眼睛闭合为表情；伤痕和光线没有明显遮住主要五官。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "gongfunvzu_0037",
+      "annotation_id": "gongfunvzu_0037_inherited",
+      "person_id": 1,
+      "image_sha256": "d180fa7f0967c4b6542595e32d9504ad9eef8c49c7321e6e9d62b9849ccc3479",
+      "face_orientation": "three_quarter",
+      "visibility": "clear",
+      "note": "明显斜侧，仍可见两眼或大部分五官；主要面部区域可辨。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "gongfunvzu_0038",
+      "annotation_id": "gongfunvzu_0038_inherited",
+      "person_id": 1,
+      "image_sha256": "319bc211272cb0bc9efd76b3aa10f5ee65c6880c20d2b6d94c9ce9bcb944a140",
+      "face_orientation": "three_quarter",
+      "visibility": "clear",
+      "note": "明显斜侧，仍可见两眼或大部分五官；主要面部区域可辨。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "gongfunvzu_0039",
+      "annotation_id": "gongfunvzu_0039_inherited",
+      "person_id": 1,
+      "image_sha256": "95ed1754cd081aecd0366e0e088522bde7e623d1d85722fb2103b38056934a8b",
+      "face_orientation": "three_quarter",
+      "visibility": "clear",
+      "note": "低头斜侧，双眼闭合不单独算遮挡。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "gongfunvzu_0040",
+      "annotation_id": "gongfunvzu_0040_inherited",
+      "person_id": 1,
+      "image_sha256": "41af515976d04675bba33b8c7be06f004f680941659301b5d002f6632cb6b345",
+      "face_orientation": "front",
+      "visibility": "clear",
+      "note": "近正面，双眼与鼻口基本对称；主要面部区域无遮挡。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "jianlai_0001",
+      "annotation_id": "jianlai_0001_inherited",
+      "person_id": 1,
+      "image_sha256": "5fa816d4782cc30a4978ec62fb0a59dd9c57324ef288994ba84e4ea102462303",
+      "face_orientation": "front",
+      "visibility": "clear",
+      "note": "俯视镜头下轻微歪头近正面，双眼与鼻口仍基本对称。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "jianlai_0001",
+      "annotation_id": "jianlai_0001_right",
+      "person_id": 2,
+      "image_sha256": "5fa816d4782cc30a4978ec62fb0a59dd9c57324ef288994ba84e4ea102462303",
+      "face_orientation": "profile",
+      "visibility": "clear",
+      "note": "低头朝画面左侧，仅一侧主要面部轮廓可见。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "jianlai_0002",
+      "annotation_id": "jianlai_0002_multi_review_1",
+      "person_id": 1,
+      "image_sha256": "89d873bae09eefef4acddff8ffe807aca4ad037ae42d8e40b2769a19f1a1c263",
+      "face_orientation": "front",
+      "visibility": "clear",
+      "note": "仰头看镜头但左右朝向近正面，俯仰不作为侧脸。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "jianlai_0002",
+      "annotation_id": "jianlai_0002_inherited",
+      "person_id": 2,
+      "image_sha256": "89d873bae09eefef4acddff8ffe807aca4ad037ae42d8e40b2769a19f1a1c263",
+      "face_orientation": "three_quarter",
+      "visibility": "clear",
+      "note": "明显斜侧，仍可见两眼或大部分五官；主要面部区域可辨。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "jianlai_0003",
+      "annotation_id": "jianlai_0003_inherited",
+      "person_id": 1,
+      "image_sha256": "7bc449b2e0b0fb785474013fc5194eaf402e180ab785203eb842d6c411758dc4",
+      "face_orientation": "front",
+      "visibility": "clear",
+      "note": "近正面，双眼与鼻口基本对称；主要面部区域无遮挡。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "jianlai_0004",
+      "annotation_id": "jianlai_0004_inherited",
+      "person_id": 1,
+      "image_sha256": "9582120038e0d94f187ae09b1512b3954e14603f05db48b967835bb4dafff8fb",
+      "face_orientation": "three_quarter",
+      "visibility": "clear",
+      "note": "斜侧脸，帽子边缘在额头上方，主要双眼鼻口可见。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "jianlai_0005",
+      "annotation_id": "jianlai_0005_inherited",
+      "person_id": 1,
+      "image_sha256": "da54f62ba8622cbc60381c04375c263e19cc287b03dd95c4eee9aa0a99776511",
+      "face_orientation": "profile",
+      "visibility": "clear",
+      "note": "低头读物的近纯侧脸，可见一侧眼和鼻口侧轮廓。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "jianlai_0006",
+      "annotation_id": "jianlai_0006_inherited",
+      "person_id": 1,
+      "image_sha256": "73742967fff7f1818239fea2edfffb8a02e1f9789e78b0157967f40a2fad2896",
+      "face_orientation": "not_visible",
+      "visibility": "occluded_or_blurry",
+      "note": "斗笠遮住眼睛和额头，无法可靠区分近正面与斜侧，朝向保守标not_visible；下半脸可见。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "jianlai_0007",
+      "annotation_id": "jianlai_0007_multi_review_1",
+      "person_id": 1,
+      "image_sha256": "9f55f4400f1c0e90b9bef67e98db9260caaebd3da930063eac5c8cf5932bc38f",
+      "face_orientation": "profile",
+      "visibility": "clear",
+      "note": "头朝画面右方近纯侧，后脑和单侧眼鼻轮廓明显。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "jianlai_0007",
+      "annotation_id": "jianlai_0007_inherited",
+      "person_id": 2,
+      "image_sha256": "9f55f4400f1c0e90b9bef67e98db9260caaebd3da930063eac5c8cf5932bc38f",
+      "face_orientation": "three_quarter",
+      "visibility": "clear",
+      "note": "明显斜侧，仍可见两眼或大部分五官；主要面部区域可辨。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "jianlai_0008",
+      "annotation_id": "jianlai_0008_inherited",
+      "person_id": 1,
+      "image_sha256": "d2dbc73287d6fb732c119cec9b08ba6e75b8b74a938320f15863f0074fb5a88f",
+      "face_orientation": "three_quarter",
+      "visibility": "clear",
+      "note": "斜侧脸，斗笠产生斑驳光影但没有遮住主要面部区域。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "jianlai_0009",
+      "annotation_id": "jianlai_0009_inherited",
+      "person_id": 1,
+      "image_sha256": "25a0b95524c83309fd1d81bd4636c7fac2a4d2f60b6b6c02fd9e1688ae0230a3",
+      "face_orientation": "three_quarter",
+      "visibility": "clear",
+      "note": "明显斜侧，仍可见两眼或大部分五官；主要面部区域可辨。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "jianlai_0010",
+      "annotation_id": "jianlai_0010_inherited",
+      "person_id": 1,
+      "image_sha256": "3d873063a2a6bf440263aec773e2f8d2aaf747f971ed7c1724ed02bdec227197",
+      "face_orientation": "three_quarter",
+      "visibility": "clear",
+      "note": "明显斜侧，仍可见两眼或大部分五官；主要面部区域可辨。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "jianlai_0010",
+      "annotation_id": "jianlai_0010_multi_review_3",
+      "person_id": 2,
+      "image_sha256": "3d873063a2a6bf440263aec773e2f8d2aaf747f971ed7c1724ed02bdec227197",
+      "face_orientation": "profile",
+      "visibility": "clear",
+      "note": "弯身低头朝画面左方近纯侧，可见单侧眼鼻口轮廓。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "jianlai_0011",
+      "annotation_id": "jianlai_0011_multi_review_1",
+      "person_id": 1,
+      "image_sha256": "bc102b316ad158e2aa99c9afc895c263e065851e822908aec6b3289c349990d5",
+      "face_orientation": "three_quarter",
+      "visibility": "clear",
+      "note": "明显斜侧，仍可见两眼或大部分五官；主要面部区域可辨。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "jianlai_0011",
+      "annotation_id": "jianlai_0011_inherited",
+      "person_id": 2,
+      "image_sha256": "bc102b316ad158e2aa99c9afc895c263e065851e822908aec6b3289c349990d5",
+      "face_orientation": "three_quarter",
+      "visibility": "clear",
+      "note": "明显斜侧，仍可见两眼或大部分五官；主要面部区域可辨。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "jianlai_0012",
+      "annotation_id": "jianlai_0012_multi_review_2",
+      "person_id": 1,
+      "image_sha256": "7e5a104af7b592492d1ee2493382a656e683434fb187bc1038de79cd090ae669",
+      "face_orientation": "three_quarter",
+      "visibility": "clear",
+      "note": "朝画面左方的斜侧脸，仍可见两眼和大部分脸部平面。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "jianlai_0012",
+      "annotation_id": "jianlai_0012_inherited",
+      "person_id": 2,
+      "image_sha256": "7e5a104af7b592492d1ee2493382a656e683434fb187bc1038de79cd090ae669",
+      "face_orientation": "three_quarter",
+      "visibility": "clear",
+      "note": "明显斜侧，仍可见两眼或大部分五官；主要面部区域可辨。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "jianlai_0013",
+      "annotation_id": "jianlai_0013_inherited",
+      "person_id": 1,
+      "image_sha256": "d910838d6fc6cdf6cb1d7b3210eb255bd57b04820c5adfc93129fb6eb6a4e7e6",
+      "face_orientation": "three_quarter",
+      "visibility": "clear",
+      "note": "轻斜侧闭眼；帽缘未明显盖住面部，闭眼不视为遮挡。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "jianlai_0014",
+      "annotation_id": "jianlai_0014_inherited",
+      "person_id": 1,
+      "image_sha256": "ebe23660e17cf0e93a99dc333d7b925cc39a687947b260c776cb201d930d2674",
+      "face_orientation": "three_quarter",
+      "visibility": "clear",
+      "note": "斜侧抬帽，帽檐高于双眼，主要五官可见。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "jianlai_0015",
+      "annotation_id": "jianlai_0015_inherited",
+      "person_id": 1,
+      "image_sha256": "8f5281c7c2831f84f524cea1006f7a59722aa5587ac002177d2b06f10b7aceba",
+      "face_orientation": "three_quarter",
+      "visibility": "clear",
+      "note": "明显斜侧，仍可见两眼或大部分五官；主要面部区域可辨。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "jianlai_0016",
+      "annotation_id": "jianlai_0016_inherited",
+      "person_id": 1,
+      "image_sha256": "a008e0531f2cbfc49fea84ea0df4cd9ad14f6d3d6c4f4bbe17f34e3c6dac6a56",
+      "face_orientation": "front",
+      "visibility": "clear",
+      "note": "近正面，双眼与鼻口基本对称；主要面部区域无遮挡。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "jianlai_0016",
+      "annotation_id": "jianlai_0016_multi_review_2",
+      "person_id": 2,
+      "image_sha256": "a008e0531f2cbfc49fea84ea0df4cd9ad14f6d3d6c4f4bbe17f34e3c6dac6a56",
+      "face_orientation": "profile",
+      "visibility": "clear",
+      "note": "朝画面左方近纯侧，鼻口轮廓和单侧眼清楚。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "jianlai_0017",
+      "annotation_id": "jianlai_0017_multi_review_1",
+      "person_id": 1,
+      "image_sha256": "e6e7da9226179b511165ead99abe7c6f930cc392a0c2d926a851636f10a92f8c",
+      "face_orientation": "three_quarter",
+      "visibility": "clear",
+      "note": "明显斜侧，仍可见两眼或大部分五官；主要面部区域可辨。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "jianlai_0017",
+      "annotation_id": "jianlai_0017_inherited",
+      "person_id": 2,
+      "image_sha256": "e6e7da9226179b511165ead99abe7c6f930cc392a0c2d926a851636f10a92f8c",
+      "face_orientation": "front",
+      "visibility": "clear",
+      "note": "近正面，双眼与鼻口基本对称；主要面部区域无遮挡。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "jianlai_0018",
+      "annotation_id": "jianlai_0018_inherited",
+      "person_id": 1,
+      "image_sha256": "48096ab0d257d58a3faa69c1df433ba603c08cd8554abdfcf1913fe4dd80b9aa",
+      "face_orientation": "profile",
+      "visibility": "clear",
+      "note": "低头朝画面右方近纯侧；俯仰与左右侧转分别判断。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "jianlai_0018",
+      "annotation_id": "jianlai_0018_multi_review_2",
+      "person_id": 2,
+      "image_sha256": "48096ab0d257d58a3faa69c1df433ba603c08cd8554abdfcf1913fe4dd80b9aa",
+      "face_orientation": "front",
+      "visibility": "clear",
+      "note": "近正面，双眼与鼻口基本对称；主要面部区域无遮挡。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "jianlai_0019",
+      "annotation_id": "jianlai_0019_inherited",
+      "person_id": 1,
+      "image_sha256": "8df4c28c90e3e57acc146d51a5cd100b1ce1a190d132ea9394348e42ef612669",
+      "face_orientation": "front",
+      "visibility": "clear",
+      "note": "仰头近正面，闭眼为表情，面部清楚。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "jianlai_0019",
+      "annotation_id": "jianlai_0019_multi_review_2",
+      "person_id": 2,
+      "image_sha256": "8df4c28c90e3e57acc146d51a5cd100b1ce1a190d132ea9394348e42ef612669",
+      "face_orientation": "three_quarter",
+      "visibility": "clear",
+      "note": "明显斜侧，仍可见两眼或大部分五官；主要面部区域可辨。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "jianlai_0020",
+      "annotation_id": "jianlai_0020_inherited",
+      "person_id": 1,
+      "image_sha256": "747330f318e03605e6365cc06c17ab1b553e0dd3e6cf51f554a8b58f997dd426",
+      "face_orientation": "front",
+      "visibility": "clear",
+      "note": "近正面，双眼与鼻口基本对称；主要面部区域无遮挡。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "jianlai_0021",
+      "annotation_id": "jianlai_0021_inherited",
+      "person_id": 1,
+      "image_sha256": "f013f37fa1f4d5181ba3cd29753bc275749ac3bcca6cd4e264b0b41d175d7ebd",
+      "face_orientation": "three_quarter",
+      "visibility": "clear",
+      "note": "明显斜侧，仍可见两眼或大部分五官；主要面部区域可辨。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "jianlai_0021",
+      "annotation_id": "jianlai_0021_multi_review_2",
+      "person_id": 2,
+      "image_sha256": "f013f37fa1f4d5181ba3cd29753bc275749ac3bcca6cd4e264b0b41d175d7ebd",
+      "face_orientation": "three_quarter",
+      "visibility": "clear",
+      "note": "明显斜侧，仍可见两眼或大部分五官；主要面部区域可辨。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "jianlai_0022",
+      "annotation_id": "jianlai_0022_inherited",
+      "person_id": 1,
+      "image_sha256": "61e5a063c6817123fcf200a79424ab1c7a28ad1d5f9fa5d5d488f5a51e6c5083",
+      "face_orientation": "three_quarter",
+      "visibility": "clear",
+      "note": "明显斜侧，仍可见两眼或大部分五官；主要面部区域可辨。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "jianlai_0023",
+      "annotation_id": "jianlai_0023_inherited",
+      "person_id": 1,
+      "image_sha256": "a7b62cdb4b06b1e550a7d42a69a64be6296ffc74a6b1967815811547dc92891a",
+      "face_orientation": "profile",
+      "visibility": "clear",
+      "note": "女孩朝画面右方纯侧面，仅一侧眼鼻轮廓。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "jianlai_0024",
+      "annotation_id": "jianlai_0024_multi_review_1",
+      "person_id": 1,
+      "image_sha256": "5278cf9a6eb484693da73131050fbe87db6b6fb775e904896c0cc9891c19ff5d",
+      "face_orientation": "three_quarter",
+      "visibility": "clear",
+      "note": "明显斜侧，仍可见两眼或大部分五官；主要面部区域可辨。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "jianlai_0024",
+      "annotation_id": "jianlai_0024_inherited",
+      "person_id": 2,
+      "image_sha256": "5278cf9a6eb484693da73131050fbe87db6b6fb775e904896c0cc9891c19ff5d",
+      "face_orientation": "three_quarter",
+      "visibility": "occluded_or_blurry",
+      "note": "斜侧脸，帽耳下垂和抬手共同遮住额头与部分眼部。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "jianlai_0025",
+      "annotation_id": "jianlai_0025_inherited",
+      "person_id": 1,
+      "image_sha256": "343a18edd489a2caed1e180c73a1d48530af147a86054441e0e6654c8b59231b",
+      "face_orientation": "not_visible",
+      "visibility": "occluded_or_blurry",
+      "note": "斗笠遮住双眼和上半脸，难以可靠区分近正面/斜侧，保守标not_visible。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "jianlai_0026",
+      "annotation_id": "jianlai_0026_inherited",
+      "person_id": 1,
+      "image_sha256": "ca115510dc63b4052a6aa15d32051df076f59da907e1948f347ab94e4114524d",
+      "face_orientation": "front",
+      "visibility": "clear",
+      "note": "近正面，双眼与鼻口基本对称；主要面部区域无遮挡。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "jianlai_0026",
+      "annotation_id": "jianlai_0026_multi_review_2",
+      "person_id": 2,
+      "image_sha256": "ca115510dc63b4052a6aa15d32051df076f59da907e1948f347ab94e4114524d",
+      "face_orientation": "front",
+      "visibility": "clear",
+      "note": "近正面，双眼与鼻口基本对称；主要面部区域无遮挡。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "jianlai_0027",
+      "annotation_id": "jianlai_0027_inherited",
+      "person_id": 1,
+      "image_sha256": "7784ef6b3ffaa89909b4b4ba46435ec2a42779d09f80da60a08e9add51522b79",
+      "face_orientation": "front",
+      "visibility": "clear",
+      "note": "近正面，双眼与鼻口基本对称；主要面部区域无遮挡。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "jianlai_0028",
+      "annotation_id": "jianlai_0028_inherited",
+      "person_id": 1,
+      "image_sha256": "71dd3ed8dc34d1e263488ccec1739aae717eae5b052d0ec1c87def9c703fd7e7",
+      "face_orientation": "profile",
+      "visibility": "clear",
+      "note": "朝画面右方的纯侧面，单侧眼与鼻口轮廓清晰。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "jianlai_0028",
+      "annotation_id": "jianlai_0028_multi_review_2",
+      "person_id": 2,
+      "image_sha256": "71dd3ed8dc34d1e263488ccec1739aae717eae5b052d0ec1c87def9c703fd7e7",
+      "face_orientation": "three_quarter",
+      "visibility": "clear",
+      "note": "明显斜侧，仍可见两眼或大部分五官；主要面部区域可辨。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "jianlai_0029",
+      "annotation_id": "jianlai_0029_inherited",
+      "person_id": 1,
+      "image_sha256": "d7d7d8c43fd4e3c49568fbd0ab09783462573762caae2419b2dd54df7469f82b",
+      "face_orientation": "front",
+      "visibility": "clear",
+      "note": "手指在眼下脸颊旁，未明显覆盖眼鼻口，面部可见。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "jianlai_0030",
+      "annotation_id": "jianlai_0030_inherited",
+      "person_id": 1,
+      "image_sha256": "5333e92b63eb60db3f8eac2b56d2e2d8f111be741b0c7074d1554217ba0bb30a",
+      "face_orientation": "three_quarter",
+      "visibility": "clear",
+      "note": "明显斜侧，仍可见两眼或大部分五官；主要面部区域可辨。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "jianlai_0031",
+      "annotation_id": "jianlai_0031_multi_review_1",
+      "person_id": 1,
+      "image_sha256": "d05d56bb3a9a3b1720c6520a00f89cc57b1f3df0d948fd48bdfd7e426615b6ba",
+      "face_orientation": "profile",
+      "visibility": "clear",
+      "note": "朝画面右方近纯侧脸，单侧轮廓清楚。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "jianlai_0031",
+      "annotation_id": "jianlai_0031_inherited",
+      "person_id": 2,
+      "image_sha256": "d05d56bb3a9a3b1720c6520a00f89cc57b1f3df0d948fd48bdfd7e426615b6ba",
+      "face_orientation": "profile",
+      "visibility": "clear",
+      "note": "朝画面左方近纯侧脸，单侧眼鼻和耳廓可见。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "jianlai_0032",
+      "annotation_id": "jianlai_0032_multi_review_2",
+      "person_id": 1,
+      "image_sha256": "4941333f3f65fbd319f21ec14ff9e5a6fc84a387a0e38f4e81237eb4ba07ce22",
+      "face_orientation": "front",
+      "visibility": "clear",
+      "note": "俯视与歪头状态，左右脸部仍接近正面。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "jianlai_0032",
+      "annotation_id": "jianlai_0032_multi_review_3",
+      "person_id": 2,
+      "image_sha256": "4941333f3f65fbd319f21ec14ff9e5a6fc84a387a0e38f4e81237eb4ba07ce22",
+      "face_orientation": "three_quarter",
+      "visibility": "clear",
+      "note": "明显斜侧，仍可见两眼或大部分五官；主要面部区域可辨。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "jianlai_0032",
+      "annotation_id": "jianlai_0032_inherited",
+      "person_id": 3,
+      "image_sha256": "4941333f3f65fbd319f21ec14ff9e5a6fc84a387a0e38f4e81237eb4ba07ce22",
+      "face_orientation": "three_quarter",
+      "visibility": "clear",
+      "note": "明显斜侧，仍可见两眼或大部分五官；主要面部区域可辨。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "jianlai_0033",
+      "annotation_id": "jianlai_0033_inherited",
+      "person_id": 1,
+      "image_sha256": "5ef455ac5be98ff38cae70701b2d31ee3e3ba7e4abc8c88bb22782b9b8073856",
+      "face_orientation": "three_quarter",
+      "visibility": "clear",
+      "note": "斜侧托下巴，手指没有明显遮住主要五官。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "jianlai_0034",
+      "annotation_id": "jianlai_0034_inherited",
+      "person_id": 1,
+      "image_sha256": "0124d15f29bd5f81eae662020f4d489b31299fb4fc986774dd40624958578d1f",
+      "face_orientation": "front",
+      "visibility": "occluded_or_blurry",
+      "note": "转身动作中的近正面，脸部轮廓及眼鼻细节有运动虚化。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "jianlai_0035",
+      "annotation_id": "jianlai_0035_multi_review_1",
+      "person_id": 1,
+      "image_sha256": "52d366586404a6ae5c8325f6a814cafc5937a032b62b590e07cf3337501491d3",
+      "face_orientation": "profile",
+      "visibility": "clear",
+      "note": "朝画面右方纯侧面，单侧眼鼻口轮廓清晰。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "jianlai_0035",
+      "annotation_id": "jianlai_0035_multi_review_2",
+      "person_id": 2,
+      "image_sha256": "52d366586404a6ae5c8325f6a814cafc5937a032b62b590e07cf3337501491d3",
+      "face_orientation": "three_quarter",
+      "visibility": "clear",
+      "note": "低机位仰视的斜侧脸，可见大部五官；没有按俯仰误判为背面。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "jianlai_0035",
+      "annotation_id": "jianlai_0035_inherited",
+      "person_id": 3,
+      "image_sha256": "52d366586404a6ae5c8325f6a814cafc5937a032b62b590e07cf3337501491d3",
+      "face_orientation": "three_quarter",
+      "visibility": "clear",
+      "note": "明显斜侧，仍可见两眼或大部分五官；主要面部区域可辨。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "jianlai_0036",
+      "annotation_id": "jianlai_0036_inherited",
+      "person_id": 1,
+      "image_sha256": "011da6fcaf106d27de84a52a1897b17fd5dd79f8c88c41112ffa1aa39c74852e",
+      "face_orientation": "front",
+      "visibility": "clear",
+      "note": "近正面，双眼与鼻口基本对称；主要面部区域无遮挡。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "jianlai_0037",
+      "annotation_id": "jianlai_0037_multi_review_1",
+      "person_id": 1,
+      "image_sha256": "63f3670bdcd30a5b4e3538e1496b80368f933b99fe2e50271a4b08f8f1c61354",
+      "face_orientation": "three_quarter",
+      "visibility": "clear",
+      "note": "回头看右侧，脸为斜侧，两眼仍可见。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "jianlai_0037",
+      "annotation_id": "jianlai_0037_inherited",
+      "person_id": 2,
+      "image_sha256": "63f3670bdcd30a5b4e3538e1496b80368f933b99fe2e50271a4b08f8f1c61354",
+      "face_orientation": "front",
+      "visibility": "clear",
+      "note": "近正面，双眼与鼻口基本对称；主要面部区域无遮挡。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "jianlai_0037",
+      "annotation_id": "jianlai_0037_multi_review_3",
+      "person_id": 3,
+      "image_sha256": "63f3670bdcd30a5b4e3538e1496b80368f933b99fe2e50271a4b08f8f1c61354",
+      "face_orientation": "profile",
+      "visibility": "occluded_or_blurry",
+      "note": "前景白衣男子为近纯侧面，面部有明显景深虚焦。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "jianlai_0038",
+      "annotation_id": "jianlai_0038_inherited",
+      "person_id": 1,
+      "image_sha256": "1214f1ff24d366fccf9ac8822d01e96eb9da8e945f84742b55caefc0683605f5",
+      "face_orientation": "front",
+      "visibility": "clear",
+      "note": "近正面，双眼与鼻口基本对称；主要面部区域无遮挡。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "jianlai_0039",
+      "annotation_id": "jianlai_0039_multi_review_1",
+      "person_id": 1,
+      "image_sha256": "85f04a39783cbccd6e2e4308cf996ea43f0bb39941caf4cd47c6f672a839b86a",
+      "face_orientation": "front",
+      "visibility": "clear",
+      "note": "近正面，双眼与鼻口基本对称；主要面部区域无遮挡。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "jianlai_0039",
+      "annotation_id": "jianlai_0039_inherited",
+      "person_id": 2,
+      "image_sha256": "85f04a39783cbccd6e2e4308cf996ea43f0bb39941caf4cd47c6f672a839b86a",
+      "face_orientation": "front",
+      "visibility": "clear",
+      "note": "近正面，双眼与鼻口基本对称；主要面部区域无遮挡。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "jianlai_0040",
+      "annotation_id": "jianlai_0040_inherited",
+      "person_id": 1,
+      "image_sha256": "344d14e3986215fbc3ae907617353ec4c9049ce59c66d3349fa0fa1f3a789cb3",
+      "face_orientation": "front",
+      "visibility": "clear",
+      "note": "仰头的近正面，双眼基本对称，俯仰与左右侧转分开。",
+      "reviewer": "assistant"
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+﻿model_id,person_accuracy_delta_B_minus_A,paired_verified_targets,mcnemar_e2e_b,mcnemar_e2e_c,mcnemar_e2e_n_discordant,mcnemar_e2e_statistic,mcnemar_e2e_p_value,mcnemar_e2e_method
+deepseek-flash,0.23188405797101447,207,48,0,48,0,7.105427357601002e-15,binomial_exact(scipy)
+glm-4.6v,0.17391304347826086,207,36,0,36,0,2.9103830456733704e-11,binomial_exact(scipy)
+glm-5.3-flash,0.1642512077294686,207,34,0,34,0,1.1641532182693481e-10,binomial_exact(scipy)
+kimi-k3.1-pro,0.06763285024154592,207,14,0,14,0,0.0001220703125,binomial_exact(scipy)
+qwen3.7-plus,0.08212560386473428,207,21,4,25,4,0.0009105205535888672,binomial_exact(scipy)
+qwen3.8-flash,0.0579710144927536,207,29,17,46,17,0.10380535550410741,binomial_exact(scipy)
+qwen3.8-max,0.019323671497584516,207,5,1,6,1,0.21875,binomial_exact(scipy)

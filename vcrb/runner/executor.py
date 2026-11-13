@@ -121,6 +121,10 @@ def execute_run(
     raw_dir: Path | None = None,
     retry_failed: bool = False,
     progress_cb: Callable[[int, str], None] | None = None,
+    input_builder: Callable | None = None,
+    system_prompt: str = SYSTEM_PROMPT,
+    max_new_tasks: int | None = None,
+    sample_first: bool = False,
 ) -> RunSummary:
     """Run calls with bounded optional concurrency; all persistence stays here.
 
@@ -149,7 +153,7 @@ def execute_run(
             summary.errors.append(f"{sample.sample_id}: 图片缺失 {src}")
             continue
         dst = marked_dir / f"{sample.sample_id}.jpg"
-        if not dst.exists():
+        if input_builder is None and not dst.exists():
             draw_target_box(src, dst, sample.target_bbox)
         marked_paths[sample.sample_id] = dst
 
@@ -165,37 +169,56 @@ def execute_run(
     pending = []
     for model, provider in tasks:
         calls = deque()
-        for exp in experiments:
+        pairs = ((exp, sample) for sample in samples for exp in experiments) if sample_first else (
+            (exp, sample) for exp in experiments for sample in samples
+        )
+        for exp, sample in pairs:
             exp_norm = exp.upper()
-            for sample in samples:
-                key = (model.id, exp_norm, sample.sample_id)
-                if key in ok_keys:
-                    summary.skipped_existing += 1
-                    done += 1
-                    continue
-                if not retry_failed and key in failed_keys:
-                    # 已有失败记录且未要求重试：不重复付费调用
-                    summary.skipped_existing += 1
-                    done += 1
-                    continue
-                marked = marked_paths.get(sample.sample_id)
-                if marked is None:
-                    summary.errors.append(f"{sample.sample_id}: 无标注图，跳过")
-                    done += 1
-                    continue
-                work = works_by_slug.get(sample.work_slug)
-                if exp_norm == "B" and work is None:
-                    summary.errors.append(f"{sample.sample_id}: 未知作品 {sample.work_slug}")
-                    done += 1
-                    continue
-                calls.append((model, provider, exp_norm, sample, marked, work))
+            key = (model.id, exp_norm, sample.sample_id)
+            if key in ok_keys:
+                summary.skipped_existing += 1
+                done += 1
+                continue
+            if not retry_failed and key in failed_keys:
+                # 已有失败记录且未要求重试：不重复付费调用
+                summary.skipped_existing += 1
+                done += 1
+                continue
+            marked = marked_paths.get(sample.sample_id)
+            if marked is None:
+                summary.errors.append(f"{sample.sample_id}: 无标注图，跳过")
+                done += 1
+                continue
+            work = works_by_slug.get(sample.work_slug)
+            if exp_norm in ("B", "C") and work is None:
+                summary.errors.append(f"{sample.sample_id}: 未知作品 {sample.work_slug}")
+                done += 1
+                continue
+            calls.append((model, provider, exp_norm, sample, marked, work))
         pending.append(calls)
+
+    if max_new_tasks is not None:
+        if max_new_tasks < 0:
+            raise ValueError("max_new_tasks must be nonnegative")
+        # Round-robin the per-model queues, preserving bounded fairness and
+        # the existing idempotent task keys when a request/budget cap is used.
+        limited = [deque() for _ in pending]
+        remaining = max_new_tasks
+        while remaining and any(pending):
+            for index, calls in enumerate(pending):
+                if calls and remaining:
+                    limited[index].append(calls.popleft())
+                    remaining -= 1
+        pending = limited
 
     image_cache: dict[str, tuple[str, dict[str, Any]]] = {}
     prompt_cache: dict[tuple[str, str], str] = {}
 
     def prepare(call):
         model, provider, exp_norm, sample, marked, work = call
+        if input_builder is not None:
+            prompt, data_url, img_meta = input_builder(sample, exp_norm, work)
+            return model, provider, exp_norm, sample, prompt, data_url, img_meta
         prompt_key = (exp_norm, sample.work_slug if exp_norm == "B" else "")
         if prompt_key not in prompt_cache:
             prompt_cache[prompt_key] = build_user_prompt(
@@ -209,7 +232,7 @@ def execute_run(
     def invoke(prepared):
         model, provider, _exp, _sample, prompt, data_url, _meta = prepared
         try:
-            return provider.recognize(model, data_url, SYSTEM_PROMPT, prompt, gen)
+            return provider.recognize(model, data_url, system_prompt, prompt, gen)
         except Exception as exc:
             # Expected HTTP failures are classified by the adapter. Do not print
             # unexpected exception text, which could contain request credentials.
@@ -229,7 +252,7 @@ def execute_run(
             "model_id": model.id,
             "request": {
                 "model": model.id,
-                "system": SYSTEM_PROMPT,
+                "system": system_prompt,
                 "user": prompt,
                 model.params.get("token_limit_parameter", "max_tokens"): gen.max_tokens,
                 "temperature": gen.temperature if model.passes_temperature else None,

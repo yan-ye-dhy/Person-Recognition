@@ -44,6 +44,8 @@ app.add_typer(collect_app, name="collect")
 app.add_typer(roster_app, name="roster")
 app.add_typer(review_app, name="review")
 app.add_typer(screen_app, name="screen")
+from .multi.cli import app as multi_app
+app.add_typer(multi_app, name="multi")
 
 console = Console()
 

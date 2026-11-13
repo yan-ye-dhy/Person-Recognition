@@ -29,6 +29,7 @@ from .errors import classify_exception, error_summary
 
 class OpenAICompatProvider(VisionProvider):
     name = "openai_compat"
+    supports_attempt_observer = True
     MAX_AUTOMATIC_RETRY_WAIT_SECONDS = 120.0
 
     def __init__(
@@ -76,7 +77,6 @@ class OpenAICompatProvider(VisionProvider):
                 remaining = interval - (time.monotonic() - previous)
                 if remaining > 0:
                     self._sleeper(remaining)
-            self._last_request_started[model_id] = time.monotonic()
             yield
 
     @staticmethod
@@ -171,7 +171,14 @@ class OpenAICompatProvider(VisionProvider):
         system_prompt: str,
         user_prompt: str,
         gen: GenerationParams,
+        *,
+        attempt_observer: Any = None,
     ) -> ProviderResult:
+        """可选观察器在实际 HTTP 前预留、结束后结算；默认 v1 不启用。
+
+        观察器失败直接向上抛出，不能被分类成可重试的 API 错误。SDK 自身
+        的重试已关闭，所以每对 before/after 恰好对应一次客户端 HTTP 调用。
+        """
         messages = self.build_messages(image_data_url, system_prompt, user_prompt)
         kwargs = self.build_request_kwargs(model, messages, gen)
         client = self._get_client()
@@ -180,19 +187,37 @@ class OpenAICompatProvider(VisionProvider):
         total_latency = 0
         while attempts < self.max_attempts:
             attempts += 1
-            start = time.monotonic()
-            try:
-                with self._http_attempt_slot(model.id):
-                    start = time.monotonic()
+            error: BaseException | None = None
+            result = None
+            with self._http_attempt_slot(model.id):
+                receipt = (attempt_observer.before_attempt(model, image_data_url, user_prompt, attempts)
+                           if attempt_observer is not None else None)
+                start = time.monotonic()
+                if self._min_intervals.get(model.id, 0.0) > 0:
+                    # Budget admission can take time; rate limiting measures
+                    # the actual HTTP start, after admission, under the slot lock.
+                    self._last_request_started[model.id] = start
+                try:
                     resp = client.chat.completions.create(**kwargs)
+                except BaseException as exc:  # interrupt still retains the admitted attempt
+                    error = exc
                 total_latency += int((time.monotonic() - start) * 1000)
-                return self._parse_response(resp, attempts, total_latency)
-            except Exception as exc:  # noqa: BLE001 - 统一分类
-                total_latency += int((time.monotonic() - start) * 1000)
-                error_type, retryable = classify_exception(exc)
+            if error is None:
+                try:
+                    result = self._parse_response(resp, attempts, total_latency)
+                except BaseException as exc:
+                    error = exc
+            if attempt_observer is not None:
+                attempt_observer.after_attempt(receipt, model, result=result, error=error)
+            if error is None:
+                return result
+            if not isinstance(error, Exception):
+                raise error
+            else:
+                error_type, retryable = classify_exception(error)
                 deferred_note = ""
                 if retryable and attempts < self.max_attempts:
-                    retry_after = self._retry_after_seconds(exc)
+                    retry_after = self._retry_after_seconds(error)
                     delay = max(self.backoff_base * (2 ** (attempts - 1)), retry_after or 0.0)
                     if delay <= self.MAX_AUTOMATIC_RETRY_WAIT_SECONDS:
                         self._sleeper(delay)
@@ -202,13 +227,13 @@ class OpenAICompatProvider(VisionProvider):
                         f"; retry deferred: required wait {delay:.3f}s exceeds automatic "
                         f"retry wait limit {self.MAX_AUTOMATIC_RETRY_WAIT_SECONDS:.0f}s"
                     )
-                status = getattr(exc, "status_code", None)
+                status = getattr(error, "status_code", None)
                 return ProviderResult(
                     ok=False,
                     latency_ms=total_latency,
                     attempts=attempts,
                     error_type=error_type,
-                    error_message=error_summary(exc) + deferred_note,
+                    error_message=error_summary(error) + deferred_note,
                     http_status=status if isinstance(status, int) else None,
                 )
         # 理论不可达（循环内必 return），防御性兜底

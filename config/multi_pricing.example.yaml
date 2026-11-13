@@ -1,0 +1,39 @@
+# 填写核实过的非缓存费率（必须包含视觉输入），单位CNY/百万token。
+# null表示未知，不能当作免费；未填完整时v2拒绝真实付费运行。
+# 输入上界保守使用1M，乘全部重试次数预留，不是常规单请求费用预测。
+models:
+  deepseek-flash:
+    input_cny_per_million: null
+    output_cny_per_million: null
+    input_token_upper_bound: 1048576
+    source_url: null
+  kimi-k3.1-pro:
+    input_cny_per_million: null
+    output_cny_per_million: null
+    input_token_upper_bound: 1048576
+    source_url: null
+  glm-5.3-flash:
+    input_cny_per_million: null
+    output_cny_per_million: null
+    input_token_upper_bound: 1048576
+    source_url: null
+  glm-4.6v:
+    input_cny_per_million: null
+    output_cny_per_million: null
+    input_token_upper_bound: 1048576
+    source_url: null
+  qwen3.8-max:
+    input_cny_per_million: null
+    output_cny_per_million: null
+    input_token_upper_bound: 1048576
+    source_url: null
+  qwen3.7-plus:
+    input_cny_per_million: null
+    output_cny_per_million: null
+    input_token_upper_bound: 1048576
+    source_url: null
+  qwen3.8-flash:
+    input_cny_per_million: null
+    output_cny_per_million: null
+    input_token_upper_bound: 1048576
+    source_url: null

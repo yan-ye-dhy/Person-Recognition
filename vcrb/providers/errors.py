@@ -23,7 +23,7 @@ def classify_exception(exc: BaseException) -> tuple[str, bool]:
 
     error_type 词汇表：
       network / timeout / rate_limit / server_error   → 可重试
-      auth_error / model_not_found / bad_request / internal_error → 不可重试
+      auth_error / insufficient_balance / model_not_found / bad_request / internal_error → 不可重试
     """
     name = type(exc).__name__
     status = _status_of(exc)
@@ -34,6 +34,14 @@ def classify_exception(exc: BaseException) -> tuple[str, bool]:
         return "network", True
     if status is not None:
         if status == 429:
+            # 智谱官方将欠费(1113)与限流(1302)均映射为 HTTP 429。
+            # 重试不能补充余额；只识别明确业务码/文案，不推断是否收费。
+            body = getattr(exc, "body", None)
+            error = body.get("error", body) if isinstance(body, dict) else {}
+            code = str(error.get("code", "")) if isinstance(error, dict) else ""
+            message = str(exc)
+            if code == "1113" or any(text in message for text in ("余额不足", "账户已欠费", "账户欠费")):
+                return "insufficient_balance", False
             return "rate_limit", True
         if status >= 500:
             return "server_error", True
