@@ -124,6 +124,9 @@ def get_work(slug: str) -> Work:
 
 # ---------------------------------------------------------------- settings
 
+DEFAULT_TARGET_PER_GROUP = 8
+DEFAULT_TARGET_PER_WORK = 40
+
 _DEFAULT_SETTINGS: dict[str, Any] = {
     "retry": {
         "max_attempts": 4,
@@ -143,7 +146,10 @@ _DEFAULT_SETTINGS: dict[str, Any] = {
         "phash_hamming_threshold": 8,
         "allowed_formats": ["jpg", "jpeg", "png", "webp"],
     },
-    "export": {"target_per_group": 20, "target_per_work": 100},
+    "export": {
+        "target_per_group": DEFAULT_TARGET_PER_GROUP,
+        "target_per_work": DEFAULT_TARGET_PER_WORK,
+    },
     "scoring": {"fuzzy_review_threshold": 0.9, "refusal_keywords": []},
     "pilot": {"per_model_connectivity": 1, "per_model_small": 10, "per_work_formal": 10},
 }

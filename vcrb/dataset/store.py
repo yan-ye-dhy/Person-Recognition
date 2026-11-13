@@ -15,9 +15,10 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+from ..config import DEFAULT_TARGET_PER_GROUP, DEFAULT_TARGET_PER_WORK
 from ..imageutils import check_image, strip_and_normalize
-from ..paths import ANNOTATIONS_DB, ensure_dirs
-from .schema import Sample
+from ..paths import ANNOTATIONS_DB, FINAL_DIR, ensure_dirs
+from .schema import SAMPLING_GROUPS, Sample, sampling_group
 
 _SCHEMA = """
 CREATE TABLE IF NOT EXISTS samples (
@@ -545,16 +546,20 @@ def export_dataset(
     works: list[Any],  # list[Work]
     out_dir: Path | None = None,
     candidates_dir: Path | None = None,
-    target_per_group: int = 20,
+    target_per_group: int = DEFAULT_TARGET_PER_GROUP,
+    target_per_work: int = DEFAULT_TARGET_PER_WORK,
 ) -> Path:
     """把 verified 样本导出为匿名化正式集（dataset.json + 重编码图片）。
 
     - 文件名统一 {slug}_{0001}.jpg，与角色身份无关；
     - 重存 JPEG 清除 EXIF；bbox 保持归一化（坐标与图片内容一一对应）；
     - 配额达成情况写入 dataset.json 的 quota 字段，缺口如实展示；
+    - 每组按登记顺序优先取至配额，再用其余合格样本补足每部总量上限；
     - 导出门禁：标注 status=verified 且 **作品归属 attribution_status=verified**
       才可进入正式集（归属 rejected/needs_review/pending 一律隔离）。
     """
+    if target_per_group < 1 or target_per_work < 1:
+        raise ValueError("每组与每部的采样目标必须为正整数")
     ensure_dirs()
     out_dir = out_dir or FINAL_DIR
     candidates_dir = candidates_dir or out_dir.parent / "candidates"
@@ -564,6 +569,9 @@ def export_dataset(
     samples_out: list[dict[str, Any]] = []
     quota: dict[str, dict[str, int]] = {}
     excluded_quarantine: dict[str, int] = {}
+    eligible_per_work: dict[str, int] = {}
+    gap_per_work: dict[str, int] = {}
+    quota_shortfall: dict[str, dict[str, int]] = {}
     for slug, work in work_by_slug.items():
         verified_rows = [r for r in store.verified() if r["work_slug"] == slug]
         rows = [
@@ -572,8 +580,29 @@ def export_dataset(
         ]
         excluded_quarantine[slug] = len(verified_rows) - len(rows)
         rows.sort(key=lambda r: r["pk"])  # 稳定顺序保证 sample_id 可复现
-        groups: dict[str, int] = {}
-        for idx, row in enumerate(rows, start=1):
+        eligible_per_work[slug] = len(rows)
+        grouped = {group: [] for group in SAMPLING_GROUPS}
+        for row in rows:
+            group = sampling_group(
+                row["character_importance"] or "supporting",
+                row["visual_difficulty"] or "normal",
+                bool(row["is_multi_person"]),
+            )
+            grouped[group].append(row)
+        selected = []
+        for position in range(target_per_group):
+            for group in SAMPLING_GROUPS:
+                if position < len(grouped[group]) and len(selected) < target_per_work:
+                    selected.append(grouped[group][position])
+        selected_pks = {row["pk"] for row in selected}
+        for row in rows:
+            if len(selected) >= target_per_work:
+                break
+            if row["pk"] not in selected_pks:
+                selected.append(row)
+        selected.sort(key=lambda r: r["pk"])
+        groups = {group: 0 for group in SAMPLING_GROUPS}
+        for idx, row in enumerate(selected, start=1):
             src = candidates_dir / slug / row["filename"]
             if not src.is_file():
                 raise FileNotFoundError(f"候选图片缺失：{src}")
@@ -610,12 +639,20 @@ def export_dataset(
             samples_out.append(sample.to_dict())
             groups[sample.sampling_group] = groups.get(sample.sampling_group, 0) + 1
         quota[slug] = groups
+        gap_per_work[slug] = max(0, target_per_work - len(selected))
+        quota_shortfall[slug] = {
+            group: max(0, target_per_group - count) for group, count in groups.items()
+        }
 
     payload = {
         "exported_at": _now(),
         "total": len(samples_out),
         "quota_per_group": quota,
         "target_per_group": target_per_group,
+        "target_per_work": target_per_work,
+        "eligible_per_work": eligible_per_work,
+        "gap_per_work": gap_per_work,
+        "quota_shortfall": quota_shortfall,
         "quarantined_not_exported": excluded_quarantine,
         "samples": samples_out,
     }

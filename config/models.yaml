@@ -44,9 +44,12 @@ models:
     supports_vision: doc
     enabled: true
     notes: >-
-      thinking 默认开启；切换方式以官方 Thinking Mode 文档为准，本轮保持默认并在
-      run 元数据记录差异。
-    params: {}
+      2026-11-13 预检默认思考耗尽4096预算而无正文；正式测试显式关闭思考，
+      与其他可关闭型号统一采用直接识别模式；原始预检单独留存。
+    params:
+      extra_body:
+        thinking:
+          type: disabled
 
   - id: deepseek-v4-pro
     provider: deepseek
@@ -69,10 +72,14 @@ models:
     supports_vision: doc
     enabled: true
     notes: >-
-      模型列表页（/docs/models）暂未列出 K3.1 Pro，以平台快速开始页与 K3.1 Pro
-      专页为准；中国站 API 实际可调用性以 `vcrb models verify` 连通性检查为准，
-      失败则如实报告并降级。
-    params: {}
+      官方模型列表已列 K3.1 Pro；2026-11-13 中国站连通性检查通过。
+      2026-11-13 实测接口只接受 temperature=1，故不显式传采样温度；
+      K3.1 始终思考，本轮使用官方支持的low力度；与可关闭思考的型号存在模式差异。
+    params:
+      pass_temperature: false
+      token_limit_parameter: max_completion_tokens
+      extra_body:
+        reasoning_effort: low
 
   - id: kimi-k2.6
     provider: moonshot
@@ -81,8 +88,8 @@ models:
     official_series: "官方模型列表『多模态模型』：支持视觉输入，K2.6 额外支持视频理解"
     tier: flagship
     supports_vision: doc
-    enabled: true
-    notes: "官方参数说明：k2.5/k2.6 指定 temperature/top_p 等采样参数会报错，适配器不传（pass_temperature=false）；thinking 默认 enabled。"
+    enabled: false
+    notes: "2026-11-13 本账号实测404，模型目录仅提供K3.1 Pro/K3，本轮排除；官方说明仅部分旧账号仍可用。保留历史视觉能力登记，不静默替换模型。"
     params:
       pass_temperature: false
 
@@ -93,8 +100,8 @@ models:
     official_series: "官方模型列表『多模态模型』：Agent/代码/视觉理解，支持视觉与文本输入"
     tier: standard
     supports_vision: doc
-    enabled: true
-    notes: "同 k2.6：不传显式采样参数。"
+    enabled: false
+    notes: "2026-11-13 本账号实测404，官方模型页标为已下线，本轮排除。保留历史视觉能力登记，不静默替换模型。"
     params:
       pass_temperature: false
 
@@ -118,8 +125,12 @@ models:
     tier: flagship
     supports_vision: doc
     enabled: true
-    notes: "thinking.type 仅支持 enabled（不可关闭）；官方推荐 temperature=1/top_p=0.95，本项目统一 temperature=0.1 并在 run 元数据记录差异。"
-    params: {}
+    notes: "思考不能关闭；本轮显式reasoning_effort=low，temperature=0.1；与可关闭思考的型号存在模式差异并如实记录。"
+    params:
+      extra_body:
+        thinking:
+          type: enabled
+        reasoning_effort: low
 
   - id: glm-5.3-flashx
     provider: zhipu
@@ -151,8 +162,11 @@ models:
     tier: standard
     supports_vision: doc
     enabled: true
-    notes: ""
-    params: {}
+    notes: "本轮显式关闭思考，采用直接识别模式。"
+    params:
+      extra_body:
+        thinking:
+          type: disabled
 
   - id: glm-4.6v-flash
     provider: zhipu
@@ -161,9 +175,12 @@ models:
     official_series: "官方免费模型：支持视觉推理，128K 上下文"
     tier: flash
     supports_vision: doc
-    enabled: true
-    notes: "免费档代表。"
-    params: {}
+    enabled: false
+    notes: "2026-11-13实用候选排除：114项部分测试中13项在重试后仍返回模型访问量过大；按用户对响应与稳定性的关注停止后续全量。保留可用性记录，不参加本次准确率排名。显式指定型号可重新试测。"
+    params:
+      extra_body:
+        thinking:
+          type: disabled
 
   - id: glm-4.1v-thinking-flash
     provider: zhipu

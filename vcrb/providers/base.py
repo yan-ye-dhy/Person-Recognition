@@ -5,6 +5,8 @@
 - 「响应语义」判定（拒答/无法确定/名字对错）一律交给 evaluation 层，
   Provider 不做任何内容猜测。
 - outcome 只有两类：ok（拿到模型回复）/ api_failure（网络/服务端故障重试后仍失败）。
+- ok 仅表示接口调用成功；空正文和截断通过 output_issue 单独记录，不改写成网络失败。
+- reasoning_text 仅供审计，不是最终答案，绝不交给角色评分解析器。
 """
 
 from __future__ import annotations
@@ -37,6 +39,8 @@ class ProviderResult:
     error_type: str | None = None     # network/timeout/rate_limit/server_error/auth_error/bad_request/...
     error_message: str | None = None
     http_status: int | None = None
+    reasoning_text: str = ""          # 可见推理字段单独留存，绝不回填 raw_text
+    output_issue: str | None = None    # empty_final_content / truncated_output；不触发付费重试
 
 
 class VisionProvider(ABC):

@@ -55,9 +55,9 @@ def test_enabled_batch_two_to_three_per_vendor(registry: ModelRegistry):
         vendors.setdefault(m.vendor, []).append(m.id)
     assert set(vendors) == {"DeepSeek", "Kimi", "GLM", "Qwen"}
     for vendor, ids in vendors.items():
-        if vendor == "DeepSeek":
-            # 官方文档确认其唯一视觉模型即 deepseek-flash（deepseek-v4-pro 不支持视觉）
-            assert len(ids) == 1, f"DeepSeek 首批应为 1 个: {ids}"
+        if vendor in {"DeepSeek", "Kimi"}:
+            # DeepSeek仅一个视觉型号；本账号K2.5/K2.6实测404，Kimi只跑K3.1。
+            assert len(ids) == 1, f"{vendor} 当前可测型号应为1个: {ids}"
         else:
             assert 2 <= len(ids) <= 3, f"{vendor} 首批模型数 {len(ids)} 不在 2-3 范围: {ids}"
 

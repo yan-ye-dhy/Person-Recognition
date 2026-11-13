@@ -1,0 +1,321 @@
+{
+  "schema_version": 1,
+  "annotation_author": "assistant（用户授权代标与独立复核）",
+  "user_individually_verified": false,
+  "ground_truth_policy": "角色依据独立原片场景和角色姓名资料核验；模型多数不作为真值。",
+  "role_label_changes": [
+    {
+      "sample_id": "kuangbiao_0021",
+      "work_slug": "kuangbiao",
+      "old_character": "李响",
+      "new_character": "安欣",
+      "reason": "框内寸头警员与0022/0023是同一角色；对照官方“张译 饰 安欣”命名海报，应为安欣，原标李响错误。",
+      "final_image_path": "../../data/final/kuangbiao/kuangbiao_0021.jpg",
+      "image_sha256": "1abd11baeed2071d85347f0013d71b7535ca4f8e715e3837343f6b47431f109a",
+      "evidence_urls": [
+        "https://gcmstatic.gzstv.com/2023-03-27/239105/8b1331ec-e7e9-4121-9c43-a63d61908998.jpg",
+        "https://gcmstatic.gzstv.com/2023-03-27/239105/d14e32f8-c3fb-4325-b3e8-9fd0c3238fe5.jpg",
+        "https://www.gzstv.com/a/b995a0a95d3947478faf96f80db09bd5"
+      ],
+      "additional_original_frame_evidence": "原片连续场景和下载参考图保留本地，报告包不附额外截图。"
+    },
+    {
+      "sample_id": "kuangbiao_0022",
+      "work_slug": "kuangbiao",
+      "old_character": "李响",
+      "new_character": "安欣",
+      "reason": "框内寸头警员与0021/0023同一角色；官方安欣命名海报及同场景连续形象支持安欣，原标李响错误。",
+      "final_image_path": "../../data/final/kuangbiao/kuangbiao_0022.jpg",
+      "image_sha256": "4ccec06efdb6cffd95fed5203c85b950b541361c0ee2a7fc37020a3f4dcc1b16",
+      "evidence_urls": [
+        "https://gcmstatic.gzstv.com/2023-03-27/239105/8b1331ec-e7e9-4121-9c43-a63d61908998.jpg",
+        "https://gcmstatic.gzstv.com/2023-03-27/239105/d14e32f8-c3fb-4325-b3e8-9fd0c3238fe5.jpg",
+        "https://www.gzstv.com/a/b995a0a95d3947478faf96f80db09bd5"
+      ],
+      "additional_original_frame_evidence": "原片连续场景和下载参考图保留本地，报告包不附额外截图。"
+    },
+    {
+      "sample_id": "kuangbiao_0024",
+      "work_slug": "kuangbiao",
+      "old_character": "安欣",
+      "new_character": "李响",
+      "reason": "多人画面左边寸头安欣，右边较长刘海李响；红框在右边，应李响。官方李响命名海报与该目标对应。",
+      "final_image_path": "../../data/final/kuangbiao/kuangbiao_0024.jpg",
+      "image_sha256": "d5e58cf1ff9cdf558f6543a69ebb5748c79dfd7fd78ef2b966e8b0be54b5c709",
+      "evidence_urls": [
+        "https://gcmstatic.gzstv.com/2023-03-27/239105/8b1331ec-e7e9-4121-9c43-a63d61908998.jpg",
+        "https://gcmstatic.gzstv.com/2023-03-27/239105/d14e32f8-c3fb-4325-b3e8-9fd0c3238fe5.jpg",
+        "https://www.gzstv.com/a/b995a0a95d3947478faf96f80db09bd5"
+      ],
+      "additional_original_frame_evidence": "原片连续场景和下载参考图保留本地，报告包不附额外截图。"
+    },
+    {
+      "sample_id": "kuangbiao_0025",
+      "work_slug": "kuangbiao",
+      "old_character": "安欣",
+      "new_character": "李响",
+      "reason": "门内左侧较长刘海警员，与0024右侧同一角色；官方李响命名海报对应，原安欣标签应更正。",
+      "final_image_path": "../../data/final/kuangbiao/kuangbiao_0025.jpg",
+      "image_sha256": "80851064a746db6649f0165d8989307d6afbc205ba740563b7135c201c36d94e",
+      "evidence_urls": [
+        "https://gcmstatic.gzstv.com/2023-03-27/239105/8b1331ec-e7e9-4121-9c43-a63d61908998.jpg",
+        "https://gcmstatic.gzstv.com/2023-03-27/239105/d14e32f8-c3fb-4325-b3e8-9fd0c3238fe5.jpg",
+        "https://www.gzstv.com/a/b995a0a95d3947478faf96f80db09bd5"
+      ],
+      "additional_original_frame_evidence": "原片连续场景和下载参考图保留本地，报告包不附额外截图。"
+    },
+    {
+      "sample_id": "qingyunian2_0003",
+      "work_slug": "qingyunian2",
+      "old_character": "范若若",
+      "new_character": "袁梦",
+      "reason": "青披白粉内裙、团扇、偏分花簪与带袁梦姓名生产海报同一角色造型。原范若若不符。",
+      "final_image_path": "../../data/final/qingyunian2/qingyunian2_0003.jpg",
+      "image_sha256": "f20404144f52f345c77425f2b5c59752c2189934a1a5bd0028fab1b5fa15a9cf",
+      "evidence_urls": [
+        "https://p2.itc.cn/images01/20231214/9cd18ae8a7464ccab842202129129a54.jpeg",
+        "https://www.sohu.com/a/743947187_121705050"
+      ],
+      "additional_original_frame_evidence": "原片连续场景和下载参考图保留本地，报告包不附额外截图。"
+    },
+    {
+      "sample_id": "qingyunian2_0005",
+      "work_slug": "qingyunian2",
+      "old_character": "范若若",
+      "new_character": "桑文",
+      "reason": "粉衣女子和两侧花簪与带桑文姓名海报一致，并非范若若。",
+      "final_image_path": "../../data/final/qingyunian2/qingyunian2_0005.jpg",
+      "image_sha256": "7139be0557c3b68341439159457220a0078da9d8c6d19b7e58c9c4f124eba46f",
+      "evidence_urls": [
+        "https://p2.itc.cn/images01/20231214/9cd18ae8a7464ccab842202129129a54.jpeg",
+        "https://pix2.tvzhe.com/thumb/character/467/190/405x540.jpg",
+        "https://www.sohu.com/a/743947187_121705050",
+        "https://www.tvmao.com/character/W2VkZ2sp"
+      ],
+      "additional_original_frame_evidence": "原片连续场景和下载参考图保留本地，报告包不附额外截图。"
+    },
+    {
+      "sample_id": "qingyunian2_0006",
+      "work_slug": "qingyunian2",
+      "old_character": "范思辙",
+      "new_character": "三皇子",
+      "reason": "瘦脸浅蓝衣男子不是金链圆脸范思辙；命名三皇子海报及官微剧照新闻图注明确三皇子。",
+      "final_image_path": "../../data/final/qingyunian2/qingyunian2_0006.jpg",
+      "image_sha256": "79e2c67b61aab1873edf33a190882df0736be2719f2e5b052450ab202ca8a504",
+      "evidence_urls": [
+        "https://cassette.sphdigital.com.sg/image/zaobao/aa2dc3e47cbefd7a3ec15d8c4d81a206052c36307fd92b2d175967c3b1036d9d?f=webp&o=zbimg&oloc=se",
+        "https://p5.itc.cn/images01/20230620/6de4700b37104bf7a28025f412ba1496.jpeg",
+        "https://vibes.8world.com/synopsis/joy-of-life-2/ep-04-2792401",
+        "https://www.sohu.com/a/687400890_120192821",
+        "https://www.zaobao.com.sg/entertainment/story20240522-3678873"
+      ],
+      "additional_original_frame_evidence": "原片连续场景和下载参考图保留本地，报告包不附额外截图。"
+    },
+    {
+      "sample_id": "qingyunian2_0009",
+      "work_slug": "qingyunian2",
+      "old_character": "太子",
+      "new_character": "王启年",
+      "reason": "原片130/133/134/135分片连续对话直接将黑衣男子锚为王启年：二皇子称谢王启年王大人，随后该男子自称王某并索要妻女。0009是同连续镜头；0011隔帘者与之同衣冠同人。先前太子/李弘成检索猜测均被原片姓名和对话证据取代。",
+      "final_image_path": "../../data/final/qingyunian2/qingyunian2_0009.jpg",
+      "image_sha256": "dac2c11610daf81384e0e7dc7676df7986ee05d889e0bcaef08385b31404c6d0",
+      "evidence_urls": [
+        "https://pix2.tvzhe.com/thumb/character/467/208/405x540.jpg",
+        "https://vibes.8world.com/synopsis/joy-of-life-2/ep-04-2792401",
+        "https://www.tvmao.com/character/Y2VkZ2wg"
+      ],
+      "additional_original_frame_evidence": "原片连续场景和下载参考图保留本地，报告包不附额外截图。"
+    },
+    {
+      "sample_id": "qingyunian2_0011",
+      "work_slug": "qingyunian2",
+      "old_character": "太子",
+      "new_character": "王启年",
+      "reason": "原片130/133/134/135分片连续对话直接将黑衣男子锚为王启年：二皇子称谢王启年王大人，随后该男子自称王某并索要妻女。0009是同连续镜头；0011隔帘者与之同衣冠同人。先前太子/李弘成检索猜测均被原片姓名和对话证据取代。",
+      "final_image_path": "../../data/final/qingyunian2/qingyunian2_0011.jpg",
+      "image_sha256": "e987faff73febd7692d324aa5538d2fc9217761cefd2dc6c1933d677701c312e",
+      "evidence_urls": [
+        "https://pix2.tvzhe.com/thumb/character/467/208/405x540.jpg",
+        "https://vibes.8world.com/synopsis/joy-of-life-2/ep-04-2792401",
+        "https://www.tvmao.com/character/Y2VkZ2wg"
+      ],
+      "additional_original_frame_evidence": "原片连续场景和下载参考图保留本地，报告包不附额外截图。"
+    },
+    {
+      "sample_id": "qingyunian2_0012",
+      "work_slug": "qingyunian2",
+      "old_character": "范若若",
+      "new_character": "袁梦",
+      "reason": "与0003同青披白粉衣、团扇、偏分花簪女性；命名海报对应袁梦。",
+      "final_image_path": "../../data/final/qingyunian2/qingyunian2_0012.jpg",
+      "image_sha256": "7151b6a93c00c9d0a82a7404977b3c76e2bbbedb062d7c1b54c7f82b934c7d4b",
+      "evidence_urls": [
+        "https://p2.itc.cn/images01/20231214/9cd18ae8a7464ccab842202129129a54.jpeg",
+        "https://www.sohu.com/a/743947187_121705050"
+      ],
+      "additional_original_frame_evidence": "原片连续场景和下载参考图保留本地，报告包不附额外截图。"
+    },
+    {
+      "sample_id": "qingyunian2_0014",
+      "work_slug": "qingyunian2",
+      "old_character": "庆帝",
+      "new_character": "陈萍萍",
+      "reason": "无胡须男子坐金属高靠背轮椅，面部、星状冠和椅子与陈萍萍命名海报及0031同人。原注黑衣胡须/御座客观不符。",
+      "final_image_path": "../../data/final/qingyunian2/qingyunian2_0014.jpg",
+      "image_sha256": "b32704db24d3fa942eb9be66403f7ab3b2053dd3f3caf5b2e03fef8cb13cdfbf",
+      "evidence_urls": [
+        "https://p8.itc.cn/images01/20230511/dee75753a5f4438cbda35694b99bde29.jpeg",
+        "https://vibes.8world.com/synopsis/joy-of-life-2/ep-15-2805841",
+        "https://www.sohu.com/a/674767546_120192821"
+      ],
+      "additional_original_frame_evidence": "原片连续场景和下载参考图保留本地，报告包不附额外截图。"
+    },
+    {
+      "sample_id": "qingyunian2_0019",
+      "work_slug": "qingyunian2",
+      "old_character": "庆帝",
+      "new_character": "范无救",
+      "reason": "黑白画面为额前侧长发、短黑须男子嘴角血、身旁摊书，匹配原片姓名角标范无救及生产海报。15集剧情明确范无救在监牢服毒，赖名成廷杖发生更晚；不能采纳4模型赖名成多数。",
+      "final_image_path": "../../data/final/qingyunian2/qingyunian2_0019.jpg",
+      "image_sha256": "6f53fa57d86920565314273c1e795bf83b100eb52baaf621b7b6c7cf07835ac9",
+      "evidence_urls": [
+        "https://p0.qhimg.com/t01f6a9107f33831b36.png?size=832x580",
+        "https://p6.itc.cn/images01/20230620/a6b7542845734e26a9502ed21e2bc4f9.jpeg",
+        "https://p8.itc.cn/images01/20230620/588e2cd5cb224457a4f64a52453aba59.jpeg",
+        "https://vibes.8world.com/synopsis/joy-of-life-2/ep-15-2805841",
+        "https://www.sohu.com/a/687400890_120192821",
+        "https://yule.360.com/detail/3717870"
+      ],
+      "additional_original_frame_evidence": "原片连续场景和下载参考图保留本地，报告包不附额外截图。"
+    },
+    {
+      "sample_id": "qingyunian2_0021",
+      "work_slug": "qingyunian2",
+      "old_character": "太子",
+      "new_character": "陈萍萍",
+      "reason": "黑衣拱手遮嘴者与0014同场同人，星状冠、金属高靠背轮椅、无须面貌对应陈萍萍。原浅金袖太子描述与黑袖不符。",
+      "final_image_path": "../../data/final/qingyunian2/qingyunian2_0021.jpg",
+      "image_sha256": "43e774f4896c556608c2f8362c2ed3563ba00c5f5130d6ac5db8974b0ee9fd7e",
+      "evidence_urls": [
+        "https://p8.itc.cn/images01/20230511/dee75753a5f4438cbda35694b99bde29.jpeg",
+        "https://vibes.8world.com/synopsis/joy-of-life-2/ep-15-2805841",
+        "https://www.sohu.com/a/674767546_120192821"
+      ],
+      "additional_original_frame_evidence": "原片连续场景和下载参考图保留本地，报告包不附额外截图。"
+    },
+    {
+      "sample_id": "qingyunian2_0025",
+      "work_slug": "qingyunian2",
+      "old_character": "陈萍萍",
+      "new_character": "王启年",
+      "reason": "草帽灰袍男子坐在马车驾驶位双手执缰；与王启年命名海报匹配，并无轮椅。原陈萍萍轮椅注释不符。",
+      "final_image_path": "../../data/final/qingyunian2/qingyunian2_0025.jpg",
+      "image_sha256": "de5b1e1f6a5654905f8fc7de328bc33263721f181e4b3e819e98161e258528d9",
+      "evidence_urls": [
+        "https://pix2.tvzhe.com/thumb/character/467/208/405x540.jpg",
+        "https://vibes.8world.com/synopsis/joy-of-life-2/ep-15-2805841",
+        "https://www.tvmao.com/character/Y2VkZ2wg"
+      ],
+      "additional_original_frame_evidence": "原片连续场景和下载参考图保留本地，报告包不附额外截图。"
+    },
+    {
+      "sample_id": "qingyunian2_0027",
+      "work_slug": "qingyunian2",
+      "old_character": "林婉儿",
+      "new_character": "范若若",
+      "reason": "读医书女子与范若若命名海报形象对应；持书场景在第15集回府段，持牌播方剧情明确为范若若苦读医书。",
+      "final_image_path": "../../data/final/qingyunian2/qingyunian2_0027.jpg",
+      "image_sha256": "a2b67838f78a159e8ef315b5d1e6852184df8f8b92b7e62101ee3f4c64dd839e",
+      "evidence_urls": [
+        "https://p2.itc.cn/images01/20231214/9cd18ae8a7464ccab842202129129a54.jpeg",
+        "https://pix2.tvzhe.com/thumb/character/467/207/405x540.jpg",
+        "https://vibes.8world.com/synopsis/joy-of-life-2/ep-15-2805841",
+        "https://www.sohu.com/a/743947187_121705050",
+        "https://www.tvmao.com/character/IGJlZGds"
+      ],
+      "additional_original_frame_evidence": "原片连续场景和下载参考图保留本地，报告包不附额外截图。"
+    },
+    {
+      "sample_id": "qingyunian2_0028",
+      "work_slug": "qingyunian2",
+      "old_character": "林婉儿",
+      "new_character": "范若若",
+      "reason": "与0027同场同发簪珠耳饰淡黄衣女子，连续源时间相差47秒，依据同角色命名海报和15集播方剧情。",
+      "final_image_path": "../../data/final/qingyunian2/qingyunian2_0028.jpg",
+      "image_sha256": "2cb8c4cf495dae38b4b2aa25c128332977e3c0ddb4edc3b496fcccce84e8c84e",
+      "evidence_urls": [
+        "https://pix2.tvzhe.com/thumb/character/467/207/405x540.jpg",
+        "https://vibes.8world.com/synopsis/joy-of-life-2/ep-15-2805841",
+        "https://www.tvmao.com/character/IGJlZGds"
+      ],
+      "additional_original_frame_evidence": "原片连续场景和下载参考图保留本地，报告包不附额外截图。"
+    },
+    {
+      "sample_id": "qingyunian2_0038",
+      "work_slug": "qingyunian2",
+      "old_character": "林婉儿",
+      "new_character": "范若若",
+      "reason": "淡粉衣女性与范若若命名海报形象对应；紧邻五竹画面，播方27集剧情明确五竹见范若若并示箱授枪，不是林婉儿。",
+      "final_image_path": "../../data/final/qingyunian2/qingyunian2_0038.jpg",
+      "image_sha256": "eaa0c973b3283bbd3b61baf5cf30d9de324b9c9492c046486e8044bcad6e4b2c",
+      "evidence_urls": [
+        "https://p2.itc.cn/images01/20231214/9cd18ae8a7464ccab842202129129a54.jpeg",
+        "https://pix2.tvzhe.com/thumb/character/467/207/405x540.jpg",
+        "https://vibes.8world.com/synopsis/joy-of-life-2/ep-27-2823731",
+        "https://www.sohu.com/a/743947187_121705050",
+        "https://www.tvmao.com/character/IGJlZGds"
+      ],
+      "additional_original_frame_evidence": "原片连续场景和下载参考图保留本地，报告包不附额外截图。"
+    }
+  ],
+  "excluded_sample_ids": [
+    "qingyunian2_0002",
+    "qingyunian2_0037"
+  ],
+  "replacements": [
+    {
+      "new_sample_id": "qingyunian2_0041",
+      "character": "庆帝",
+      "target_bbox": [
+        0.19,
+        0.01,
+        0.97,
+        1.0
+      ],
+      "final_image_path": "../../data/final/qingyunian2/qingyunian2_0041.jpg",
+      "final_image_sha256": "d8e9a52fb073dd1856224bd06b1710eba780735672856a51057ee50d4ca81670",
+      "source_candidate_md5": "24f16d9e64f2e9d6aa0793add04dbe9d",
+      "reason": "无字幕的1920x1080清晰近景，灰黑常服和玉簪束发与庆帝命名海报一致；与现存0023侧面指人、0032红袍扶肩相比补充正面近景和另段朝堂神态，支持服饰与角度变化测试。",
+      "evidence_urls": [
+        "https://p7.itc.cn/images01/20230511/d160eb0cce414a04a16430d4b4e38b87.jpeg",
+        "https://vibes.8world.com/synopsis/joy-of-life-2/ep-15-2805841",
+        "https://www.sohu.com/a/674767546_120192821"
+      ]
+    },
+    {
+      "new_sample_id": "qingyunian2_0042",
+      "character": "太子",
+      "target_bbox": [
+        0.39,
+        0.08,
+        0.8,
+        1.0
+      ],
+      "final_image_path": "../../data/final/qingyunian2/qingyunian2_0042.jpg",
+      "final_image_sha256": "8365e4f366435efe404c4b88ede686e8891ca752aef83405f234f263d28ea3d4",
+      "source_candidate_md5": "f50904fbcae466ddc2522a3fbcf640c1",
+      "reason": "右侧金色背心灰袖青年正面清晰，左前二皇子虚焦，后有侍卫，构成明确多人目标测试；同太子命名海报及现存0015形象，播方第4集剧情太子进入抱月楼与二皇子周旋。字幕只说怎么你还聊上天了，无角色姓名。",
+      "evidence_urls": [
+        "https://pix2.tvzhe.com/thumb/character/467/209/405x540.jpg",
+        "https://vibes.8world.com/synopsis/joy-of-life-2/ep-04-2792401",
+        "https://www.tvmao.com/character/Z2Viailf"
+      ]
+    }
+  ],
+  "source_audit_sha256": {
+    "role_revision": "5984cad1a70cde33d1750ba4569a372997f637d7bfbcc069a375c136ad56f503",
+    "replacement_revision": "f279276c10395114582a230e31d0f6676f3114c25980ea58240d1df16b0e7533",
+    "qingyunian2_identity_audit": "4bcbc1e5eeb5576eca95b74fff9cee9584403a5f27361bb5a622c3f14f22518c"
+  },
+  "full_audits_and_extra_screenshots": "完整原始审计、标注库和额外参考截图保留本地；此文件是去除本机路径后的轻量摘要。"
+}

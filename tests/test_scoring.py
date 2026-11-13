@@ -5,6 +5,8 @@ from __future__ import annotations
 import json
 import math
 
+import pytest
+
 from tests.conftest import make_sample
 from vcrb.annotation.rosters import CharacterEntry, Roster
 from vcrb.evaluation.matcher import CharacterMatcher
@@ -203,3 +205,54 @@ def test_save_score_result(tmp_path):
     payload = json.loads(files["summary"].read_text(encoding="utf-8"))
     assert payload["run_id"] == "run_test01"
     assert "m1|A" in payload["metrics"]
+
+
+def test_audited_gt_revision_rescores_offline_and_retains_input_provenance(tmp_path, monkeypatch):
+    from dataclasses import replace
+    from vcrb.runner.executor import dataset_hash
+    from vcrb.providers.openai_compat import OpenAICompatProvider
+
+    store, run_id = _build_run(tmp_path)
+    original = _samples()
+    revised = [replace(s, target_character="高启盛", character_aliases=[],
+                       character_importance="key_supporting") if i == 1 else s
+               for i, s in enumerate(original)]
+    input_path, evaluation_path, audit_path = (
+        tmp_path / name for name in ("input.json", "evaluation.json", "revision.json")
+    )
+    input_path.write_text(json.dumps({"samples": [s.to_dict() for s in original]}))
+    original_bytes = input_path.read_bytes()
+    original_hash, revised_hash = dataset_hash(original), dataset_hash(revised)
+    store.conn.execute("UPDATE runs SET dataset_hash=?, fairness_meta=? WHERE run_id=?", (
+        original_hash, json.dumps({"dataset_snapshot_path": str(input_path)}), run_id,
+    ))
+    store.conn.commit()
+    matcher = CharacterMatcher({"kuangbiao": _roster()})
+    before = score_run(store, run_id, original, matcher, {})
+    records_before = store.records(run_id)
+
+    def forbidden_provider_call(*args, **kwargs):
+        raise AssertionError("Offline rescoring must not call a provider")
+
+    monkeypatch.setattr(OpenAICompatProvider, "recognize", forbidden_provider_call)
+    evaluation_path.write_text(json.dumps({"samples": [s.to_dict() for s in revised]}))
+    audit_path.write_text(json.dumps({"sample_id": original[1].sample_id,
+                                     "old_gt": "高启强", "new_gt": "高启盛"}))
+    metadata = {
+        "dataset_snapshot_path": str(input_path),
+        "evaluation_snapshot_path": str(evaluation_path),
+        "evaluation_dataset_hash": revised_hash,
+        "annotation_revision_path": str(audit_path),
+    }
+    store.conn.execute("UPDATE runs SET fairness_meta=? WHERE run_id=?", (json.dumps(metadata), run_id))
+    store.conn.commit()
+    after = score_run(store, run_id, revised, matcher, {})
+    assert after.metrics["m1", "B"].counts["correct"] == before.metrics["m1", "B"].counts["correct"] + 1
+    assert after.dataset_hash == revised_hash
+    assert after.input_dataset_hash == original_hash
+    assert after.to_dict()["annotation_revision_path"] == str(audit_path)
+    assert store.get_run(run_id)["dataset_hash"] == original_hash
+    assert input_path.read_bytes() == original_bytes
+    assert store.records(run_id) == records_before
+    with pytest.raises(ValueError, match="哈希不一致"):
+        score_run(store, run_id, original, matcher, {})

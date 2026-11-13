@@ -77,7 +77,7 @@ def extract_frames(
         "-loglevel", "info",
         "-i", str(video_path),
         "-vf", vf,
-        "-vsync", "vfr",
+        "-fps_mode", "vfr",
         "-frames:v", str(max_frames),
         "-q:v", "2",
         str(out_dir / "frame_%04d.jpg"),

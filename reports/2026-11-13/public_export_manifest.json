@@ -1,0 +1,464 @@
+{
+  "schema_version": 1,
+  "created_at": "2026-11-13T02:08:32.700170+00:00",
+  "package": "reports/2026-11-13",
+  "upload_performed": false,
+  "git_operations_performed": false,
+  "model_api_calls": 0,
+  "scope": "portable statistics reports and lightweight annotation-change summary; final160 original inputs are linked at repository data/final",
+  "source_artifacts": [
+    {
+      "source_repository_path": "results/benchmark_20261113/汇总.html",
+      "source_sha256": "052dbdd3104f384513f32d9dbb08f76a649b4d710715f7db2e292171358e669f",
+      "source_bytes": 11817,
+      "export_path": "index.html",
+      "export_sha256": "b65b4c0bf980cf73a82094973025f090b742ac60e934835f3e29346a73232a37",
+      "export_bytes": 12344,
+      "byte_identical": false
+    },
+    {
+      "source_repository_path": "results/benchmark_20261113/汇总.json",
+      "source_sha256": "67d0a4556357b92aaea78bb71cd07b0c95959d14f03eb83d4575c05ca7471e6d",
+      "source_bytes": 34897,
+      "export_path": "summary.json",
+      "export_sha256": "fd4fa271f6e3ef57c24b536c3370826376926e2e29c5442ae23abd4b0d36bb22",
+      "export_bytes": 35609,
+      "byte_identical": false
+    },
+    {
+      "source_repository_path": "results/benchmark_20261113/模型对比.csv",
+      "source_sha256": "bbd8f20731d04e305394a78d0697ce1bab90fcc6b83e4b5cbe3ce0e37d28a466",
+      "source_bytes": 5126,
+      "export_path": "model_comparison.csv",
+      "export_sha256": "af2689972103d46e03bac4d0ffc319edad59f496b69e3db8a4ef482e37ed34d0",
+      "export_bytes": 4699,
+      "byte_identical": false
+    },
+    {
+      "source_repository_path": "results/benchmark_20261113/综合准确率.png",
+      "source_sha256": "6ee67139db51966278869557a928be420d560f186310342fd0c728a1efb71884",
+      "source_bytes": 193671,
+      "export_path": "overall_comparison.png",
+      "export_sha256": "6ee67139db51966278869557a928be420d560f186310342fd0c728a1efb71884",
+      "export_bytes": 193671,
+      "byte_identical": true
+    },
+    {
+      "source_repository_path": "results/reports/run_20261113_final_practical/report.md",
+      "source_sha256": "92c98ba03c036c9667f550938df8f940fef84eec0108c975762136442649d1c2",
+      "source_bytes": 20632,
+      "export_path": "details/report.md",
+      "export_sha256": "e11113523fd030d1db942c1aca7f8a3b5ace892a355851221efb3b58bdd3338d",
+      "export_bytes": 20635,
+      "byte_identical": false
+    },
+    {
+      "source_repository_path": "results/scores/run_20261113_final_practical/metrics.csv",
+      "source_sha256": "0a2a0c407293283903f2e104dd3934ac42bb62fc0a463bb4439d210e171cac06",
+      "source_bytes": 1438,
+      "export_path": "data/metrics.csv",
+      "export_sha256": "0a2a0c407293283903f2e104dd3934ac42bb62fc0a463bb4439d210e171cac06",
+      "export_bytes": 1438,
+      "byte_identical": true
+    },
+    {
+      "source_repository_path": "results/scores/run_20261113_final_practical/detail.csv",
+      "source_sha256": "1351ba5e3d13c57dc4a5eebfa716a324a6981bcf02c0381f466f4c17c34bb1af",
+      "source_bytes": 365986,
+      "export_path": "data/detail.csv",
+      "export_sha256": "64bc006d05cdb19ae01845e94ef6c956850ce4c220611bc71a550d04f0a61167",
+      "export_bytes": 363457,
+      "byte_identical": false
+    },
+    {
+      "source_repository_path": "results/scores/run_20261113_final_practical/summary.json",
+      "source_sha256": "29d63859bab5351b3dc1e5f491693dd6c388a94e223783f521f52f9262f99142",
+      "source_bytes": 1163171,
+      "export_path": "data/score_summary.json",
+      "export_sha256": "8a83c81eac3f7e900ea002d6487b24c6902375ba629c112d85dcb76fff7fda0a",
+      "export_bytes": 183849,
+      "byte_identical": false
+    },
+    {
+      "source_repository_path": "results/benchmark_20261113/gt_revision_01/input_image_hashes.json",
+      "source_sha256": "ec8e06fa270f7b21431268b3231a6e5ca6534e2d0fda3066ac157f33bcb2b198",
+      "source_bytes": 14619,
+      "export_path": "provenance/input_image_hashes.json",
+      "export_sha256": "ec8e06fa270f7b21431268b3231a6e5ca6534e2d0fda3066ac157f33bcb2b198",
+      "export_bytes": 14619,
+      "byte_identical": true
+    },
+    {
+      "source_repository_path": "results/benchmark_20261113/replacements/final_image_hashes.json",
+      "source_sha256": "0a1db947e18daae24ef8421b4f59a8c60faa0706be5f4bea20493cd9de52bd1c",
+      "source_bytes": 29786,
+      "export_path": "provenance/final_image_hashes.json",
+      "export_sha256": "0a1db947e18daae24ef8421b4f59a8c60faa0706be5f4bea20493cd9de52bd1c",
+      "export_bytes": 29786,
+      "byte_identical": true
+    },
+    {
+      "source_repository_path": "results/reports/run_20261113_final_practical/overall_accuracy.png",
+      "source_sha256": "6714b77e37b7ec196266bf13833df79ee916bd06a7265c6a08645d57cf05ecca",
+      "source_bytes": 81696,
+      "export_path": "details/overall_accuracy.png",
+      "export_sha256": "6714b77e37b7ec196266bf13833df79ee916bd06a7265c6a08645d57cf05ecca",
+      "export_bytes": 81696,
+      "byte_identical": true
+    },
+    {
+      "source_repository_path": "results/reports/run_20261113_final_practical/ab_lift.png",
+      "source_sha256": "9ae83872c559df72a41a91e405b7084eeada161f6ff70d9ad3467e76dff6ea10",
+      "source_bytes": 59237,
+      "export_path": "details/ab_lift.png",
+      "export_sha256": "9ae83872c559df72a41a91e405b7084eeada161f6ff70d9ad3467e76dff6ea10",
+      "export_bytes": 59237,
+      "byte_identical": true
+    },
+    {
+      "source_repository_path": "results/reports/run_20261113_final_practical/by_work.png",
+      "source_sha256": "e88bfb554eb09f3cf50298cfd8a6e6b8b147b1cff696dac53bb953452f7728e8",
+      "source_bytes": 58046,
+      "export_path": "details/by_work.png",
+      "export_sha256": "e88bfb554eb09f3cf50298cfd8a6e6b8b147b1cff696dac53bb953452f7728e8",
+      "export_bytes": 58046,
+      "byte_identical": true
+    },
+    {
+      "source_repository_path": "results/reports/run_20261113_final_practical/by_importance.png",
+      "source_sha256": "5080dcd6ae053ea34502dc42d382d33b8b1917dd5e4380fc9be8b564e3c71273",
+      "source_bytes": 57518,
+      "export_path": "details/by_importance.png",
+      "export_sha256": "5080dcd6ae053ea34502dc42d382d33b8b1917dd5e4380fc9be8b564e3c71273",
+      "export_bytes": 57518,
+      "byte_identical": true
+    },
+    {
+      "source_repository_path": "results/reports/run_20261113_final_practical/by_difficulty.png",
+      "source_sha256": "333abc78dc8d41bf77fe6bc630045c7ca560f1d20f2620816b132e8f4e64aea9",
+      "source_bytes": 65213,
+      "export_path": "details/by_difficulty.png",
+      "export_sha256": "333abc78dc8d41bf77fe6bc630045c7ca560f1d20f2620816b132e8f4e64aea9",
+      "export_bytes": 65213,
+      "byte_identical": true
+    },
+    {
+      "source_repository_path": "results/reports/run_20261113_final_practical/error_types.png",
+      "source_sha256": "85854079743590beb6a228d8fc1f767531a73b027bd27da1d61ecf462fe62fc9",
+      "source_bytes": 59293,
+      "export_path": "details/error_types.png",
+      "export_sha256": "85854079743590beb6a228d8fc1f767531a73b027bd27da1d61ecf462fe62fc9",
+      "export_bytes": 59293,
+      "byte_identical": true
+    }
+  ],
+  "derived_annotation_summary": {
+    "export_path": "annotation_changes.json",
+    "source_audit_sha256": {
+      "role_revision": "5984cad1a70cde33d1750ba4569a372997f637d7bfbcc069a375c136ad56f503",
+      "replacement_revision": "f279276c10395114582a230e31d0f6676f3114c25980ea58240d1df16b0e7533",
+      "qingyunian2_identity_audit": "4bcbc1e5eeb5576eca95b74fff9cee9584403a5f27361bb5a622c3f14f22518c"
+    }
+  },
+  "linked_final_dataset": {
+    "path": "../../data/final/dataset.json",
+    "sha256": "733ff61e0277e42de5a9d6fef9db420b241d67e9ec43f466a21d338e608a609d",
+    "byte_modified_by_this_export": false
+  },
+  "transformations": [
+    "HTML relative links rewritten to included files; missing original-input snapshots explicitly marked local-only.",
+    "Final full dataset link points to repository data/final; original scoring snapshot hashes remain unchanged and clearly identified.",
+    "Home-directory absolute paths converted to portable paths or explicit local-only descriptions; machine-local JSON path values omitted as null when no file is included.",
+    "Full score-summary records array omitted because scored records are provided once in detail.csv; aggregate metrics unchanged.",
+    "Parser-error original JSON fragments removed from detail descriptions; outcome/model/sample/numeric fields preserved.",
+    "Lightweight 17-label/2-replacement audit retains independent external URLs and source audit SHA256, without local path or extra screenshots."
+  ],
+  "html_link_changes": [
+    {
+      "source": "results/benchmark_20261113/模型对比.csv",
+      "target": "model_comparison.csv"
+    },
+    {
+      "source": "results/benchmark_20261113/汇总.json",
+      "target": "summary.json"
+    },
+    {
+      "source": "results/benchmark_20261113/综合准确率.png",
+      "target": "overall_comparison.png"
+    },
+    {
+      "source": "results/snapshots/run_20261113_010640/dataset.json",
+      "target": null,
+      "note": "retained locally; omitted from this report package"
+    },
+    {
+      "source": "results/snapshots/run_20261113_010800/dataset.json",
+      "target": null,
+      "note": "retained locally; omitted from this report package"
+    },
+    {
+      "source": "results/snapshots/run_20261113_014628/dataset.json",
+      "target": null,
+      "note": "retained locally; omitted from this report package"
+    },
+    {
+      "source": "results/snapshots/run_20261113_015201/dataset.json",
+      "target": null,
+      "note": "retained locally; omitted from this report package"
+    },
+    {
+      "source": "results/benchmark_20261113/replacements/revision.json",
+      "target": "annotation_changes.json"
+    },
+    {
+      "source": "results/benchmark_20261113/gt_revision_01/input_image_hashes.json",
+      "target": "provenance/input_image_hashes.json"
+    },
+    {
+      "source": "results/benchmark_20261113/replacements/final_image_hashes.json",
+      "target": "provenance/final_image_hashes.json"
+    },
+    {
+      "source": "results/scores/run_20261113_final_practical/metrics.csv",
+      "target": "data/metrics.csv"
+    },
+    {
+      "source": "results/snapshots/run_20261113_final_practical/dataset.json",
+      "target": "../../data/final/dataset.json",
+      "note": "complete final sample metadata; original scoring snapshot remains local"
+    },
+    {
+      "source": "results/scores/run_20261113_final_practical/summary.json",
+      "target": "data/score_summary.json"
+    },
+    {
+      "source": "results/reports/run_20261113_final_practical/report.md",
+      "target": "details/report.md"
+    },
+    {
+      "source": "results/reports/run_20261113_final_practical/errors.html",
+      "target": "data/detail.csv",
+      "note": "scored CSV substituted; screenshot error page retained locally"
+    }
+  ],
+  "local_only_artifacts": [
+    {
+      "context": "/source_runs/0/snapshot_path",
+      "repository_relative_source": "results/snapshots/run_20261113_final_practical/dataset.json",
+      "disposition": "retained locally; path omitted from exported JSON"
+    },
+    {
+      "context": "/source_runs/0/original_snapshot_path",
+      "repository_relative_source": "results/snapshots/run_20261113_final_practical/dataset.json",
+      "disposition": "retained locally; path omitted from exported JSON"
+    },
+    {
+      "context": "/source_runs/0/report_links/errors.html",
+      "repository_relative_source": "results/reports/run_20261113_final_practical/errors.html",
+      "disposition": "retained locally; not included"
+    },
+    {
+      "context": "details/report.md",
+      "repository_relative_source": "results/snapshots/run_20261113_final_practical/dataset.json",
+      "disposition": "retained locally; not included in report package"
+    },
+    {
+      "context": "details/report.md",
+      "repository_relative_source": "results/snapshots/run_20261113_final_practical/image_hashes.json",
+      "disposition": "retained locally; not included in report package"
+    },
+    {
+      "context": "details/report.md",
+      "repository_relative_source": "results/snapshots/run_20261113_010640/dataset.json",
+      "disposition": "retained locally; not included in report package"
+    },
+    {
+      "context": "details/report.md",
+      "repository_relative_source": "results/snapshots/run_20261113_010800/dataset.json",
+      "disposition": "retained locally; not included in report package"
+    },
+    {
+      "context": "details/report.md",
+      "repository_relative_source": "results/snapshots/run_20261113_014628/dataset.json",
+      "disposition": "retained locally; not included in report package"
+    },
+    {
+      "context": "details/report.md",
+      "repository_relative_source": "results/snapshots/run_20261113_015201/dataset.json",
+      "disposition": "retained locally; not included in report package"
+    },
+    {
+      "context": "details/report.md",
+      "repository_relative_source": "results/benchmark_20261113/scoring_profile/profile.json",
+      "disposition": "retained locally; not included in report package"
+    },
+    {
+      "context": "details/report.md",
+      "repository_relative_source": "results/benchmark_20261113/alias_evidence_audit.json",
+      "disposition": "retained locally; not included in report package"
+    }
+  ],
+  "detail_description_redactions": [
+    {
+      "file": "data/detail.csv",
+      "row_index_zero_based": 1379,
+      "field": "detail",
+      "reason": "remove original response JSON fragment; outcome and statistics unchanged"
+    },
+    {
+      "file": "data/detail.csv",
+      "row_index_zero_based": 1380,
+      "field": "detail",
+      "reason": "remove original response JSON fragment; outcome and statistics unchanged"
+    },
+    {
+      "file": "data/detail.csv",
+      "row_index_zero_based": 1631,
+      "field": "detail",
+      "reason": "remove original response JSON fragment; outcome and statistics unchanged"
+    },
+    {
+      "file": "data/detail.csv",
+      "row_index_zero_based": 2000,
+      "field": "detail",
+      "reason": "remove original response JSON fragment; outcome and statistics unchanged"
+    },
+    {
+      "file": "data/detail.csv",
+      "row_index_zero_based": 2002,
+      "field": "detail",
+      "reason": "remove original response JSON fragment; outcome and statistics unchanged"
+    },
+    {
+      "file": "data/detail.csv",
+      "row_index_zero_based": 2031,
+      "field": "detail",
+      "reason": "remove original response JSON fragment; outcome and statistics unchanged"
+    },
+    {
+      "file": "data/detail.csv",
+      "row_index_zero_based": 2035,
+      "field": "detail",
+      "reason": "remove original response JSON fragment; outcome and statistics unchanged"
+    },
+    {
+      "file": "data/detail.csv",
+      "row_index_zero_based": 2037,
+      "field": "detail",
+      "reason": "remove original response JSON fragment; outcome and statistics unchanged"
+    },
+    {
+      "file": "data/detail.csv",
+      "row_index_zero_based": 2065,
+      "field": "detail",
+      "reason": "remove original response JSON fragment; outcome and statistics unchanged"
+    },
+    {
+      "file": "data/detail.csv",
+      "row_index_zero_based": 2077,
+      "field": "detail",
+      "reason": "remove original response JSON fragment; outcome and statistics unchanged"
+    },
+    {
+      "file": "data/detail.csv",
+      "row_index_zero_based": 2162,
+      "field": "detail",
+      "reason": "remove original response JSON fragment; outcome and statistics unchanged"
+    },
+    {
+      "file": "data/detail.csv",
+      "row_index_zero_based": 2163,
+      "field": "detail",
+      "reason": "remove original response JSON fragment; outcome and statistics unchanged"
+    },
+    {
+      "file": "data/detail.csv",
+      "row_index_zero_based": 2164,
+      "field": "detail",
+      "reason": "remove original response JSON fragment; outcome and statistics unchanged"
+    },
+    {
+      "file": "data/detail.csv",
+      "row_index_zero_based": 2167,
+      "field": "detail",
+      "reason": "remove original response JSON fragment; outcome and statistics unchanged"
+    },
+    {
+      "file": "data/detail.csv",
+      "row_index_zero_based": 2172,
+      "field": "detail",
+      "reason": "remove original response JSON fragment; outcome and statistics unchanged"
+    },
+    {
+      "file": "data/detail.csv",
+      "row_index_zero_based": 2180,
+      "field": "detail",
+      "reason": "remove original response JSON fragment; outcome and statistics unchanged"
+    },
+    {
+      "file": "data/detail.csv",
+      "row_index_zero_based": 2181,
+      "field": "detail",
+      "reason": "remove original response JSON fragment; outcome and statistics unchanged"
+    },
+    {
+      "file": "data/detail.csv",
+      "row_index_zero_based": 2188,
+      "field": "detail",
+      "reason": "remove original response JSON fragment; outcome and statistics unchanged"
+    },
+    {
+      "file": "data/detail.csv",
+      "row_index_zero_based": 2189,
+      "field": "detail",
+      "reason": "remove original response JSON fragment; outcome and statistics unchanged"
+    },
+    {
+      "file": "data/detail.csv",
+      "row_index_zero_based": 2191,
+      "field": "detail",
+      "reason": "remove original response JSON fragment; outcome and statistics unchanged"
+    },
+    {
+      "file": "data/detail.csv",
+      "row_index_zero_based": 2192,
+      "field": "detail",
+      "reason": "remove original response JSON fragment; outcome and statistics unchanged"
+    },
+    {
+      "file": "data/detail.csv",
+      "row_index_zero_based": 2194,
+      "field": "detail",
+      "reason": "remove original response JSON fragment; outcome and statistics unchanged"
+    },
+    {
+      "file": "data/detail.csv",
+      "row_index_zero_based": 2196,
+      "field": "detail",
+      "reason": "remove original response JSON fragment; outcome and statistics unchanged"
+    },
+    {
+      "file": "data/detail.csv",
+      "row_index_zero_based": 2208,
+      "field": "detail",
+      "reason": "remove original response JSON fragment; outcome and statistics unchanged"
+    }
+  ],
+  "account_identifier_redactions": [],
+  "validation": {
+    "source_files_unchanged": true,
+    "numeric_and_source_hash_leaves_unchanged": true,
+    "csv_rows": 2240,
+    "role_label_changes": 17,
+    "replacements": 2
+  },
+  "intentionally_omitted": [
+    "errors.html with embedded screenshots",
+    "raw API response JSONL and reasoning content",
+    "SQLite annotations",
+    "local video/client cache files",
+    "original full snapshot JSON and extra identity-reference screenshots",
+    "preflight/diagnostic logs and temporary directories"
+  ],
+  "excluded_error_page_bytes": 110678075
+}

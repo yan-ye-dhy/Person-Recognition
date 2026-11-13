@@ -17,14 +17,17 @@ def test_load_works_four_fixed_works():
     works = load_works()
     assert [w.slug for w in works] == [
         "kuangbiao",
-        "langyabang",
+        "qingyunian2",
         "gongfunvzu",
         "jianlai",
     ]
     by_slug = {w.slug: w for w in works}
     assert by_slug["kuangbiao"].name == "狂飙"
     assert by_slug["kuangbiao"].category == "modern_drama"
-    assert by_slug["langyabang"].category == "costume_drama"
+    assert by_slug["qingyunian2"].category == "costume_drama"
+    assert by_slug["qingyunian2"].name == "庆余年第二季"
+    assert by_slug["qingyunian2"].year == 2024
+    assert "langyabang" not in by_slug
     assert by_slug["gongfunvzu"].category == "recent_movie"
     assert by_slug["gongfunvzu"].media_type == "电影"
     assert by_slug["jianlai"].category == "animation"
@@ -44,6 +47,13 @@ def test_settings_defaults_and_merge():
     assert settings["scoring"]["fuzzy_review_threshold"] == 0.9
     # yaml 覆盖过默认值
     assert settings["clean"]["min_width"] == 300
+    assert settings["export"] == {"target_per_group": 8, "target_per_work": 40}
+    assert settings["collect"]["max_images_per_work"] == 150
+
+
+def test_missing_settings_keeps_sample_targets(tmp_path, monkeypatch):
+    monkeypatch.setenv("VCRB_CONFIG_DIR", str(tmp_path))
+    assert load_settings()["export"] == {"target_per_group": 8, "target_per_work": 40}
 
 
 def test_invalid_works_yaml(tmp_path, monkeypatch):

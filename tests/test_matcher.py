@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import pytest
+
 from vcrb.annotation.rosters import CharacterEntry, Roster
 from vcrb.evaluation.matcher import CharacterMatcher, normalize_name, split_role_marker
 
@@ -49,6 +51,84 @@ def test_substring_match():
     m = CharacterMatcher({"kuangbiao": _roster()})
     r = m.match("电视剧《狂飙》里的高启强", "kuangbiao", "高启强", [])
     assert r.kind == "substring" and r.is_correct
+
+
+@pytest.mark.parametrize("predicted,canonical,aliases", [
+    ("皇子", "二皇子", []),
+    ("皇子", "三皇子", []),
+    ("殿下", "太子殿下", []),
+    ("院长", "陈萍萍", ["陈院长"]),
+    ("高启", "高启强", []),
+])
+def test_unregistered_name_fragment_is_not_correct(predicted, canonical, aliases):
+    matcher = CharacterMatcher({})
+    result = matcher.match(predicted, "synthetic_work", canonical, aliases)
+    assert not result.is_correct
+
+
+def test_short_name_must_be_explicitly_confirmed_alias():
+    matcher = CharacterMatcher({})
+    assert not matcher.match("宝瓶", "synthetic_work", "李宝瓶").is_correct
+    assert matcher.match("宝瓶", "synthetic_work", "李宝瓶", ["宝瓶"]).is_correct
+
+
+@pytest.mark.parametrize("predicted", [
+    "电视剧《狂飙》里的高启强",
+    "这个角色是高启强，穿着西装。",
+    "张颂文饰演的高启强",
+    "高启强（张颂文饰）",
+])
+def test_complete_name_in_single_identification_is_correct(predicted):
+    matcher = CharacterMatcher({"kuangbiao": _roster()})
+    assert matcher.match(predicted, "kuangbiao", "高启强").is_correct
+
+
+@pytest.mark.parametrize("predicted", [
+    "高启强或安欣",
+    "高启强、安欣",
+    "高启强/安欣",
+    "高启强，安欣",
+    "高启强和安欣",
+    "可能是高启强，也可能是安欣",
+    "高启强（张颂文饰）或安欣（张译饰）",
+    "高启强或者未登记的新角色",
+    "强哥或安警官",
+])
+def test_multiple_character_candidates_require_review(predicted):
+    matcher = CharacterMatcher({"kuangbiao": _roster()})
+    for canonical in ("高启强", "安欣"):
+        result = matcher.match(predicted, "kuangbiao", canonical)
+        assert result.kind == "ambiguous"
+        assert result.needs_review and not result.is_correct
+
+
+def test_scoring_does_not_count_ambiguous_or_fragment_as_correct(tmp_path):
+    """Exercise the actual scoring path with invented responses and a temp DB."""
+    import json
+
+    from tests.conftest import make_sample
+    from vcrb.evaluation.scoring import score_run
+    from vcrb.runner.store import RunStore
+
+    store = RunStore(tmp_path / "synthetic_runs.db")
+    store.create_run("synthetic", experiments=["A"], models=["fixture-model"],
+                     prompt_version="v1", dataset_hash="fixture", dataset_path="fixture", fairness_meta={})
+    answers = ["高启强或安欣", "高启", "电视剧狂飙里的高启强", "张颂文"]
+    samples = [make_sample(f"kuangbiao_{i:04d}") for i in range(len(answers))]
+    for sample, answer in zip(samples, answers):
+        response = json.dumps({"character_name": answer, "is_uncertain": False, "reason": "自造边界测试"}, ensure_ascii=False)
+        store.upsert_record(dict(run_id="synthetic", model_id="fixture-model", experiment="A",
+            sample_id=sample.sample_id, work_slug="kuangbiao", attempt=1, ok=1, http_status=200,
+            latency_ms=1, error_type=None, error_message=None, served_model="fixture-model", usage="{}",
+            raw_json=json.dumps({"response": {"raw_text": response}}, ensure_ascii=False), raw_file="",
+            created_at="2026-11-13T00:00:00+00:00"))
+    result = score_run(store, "synthetic", samples, CharacterMatcher({"kuangbiao": _roster()}),
+                       {"scoring": {"refusal_keywords": []}})
+    assert [r.outcome for r in result.records] == ["wrong_name", "wrong_name", "correct", "actor_name"]
+    assert [r.needs_review for r in result.records] == [True, False, False, False]
+    assert "多个角色候选" in result.records[0].detail
+    assert result.metrics[("fixture-model", "A")].counts["correct"] == 1
+    assert result.metrics[("fixture-model", "A")].accuracy_valid == .25
 
 
 def test_actor_name_is_not_correct():

@@ -102,7 +102,7 @@ def test_html_error_browser(tmp_path):
         CharacterMatcher({"kuangbiao": _roster()}),
         {"scoring": {"refusal_keywords": []}},
     )
-    # 样本包含琅琊榜，但 roster 只有狂飙 → 该作品匹配走 none → wrong_name
+    # 样本包含庆余年第二季，但 roster 只有狂飙 → 该作品匹配走 none → wrong_name
     out = render_html_report(result, store, dataset_dir, tmp_path / "errors.html")
     text = out.read_text(encoding="utf-8")
     assert "data:image/jpeg;base64" in text

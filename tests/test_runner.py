@@ -3,10 +3,16 @@
 from __future__ import annotations
 
 import json
+import threading
+import time
+from collections import Counter
+from dataclasses import replace
+from types import SimpleNamespace
 
 from tests.conftest import build_tiny_dataset, make_sample
 from vcrb.models import ModelSpec
 from vcrb.providers import MockProvider
+from vcrb.providers.base import ProviderResult
 from vcrb.runner.executor import (
     dataset_hash,
     execute_run,
@@ -89,11 +95,11 @@ def test_execute_run_full_and_idempotent(tmp_path):
     assert raw_files, "raw JSONL 未生成"
     assert sum(len(p.read_text(encoding='utf-8').splitlines()) for p in raw_files) == 2 * n
     # B 组 prompt 含作品名、A 组不含
-    b_rec = next(r for r in records if r["experiment"] == "B" and "langyabang" == r["work_slug"])
-    assert "《琅琊榜》" in b_rec["raw"]["request"]["user"]
-    a_rec = next(r for r in records if r["experiment"] == "A" and "langyabang" == r["work_slug"])
-    assert "琅琊榜" not in a_rec["raw"]["request"]["user"]
-    assert "琅琊榜" not in a_rec["raw"]["request"]["system"]
+    b_rec = next(r for r in records if r["experiment"] == "B" and "qingyunian2" == r["work_slug"])
+    assert "《庆余年第二季》" in b_rec["raw"]["request"]["user"]
+    a_rec = next(r for r in records if r["experiment"] == "A" and "qingyunian2" == r["work_slug"])
+    assert "庆余年第二季" not in a_rec["raw"]["request"]["user"]
+    assert "庆余年第二季" not in a_rec["raw"]["request"]["system"]
     # 请求不含答案
     for r in records:
         assert "梅长苏" not in json.dumps(r["raw"]["request"], ensure_ascii=False)
@@ -179,3 +185,196 @@ def test_run_store_latest_and_verify(tmp_path):
     verify = store.latest_verify()
     assert verify["m"]["ok"] == 1
     assert verify["m"]["served_model"] == "m#1.0"
+
+
+class _ConcurrentProbe:
+    """Offline provider that measures actual overlapping calls, not queue size."""
+
+    def __init__(self):
+        self.lock = threading.Lock()
+        self.active = 0
+        self.maximum = 0
+        self.by_model = Counter()
+        self.model_maximum = Counter()
+        self.calls = []
+        self.initialization_threads = []
+
+    def _get_client(self):
+        self.initialization_threads.append(threading.get_ident())
+
+    def recognize(self, model, image, system, prompt, gen):
+        with self.lock:
+            self.calls.append((model.id, system, prompt))
+            self.active += 1
+            self.by_model[model.id] += 1
+            self.maximum = max(self.maximum, self.active)
+            self.model_maximum[model.id] = max(
+                self.model_maximum[model.id], self.by_model[model.id]
+            )
+        try:
+            time.sleep(0.02)
+            return ProviderResult(
+                ok=True,
+                raw_text='{"character_name":null,"is_uncertain":true,"reason":"offline"}',
+                reasoning_text="kept separately for audit",
+                finish_reason="stop",
+                http_status=200,
+            )
+        finally:
+            with self.lock:
+                self.active -= 1
+                self.by_model[model.id] -= 1
+
+
+def test_concurrent_run_is_bounded_balanced_and_idempotent(tmp_path):
+    dataset_dir, samples, works, store, run_id = _setup_run(tmp_path)
+    probe = _ConcurrentProbe()
+    tasks = [(mock_model(name), probe) for name in ("m-a", "m-b", "m-c")]
+    main_thread = threading.get_ident()
+    original_upsert, original_append = store.upsert_record, store.append_raw
+
+    def main_thread_upsert(record):
+        assert threading.get_ident() == main_thread
+        original_upsert(record)
+
+    def main_thread_append(path, payload):
+        assert threading.get_ident() == main_thread
+        original_append(path, payload)
+
+    store.upsert_record = main_thread_upsert
+    store.append_raw = main_thread_append
+    kwargs = dict(
+        run_id=run_id, tasks=tasks, samples=samples, works_by_slug=works,
+        experiments=["A", "B"], store=store,
+        settings={"runner": {"concurrency": 4}}, dataset_dir=dataset_dir,
+        marked_dir=tmp_path / "marked", raw_dir=tmp_path / "raw",
+    )
+    result = execute_run(**kwargs)
+    expected = len(tasks) * 2 * len(samples)
+    assert result.executed == result.ok == expected
+    assert 1 < probe.maximum <= 4
+    assert max(probe.model_maximum.values()) <= 2
+    assert {row[0] for row in probe.calls[:3]} == {"m-a", "m-b", "m-c"}
+    assert probe.initialization_threads == [main_thread] * 3
+    assert len(store.records(run_id)) == expected
+    raw_files = list((tmp_path / "raw").rglob("*.jsonl"))
+    assert sum(len(p.read_text().splitlines()) for p in raw_files) == expected
+    for record in store.records(run_id):
+        assert record["raw"]["response"]["reasoning_text"] == "kept separately for audit"
+        assert record["raw"]["response"]["output_issue"] is None
+        request = json.dumps(record["raw"]["request"], ensure_ascii=False)
+        for sample in samples:
+            assert sample.target_character not in request
+
+    # A completed paid key must never be submitted again, even in parallel mode.
+    calls_before, initializations_before = len(probe.calls), len(probe.initialization_threads)
+    resumed = execute_run(**kwargs)
+    assert resumed.executed == 0 and resumed.skipped_existing == expected
+    assert len(probe.calls) == calls_before
+    assert len(probe.initialization_threads) == initializations_before
+
+
+def test_concurrent_interrupt_drains_paid_calls_without_submitting_backlog(tmp_path):
+    dataset_dir, samples, works, store, run_id = _setup_run(tmp_path)
+    probe = _ConcurrentProbe()
+    tasks = [(mock_model(name), probe) for name in ("m-a", "m-b", "m-c")]
+
+    def interrupt_after_first(_done, _label):
+        raise KeyboardInterrupt
+
+    kwargs = dict(
+        run_id=run_id, tasks=tasks, samples=samples, works_by_slug=works,
+        experiments=["A", "B"], store=store,
+        settings={"runner": {"concurrency": 3}}, dataset_dir=dataset_dir,
+        marked_dir=tmp_path / "marked", raw_dir=tmp_path / "raw",
+    )
+    interrupted = execute_run(**kwargs, progress_cb=interrupt_after_first)
+    assert interrupted.interrupted
+    assert 1 <= len(probe.calls) <= 3
+    assert interrupted.executed == len(store.records(run_id)) == len(probe.calls)
+    assert store.get_run(run_id)["status"] == "interrupted"
+
+    # Only genuinely unstarted keys remain for continuation.
+    expected = len(tasks) * 2 * len(samples)
+    resumed = execute_run(**kwargs)
+    assert not resumed.interrupted
+    assert len(probe.calls) == expected
+    assert len(store.records(run_id)) == expected
+    assert resumed.executed + interrupted.executed == expected
+
+
+def test_concurrent_run_respects_individual_model_caps(tmp_path):
+    dataset_dir, samples, works, store, run_id = _setup_run(tmp_path)
+    probe = _ConcurrentProbe()
+    models = [mock_model(name) for name in ("m-a", "m-b", "m-c")]
+    settings = {
+        "runner": {
+            "concurrency": 6,
+            "per_model_concurrency": {"m-a": 1, "m-b": 2},
+        }
+    }
+    summary = execute_run(
+        run_id=run_id, tasks=[(model, probe) for model in models],
+        samples=samples, works_by_slug=works, experiments=["A", "B"],
+        store=store, settings=settings, dataset_dir=dataset_dir,
+        marked_dir=tmp_path / "marked", raw_dir=tmp_path / "raw",
+    )
+    assert summary.executed == summary.ok == len(models) * len(samples) * 2
+    assert probe.model_maximum["m-a"] == 1
+    assert probe.model_maximum["m-b"] == 2
+    assert probe.model_maximum["m-c"] <= 2  # Unspecified models retain the default.
+    assert 1 < probe.maximum <= 5  # Sum of effective caps, below the global limit.
+    metadata = _fairness_meta(models, settings)
+    assert metadata["execution"]["per_model_concurrency"] == {
+        "m-a": 1, "m-b": 2, "m-c": 2,
+    }
+
+
+def test_run_audit_records_the_budget_parameter_actually_sent(tmp_path):
+    from vcrb.models import ProviderSpec
+    from vcrb.providers.openai_compat import OpenAICompatProvider
+
+    dataset_dir, samples, works, store, run_id = _setup_run(tmp_path)
+    models = [
+        mock_model("default-budget"),
+        replace(mock_model("completion-budget"), params={
+            "token_limit_parameter": "max_completion_tokens",
+        }),
+    ]
+    sent = {}
+
+    def capture_request(**kwargs):
+        sent[kwargs["model"]] = kwargs
+        return SimpleNamespace(
+            choices=[SimpleNamespace(
+                message=SimpleNamespace(content='{"character_name":null,"is_uncertain":true}',
+                                        reasoning_content=None),
+                finish_reason="stop",
+            )],
+            model=kwargs["model"], usage=None,
+        )
+
+    client = SimpleNamespace(chat=SimpleNamespace(
+        completions=SimpleNamespace(create=capture_request),
+    ))
+    provider = OpenAICompatProvider(
+        ProviderSpec("offline", "https://unused.invalid", "UNUSED_KEY"),
+        client_factory=lambda: client,
+    )
+    result = execute_run(
+        run_id=run_id, tasks=[(model, provider) for model in models],
+        samples=samples[:1], works_by_slug=works, experiments=["A"],
+        store=store, settings={"generation": {"max_tokens": 4096}},
+        dataset_dir=dataset_dir, marked_dir=tmp_path / "marked", raw_dir=tmp_path / "raw",
+    )
+    assert result.ok == 2
+    for record in store.records(run_id):
+        expected = "max_tokens" if record["model_id"] == "default-budget" else "max_completion_tokens"
+        other = "max_completion_tokens" if expected == "max_tokens" else "max_tokens"
+        audit = record["raw"]["request"]
+        actual = sent[record["model_id"]]
+        assert audit[expected] == actual[expected] == 4096
+        assert other not in audit and other not in actual
+    metadata = _fairness_meta(models, {})["per_model_notes"]
+    assert metadata["default-budget"]["token_limit_parameter"] == "max_tokens"
+    assert metadata["completion-budget"]["token_limit_parameter"] == "max_completion_tokens"

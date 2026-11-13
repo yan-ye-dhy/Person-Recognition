@@ -1,0 +1,4435 @@
+{
+  "exported_at": "2026-11-13T00:42:00+00:00",
+  "total": 160,
+  "quota_per_group": {
+    "kuangbiao": {
+      "main_character": 5,
+      "key_supporting_character": 2,
+      "supporting_character": 4,
+      "hard_case": 3,
+      "multi_person": 26
+    },
+    "qingyunian2": {
+      "main_character": 4,
+      "key_supporting_character": 8,
+      "supporting_character": 1,
+      "hard_case": 8,
+      "multi_person": 19
+    },
+    "gongfunvzu": {
+      "main_character": 13,
+      "key_supporting_character": 1,
+      "supporting_character": 0,
+      "hard_case": 2,
+      "multi_person": 24
+    },
+    "jianlai": {
+      "main_character": 1,
+      "key_supporting_character": 5,
+      "supporting_character": 3,
+      "hard_case": 5,
+      "multi_person": 26
+    }
+  },
+  "target_per_group": 8,
+  "target_per_work": 40,
+  "eligible_per_work": {
+    "kuangbiao": 40,
+    "qingyunian2": 40,
+    "gongfunvzu": 40,
+    "jianlai": 40
+  },
+  "gap_per_work": {
+    "kuangbiao": 0,
+    "qingyunian2": 0,
+    "gongfunvzu": 0,
+    "jianlai": 0
+  },
+  "quota_shortfall": {
+    "kuangbiao": {
+      "main_character": 3,
+      "key_supporting_character": 6,
+      "supporting_character": 4,
+      "hard_case": 5,
+      "multi_person": 0
+    },
+    "qingyunian2": {
+      "main_character": 4,
+      "key_supporting_character": 0,
+      "supporting_character": 7,
+      "hard_case": 0,
+      "multi_person": 0
+    },
+    "gongfunvzu": {
+      "main_character": 0,
+      "key_supporting_character": 7,
+      "supporting_character": 8,
+      "hard_case": 6,
+      "multi_person": 0
+    },
+    "jianlai": {
+      "main_character": 7,
+      "key_supporting_character": 3,
+      "supporting_character": 5,
+      "hard_case": 3,
+      "multi_person": 0
+    }
+  },
+  "quarantined_not_exported": {
+    "kuangbiao": 0,
+    "qingyunian2": 0,
+    "gongfunvzu": 0,
+    "jianlai": 0
+  },
+  "samples": [
+    {
+      "sample_id": "kuangbiao_0001",
+      "work_slug": "kuangbiao",
+      "work_name": "狂飙",
+      "work_category": "modern_drama",
+      "image_path": "kuangbiao/kuangbiao_0001.jpg",
+      "target_character": "徐忠",
+      "character_importance": "key_supporting",
+      "visual_difficulty": "normal",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "local_qsv",
+        "assistant_reviewed",
+        "领奖"
+      ],
+      "target_bbox": [
+        0.37,
+        0.05,
+        0.78,
+        1
+      ],
+      "image_width": 1280,
+      "image_height": 720,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/爱奇艺/下载/qycache/狂飙-电视剧/狂飙第1集-准高清720P-标准音效.qsv#t=148.000",
+      "note": "assistant 授权代标；第1集 148.000秒；以原片review_e01/frame_042.jpg中徐忠的姓名叠字为身份锚，核对本图连续场景中的同一角色；所选图没有目标姓名字幕。"
+    },
+    {
+      "sample_id": "kuangbiao_0002",
+      "work_slug": "kuangbiao",
+      "work_name": "狂飙",
+      "work_category": "modern_drama",
+      "image_path": "kuangbiao/kuangbiao_0002.jpg",
+      "target_character": "周志合",
+      "character_importance": "supporting",
+      "visual_difficulty": "normal",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "local_qsv",
+        "assistant_reviewed",
+        "省委会谈"
+      ],
+      "target_bbox": [
+        0.4,
+        0.12,
+        0.7,
+        0.87
+      ],
+      "image_width": 1280,
+      "image_height": 720,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/爱奇艺/下载/qycache/狂飙-电视剧/狂飙第1集-准高清720P-标准音效.qsv#t=184.000",
+      "note": "assistant 授权代标；第1集 184.000秒；对照第1集角色姓名叠字及同一剧情连续场景，确认周志合；此测试图没有该目标姓名字幕。"
+    },
+    {
+      "sample_id": "kuangbiao_0003",
+      "work_slug": "kuangbiao",
+      "work_name": "狂飙",
+      "work_category": "modern_drama",
+      "image_path": "kuangbiao/kuangbiao_0003.jpg",
+      "target_character": "周志合",
+      "character_importance": "supporting",
+      "visual_difficulty": "normal",
+      "is_multi_person": false,
+      "character_aliases": [],
+      "tags": [
+        "local_qsv",
+        "assistant_reviewed",
+        "省委会谈"
+      ],
+      "target_bbox": [
+        0.13,
+        0.04,
+        0.84,
+        1
+      ],
+      "image_width": 1280,
+      "image_height": 720,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/爱奇艺/下载/qycache/狂飙-电视剧/狂飙第1集-准高清720P-标准音效.qsv#t=192.000",
+      "note": "assistant 授权代标；第1集 192.000秒；对照第1集角色姓名叠字及同一剧情连续场景，确认周志合；此测试图没有该目标姓名字幕。"
+    },
+    {
+      "sample_id": "kuangbiao_0004",
+      "work_slug": "kuangbiao",
+      "work_name": "狂飙",
+      "work_category": "modern_drama",
+      "image_path": "kuangbiao/kuangbiao_0004.jpg",
+      "target_character": "周志合",
+      "character_importance": "supporting",
+      "visual_difficulty": "normal",
+      "is_multi_person": false,
+      "character_aliases": [],
+      "tags": [
+        "local_qsv",
+        "assistant_reviewed",
+        "省委会谈"
+      ],
+      "target_bbox": [
+        0.16,
+        0.04,
+        0.88,
+        1
+      ],
+      "image_width": 1280,
+      "image_height": 720,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/爱奇艺/下载/qycache/狂飙-电视剧/狂飙第1集-准高清720P-标准音效.qsv#t=220.000",
+      "note": "assistant 授权代标；第1集 220.000秒；对照第1集角色姓名叠字及同一剧情连续场景，确认周志合；此测试图没有该目标姓名字幕。"
+    },
+    {
+      "sample_id": "kuangbiao_0005",
+      "work_slug": "kuangbiao",
+      "work_name": "狂飙",
+      "work_category": "modern_drama",
+      "image_path": "kuangbiao/kuangbiao_0005.jpg",
+      "target_character": "徐忠",
+      "character_importance": "key_supporting",
+      "visual_difficulty": "normal",
+      "is_multi_person": false,
+      "character_aliases": [],
+      "tags": [
+        "local_qsv",
+        "assistant_reviewed",
+        "列车"
+      ],
+      "target_bbox": [
+        0.01,
+        0,
+        0.71,
+        1
+      ],
+      "image_width": 1280,
+      "image_height": 720,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/爱奇艺/下载/qycache/狂飙-电视剧/狂飙第1集-准高清720P-标准音效.qsv#t=284.000",
+      "note": "assistant 授权代标；第1集 284.000秒；以原片review_e01/frame_042.jpg中徐忠的姓名叠字为身份锚，核对本图连续场景中的同一角色；所选图没有目标姓名字幕。"
+    },
+    {
+      "sample_id": "kuangbiao_0006",
+      "work_slug": "kuangbiao",
+      "work_name": "狂飙",
+      "work_category": "modern_drama",
+      "image_path": "kuangbiao/kuangbiao_0006.jpg",
+      "target_character": "纪泽",
+      "character_importance": "key_supporting",
+      "visual_difficulty": "normal",
+      "is_multi_person": false,
+      "character_aliases": [],
+      "tags": [
+        "local_qsv",
+        "assistant_reviewed",
+        "列车"
+      ],
+      "target_bbox": [
+        0.12,
+        0,
+        0.8,
+        1
+      ],
+      "image_width": 1280,
+      "image_height": 720,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/爱奇艺/下载/qycache/狂飙-电视剧/狂飙第1集-准高清720P-标准音效.qsv#t=292.000",
+      "note": "assistant 授权代标；第1集 292.000秒；以原片review_e01/frame_043.jpg中纪泽的姓名叠字为身份锚，核对本图连续场景中的同一角色；所选图没有目标姓名字幕。"
+    },
+    {
+      "sample_id": "kuangbiao_0007",
+      "work_slug": "kuangbiao",
+      "work_name": "狂飙",
+      "work_category": "modern_drama",
+      "image_path": "kuangbiao/kuangbiao_0007.jpg",
+      "target_character": "徐忠",
+      "character_importance": "key_supporting",
+      "visual_difficulty": "normal",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "local_qsv",
+        "assistant_reviewed",
+        "列车"
+      ],
+      "target_bbox": [
+        0.32,
+        0.07,
+        0.9,
+        1
+      ],
+      "image_width": 1280,
+      "image_height": 720,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/爱奇艺/下载/qycache/狂飙-电视剧/狂飙第1集-准高清720P-标准音效.qsv#t=300.000",
+      "note": "assistant 授权代标；第1集 300.000秒；以原片review_e01/frame_042.jpg中徐忠的姓名叠字为身份锚，核对本图连续场景中的同一角色；所选图没有目标姓名字幕。"
+    },
+    {
+      "sample_id": "kuangbiao_0008",
+      "work_slug": "kuangbiao",
+      "work_name": "狂飙",
+      "work_category": "modern_drama",
+      "image_path": "kuangbiao/kuangbiao_0008.jpg",
+      "target_character": "纪泽",
+      "character_importance": "key_supporting",
+      "visual_difficulty": "side_face",
+      "is_multi_person": false,
+      "character_aliases": [],
+      "tags": [
+        "local_qsv",
+        "assistant_reviewed",
+        "列车"
+      ],
+      "target_bbox": [
+        0.12,
+        0,
+        0.95,
+        1
+      ],
+      "image_width": 1280,
+      "image_height": 720,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/爱奇艺/下载/qycache/狂飙-电视剧/狂飙第1集-准高清720P-标准音效.qsv#t=304.000",
+      "note": "assistant 授权代标；第1集 304.000秒；以原片review_e01/frame_043.jpg中纪泽的姓名叠字为身份锚，核对本图连续场景中的同一角色；所选图没有目标姓名字幕。"
+    },
+    {
+      "sample_id": "kuangbiao_0009",
+      "work_slug": "kuangbiao",
+      "work_name": "狂飙",
+      "work_category": "modern_drama",
+      "image_path": "kuangbiao/kuangbiao_0009.jpg",
+      "target_character": "龚开疆",
+      "character_importance": "supporting",
+      "visual_difficulty": "normal",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "local_qsv",
+        "assistant_reviewed",
+        "办公室"
+      ],
+      "target_bbox": [
+        0.17,
+        0.23,
+        0.64,
+        0.97
+      ],
+      "image_width": 1280,
+      "image_height": 720,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/爱奇艺/下载/qycache/狂飙-电视剧/狂飙第1集-准高清720P-标准音效.qsv#t=348.000",
+      "note": "assistant 授权代标；第1集 348.000秒；以原片review_e01/frame_059.jpg中龚开疆的姓名叠字为身份锚，核对本图连续场景中的同一角色；所选图没有目标姓名字幕。"
+    },
+    {
+      "sample_id": "kuangbiao_0010",
+      "work_slug": "kuangbiao",
+      "work_name": "狂飙",
+      "work_category": "modern_drama",
+      "image_path": "kuangbiao/kuangbiao_0010.jpg",
+      "target_character": "龚开疆",
+      "character_importance": "supporting",
+      "visual_difficulty": "normal",
+      "is_multi_person": false,
+      "character_aliases": [],
+      "tags": [
+        "local_qsv",
+        "assistant_reviewed",
+        "办公室"
+      ],
+      "target_bbox": [
+        0.08,
+        0,
+        0.92,
+        1
+      ],
+      "image_width": 1280,
+      "image_height": 720,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/爱奇艺/下载/qycache/狂飙-电视剧/狂飙第1集-准高清720P-标准音效.qsv#t=360.000",
+      "note": "assistant 授权代标；第1集 360.000秒；以原片review_e01/frame_059.jpg中龚开疆的姓名叠字为身份锚，核对本图连续场景中的同一角色；所选图没有目标姓名字幕。"
+    },
+    {
+      "sample_id": "kuangbiao_0011",
+      "work_slug": "kuangbiao",
+      "work_name": "狂飙",
+      "work_category": "modern_drama",
+      "image_path": "kuangbiao/kuangbiao_0011.jpg",
+      "target_character": "纪泽",
+      "character_importance": "key_supporting",
+      "visual_difficulty": "normal",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "local_qsv",
+        "assistant_reviewed",
+        "指导组调查"
+      ],
+      "target_bbox": [
+        0.02,
+        0,
+        0.61,
+        1
+      ],
+      "image_width": 1280,
+      "image_height": 720,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/爱奇艺/下载/qycache/狂飙-电视剧/狂飙第1集-准高清720P-标准音效.qsv#t=723.000",
+      "note": "assistant 授权代标；第1集 723.000秒；逐图核对第1集12:03的纪泽角色形象及同一剧情场景；采用官方播放器暂停后的原生视频截图；对应时间证据另存，图中没有目标姓名字幕。"
+    },
+    {
+      "sample_id": "kuangbiao_0012",
+      "work_slug": "kuangbiao",
+      "work_name": "狂飙",
+      "work_category": "modern_drama",
+      "image_path": "kuangbiao/kuangbiao_0012.jpg",
+      "target_character": "纪泽",
+      "character_importance": "key_supporting",
+      "visual_difficulty": "normal",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "local_qsv",
+        "assistant_reviewed",
+        "指导组会议"
+      ],
+      "target_bbox": [
+        0.24,
+        0.02,
+        0.97,
+        1
+      ],
+      "image_width": 1280,
+      "image_height": 720,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/爱奇艺/下载/qycache/狂飙-电视剧/狂飙第1集-准高清720P-标准音效.qsv#t=902.000",
+      "note": "assistant 授权代标；第1集 902.000秒；逐图核对第1集15:02的纪泽角色形象及同一剧情场景；采用官方播放器暂停后的原生视频截图；对应时间证据另存，图中没有目标姓名字幕。"
+    },
+    {
+      "sample_id": "kuangbiao_0013",
+      "work_slug": "kuangbiao",
+      "work_name": "狂飙",
+      "work_category": "modern_drama",
+      "image_path": "kuangbiao/kuangbiao_0013.jpg",
+      "target_character": "徐忠",
+      "character_importance": "key_supporting",
+      "visual_difficulty": "normal",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "local_qsv",
+        "assistant_reviewed",
+        "查阅调查表"
+      ],
+      "target_bbox": [
+        0.61,
+        0.1,
+        0.76,
+        0.81
+      ],
+      "image_width": 1280,
+      "image_height": 720,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/爱奇艺/下载/qycache/狂飙-电视剧/狂飙第1集-准高清720P-标准音效.qsv#t=1022.000",
+      "note": "assistant 授权代标；第1集 1022.000秒；逐图核对第1集17:02的徐忠角色形象及同一剧情场景；采用官方播放器暂停后的原生视频截图；对应时间证据另存，图中没有目标姓名字幕。"
+    },
+    {
+      "sample_id": "kuangbiao_0014",
+      "work_slug": "kuangbiao",
+      "work_name": "狂飙",
+      "work_category": "modern_drama",
+      "image_path": "kuangbiao/kuangbiao_0014.jpg",
+      "target_character": "安欣",
+      "character_importance": "main",
+      "visual_difficulty": "side_face",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "local_qsv",
+        "assistant_reviewed",
+        "办公室"
+      ],
+      "target_bbox": [
+        0.22,
+        0.3,
+        0.61,
+        1
+      ],
+      "image_width": 1280,
+      "image_height": 720,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/爱奇艺/下载/qycache/狂飙-电视剧/狂飙第1集-准高清720P-标准音效.qsv#t=1082.000",
+      "note": "assistant 授权代标；第1集 1082.000秒；逐图核对第1集18:02的安欣角色形象及同一剧情场景；采用官方播放器暂停后的原生视频截图；对应时间证据另存，图中没有目标姓名字幕。"
+    },
+    {
+      "sample_id": "kuangbiao_0015",
+      "work_slug": "kuangbiao",
+      "work_name": "狂飙",
+      "work_category": "modern_drama",
+      "image_path": "kuangbiao/kuangbiao_0015.jpg",
+      "target_character": "纪泽",
+      "character_importance": "key_supporting",
+      "visual_difficulty": "normal",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "local_qsv",
+        "assistant_reviewed",
+        "游泳馆约谈"
+      ],
+      "target_bbox": [
+        0.61,
+        0.04,
+        0.8,
+        0.94
+      ],
+      "image_width": 1280,
+      "image_height": 720,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/爱奇艺/下载/qycache/狂飙-电视剧/狂飙第1集-准高清720P-标准音效.qsv#t=1202.000",
+      "note": "assistant 授权代标；第1集 1202.000秒；逐图核对第1集20:02的纪泽角色形象及同一剧情场景；采用官方播放器暂停后的原生视频截图；对应时间证据另存，图中没有目标姓名字幕。"
+    },
+    {
+      "sample_id": "kuangbiao_0016",
+      "work_slug": "kuangbiao",
+      "work_name": "狂飙",
+      "work_category": "modern_drama",
+      "image_path": "kuangbiao/kuangbiao_0016.jpg",
+      "target_character": "高启强",
+      "character_importance": "main",
+      "visual_difficulty": "normal",
+      "is_multi_person": false,
+      "character_aliases": [],
+      "tags": [
+        "local_qsv",
+        "assistant_reviewed",
+        "受审近景"
+      ],
+      "target_bbox": [
+        0.32,
+        0,
+        0.91,
+        1
+      ],
+      "image_width": 1280,
+      "image_height": 720,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/爱奇艺/下载/qycache/狂飙-电视剧/狂飙第1集-准高清720P-标准音效.qsv#t=1382.000",
+      "note": "assistant 授权代标；第1集 1382.000秒；逐图核对第1集23:02的高启强角色形象及同一剧情场景；采用官方播放器暂停后的原生视频截图；对应时间证据另存，图中没有目标姓名字幕。"
+    },
+    {
+      "sample_id": "kuangbiao_0017",
+      "work_slug": "kuangbiao",
+      "work_name": "狂飙",
+      "work_category": "modern_drama",
+      "image_path": "kuangbiao/kuangbiao_0017.jpg",
+      "target_character": "唐小龙",
+      "character_importance": "supporting",
+      "visual_difficulty": "normal",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "local_qsv",
+        "assistant_reviewed",
+        "菜市场"
+      ],
+      "target_bbox": [
+        0.43,
+        0.03,
+        0.95,
+        1
+      ],
+      "image_width": 1280,
+      "image_height": 720,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/爱奇艺/下载/qycache/狂飙-电视剧/狂飙第1集-准高清720P-标准音效.qsv#t=1502.000",
+      "note": "assistant 授权代标；第1集 1502.000秒；逐图核对第1集25:02的唐小龙角色形象及同一剧情场景；采用官方播放器暂停后的原生视频截图；对应时间证据另存，图中没有目标姓名字幕。"
+    },
+    {
+      "sample_id": "kuangbiao_0018",
+      "work_slug": "kuangbiao",
+      "work_name": "狂飙",
+      "work_category": "modern_drama",
+      "image_path": "kuangbiao/kuangbiao_0018.jpg",
+      "target_character": "唐小龙",
+      "character_importance": "supporting",
+      "visual_difficulty": "normal",
+      "is_multi_person": false,
+      "character_aliases": [],
+      "tags": [
+        "local_qsv",
+        "assistant_reviewed",
+        "家中收礼",
+        "eyes_partially_closed"
+      ],
+      "target_bbox": [
+        0.07,
+        0,
+        0.99,
+        1
+      ],
+      "image_width": 1280,
+      "image_height": 720,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/爱奇艺/下载/qycache/狂飙-电视剧/狂飙第1集-准高清720P-标准音效.qsv#t=1681.000",
+      "note": "assistant 授权代标；第1集 1681.000秒；逐图核对第1集28:01的唐小龙角色形象及同一剧情场景；采用官方播放器暂停后的原生视频截图；对应时间证据另存，图中没有目标姓名字幕。"
+    },
+    {
+      "sample_id": "kuangbiao_0019",
+      "work_slug": "kuangbiao",
+      "work_name": "狂飙",
+      "work_category": "modern_drama",
+      "image_path": "kuangbiao/kuangbiao_0019.jpg",
+      "target_character": "高启强",
+      "character_importance": "main",
+      "visual_difficulty": "normal",
+      "is_multi_person": false,
+      "character_aliases": [],
+      "tags": [
+        "local_qsv",
+        "assistant_reviewed",
+        "送礼冲突"
+      ],
+      "target_bbox": [
+        0.19,
+        0,
+        0.72,
+        1
+      ],
+      "image_width": 1280,
+      "image_height": 720,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/爱奇艺/下载/qycache/狂飙-电视剧/狂飙第1集-准高清720P-标准音效.qsv#t=1738.000",
+      "note": "assistant 授权代标；第1集 1738.000秒；逐图核对第1集28:58的高启强角色形象及同一剧情场景；采用官方播放器暂停后的原生视频截图；对应时间证据另存，图中没有目标姓名字幕。"
+    },
+    {
+      "sample_id": "kuangbiao_0020",
+      "work_slug": "kuangbiao",
+      "work_name": "狂飙",
+      "work_category": "modern_drama",
+      "image_path": "kuangbiao/kuangbiao_0020.jpg",
+      "target_character": "高启强",
+      "character_importance": "main",
+      "visual_difficulty": "normal",
+      "is_multi_person": false,
+      "character_aliases": [],
+      "tags": [
+        "local_qsv",
+        "assistant_reviewed",
+        "送礼冲突低照",
+        "low_light"
+      ],
+      "target_bbox": [
+        0,
+        0,
+        0.7,
+        1
+      ],
+      "image_width": 1280,
+      "image_height": 720,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/爱奇艺/下载/qycache/狂飙-电视剧/狂飙第1集-准高清720P-标准音效.qsv#t=1801.000",
+      "note": "assistant 授权代标；第1集 1801.000秒；逐图核对第1集30:01的高启强角色形象及同一剧情场景；采用官方播放器暂停后的原生视频截图；对应时间证据另存，图中没有目标姓名字幕。"
+    },
+    {
+      "sample_id": "kuangbiao_0021",
+      "work_slug": "kuangbiao",
+      "work_name": "狂飙",
+      "work_category": "modern_drama",
+      "image_path": "kuangbiao/kuangbiao_0021.jpg",
+      "target_character": "安欣",
+      "character_importance": "main",
+      "visual_difficulty": "side_face",
+      "is_multi_person": false,
+      "character_aliases": [],
+      "tags": [
+        "local_qsv",
+        "assistant_reviewed",
+        "警局对话"
+      ],
+      "target_bbox": [
+        0.29,
+        0,
+        0.83,
+        1
+      ],
+      "image_width": 1280,
+      "image_height": 720,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/爱奇艺/下载/qycache/狂飙-电视剧/狂飙第1集-准高清720P-标准音效.qsv#t=1921.000",
+      "note": "assistant 授权代标；2026-11-13独立复核更正原标签。框内寸头警员与0022/0023是同一角色；对照官方“张译 饰 安欣”命名海报，应为安欣，原标李响错误。 原标注及原片/姓名海报证据保存在 results/benchmark_20261113/gt_revision_01/revision.json；图像与目标框保持不变。"
+    },
+    {
+      "sample_id": "kuangbiao_0022",
+      "work_slug": "kuangbiao",
+      "work_name": "狂飙",
+      "work_category": "modern_drama",
+      "image_path": "kuangbiao/kuangbiao_0022.jpg",
+      "target_character": "安欣",
+      "character_importance": "main",
+      "visual_difficulty": "normal",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "local_qsv",
+        "assistant_reviewed",
+        "警局对话"
+      ],
+      "target_bbox": [
+        0.08,
+        0.02,
+        0.65,
+        1
+      ],
+      "image_width": 1280,
+      "image_height": 720,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/爱奇艺/下载/qycache/狂飙-电视剧/狂飙第1集-准高清720P-标准音效.qsv#t=1978.000",
+      "note": "assistant 授权代标；2026-11-13独立复核更正原标签。框内寸头警员与0021/0023同一角色；官方安欣命名海报及同场景连续形象支持安欣，原标李响错误。 原标注及原片/姓名海报证据保存在 results/benchmark_20261113/gt_revision_01/revision.json；图像与目标框保持不变。"
+    },
+    {
+      "sample_id": "kuangbiao_0023",
+      "work_slug": "kuangbiao",
+      "work_name": "狂飙",
+      "work_category": "modern_drama",
+      "image_path": "kuangbiao/kuangbiao_0023.jpg",
+      "target_character": "安欣",
+      "character_importance": "main",
+      "visual_difficulty": "normal",
+      "is_multi_person": false,
+      "character_aliases": [],
+      "tags": [
+        "local_qsv",
+        "assistant_reviewed",
+        "警局对话"
+      ],
+      "target_bbox": [
+        0.24,
+        0,
+        0.99,
+        1
+      ],
+      "image_width": 1280,
+      "image_height": 720,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/爱奇艺/下载/qycache/狂飙-电视剧/狂飙第1集-准高清720P-标准音效.qsv#t=2041.000",
+      "note": "assistant 授权代标；第1集 2041.000秒；逐图核对第1集34:01的安欣角色形象及同一剧情场景；采用官方播放器暂停后的原生视频截图；对应时间证据另存，图中没有目标姓名字幕。"
+    },
+    {
+      "sample_id": "kuangbiao_0024",
+      "work_slug": "kuangbiao",
+      "work_name": "狂飙",
+      "work_category": "modern_drama",
+      "image_path": "kuangbiao/kuangbiao_0024.jpg",
+      "target_character": "李响",
+      "character_importance": "key_supporting",
+      "visual_difficulty": "normal",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "local_qsv",
+        "assistant_reviewed",
+        "除夕警局"
+      ],
+      "target_bbox": [
+        0.45,
+        0.02,
+        0.65,
+        0.64
+      ],
+      "image_width": 1280,
+      "image_height": 720,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/爱奇艺/下载/qycache/狂飙-电视剧/狂飙第1集-准高清720P-标准音效.qsv#t=2217.000",
+      "note": "assistant 授权代标；2026-11-13独立复核更正原标签。多人画面左边寸头安欣，右边较长刘海李响；红框在右边，应李响。官方李响命名海报与该目标对应。 原标注及原片/姓名海报证据保存在 results/benchmark_20261113/gt_revision_01/revision.json；图像与目标框保持不变。"
+    },
+    {
+      "sample_id": "kuangbiao_0025",
+      "work_slug": "kuangbiao",
+      "work_name": "狂飙",
+      "work_category": "modern_drama",
+      "image_path": "kuangbiao/kuangbiao_0025.jpg",
+      "target_character": "李响",
+      "character_importance": "key_supporting",
+      "visual_difficulty": "normal",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "local_qsv",
+        "assistant_reviewed",
+        "警局门厅",
+        "small_target"
+      ],
+      "target_bbox": [
+        0.09,
+        0.11,
+        0.24,
+        0.87
+      ],
+      "image_width": 1280,
+      "image_height": 720,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/爱奇艺/下载/qycache/狂飙-电视剧/狂飙第1集-准高清720P-标准音效.qsv#t=2277.000",
+      "note": "assistant 授权代标；2026-11-13独立复核更正原标签。门内左侧较长刘海警员，与0024右侧同一角色；官方李响命名海报对应，原安欣标签应更正。 原标注及原片/姓名海报证据保存在 results/benchmark_20261113/gt_revision_01/revision.json；图像与目标框保持不变。"
+    },
+    {
+      "sample_id": "kuangbiao_0026",
+      "work_slug": "kuangbiao",
+      "work_name": "狂飙",
+      "work_category": "modern_drama",
+      "image_path": "kuangbiao/kuangbiao_0026.jpg",
+      "target_character": "高启强",
+      "character_importance": "main",
+      "visual_difficulty": "side_face",
+      "is_multi_person": false,
+      "character_aliases": [],
+      "tags": [
+        "local_qsv",
+        "assistant_reviewed",
+        "审讯室侧面"
+      ],
+      "target_bbox": [
+        0.1,
+        0,
+        0.8,
+        1
+      ],
+      "image_width": 1280,
+      "image_height": 720,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/爱奇艺/下载/qycache/狂飙-电视剧/狂飙第1集-准高清720P-标准音效.qsv#t=2337.000",
+      "note": "assistant 授权代标；第1集 2337.000秒；逐图核对第1集38:57的高启强角色形象及同一剧情场景；采用官方播放器暂停后的原生视频截图；对应时间证据另存，图中没有目标姓名字幕。"
+    },
+    {
+      "sample_id": "kuangbiao_0027",
+      "work_slug": "kuangbiao",
+      "work_name": "狂飙",
+      "work_category": "modern_drama",
+      "image_path": "kuangbiao/kuangbiao_0027.jpg",
+      "target_character": "徐忠",
+      "character_importance": "key_supporting",
+      "visual_difficulty": "normal",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "local_qsv",
+        "assistant_reviewed",
+        "门厅"
+      ],
+      "target_bbox": [
+        0,
+        0.02,
+        0.64,
+        1
+      ],
+      "image_width": 1280,
+      "image_height": 720,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/爱奇艺/下载/qycache/狂飙-电视剧/狂飙第2集-准高清720P-标准音效.qsv#t=120.000",
+      "note": "assistant 授权代标；第2集 120.000秒；以原片review_e01/frame_042.jpg中徐忠的姓名叠字为身份锚，核对本图连续场景中的同一角色；所选图没有目标姓名字幕。"
+    },
+    {
+      "sample_id": "kuangbiao_0028",
+      "work_slug": "kuangbiao",
+      "work_name": "狂飙",
+      "work_category": "modern_drama",
+      "image_path": "kuangbiao/kuangbiao_0028.jpg",
+      "target_character": "纪泽",
+      "character_importance": "key_supporting",
+      "visual_difficulty": "side_face",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "local_qsv",
+        "assistant_reviewed",
+        "门厅"
+      ],
+      "target_bbox": [
+        0.39,
+        0.02,
+        0.81,
+        1
+      ],
+      "image_width": 1280,
+      "image_height": 720,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/爱奇艺/下载/qycache/狂飙-电视剧/狂飙第2集-准高清720P-标准音效.qsv#t=128.000",
+      "note": "assistant 授权代标；第2集 128.000秒；以原片review_e01/frame_043.jpg中纪泽的姓名叠字为身份锚，核对本图连续场景中的同一角色；所选图没有目标姓名字幕。"
+    },
+    {
+      "sample_id": "kuangbiao_0029",
+      "work_slug": "kuangbiao",
+      "work_name": "狂飙",
+      "work_category": "modern_drama",
+      "image_path": "kuangbiao/kuangbiao_0029.jpg",
+      "target_character": "徐忠",
+      "character_importance": "key_supporting",
+      "visual_difficulty": "side_face",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "local_qsv",
+        "assistant_reviewed",
+        "门厅"
+      ],
+      "target_bbox": [
+        0,
+        0.02,
+        0.55,
+        1
+      ],
+      "image_width": 1280,
+      "image_height": 720,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/爱奇艺/下载/qycache/狂飙-电视剧/狂飙第2集-准高清720P-标准音效.qsv#t=136.000",
+      "note": "assistant 授权代标；第2集 136.000秒；以原片review_e01/frame_042.jpg中徐忠的姓名叠字为身份锚，核对本图连续场景中的同一角色；所选图没有目标姓名字幕。"
+    },
+    {
+      "sample_id": "kuangbiao_0030",
+      "work_slug": "kuangbiao",
+      "work_name": "狂飙",
+      "work_category": "modern_drama",
+      "image_path": "kuangbiao/kuangbiao_0030.jpg",
+      "target_character": "徐忠",
+      "character_importance": "key_supporting",
+      "visual_difficulty": "normal",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "local_qsv",
+        "assistant_reviewed",
+        "面摊站谈"
+      ],
+      "target_bbox": [
+        0.05,
+        0.1,
+        0.73,
+        1
+      ],
+      "image_width": 1280,
+      "image_height": 720,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/爱奇艺/下载/qycache/狂飙-电视剧/狂飙第2集-准高清720P-标准音效.qsv#t=236.000",
+      "note": "assistant 授权代标；第2集 236.000秒；以原片review_e01/frame_042.jpg中徐忠的姓名叠字为身份锚，核对本图连续场景中的同一角色；所选图没有目标姓名字幕。"
+    },
+    {
+      "sample_id": "kuangbiao_0031",
+      "work_slug": "kuangbiao",
+      "work_name": "狂飙",
+      "work_category": "modern_drama",
+      "image_path": "kuangbiao/kuangbiao_0031.jpg",
+      "target_character": "安欣",
+      "character_importance": "main",
+      "visual_difficulty": "normal",
+      "is_multi_person": false,
+      "character_aliases": [],
+      "tags": [
+        "local_qsv",
+        "assistant_reviewed",
+        "面摊站谈"
+      ],
+      "target_bbox": [
+        0.25,
+        0.02,
+        0.96,
+        1
+      ],
+      "image_width": 1280,
+      "image_height": 720,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/爱奇艺/下载/qycache/狂飙-电视剧/狂飙第2集-准高清720P-标准音效.qsv#t=240.000",
+      "note": "assistant 授权代标；第2集 240.000秒；第2集面摊连续场景中的灰发安欣；结合292秒安欣称呼、徐忠/纪泽座位连续性与官方分集剧情核对；所选图没有姓名字幕。"
+    },
+    {
+      "sample_id": "kuangbiao_0032",
+      "work_slug": "kuangbiao",
+      "work_name": "狂飙",
+      "work_category": "modern_drama",
+      "image_path": "kuangbiao/kuangbiao_0032.jpg",
+      "target_character": "徐忠",
+      "character_importance": "key_supporting",
+      "visual_difficulty": "normal",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "local_qsv",
+        "assistant_reviewed",
+        "面摊站谈"
+      ],
+      "target_bbox": [
+        0.18,
+        0,
+        0.84,
+        1
+      ],
+      "image_width": 1280,
+      "image_height": 720,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/爱奇艺/下载/qycache/狂飙-电视剧/狂飙第2集-准高清720P-标准音效.qsv#t=244.000",
+      "note": "assistant 授权代标；第2集 244.000秒；对照第1集角色姓名叠字及同一剧情连续场景，确认徐忠；此测试图没有该目标姓名字幕。"
+    },
+    {
+      "sample_id": "kuangbiao_0033",
+      "work_slug": "kuangbiao",
+      "work_name": "狂飙",
+      "work_category": "modern_drama",
+      "image_path": "kuangbiao/kuangbiao_0033.jpg",
+      "target_character": "纪泽",
+      "character_importance": "key_supporting",
+      "visual_difficulty": "normal",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "local_qsv",
+        "assistant_reviewed",
+        "面摊站谈"
+      ],
+      "target_bbox": [
+        0.35,
+        0.12,
+        0.65,
+        1
+      ],
+      "image_width": 1280,
+      "image_height": 720,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/爱奇艺/下载/qycache/狂飙-电视剧/狂飙第2集-准高清720P-标准音效.qsv#t=248.000",
+      "note": "assistant 授权代标；第2集 248.000秒；以原片review_e01/frame_043.jpg中纪泽的姓名叠字为身份锚，核对本图连续场景中的同一角色；所选图没有目标姓名字幕。"
+    },
+    {
+      "sample_id": "kuangbiao_0034",
+      "work_slug": "kuangbiao",
+      "work_name": "狂飙",
+      "work_category": "modern_drama",
+      "image_path": "kuangbiao/kuangbiao_0034.jpg",
+      "target_character": "纪泽",
+      "character_importance": "key_supporting",
+      "visual_difficulty": "side_face",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "local_qsv",
+        "assistant_reviewed",
+        "面摊餐桌"
+      ],
+      "target_bbox": [
+        0.64,
+        0.2,
+        0.95,
+        1
+      ],
+      "image_width": 1280,
+      "image_height": 720,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/爱奇艺/下载/qycache/狂飙-电视剧/狂飙第2集-准高清720P-标准音效.qsv#t=264.000",
+      "note": "assistant 授权代标；第2集 264.000秒；以原片review_e01/frame_043.jpg中纪泽的姓名叠字为身份锚，核对本图连续场景中的同一角色；所选图没有目标姓名字幕。"
+    },
+    {
+      "sample_id": "kuangbiao_0035",
+      "work_slug": "kuangbiao",
+      "work_name": "狂飙",
+      "work_category": "modern_drama",
+      "image_path": "kuangbiao/kuangbiao_0035.jpg",
+      "target_character": "安欣",
+      "character_importance": "main",
+      "visual_difficulty": "side_face",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "local_qsv",
+        "assistant_reviewed",
+        "面摊餐桌"
+      ],
+      "target_bbox": [
+        0.65,
+        0.04,
+        1,
+        1
+      ],
+      "image_width": 1280,
+      "image_height": 720,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/爱奇艺/下载/qycache/狂飙-电视剧/狂飙第2集-准高清720P-标准音效.qsv#t=276.000",
+      "note": "assistant 授权代标；第2集 276.000秒；第2集面摊连续场景中的灰发安欣；结合292秒安欣称呼、徐忠/纪泽座位连续性与官方分集剧情核对；所选图没有姓名字幕。"
+    },
+    {
+      "sample_id": "kuangbiao_0036",
+      "work_slug": "kuangbiao",
+      "work_name": "狂飙",
+      "work_category": "modern_drama",
+      "image_path": "kuangbiao/kuangbiao_0036.jpg",
+      "target_character": "纪泽",
+      "character_importance": "key_supporting",
+      "visual_difficulty": "normal",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "local_qsv",
+        "assistant_reviewed",
+        "面摊餐桌"
+      ],
+      "target_bbox": [
+        0.33,
+        0.1,
+        0.71,
+        1
+      ],
+      "image_width": 1280,
+      "image_height": 720,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/爱奇艺/下载/qycache/狂飙-电视剧/狂飙第2集-准高清720P-标准音效.qsv#t=284.000",
+      "note": "assistant 授权代标；第2集 284.000秒；以原片review_e01/frame_043.jpg中纪泽的姓名叠字为身份锚，核对本图连续场景中的同一角色；所选图没有目标姓名字幕。"
+    },
+    {
+      "sample_id": "kuangbiao_0037",
+      "work_slug": "kuangbiao",
+      "work_name": "狂飙",
+      "work_category": "modern_drama",
+      "image_path": "kuangbiao/kuangbiao_0037.jpg",
+      "target_character": "安欣",
+      "character_importance": "main",
+      "visual_difficulty": "normal",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "local_qsv",
+        "assistant_reviewed",
+        "面摊餐桌"
+      ],
+      "target_bbox": [
+        0.38,
+        0.01,
+        0.94,
+        1
+      ],
+      "image_width": 1280,
+      "image_height": 720,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/爱奇艺/下载/qycache/狂飙-电视剧/狂飙第2集-准高清720P-标准音效.qsv#t=304.000",
+      "note": "assistant 授权代标；第2集 304.000秒；第2集面摊连续场景中的灰发安欣；结合292秒安欣称呼、徐忠/纪泽座位连续性与官方分集剧情核对；所选图没有姓名字幕。"
+    },
+    {
+      "sample_id": "kuangbiao_0038",
+      "work_slug": "kuangbiao",
+      "work_name": "狂飙",
+      "work_category": "modern_drama",
+      "image_path": "kuangbiao/kuangbiao_0038.jpg",
+      "target_character": "安欣",
+      "character_importance": "main",
+      "visual_difficulty": "normal",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "local_qsv",
+        "assistant_reviewed",
+        "面摊餐桌"
+      ],
+      "target_bbox": [
+        0.13,
+        0.01,
+        0.69,
+        1
+      ],
+      "image_width": 1280,
+      "image_height": 720,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/爱奇艺/下载/qycache/狂飙-电视剧/狂飙第2集-准高清720P-标准音效.qsv#t=316.000",
+      "note": "assistant 授权代标；第2集 316.000秒；第2集面摊连续场景中的灰发安欣；结合292秒安欣称呼、徐忠/纪泽座位连续性与官方分集剧情核对；所选图没有姓名字幕。"
+    },
+    {
+      "sample_id": "kuangbiao_0039",
+      "work_slug": "kuangbiao",
+      "work_name": "狂飙",
+      "work_category": "modern_drama",
+      "image_path": "kuangbiao/kuangbiao_0039.jpg",
+      "target_character": "纪泽",
+      "character_importance": "key_supporting",
+      "visual_difficulty": "side_face",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "local_qsv",
+        "assistant_reviewed",
+        "面摊餐桌"
+      ],
+      "target_bbox": [
+        0.46,
+        0.2,
+        0.83,
+        1
+      ],
+      "image_width": 1280,
+      "image_height": 720,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/爱奇艺/下载/qycache/狂飙-电视剧/狂飙第2集-准高清720P-标准音效.qsv#t=340.000",
+      "note": "assistant 授权代标；第2集 340.000秒；以原片review_e01/frame_043.jpg中纪泽的姓名叠字为身份锚，核对本图连续场景中的同一角色；所选图没有目标姓名字幕。"
+    },
+    {
+      "sample_id": "kuangbiao_0040",
+      "work_slug": "kuangbiao",
+      "work_name": "狂飙",
+      "work_category": "modern_drama",
+      "image_path": "kuangbiao/kuangbiao_0040.jpg",
+      "target_character": "安欣",
+      "character_importance": "main",
+      "visual_difficulty": "side_face",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "local_qsv",
+        "assistant_reviewed",
+        "面摊餐桌"
+      ],
+      "target_bbox": [
+        0.43,
+        0.03,
+        0.95,
+        1
+      ],
+      "image_width": 1280,
+      "image_height": 720,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/爱奇艺/下载/qycache/狂飙-电视剧/狂飙第2集-准高清720P-标准音效.qsv#t=348.000",
+      "note": "assistant 授权代标；第2集 348.000秒；第2集面摊连续场景中的灰发安欣；结合292秒安欣称呼、徐忠/纪泽座位连续性与官方分集剧情核对；所选图没有姓名字幕。"
+    },
+    {
+      "sample_id": "qingyunian2_0001",
+      "work_slug": "qingyunian2",
+      "work_name": "庆余年第二季",
+      "work_category": "costume_drama",
+      "image_path": "qingyunian2/qingyunian2_0001.jpg",
+      "target_character": "范闲",
+      "character_importance": "main",
+      "visual_difficulty": "normal",
+      "is_multi_person": false,
+      "character_aliases": [],
+      "tags": [],
+      "target_bbox": [
+        0.17,
+        0.0,
+        0.94,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 1080,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53imaaeaaacuadbqus3ztmaq6dajhqabsa.f323024007.hls#t=193.000",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；深蓝外袍、散额发近景，脸部清楚。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "qingyunian2_0003",
+      "work_slug": "qingyunian2",
+      "work_name": "庆余年第二季",
+      "work_category": "costume_drama",
+      "image_path": "qingyunian2/qingyunian2_0003.jpg",
+      "target_character": "袁梦",
+      "character_importance": "supporting",
+      "visual_difficulty": "normal",
+      "is_multi_person": false,
+      "character_aliases": [],
+      "tags": [],
+      "target_bbox": [
+        0.18,
+        0.1,
+        0.57,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 1080,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53imaaeaaacuadbqus3ztmaq6dajhqabsa.f323024007.hls#t=623.640",
+      "note": "assistant 授权代标；2026-11-13独立复核更正原标签。青披白粉内裙、团扇、偏分花簪与带袁梦姓名生产海报同一角色造型。原范若若不符。 原标注及原片/姓名海报证据保存在 results/benchmark_20261113/gt_revision_01/revision.json；图像与目标框保持不变。"
+    },
+    {
+      "sample_id": "qingyunian2_0004",
+      "work_slug": "qingyunian2",
+      "work_name": "庆余年第二季",
+      "work_category": "costume_drama",
+      "image_path": "qingyunian2/qingyunian2_0004.jpg",
+      "target_character": "范思辙",
+      "character_importance": "key_supporting",
+      "visual_difficulty": "normal",
+      "is_multi_person": false,
+      "character_aliases": [],
+      "tags": [],
+      "target_bbox": [
+        0.03,
+        0.01,
+        0.78,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 1080,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53imaaeaaacuadbqus3ztmaq6dajhqabsa.f323024007.hls#t=714.960",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；浅蓝锦衣、金项圈近景。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "qingyunian2_0005",
+      "work_slug": "qingyunian2",
+      "work_name": "庆余年第二季",
+      "work_category": "costume_drama",
+      "image_path": "qingyunian2/qingyunian2_0005.jpg",
+      "target_character": "桑文",
+      "character_importance": "supporting",
+      "visual_difficulty": "normal",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "multiple_people"
+      ],
+      "target_bbox": [
+        0.12,
+        0.03,
+        0.67,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 1080,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53imaaeaaacuadbqus3ztmaq6dajhqabsa.f323024007.hls#t=853.480",
+      "note": "assistant 授权代标；2026-11-13独立复核更正原标签。粉衣女子和两侧花簪与带桑文姓名海报一致，并非范若若。 原标注及原片/姓名海报证据保存在 results/benchmark_20261113/gt_revision_01/revision.json；图像与目标框保持不变。"
+    },
+    {
+      "sample_id": "qingyunian2_0006",
+      "work_slug": "qingyunian2",
+      "work_name": "庆余年第二季",
+      "work_category": "costume_drama",
+      "image_path": "qingyunian2/qingyunian2_0006.jpg",
+      "target_character": "三皇子",
+      "character_importance": "supporting",
+      "visual_difficulty": "normal",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "multiple_people"
+      ],
+      "target_bbox": [
+        0.05,
+        0.02,
+        0.58,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 1080,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53imaaeaaacuadbqus3ztmaq6dajhqabsa.f323024007.hls#t=1004.800",
+      "note": "assistant 授权代标；2026-11-13独立复核更正原标签。瘦脸浅蓝衣男子不是金链圆脸范思辙；命名三皇子海报及官微剧照新闻图注明确三皇子。 原标注及原片/姓名海报证据保存在 results/benchmark_20261113/gt_revision_01/revision.json；图像与目标框保持不变。"
+    },
+    {
+      "sample_id": "qingyunian2_0007",
+      "work_slug": "qingyunian2",
+      "work_name": "庆余年第二季",
+      "work_category": "costume_drama",
+      "image_path": "qingyunian2/qingyunian2_0007.jpg",
+      "target_character": "范闲",
+      "character_importance": "main",
+      "visual_difficulty": "side_face",
+      "is_multi_person": false,
+      "character_aliases": [],
+      "tags": [
+        "side_face"
+      ],
+      "target_bbox": [
+        0.23,
+        0.01,
+        0.85,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 1080,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53imaaeaaacuadbqus3ztmaq6dajhqabsa.f323024007.hls#t=1323.520",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；深蓝衣窗边侧脸。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "qingyunian2_0008",
+      "work_slug": "qingyunian2",
+      "work_name": "庆余年第二季",
+      "work_category": "costume_drama",
+      "image_path": "qingyunian2/qingyunian2_0008.jpg",
+      "target_character": "二皇子",
+      "character_importance": "key_supporting",
+      "visual_difficulty": "normal",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "multiple_people"
+      ],
+      "target_bbox": [
+        0.25,
+        0.02,
+        0.88,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 1080,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53imaaeaaacuadbqus3ztmaq6dajhqabsa.f323024007.hls#t=1475.560",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；前景米白外袍、绿纹内衣，额侧垂发。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "qingyunian2_0009",
+      "work_slug": "qingyunian2",
+      "work_name": "庆余年第二季",
+      "work_category": "costume_drama",
+      "image_path": "qingyunian2/qingyunian2_0009.jpg",
+      "target_character": "王启年",
+      "character_importance": "key_supporting",
+      "visual_difficulty": "normal",
+      "is_multi_person": false,
+      "character_aliases": [],
+      "tags": [],
+      "target_bbox": [
+        0.04,
+        0.02,
+        0.89,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 1080,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53imaaeaaacuadbqus3ztmaq6dajhqabsa.f323024007.hls#t=1569.680",
+      "note": "assistant 授权代标；2026-11-13独立复核更正原标签。原片130/133/134/135分片连续对话直接将黑衣男子锚为王启年：二皇子称谢王启年王大人，随后该男子自称王某并索要妻女。0009是同连续镜头；0011隔帘者与之同衣冠同人。先前太子/李弘成检索猜测均被原片姓名和对话证据取代。 原标注及原片/姓名海报证据保存在 results/benchmark_20261113/gt_revision_01/revision.json；图像与目标框保持不变。"
+    },
+    {
+      "sample_id": "qingyunian2_0010",
+      "work_slug": "qingyunian2",
+      "work_name": "庆余年第二季",
+      "work_category": "costume_drama",
+      "image_path": "qingyunian2/qingyunian2_0010.jpg",
+      "target_character": "二皇子",
+      "character_importance": "key_supporting",
+      "visual_difficulty": "normal",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "multiple_people"
+      ],
+      "target_bbox": [
+        0.43,
+        0.02,
+        0.9,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 1080,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53imaaeaaacuadbqus3ztmaq6dajhqabsa.f323024007.hls#t=1859.160",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；右前景米白衣男子，随从在后。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "qingyunian2_0011",
+      "work_slug": "qingyunian2",
+      "work_name": "庆余年第二季",
+      "work_category": "costume_drama",
+      "image_path": "qingyunian2/qingyunian2_0011.jpg",
+      "target_character": "王启年",
+      "character_importance": "key_supporting",
+      "visual_difficulty": "occluded",
+      "is_multi_person": false,
+      "character_aliases": [],
+      "tags": [
+        "occluded"
+      ],
+      "target_bbox": [
+        0.25,
+        0.12,
+        0.75,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 1080,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53imaaeaaacuadbqus3ztmaq6dajhqabsa.f323024007.hls#t=1905.200",
+      "note": "assistant 授权代标；2026-11-13独立复核更正原标签。原片130/133/134/135分片连续对话直接将黑衣男子锚为王启年：二皇子称谢王启年王大人，随后该男子自称王某并索要妻女。0009是同连续镜头；0011隔帘者与之同衣冠同人。先前太子/李弘成检索猜测均被原片姓名和对话证据取代。 原标注及原片/姓名海报证据保存在 results/benchmark_20261113/gt_revision_01/revision.json；图像与目标框保持不变。"
+    },
+    {
+      "sample_id": "qingyunian2_0012",
+      "work_slug": "qingyunian2",
+      "work_name": "庆余年第二季",
+      "work_category": "costume_drama",
+      "image_path": "qingyunian2/qingyunian2_0012.jpg",
+      "target_character": "袁梦",
+      "character_importance": "supporting",
+      "visual_difficulty": "normal",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "multiple_people"
+      ],
+      "target_bbox": [
+        0.1,
+        0.01,
+        0.79,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 1080,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53imaaeaaacuadbqus3ztmaq6dajhqabsa.f323024007.hls#t=2148.160",
+      "note": "assistant 授权代标；2026-11-13独立复核更正原标签。与0003同青披白粉衣、团扇、偏分花簪女性；命名海报对应袁梦。 原标注及原片/姓名海报证据保存在 results/benchmark_20261113/gt_revision_01/revision.json；图像与目标框保持不变。"
+    },
+    {
+      "sample_id": "qingyunian2_0013",
+      "work_slug": "qingyunian2",
+      "work_name": "庆余年第二季",
+      "work_category": "costume_drama",
+      "image_path": "qingyunian2/qingyunian2_0013.jpg",
+      "target_character": "二皇子",
+      "character_importance": "key_supporting",
+      "visual_difficulty": "normal",
+      "is_multi_person": false,
+      "character_aliases": [],
+      "tags": [],
+      "target_bbox": [
+        0.13,
+        0.01,
+        0.83,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 1080,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53imaaeaaacuadbqus3ztmaq6dajhqabsa.f323024007.hls#t=2285.320",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；米色外袍、绿纹内衣正面。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "qingyunian2_0014",
+      "work_slug": "qingyunian2",
+      "work_name": "庆余年第二季",
+      "work_category": "costume_drama",
+      "image_path": "qingyunian2/qingyunian2_0014.jpg",
+      "target_character": "陈萍萍",
+      "character_importance": "key_supporting",
+      "visual_difficulty": "normal",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "multiple_people"
+      ],
+      "target_bbox": [
+        0.01,
+        0.02,
+        0.57,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 1080,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53iqaaeaaaciadbrms3ztmargdajeaabsa.f323024007.hls#t=189.800",
+      "note": "assistant 授权代标；2026-11-13独立复核更正原标签。无胡须男子坐金属高靠背轮椅，面部、星状冠和椅子与陈萍萍命名海报及0031同人。原注黑衣胡须/御座客观不符。 原标注及原片/姓名海报证据保存在 results/benchmark_20261113/gt_revision_01/revision.json；图像与目标框保持不变。"
+    },
+    {
+      "sample_id": "qingyunian2_0015",
+      "work_slug": "qingyunian2",
+      "work_name": "庆余年第二季",
+      "work_category": "costume_drama",
+      "image_path": "qingyunian2/qingyunian2_0015.jpg",
+      "target_character": "太子",
+      "character_importance": "key_supporting",
+      "visual_difficulty": "normal",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "multiple_people"
+      ],
+      "target_bbox": [
+        0.16,
+        0.0,
+        0.96,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 1080,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53iqaaeaaaciadbrms3ztmargdajeaabsa.f323024007.hls#t=236.040",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；朝堂浅金衣、束冠太子正面。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "qingyunian2_0016",
+      "work_slug": "qingyunian2",
+      "work_name": "庆余年第二季",
+      "work_category": "costume_drama",
+      "image_path": "qingyunian2/qingyunian2_0016.jpg",
+      "target_character": "范闲",
+      "character_importance": "main",
+      "visual_difficulty": "normal",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "multiple_people"
+      ],
+      "target_bbox": [
+        0.15,
+        0.02,
+        0.82,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 1080,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53iqaaeaaaciadbrms3ztmargdajeaabsa.f323024007.hls#t=374.960",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；白色绣纹外袍男子近景，右侧前景有他人。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "qingyunian2_0017",
+      "work_slug": "qingyunian2",
+      "work_name": "庆余年第二季",
+      "work_category": "costume_drama",
+      "image_path": "qingyunian2/qingyunian2_0017.jpg",
+      "target_character": "二皇子",
+      "character_importance": "key_supporting",
+      "visual_difficulty": "normal",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "multiple_people"
+      ],
+      "target_bbox": [
+        0.3,
+        0.07,
+        0.71,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 1080,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53iqaaeaaaciadbrms3ztmargdajeaabsa.f323024007.hls#t=421.080",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；红黑纹衣中央站立男子，额侧垂发。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "qingyunian2_0018",
+      "work_slug": "qingyunian2",
+      "work_name": "庆余年第二季",
+      "work_category": "costume_drama",
+      "image_path": "qingyunian2/qingyunian2_0018.jpg",
+      "target_character": "侯公公",
+      "character_importance": "supporting",
+      "visual_difficulty": "normal",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "multiple_people"
+      ],
+      "target_bbox": [
+        0.21,
+        0.2,
+        0.53,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 1080,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53iqaaeaaaciadbrms3ztmargdajeaabsa.f323024007.hls#t=468.200",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；左侧黑官帽、浅灰衣宦官面部清楚；原图核对。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "qingyunian2_0019",
+      "work_slug": "qingyunian2",
+      "work_name": "庆余年第二季",
+      "work_category": "costume_drama",
+      "image_path": "qingyunian2/qingyunian2_0019.jpg",
+      "target_character": "范无救",
+      "character_importance": "supporting",
+      "visual_difficulty": "side_face",
+      "is_multi_person": false,
+      "character_aliases": [],
+      "tags": [
+        "side_face"
+      ],
+      "target_bbox": [
+        0.39,
+        0.0,
+        0.9,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 1080,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53iqaaeaaaciadbrms3ztmargdajeaabsa.f323024007.hls#t=667.320",
+      "note": "assistant 授权代标；2026-11-13独立复核更正原标签。黑白画面为额前侧长发、短黑须男子嘴角血、身旁摊书，匹配原片姓名角标范无救及生产海报。15集剧情明确范无救在监牢服毒，赖名成廷杖发生更晚；不能采纳4模型赖名成多数。 原标注及原片/姓名海报证据保存在 results/benchmark_20261113/gt_revision_01/revision.json；图像与目标框保持不变。"
+    },
+    {
+      "sample_id": "qingyunian2_0020",
+      "work_slug": "qingyunian2",
+      "work_name": "庆余年第二季",
+      "work_category": "costume_drama",
+      "image_path": "qingyunian2/qingyunian2_0020.jpg",
+      "target_character": "赖名成",
+      "character_importance": "supporting",
+      "visual_difficulty": "side_face",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "multiple_people",
+        "side_face"
+      ],
+      "target_bbox": [
+        0.47,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 1080,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53iqaaeaaaciadbrms3ztmargdajeaabsa.f323024007.hls#t=1237.160",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；右前景黑官帽、灰鬓胡须老臣侧脸。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "qingyunian2_0021",
+      "work_slug": "qingyunian2",
+      "work_name": "庆余年第二季",
+      "work_category": "costume_drama",
+      "image_path": "qingyunian2/qingyunian2_0021.jpg",
+      "target_character": "陈萍萍",
+      "character_importance": "key_supporting",
+      "visual_difficulty": "normal",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "multiple_people"
+      ],
+      "target_bbox": [
+        0.16,
+        0.0,
+        0.86,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 1080,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53iqaaeaaaciadbrms3ztmargdajeaabsa.f323024007.hls#t=1282.760",
+      "note": "assistant 授权代标；2026-11-13独立复核更正原标签。黑衣拱手遮嘴者与0014同场同人，星状冠、金属高靠背轮椅、无须面貌对应陈萍萍。原浅金袖太子描述与黑袖不符。 原标注及原片/姓名海报证据保存在 results/benchmark_20261113/gt_revision_01/revision.json；图像与目标框保持不变。"
+    },
+    {
+      "sample_id": "qingyunian2_0022",
+      "work_slug": "qingyunian2",
+      "work_name": "庆余年第二季",
+      "work_category": "costume_drama",
+      "image_path": "qingyunian2/qingyunian2_0022.jpg",
+      "target_character": "赖名成",
+      "character_importance": "supporting",
+      "visual_difficulty": "normal",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "multiple_people"
+      ],
+      "target_bbox": [
+        0.47,
+        0.05,
+        0.7,
+        1
+      ],
+      "image_width": 1920,
+      "image_height": 1080,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53iqaaeaaaciadbrms3ztmargdajeaabsa.f323024007.hls#t=1330.080",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；右侧站立、绿领灰袍老臣拱手，面部可辨。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "qingyunian2_0023",
+      "work_slug": "qingyunian2",
+      "work_name": "庆余年第二季",
+      "work_category": "costume_drama",
+      "image_path": "qingyunian2/qingyunian2_0023.jpg",
+      "target_character": "庆帝",
+      "character_importance": "key_supporting",
+      "visual_difficulty": "side_face",
+      "is_multi_person": false,
+      "character_aliases": [],
+      "tags": [
+        "side_face"
+      ],
+      "target_bbox": [
+        0.06,
+        0.0,
+        0.88,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 1080,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53iqaaeaaaciadbrms3ztmargdajeaabsa.f323024007.hls#t=1471.840",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；手指前方的侧脸，胡须面容清楚。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "qingyunian2_0024",
+      "work_slug": "qingyunian2",
+      "work_name": "庆余年第二季",
+      "work_category": "costume_drama",
+      "image_path": "qingyunian2/qingyunian2_0024.jpg",
+      "target_character": "范闲",
+      "character_importance": "main",
+      "visual_difficulty": "normal",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "multiple_people"
+      ],
+      "target_bbox": [
+        0.0,
+        0.0,
+        0.59,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 1080,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53iqaaeaaaciadbrms3ztmargdajeaabsa.f323024007.hls#t=1670.080",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；左前景白色绣纹外袍，背景护卫。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "qingyunian2_0025",
+      "work_slug": "qingyunian2",
+      "work_name": "庆余年第二季",
+      "work_category": "costume_drama",
+      "image_path": "qingyunian2/qingyunian2_0025.jpg",
+      "target_character": "王启年",
+      "character_importance": "key_supporting",
+      "visual_difficulty": "normal",
+      "is_multi_person": false,
+      "character_aliases": [],
+      "tags": [],
+      "target_bbox": [
+        0.22,
+        0.02,
+        0.72,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 1080,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53iqaaeaaaciadbrms3ztmargdajeaabsa.f323024007.hls#t=1764.200",
+      "note": "assistant 授权代标；2026-11-13独立复核更正原标签。草帽灰袍男子坐在马车驾驶位双手执缰；与王启年命名海报匹配，并无轮椅。原陈萍萍轮椅注释不符。 原标注及原片/姓名海报证据保存在 results/benchmark_20261113/gt_revision_01/revision.json；图像与目标框保持不变。"
+    },
+    {
+      "sample_id": "qingyunian2_0026",
+      "work_slug": "qingyunian2",
+      "work_name": "庆余年第二季",
+      "work_category": "costume_drama",
+      "image_path": "qingyunian2/qingyunian2_0026.jpg",
+      "target_character": "范闲",
+      "character_importance": "main",
+      "visual_difficulty": "side_face",
+      "is_multi_person": false,
+      "character_aliases": [],
+      "tags": [
+        "side_face"
+      ],
+      "target_bbox": [
+        0.19,
+        0.0,
+        0.87,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 1080,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53iqaaeaaaciadbrms3ztmargdajeaabsa.f323024007.hls#t=2105.160",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；回首侧脸、白色绣纹衣。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "qingyunian2_0027",
+      "work_slug": "qingyunian2",
+      "work_name": "庆余年第二季",
+      "work_category": "costume_drama",
+      "image_path": "qingyunian2/qingyunian2_0027.jpg",
+      "target_character": "范若若",
+      "character_importance": "key_supporting",
+      "visual_difficulty": "normal",
+      "is_multi_person": false,
+      "character_aliases": [],
+      "tags": [],
+      "target_bbox": [
+        0.08,
+        0.02,
+        0.79,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 1080,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53iqaaeaaaciadbrms3ztmargdajeaabsa.f323024007.hls#t=2153.160",
+      "note": "assistant 授权代标；2026-11-13独立复核更正原标签。读医书女子与范若若命名海报形象对应；持书场景在第15集回府段，持牌播方剧情明确为范若若苦读医书。 原标注及原片/姓名海报证据保存在 results/benchmark_20261113/gt_revision_01/revision.json；图像与目标框保持不变。"
+    },
+    {
+      "sample_id": "qingyunian2_0028",
+      "work_slug": "qingyunian2",
+      "work_name": "庆余年第二季",
+      "work_category": "costume_drama",
+      "image_path": "qingyunian2/qingyunian2_0028.jpg",
+      "target_character": "范若若",
+      "character_importance": "key_supporting",
+      "visual_difficulty": "side_face",
+      "is_multi_person": false,
+      "character_aliases": [],
+      "tags": [
+        "side_face"
+      ],
+      "target_bbox": [
+        0.41,
+        0.0,
+        0.99,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 1080,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53iqaaeaaaciadbrms3ztmargdajeaabsa.f323024007.hls#t=2200.200",
+      "note": "assistant 授权代标；2026-11-13独立复核更正原标签。与0027同场同发簪珠耳饰淡黄衣女子，连续源时间相差47秒，依据同角色命名海报和15集播方剧情。 原标注及原片/姓名海报证据保存在 results/benchmark_20261113/gt_revision_01/revision.json；图像与目标框保持不变。"
+    },
+    {
+      "sample_id": "qingyunian2_0029",
+      "work_slug": "qingyunian2",
+      "work_name": "庆余年第二季",
+      "work_category": "costume_drama",
+      "image_path": "qingyunian2/qingyunian2_0029.jpg",
+      "target_character": "范建",
+      "character_importance": "key_supporting",
+      "visual_difficulty": "normal",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "multiple_people"
+      ],
+      "target_bbox": [
+        0.5,
+        0.01,
+        0.88,
+        1
+      ],
+      "image_width": 1920,
+      "image_height": 1080,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53iqaaeaaaciadbrms3ztmargdajeaabsa.f323024007.hls#t=2434.680",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；右前景黑色银纹衣、短须男子，身后女眷。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "qingyunian2_0030",
+      "work_slug": "qingyunian2",
+      "work_name": "庆余年第二季",
+      "work_category": "costume_drama",
+      "image_path": "qingyunian2/qingyunian2_0030.jpg",
+      "target_character": "范闲",
+      "character_importance": "main",
+      "visual_difficulty": "normal",
+      "is_multi_person": false,
+      "character_aliases": [],
+      "tags": [],
+      "target_bbox": [
+        0.18,
+        0.18,
+        0.64,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 1080,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53cuaaqaaajqajokepdrtmafodbamqadca.f323024007.hls#t=240.440",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；深紫衣束冠庭院站姿，面容可辨。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "qingyunian2_0031",
+      "work_slug": "qingyunian2",
+      "work_name": "庆余年第二季",
+      "work_category": "costume_drama",
+      "image_path": "qingyunian2/qingyunian2_0031.jpg",
+      "target_character": "陈萍萍",
+      "character_importance": "key_supporting",
+      "visual_difficulty": "normal",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "multiple_people"
+      ],
+      "target_bbox": [
+        0.28,
+        0.1,
+        0.68,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 1080,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53cuaaqaaajqajokepdrtmafodbamqadca.f323024007.hls#t=285.760",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；中央轮椅灰袍男子，两侧前景人物遮边。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "qingyunian2_0032",
+      "work_slug": "qingyunian2",
+      "work_name": "庆余年第二季",
+      "work_category": "costume_drama",
+      "image_path": "qingyunian2/qingyunian2_0032.jpg",
+      "target_character": "庆帝",
+      "character_importance": "key_supporting",
+      "visual_difficulty": "normal",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "multiple_people"
+      ],
+      "target_bbox": [
+        0.19,
+        0.07,
+        0.68,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 1080,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53cuaaqaaajqajokepdrtmafodbamqadca.f323024007.hls#t=471.680",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；左侧红袍胡须男子手搭范闲肩膀。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "qingyunian2_0033",
+      "work_slug": "qingyunian2",
+      "work_name": "庆余年第二季",
+      "work_category": "costume_drama",
+      "image_path": "qingyunian2/qingyunian2_0033.jpg",
+      "target_character": "范闲",
+      "character_importance": "main",
+      "visual_difficulty": "normal",
+      "is_multi_person": false,
+      "character_aliases": [],
+      "tags": [],
+      "target_bbox": [
+        0.28,
+        0.19,
+        0.83,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 1080,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53cuaaqaaajqajokepdrtmafodbamqadca.f323024007.hls#t=611.240",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；深紫衣拱手，俯身面部可辨。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "qingyunian2_0034",
+      "work_slug": "qingyunian2",
+      "work_name": "庆余年第二季",
+      "work_category": "costume_drama",
+      "image_path": "qingyunian2/qingyunian2_0034.jpg",
+      "target_character": "林婉儿",
+      "character_importance": "main",
+      "visual_difficulty": "normal",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "multiple_people"
+      ],
+      "target_bbox": [
+        0.03,
+        0.06,
+        0.5,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 1080,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53cuaaqaaajqajokepdrtmafodbamqadca.f323024007.hls#t=904.680",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；左侧浅粉金衣、发簪女子，与范闲同框。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "qingyunian2_0035",
+      "work_slug": "qingyunian2",
+      "work_name": "庆余年第二季",
+      "work_category": "costume_drama",
+      "image_path": "qingyunian2/qingyunian2_0035.jpg",
+      "target_character": "范思辙",
+      "character_importance": "key_supporting",
+      "visual_difficulty": "side_face",
+      "is_multi_person": false,
+      "character_aliases": [],
+      "tags": [
+        "side_face"
+      ],
+      "target_bbox": [
+        0.2,
+        0.0,
+        0.98,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 1080,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53cuaaqaaajqajokepdrtmafodbamqadca.f323024007.hls#t=952.160",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；桃红衣男子仰脸侧面、金项圈。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "qingyunian2_0036",
+      "work_slug": "qingyunian2",
+      "work_name": "庆余年第二季",
+      "work_category": "costume_drama",
+      "image_path": "qingyunian2/qingyunian2_0036.jpg",
+      "target_character": "范闲",
+      "character_importance": "main",
+      "visual_difficulty": "normal",
+      "is_multi_person": false,
+      "character_aliases": [],
+      "tags": [],
+      "target_bbox": [
+        0.24,
+        0.0,
+        0.95,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 1080,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53cuaaqaaajqajokepdrtmafodbamqadca.f323024007.hls#t=1911.160",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；酒楼深色衣束冠面部近景。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "qingyunian2_0038",
+      "work_slug": "qingyunian2",
+      "work_name": "庆余年第二季",
+      "work_category": "costume_drama",
+      "image_path": "qingyunian2/qingyunian2_0038.jpg",
+      "target_character": "范若若",
+      "character_importance": "key_supporting",
+      "visual_difficulty": "normal",
+      "is_multi_person": false,
+      "character_aliases": [],
+      "tags": [],
+      "target_bbox": [
+        0.31,
+        0.06,
+        0.88,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 1080,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53cuaaqaaajqajokepdrtmafodbamqadca.f323024007.hls#t=2108.560",
+      "note": "assistant 授权代标；2026-11-13独立复核更正原标签。淡粉衣女性与范若若命名海报形象对应；紧邻五竹画面，播方27集剧情明确五竹见范若若并示箱授枪，不是林婉儿。 原标注及原片/姓名海报证据保存在 results/benchmark_20261113/gt_revision_01/revision.json；图像与目标框保持不变。"
+    },
+    {
+      "sample_id": "qingyunian2_0039",
+      "work_slug": "qingyunian2",
+      "work_name": "庆余年第二季",
+      "work_category": "costume_drama",
+      "image_path": "qingyunian2/qingyunian2_0039.jpg",
+      "target_character": "五竹",
+      "character_importance": "key_supporting",
+      "visual_difficulty": "occluded",
+      "is_multi_person": false,
+      "character_aliases": [],
+      "tags": [
+        "occluded"
+      ],
+      "target_bbox": [
+        0.18,
+        0.04,
+        0.84,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 1080,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53cuaaqaaajqajokepdrtmafodbamqadca.f323024007.hls#t=2155.760",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；黑衣、黑布红边蒙眼的五竹，标记遮挡。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "qingyunian2_0040",
+      "work_slug": "qingyunian2",
+      "work_name": "庆余年第二季",
+      "work_category": "costume_drama",
+      "image_path": "qingyunian2/qingyunian2_0040.jpg",
+      "target_character": "范思辙",
+      "character_importance": "key_supporting",
+      "visual_difficulty": "normal",
+      "is_multi_person": false,
+      "character_aliases": [],
+      "tags": [],
+      "target_bbox": [
+        0.39,
+        0.02,
+        0.85,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 1080,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53cuaaqaaajqajokepdrtmafodbamqadca.f323024007.hls#t=2297.200",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；台上桃红衣、金项圈男子正面。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "qingyunian2_0041",
+      "work_slug": "qingyunian2",
+      "work_name": "庆余年第二季",
+      "work_category": "costume_drama",
+      "image_path": "qingyunian2/qingyunian2_0041.jpg",
+      "target_character": "庆帝",
+      "character_importance": "key_supporting",
+      "visual_difficulty": "normal",
+      "is_multi_person": false,
+      "character_aliases": [],
+      "tags": [
+        "local_tencent_cache",
+        "assistant_reviewed",
+        "replacement_20261113"
+      ],
+      "target_bbox": [
+        0.19,
+        0.01,
+        0.97,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 1080,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53iqaaeaaaciadbrms3ztmargdajeaabsa.f323024007.hls#t=712.360",
+      "note": "assistant 授权代标；独立复核原片及姓名海报后选用替代未确证身份的帧。无字幕的1920x1080清晰近景，灰黑常服和玉簪束发与庆帝命名海报一致；与现存0023侧面指人、0032红袍扶肩相比补充正面近景和另段朝堂神态，支持服饰与角度变化测试。 证据见 results/benchmark_20261113/qingyunian2_gt_audit.json。"
+    },
+    {
+      "sample_id": "qingyunian2_0042",
+      "work_slug": "qingyunian2",
+      "work_name": "庆余年第二季",
+      "work_category": "costume_drama",
+      "image_path": "qingyunian2/qingyunian2_0042.jpg",
+      "target_character": "太子",
+      "character_importance": "key_supporting",
+      "visual_difficulty": "normal",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "local_tencent_cache",
+        "assistant_reviewed",
+        "replacement_20261113"
+      ],
+      "target_bbox": [
+        0.39,
+        0.08,
+        0.8,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 1080,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53imaaeaaacuadbqus3ztmaq6dajhqabsa.f323024007.hls#t=2044.360",
+      "note": "assistant 授权代标；独立复核原片及姓名海报后选用替代未确证身份的帧。右侧金色背心灰袖青年正面清晰，左前二皇子虚焦，后有侍卫，构成明确多人目标测试；同太子命名海报及现存0015形象，播方第4集剧情太子进入抱月楼与二皇子周旋。字幕只说怎么你还聊上天了，无角色姓名。 证据见 results/benchmark_20261113/qingyunian2_gt_audit.json。"
+    },
+    {
+      "sample_id": "gongfunvzu_0001",
+      "work_slug": "gongfunvzu",
+      "work_name": "功夫女足",
+      "work_category": "recent_movie",
+      "image_path": "gongfunvzu/gongfunvzu_0001.jpg",
+      "target_character": "钰珑",
+      "character_importance": "main",
+      "visual_difficulty": "normal",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "multiple_people"
+      ],
+      "target_bbox": [
+        0.24,
+        0.04,
+        0.62,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 804,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53leacuaaalqadvxv5sfvmawodfjkqalsa.f323024.hls#t=183.375",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；左前景红白运动外套女子，面容与8号钰珑参照一致。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "gongfunvzu_0002",
+      "work_slug": "gongfunvzu",
+      "work_name": "功夫女足",
+      "work_category": "recent_movie",
+      "image_path": "gongfunvzu/gongfunvzu_0002.jpg",
+      "target_character": "徐风",
+      "character_importance": "main",
+      "visual_difficulty": "normal",
+      "is_multi_person": false,
+      "character_aliases": [],
+      "tags": [],
+      "target_bbox": [
+        0.12,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 804,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53leacuaaalqadvxv5sfvmawodfjkqalsa.f323024.hls#t=297.750",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；黑西装白衬衫男子，面部清楚。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "gongfunvzu_0003",
+      "work_slug": "gongfunvzu",
+      "work_name": "功夫女足",
+      "work_category": "recent_movie",
+      "image_path": "gongfunvzu/gongfunvzu_0003.jpg",
+      "target_character": "徐风",
+      "character_importance": "main",
+      "visual_difficulty": "normal",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "multiple_people"
+      ],
+      "target_bbox": [
+        0.42,
+        0.11,
+        0.75,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 804,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53leacuaaalqadvxv5sfvmawodfjkqalsa.f323024.hls#t=336.166",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；树下黑西装白衬衫男子，左前景他人背影。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "gongfunvzu_0004",
+      "work_slug": "gongfunvzu",
+      "work_name": "功夫女足",
+      "work_category": "recent_movie",
+      "image_path": "gongfunvzu/gongfunvzu_0004.jpg",
+      "target_character": "徐风",
+      "character_importance": "main",
+      "visual_difficulty": "normal",
+      "is_multi_person": false,
+      "character_aliases": [],
+      "tags": [],
+      "target_bbox": [
+        0.39,
+        0.01,
+        0.91,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 804,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53leacuaaalqadvxv5sfvmawodfjkqalsa.f323024.hls#t=396.125",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；黑西装白衬衫近景。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "gongfunvzu_0005",
+      "work_slug": "gongfunvzu",
+      "work_name": "功夫女足",
+      "work_category": "recent_movie",
+      "image_path": "gongfunvzu/gongfunvzu_0005.jpg",
+      "target_character": "双双",
+      "character_importance": "main",
+      "visual_difficulty": "normal",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "multiple_people"
+      ],
+      "target_bbox": [
+        0.25,
+        0.16,
+        0.39,
+        0.8
+      ],
+      "image_width": 1920,
+      "image_height": 804,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53leacuaaalqadvxv5sfvmawodfjkqalsa.f323024.hls#t=461.916",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；中央偏左白上衣、手持红外套并举手说话的女子。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "gongfunvzu_0006",
+      "work_slug": "gongfunvzu",
+      "work_name": "功夫女足",
+      "work_category": "recent_movie",
+      "image_path": "gongfunvzu/gongfunvzu_0006.jpg",
+      "target_character": "钰珑",
+      "character_importance": "main",
+      "visual_difficulty": "normal",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "multiple_people"
+      ],
+      "target_bbox": [
+        0.66,
+        0.06,
+        1.0,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 804,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53leacuaaalqadvxv5sfvmawodfjkqalsa.f323024.hls#t=491.175",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；右前景灰蓝运动外套女子，左侧为双双；已看原图。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "gongfunvzu_0007",
+      "work_slug": "gongfunvzu",
+      "work_name": "功夫女足",
+      "work_category": "recent_movie",
+      "image_path": "gongfunvzu/gongfunvzu_0007.jpg",
+      "target_character": "徐风",
+      "character_importance": "main",
+      "visual_difficulty": "normal",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "multiple_people"
+      ],
+      "target_bbox": [
+        0.32,
+        0.03,
+        0.61,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 804,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53leacuaaalqadvxv5sfvmawodfjkqalsa.f323024.hls#t=522.999",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；中央黑西装男子，左右另有两名男子。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "gongfunvzu_0008",
+      "work_slug": "gongfunvzu",
+      "work_name": "功夫女足",
+      "work_category": "recent_movie",
+      "image_path": "gongfunvzu/gongfunvzu_0008.jpg",
+      "target_character": "双双",
+      "character_importance": "main",
+      "visual_difficulty": "normal",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "multiple_people"
+      ],
+      "target_bbox": [
+        0.15,
+        0.03,
+        0.93,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 804,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53leacuaaalqadvxv5sfvmawodfjkqalsa.f323024.hls#t=1024.125",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；前景白T恤女子说话，后有队员身体；已看原图。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "gongfunvzu_0009",
+      "work_slug": "gongfunvzu",
+      "work_name": "功夫女足",
+      "work_category": "recent_movie",
+      "image_path": "gongfunvzu/gongfunvzu_0009.jpg",
+      "target_character": "徐风",
+      "character_importance": "main",
+      "visual_difficulty": "normal",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "multiple_people"
+      ],
+      "target_bbox": [
+        0.1,
+        0.03,
+        0.32,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 804,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53leacuaaalqadvxv5sfvmawodfjkqalsa.f323024.hls#t=1149.916",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；左侧白衬衫男子，右侧女子背影。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "gongfunvzu_0010",
+      "work_slug": "gongfunvzu",
+      "work_name": "功夫女足",
+      "work_category": "recent_movie",
+      "image_path": "gongfunvzu/gongfunvzu_0010.jpg",
+      "target_character": "徐风",
+      "character_importance": "main",
+      "visual_difficulty": "normal",
+      "is_multi_person": false,
+      "character_aliases": [],
+      "tags": [],
+      "target_bbox": [
+        0.26,
+        0.01,
+        0.8,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 804,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53leacuaaalqadvxv5sfvmawodfjkqalsa.f323024.hls#t=1214.375",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；黑西装、粉红衬衣正面。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "gongfunvzu_0011",
+      "work_slug": "gongfunvzu",
+      "work_name": "功夫女足",
+      "work_category": "recent_movie",
+      "image_path": "gongfunvzu/gongfunvzu_0011.jpg",
+      "target_character": "徐风",
+      "character_importance": "main",
+      "visual_difficulty": "normal",
+      "is_multi_person": false,
+      "character_aliases": [],
+      "tags": [],
+      "target_bbox": [
+        0.39,
+        0.11,
+        0.68,
+        0.96
+      ],
+      "image_width": 1920,
+      "image_height": 804,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53leacuaaalqadvxv5sfvmawodfjkqalsa.f323024.hls#t=1311.749",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；门口黑西装粉衬衣全身动作，脸部可辨。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "gongfunvzu_0012",
+      "work_slug": "gongfunvzu",
+      "work_name": "功夫女足",
+      "work_category": "recent_movie",
+      "image_path": "gongfunvzu/gongfunvzu_0012.jpg",
+      "target_character": "双双",
+      "character_importance": "main",
+      "visual_difficulty": "normal",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "multiple_people"
+      ],
+      "target_bbox": [
+        0.47,
+        0.0,
+        0.97,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 804,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53leacuaaalqadvxv5sfvmawodfjkqalsa.f323024.hls#t=1438.666",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；右前景红球衣、扎发女子，面容清楚；已看原图。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "gongfunvzu_0013",
+      "work_slug": "gongfunvzu",
+      "work_name": "功夫女足",
+      "work_category": "recent_movie",
+      "image_path": "gongfunvzu/gongfunvzu_0013.jpg",
+      "target_character": "双双",
+      "character_importance": "main",
+      "visual_difficulty": "normal",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "multiple_people"
+      ],
+      "target_bbox": [
+        0.2,
+        0.02,
+        0.78,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 804,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53leacuaaalqadvxv5sfvmawodfjkqalsa.f323024.hls#t=1499.291",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；中央红色10号球衣女子俯身，左右队员同框。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "gongfunvzu_0014",
+      "work_slug": "gongfunvzu",
+      "work_name": "功夫女足",
+      "work_category": "recent_movie",
+      "image_path": "gongfunvzu/gongfunvzu_0014.jpg",
+      "target_character": "孖八",
+      "character_importance": "supporting",
+      "visual_difficulty": "occluded",
+      "is_multi_person": false,
+      "character_aliases": [],
+      "tags": [
+        "occluded"
+      ],
+      "target_bbox": [
+        0.26,
+        0.04,
+        0.89,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 804,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53leacuaaalqadvxv5sfvmawodfjkqalsa.f323024.hls#t=1531.291",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；墨镜遮眼的队医近景；结合角色资料确认，保留遮挡标签。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "gongfunvzu_0015",
+      "work_slug": "gongfunvzu",
+      "work_name": "功夫女足",
+      "work_category": "recent_movie",
+      "image_path": "gongfunvzu/gongfunvzu_0015.jpg",
+      "target_character": "双双",
+      "character_importance": "main",
+      "visual_difficulty": "normal",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "multiple_people"
+      ],
+      "target_bbox": [
+        0.04,
+        0.0,
+        0.71,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 804,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53leacuaaalqadvxv5sfvmawodfjkqalsa.f323024.hls#t=1656.541",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；左前景红球衣、汗湿散发女子；右侧另一队员衣服入镜。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "gongfunvzu_0016",
+      "work_slug": "gongfunvzu",
+      "work_name": "功夫女足",
+      "work_category": "recent_movie",
+      "image_path": "gongfunvzu/gongfunvzu_0016.jpg",
+      "target_character": "徐风",
+      "character_importance": "main",
+      "visual_difficulty": "normal",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "multiple_people"
+      ],
+      "target_bbox": [
+        0.26,
+        0.17,
+        0.66,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 804,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53leacuaaalqadvxv5sfvmawodfjkqalsa.f323024.hls#t=1953.333",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；左前景坐姿西装男子，前有球迷道具遮边。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "gongfunvzu_0017",
+      "work_slug": "gongfunvzu",
+      "work_name": "功夫女足",
+      "work_category": "recent_movie",
+      "image_path": "gongfunvzu/gongfunvzu_0017.jpg",
+      "target_character": "双双",
+      "character_importance": "main",
+      "visual_difficulty": "normal",
+      "is_multi_person": false,
+      "character_aliases": [],
+      "tags": [],
+      "target_bbox": [
+        0.12,
+        0.01,
+        1.0,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 804,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53leacuaaalqadvxv5sfvmawodfjkqalsa.f323024.hls#t=2021.667",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；夜景红球衣、低马尾女子伸臂，原图核对面容。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "gongfunvzu_0018",
+      "work_slug": "gongfunvzu",
+      "work_name": "功夫女足",
+      "work_category": "recent_movie",
+      "image_path": "gongfunvzu/gongfunvzu_0018.jpg",
+      "target_character": "钰珑",
+      "character_importance": "main",
+      "visual_difficulty": "normal",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "multiple_people"
+      ],
+      "target_bbox": [
+        0.25,
+        0.23,
+        0.55,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 804,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53leacuaaalqadvxv5sfvmawodfjkqalsa.f323024.hls#t=2569.750",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；左前景红8号、长马尾女子，右后双双同框。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "gongfunvzu_0019",
+      "work_slug": "gongfunvzu",
+      "work_name": "功夫女足",
+      "work_category": "recent_movie",
+      "image_path": "gongfunvzu/gongfunvzu_0019.jpg",
+      "target_character": "钰珑",
+      "character_importance": "main",
+      "visual_difficulty": "normal",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "multiple_people"
+      ],
+      "target_bbox": [
+        0.14,
+        0.0,
+        0.67,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 804,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53leacuaaalqadvxv5sfvmawodfjkqalsa.f323024.hls#t=2598.041",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；左前景汗湿散发女子低头，右侧双双背向镜头。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "gongfunvzu_0020",
+      "work_slug": "gongfunvzu",
+      "work_name": "功夫女足",
+      "work_category": "recent_movie",
+      "image_path": "gongfunvzu/gongfunvzu_0020.jpg",
+      "target_character": "钰珑",
+      "character_importance": "main",
+      "visual_difficulty": "normal",
+      "is_multi_person": false,
+      "character_aliases": [],
+      "tags": [],
+      "target_bbox": [
+        0.08,
+        0.0,
+        0.7,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 804,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53leacuaaalqadvxv5sfvmawodfjkqalsa.f323024.hls#t=2660.791",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；红球衣长马尾女子面部近景，与8号参照一致。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "gongfunvzu_0021",
+      "work_slug": "gongfunvzu",
+      "work_name": "功夫女足",
+      "work_category": "recent_movie",
+      "image_path": "gongfunvzu/gongfunvzu_0021.jpg",
+      "target_character": "双双",
+      "character_importance": "main",
+      "visual_difficulty": "normal",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "multiple_people"
+      ],
+      "target_bbox": [
+        0.47,
+        0.11,
+        0.95,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 804,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53leacuaaalqadvxv5sfvmawodfjkqalsa.f323024.hls#t=2828.833",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；替补席右前景红衣低马尾女子，左有蓝衣胖男子；已看原图。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "gongfunvzu_0022",
+      "work_slug": "gongfunvzu",
+      "work_name": "功夫女足",
+      "work_category": "recent_movie",
+      "image_path": "gongfunvzu/gongfunvzu_0022.jpg",
+      "target_character": "师太",
+      "character_importance": "key_supporting",
+      "visual_difficulty": "normal",
+      "is_multi_person": false,
+      "character_aliases": [],
+      "tags": [],
+      "target_bbox": [
+        0.35,
+        0.01,
+        0.93,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 804,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53leacuaaalqadvxv5sfvmawodfjkqalsa.f323024.hls#t=2938.042",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；白衣、蓬松短发女子近景，面容明确；已看原图。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "gongfunvzu_0023",
+      "work_slug": "gongfunvzu",
+      "work_name": "功夫女足",
+      "work_category": "recent_movie",
+      "image_path": "gongfunvzu/gongfunvzu_0023.jpg",
+      "target_character": "丧彪",
+      "character_importance": "supporting",
+      "visual_difficulty": "normal",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "multiple_people"
+      ],
+      "target_bbox": [
+        0.22,
+        0.09,
+        0.72,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 804,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53leacuaaalqadvxv5sfvmawodfjkqalsa.f323024.hls#t=3002.375",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；左侧染浅色发梢女子哭泣，面容与3号丧彪参照一致。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "gongfunvzu_0024",
+      "work_slug": "gongfunvzu",
+      "work_name": "功夫女足",
+      "work_category": "recent_movie",
+      "image_path": "gongfunvzu/gongfunvzu_0024.jpg",
+      "target_character": "双双",
+      "character_importance": "main",
+      "visual_difficulty": "normal",
+      "is_multi_person": false,
+      "character_aliases": [],
+      "tags": [],
+      "target_bbox": [
+        0.25,
+        0.02,
+        0.79,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 804,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53leacuaaalqadvxv5sfvmawodfjkqalsa.f323024.hls#t=3063.958",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；白运动外套、低马尾夜景近景。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "gongfunvzu_0025",
+      "work_slug": "gongfunvzu",
+      "work_name": "功夫女足",
+      "work_category": "recent_movie",
+      "image_path": "gongfunvzu/gongfunvzu_0025.jpg",
+      "target_character": "徐风",
+      "character_importance": "main",
+      "visual_difficulty": "normal",
+      "is_multi_person": false,
+      "character_aliases": [],
+      "tags": [],
+      "target_bbox": [
+        0.27,
+        0.02,
+        0.83,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 804,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53leacuaaalqadvxv5sfvmawodfjkqalsa.f323024.hls#t=3174.166",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；夜景黑西装白衬衣男子正面。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "gongfunvzu_0026",
+      "work_slug": "gongfunvzu",
+      "work_name": "功夫女足",
+      "work_category": "recent_movie",
+      "image_path": "gongfunvzu/gongfunvzu_0026.jpg",
+      "target_character": "徐风",
+      "character_importance": "main",
+      "visual_difficulty": "normal",
+      "is_multi_person": false,
+      "character_aliases": [],
+      "tags": [],
+      "target_bbox": [
+        0.15,
+        0.01,
+        0.89,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 804,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53leacuaaalqadvxv5sfvmawodfjkqalsa.f323024.hls#t=3202.083",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；黑西装白衬衣男子正面。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "gongfunvzu_0027",
+      "work_slug": "gongfunvzu",
+      "work_name": "功夫女足",
+      "work_category": "recent_movie",
+      "image_path": "gongfunvzu/gongfunvzu_0027.jpg",
+      "target_character": "双双",
+      "character_importance": "main",
+      "visual_difficulty": "side_face",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "multiple_people",
+        "side_face"
+      ],
+      "target_bbox": [
+        0.35,
+        0.09,
+        0.54,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 804,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53leacuaaalqadvxv5sfvmawodfjkqalsa.f323024.hls#t=3488.875",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；左侧白运动衣低马尾女子侧脸，右侧另一名队员。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "gongfunvzu_0028",
+      "work_slug": "gongfunvzu",
+      "work_name": "功夫女足",
+      "work_category": "recent_movie",
+      "image_path": "gongfunvzu/gongfunvzu_0028.jpg",
+      "target_character": "双双",
+      "character_importance": "main",
+      "visual_difficulty": "normal",
+      "is_multi_person": false,
+      "character_aliases": [],
+      "tags": [],
+      "target_bbox": [
+        0.13,
+        0.03,
+        0.79,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 804,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53leacuaaalqadvxv5sfvmawodfjkqalsa.f323024.hls#t=3594.042",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；门边白运动外套女子，侧向正面清楚；已看原图。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "gongfunvzu_0029",
+      "work_slug": "gongfunvzu",
+      "work_name": "功夫女足",
+      "work_category": "recent_movie",
+      "image_path": "gongfunvzu/gongfunvzu_0029.jpg",
+      "target_character": "师太",
+      "character_importance": "key_supporting",
+      "visual_difficulty": "normal",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "multiple_people"
+      ],
+      "target_bbox": [
+        0.1,
+        0.02,
+        0.75,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 804,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53leacuaaalqadvxv5sfvmawodfjkqalsa.f323024.hls#t=3863.624",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；左前景白衣蓬松短发女子抓头，右侧黄背心队员。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "gongfunvzu_0030",
+      "work_slug": "gongfunvzu",
+      "work_name": "功夫女足",
+      "work_category": "recent_movie",
+      "image_path": "gongfunvzu/gongfunvzu_0030.jpg",
+      "target_character": "师太",
+      "character_importance": "key_supporting",
+      "visual_difficulty": "normal",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "multiple_people"
+      ],
+      "target_bbox": [
+        0.11,
+        0.12,
+        0.58,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 804,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53leacuaaalqadvxv5sfvmawodfjkqalsa.f323024.hls#t=3939.458",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；左前景白运动外套、蓬松短发女子正面。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "gongfunvzu_0031",
+      "work_slug": "gongfunvzu",
+      "work_name": "功夫女足",
+      "work_category": "recent_movie",
+      "image_path": "gongfunvzu/gongfunvzu_0031.jpg",
+      "target_character": "徐风",
+      "character_importance": "main",
+      "visual_difficulty": "normal",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "multiple_people"
+      ],
+      "target_bbox": [
+        0.43,
+        0.16,
+        0.61,
+        0.98
+      ],
+      "image_width": 1920,
+      "image_height": 804,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53leacuaaalqadvxv5sfvmawodfjkqalsa.f323024.hls#t=4053.750",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；替补席中央偏左黑西装白衬衣男子，左右多人。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "gongfunvzu_0032",
+      "work_slug": "gongfunvzu",
+      "work_name": "功夫女足",
+      "work_category": "recent_movie",
+      "image_path": "gongfunvzu/gongfunvzu_0032.jpg",
+      "target_character": "双双",
+      "character_importance": "main",
+      "visual_difficulty": "normal",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "multiple_people"
+      ],
+      "target_bbox": [
+        0.25,
+        0.01,
+        0.64,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 804,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53leacuaaalqadvxv5sfvmawodfjkqalsa.f323024.hls#t=4371.041",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；中央白运动外套、低马尾女子正面，身后队员多人；已看原图。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "gongfunvzu_0033",
+      "work_slug": "gongfunvzu",
+      "work_name": "功夫女足",
+      "work_category": "recent_movie",
+      "image_path": "gongfunvzu/gongfunvzu_0033.jpg",
+      "target_character": "孖八",
+      "character_importance": "supporting",
+      "visual_difficulty": "occluded",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "multiple_people",
+        "occluded"
+      ],
+      "target_bbox": [
+        0.1,
+        0.13,
+        0.38,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 804,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53leacuaaalqadvxv5sfvmawodfjkqalsa.f323024.hls#t=4447.458",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；左侧戴墨镜、白外套红裤女子，队医形象明确。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "gongfunvzu_0034",
+      "work_slug": "gongfunvzu",
+      "work_name": "功夫女足",
+      "work_category": "recent_movie",
+      "image_path": "gongfunvzu/gongfunvzu_0034.jpg",
+      "target_character": "徐风",
+      "character_importance": "main",
+      "visual_difficulty": "side_face",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "multiple_people",
+        "side_face"
+      ],
+      "target_bbox": [
+        0.15,
+        0.08,
+        0.37,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 804,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53leacuaaalqadvxv5sfvmawodfjkqalsa.f323024.hls#t=4511.166",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；夜景左侧西装白衬衣男子侧身，与红10号队长同框。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "gongfunvzu_0035",
+      "work_slug": "gongfunvzu",
+      "work_name": "功夫女足",
+      "work_category": "recent_movie",
+      "image_path": "gongfunvzu/gongfunvzu_0035.jpg",
+      "target_character": "双双",
+      "character_importance": "main",
+      "visual_difficulty": "normal",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "multiple_people"
+      ],
+      "target_bbox": [
+        0.34,
+        0.11,
+        0.58,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 804,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53leacuaaalqadvxv5sfvmawodfjkqalsa.f323024.hls#t=4566.333",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；中央白运动衣女子说话，前景男子背影遮边。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "gongfunvzu_0036",
+      "work_slug": "gongfunvzu",
+      "work_name": "功夫女足",
+      "work_category": "recent_movie",
+      "image_path": "gongfunvzu/gongfunvzu_0036.jpg",
+      "target_character": "徐风",
+      "character_importance": "main",
+      "visual_difficulty": "normal",
+      "is_multi_person": false,
+      "character_aliases": [],
+      "tags": [],
+      "target_bbox": [
+        0.13,
+        0.02,
+        0.77,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 804,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53leacuaaalqadvxv5sfvmawodfjkqalsa.f323024.hls#t=4669.875",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；面部受伤的西装白衬衣男子，五官清楚。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "gongfunvzu_0037",
+      "work_slug": "gongfunvzu",
+      "work_name": "功夫女足",
+      "work_category": "recent_movie",
+      "image_path": "gongfunvzu/gongfunvzu_0037.jpg",
+      "target_character": "徐风",
+      "character_importance": "main",
+      "visual_difficulty": "side_face",
+      "is_multi_person": false,
+      "character_aliases": [],
+      "tags": [
+        "side_face"
+      ],
+      "target_bbox": [
+        0.29,
+        0.02,
+        0.84,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 804,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53leacuaaalqadvxv5sfvmawodfjkqalsa.f323024.hls#t=4710.000",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；暖光下西装白衬衣男子侧面。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "gongfunvzu_0038",
+      "work_slug": "gongfunvzu",
+      "work_name": "功夫女足",
+      "work_category": "recent_movie",
+      "image_path": "gongfunvzu/gongfunvzu_0038.jpg",
+      "target_character": "钰珑",
+      "character_importance": "main",
+      "visual_difficulty": "normal",
+      "is_multi_person": false,
+      "character_aliases": [],
+      "tags": [],
+      "target_bbox": [
+        0.18,
+        0.0,
+        0.66,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 804,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53leacuaaalqadvxv5sfvmawodfjkqalsa.f323024.hls#t=4969.667",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；黄色8号上衣、长马尾女子，原图面部与号码清楚。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "gongfunvzu_0039",
+      "work_slug": "gongfunvzu",
+      "work_name": "功夫女足",
+      "work_category": "recent_movie",
+      "image_path": "gongfunvzu/gongfunvzu_0039.jpg",
+      "target_character": "双双",
+      "character_importance": "main",
+      "visual_difficulty": "normal",
+      "is_multi_person": false,
+      "character_aliases": [],
+      "tags": [],
+      "target_bbox": [
+        0.0,
+        0.0,
+        0.9,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 804,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53leacuaaalqadvxv5sfvmawodfjkqalsa.f323024.hls#t=5311.583",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；黄色球衣、低马尾女子低头面部近景。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "gongfunvzu_0040",
+      "work_slug": "gongfunvzu",
+      "work_name": "功夫女足",
+      "work_category": "recent_movie",
+      "image_path": "gongfunvzu/gongfunvzu_0040.jpg",
+      "target_character": "丧彪",
+      "character_importance": "supporting",
+      "visual_difficulty": "normal",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "multiple_people"
+      ],
+      "target_bbox": [
+        0.29,
+        0.03,
+        0.72,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 804,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53leacuaaalqadvxv5sfvmawodfjkqalsa.f323024.hls#t=5492.999",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；黄色3号球衣、浅色发梢女子，面部清楚；上缘另有球员腿部。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "jianlai_0001",
+      "work_slug": "jianlai",
+      "work_name": "剑来",
+      "work_category": "animation",
+      "image_path": "jianlai/jianlai_0001.jpg",
+      "target_character": "李宝瓶",
+      "character_importance": "key_supporting",
+      "visual_difficulty": "normal",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "multiple_people"
+      ],
+      "target_bbox": [
+        0.01,
+        0.03,
+        0.46,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 804,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53yuackaaayqacha2ujju4brodexbqaika.f323004002.hls#t=256.360",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；左侧红白棉袄、双丸发饰女孩，与陈平安同框。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "jianlai_0002",
+      "work_slug": "jianlai",
+      "work_name": "剑来",
+      "work_category": "animation",
+      "image_path": "jianlai/jianlai_0002.jpg",
+      "target_character": "朱河",
+      "character_importance": "supporting",
+      "visual_difficulty": "normal",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "multiple_people"
+      ],
+      "target_bbox": [
+        0.05,
+        0.06,
+        0.87,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 804,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53yuackaaayqacha2ujju4brodexbqaika.f323004002.hls#t=291.520",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；左前景红头带、短须男子，后方队伍。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "jianlai_0003",
+      "work_slug": "jianlai",
+      "work_name": "剑来",
+      "work_category": "animation",
+      "image_path": "jianlai/jianlai_0003.jpg",
+      "target_character": "朱鹿",
+      "character_importance": "supporting",
+      "visual_difficulty": "normal",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "multiple_people"
+      ],
+      "target_bbox": [
+        0.01,
+        0.02,
+        0.46,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 804,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53yuackaaayqacha2ujju4brodexbqaika.f323004002.hls#t=303.520",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；左侧红衣、红耳饰年轻女子，前景朱河遮边。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "jianlai_0004",
+      "work_slug": "jianlai",
+      "work_name": "剑来",
+      "work_category": "animation",
+      "image_path": "jianlai/jianlai_0004.jpg",
+      "target_character": "李槐",
+      "character_importance": "key_supporting",
+      "visual_difficulty": "side_face",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "multiple_people",
+        "side_face"
+      ],
+      "target_bbox": [
+        0.27,
+        0.0,
+        0.92,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 804,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53yuackaaayqacha2ujju4brodexbqaika.f323004002.hls#t=349.480",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；戴虎头帽的男孩侧脸，后有守卫。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "jianlai_0005",
+      "work_slug": "jianlai",
+      "work_name": "剑来",
+      "work_category": "animation",
+      "image_path": "jianlai/jianlai_0005.jpg",
+      "target_character": "陈平安",
+      "character_importance": "main",
+      "visual_difficulty": "side_face",
+      "is_multi_person": false,
+      "character_aliases": [],
+      "tags": [
+        "side_face"
+      ],
+      "target_bbox": [
+        0.67,
+        0,
+        0.99,
+        1
+      ],
+      "image_width": 1920,
+      "image_height": 804,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53yuackaaayqacha2ujju4brodexbqaika.f323004002.hls#t=429.360",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；灰蓝布衣、竹簪少年低头侧面读信。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "jianlai_0006",
+      "work_slug": "jianlai",
+      "work_name": "剑来",
+      "work_category": "animation",
+      "image_path": "jianlai/jianlai_0006.jpg",
+      "target_character": "阿良",
+      "character_importance": "key_supporting",
+      "visual_difficulty": "occluded",
+      "is_multi_person": false,
+      "character_aliases": [],
+      "tags": [
+        "occluded"
+      ],
+      "target_bbox": [
+        0.12,
+        0.0,
+        0.93,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 804,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53yuackaaayqacha2ujju4brodexbqaika.f323004002.hls#t=475.080",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；斗笠遮住眼部上缘、短须灰袍男子，结合自报姓名参照核对。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "jianlai_0007",
+      "work_slug": "jianlai",
+      "work_name": "剑来",
+      "work_category": "animation",
+      "image_path": "jianlai/jianlai_0007.jpg",
+      "target_character": "阿良",
+      "character_importance": "key_supporting",
+      "visual_difficulty": "normal",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "multiple_people"
+      ],
+      "target_bbox": [
+        0.43,
+        0.06,
+        1,
+        1
+      ],
+      "image_width": 1920,
+      "image_height": 804,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53yuackaaayqacha2ujju4brodexbqaika.f323004002.hls#t=566.480",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；右侧斗笠灰袍、短须男子，左侧陈平安侧脸。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "jianlai_0008",
+      "work_slug": "jianlai",
+      "work_name": "剑来",
+      "work_category": "animation",
+      "image_path": "jianlai/jianlai_0008.jpg",
+      "target_character": "阿良",
+      "character_importance": "key_supporting",
+      "visual_difficulty": "normal",
+      "is_multi_person": false,
+      "character_aliases": [],
+      "tags": [],
+      "target_bbox": [
+        0.15,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 804,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53yuackaaayqacha2ujju4brodexbqaika.f323004002.hls#t=598.720",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；斗笠、灰色披肩和短须男子近景。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "jianlai_0009",
+      "work_slug": "jianlai",
+      "work_name": "剑来",
+      "work_category": "animation",
+      "image_path": "jianlai/jianlai_0009.jpg",
+      "target_character": "朱鹿",
+      "character_importance": "supporting",
+      "visual_difficulty": "normal",
+      "is_multi_person": false,
+      "character_aliases": [],
+      "tags": [],
+      "target_bbox": [
+        0.12,
+        0.0,
+        0.94,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 804,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53yuackaaayqacha2ujju4brodexbqaika.f323004002.hls#t=621.840",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；红衣红耳饰、束发年轻女子低头近景。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "jianlai_0010",
+      "work_slug": "jianlai",
+      "work_name": "剑来",
+      "work_category": "animation",
+      "image_path": "jianlai/jianlai_0010.jpg",
+      "target_character": "李槐",
+      "character_importance": "key_supporting",
+      "visual_difficulty": "normal",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "multiple_people"
+      ],
+      "target_bbox": [
+        0.04,
+        0,
+        0.28,
+        1
+      ],
+      "image_width": 1920,
+      "image_height": 804,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53yuackaaayqacha2ujju4brodexbqaika.f323004002.hls#t=679.400",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；左侧虎头帽男孩，右侧陈平安弯腰。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "jianlai_0011",
+      "work_slug": "jianlai",
+      "work_name": "剑来",
+      "work_category": "animation",
+      "image_path": "jianlai/jianlai_0011.jpg",
+      "target_character": "陈平安",
+      "character_importance": "main",
+      "visual_difficulty": "normal",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "multiple_people"
+      ],
+      "target_bbox": [
+        0.6,
+        0.01,
+        1.0,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 804,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53yuackaaayqacha2ujju4brodexbqaika.f323004002.hls#t=691.400",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；右侧灰色交领布衣少年正面，左侧阿良。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "jianlai_0012",
+      "work_slug": "jianlai",
+      "work_name": "剑来",
+      "work_category": "animation",
+      "image_path": "jianlai/jianlai_0012.jpg",
+      "target_character": "李宝瓶",
+      "character_importance": "key_supporting",
+      "visual_difficulty": "normal",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "multiple_people"
+      ],
+      "target_bbox": [
+        0.47,
+        0.22,
+        0.64,
+        0.93
+      ],
+      "image_width": 1920,
+      "image_height": 804,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53yuackaaayqacha2ujju4brodexbqaika.f323004002.hls#t=818.240",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；中央偏右坐姿红白棉袄女孩，前景腰身遮边。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "jianlai_0013",
+      "work_slug": "jianlai",
+      "work_name": "剑来",
+      "work_category": "animation",
+      "image_path": "jianlai/jianlai_0013.jpg",
+      "target_character": "李槐",
+      "character_importance": "key_supporting",
+      "visual_difficulty": "normal",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "multiple_people"
+      ],
+      "target_bbox": [
+        0.34,
+        0.01,
+        0.72,
+        1
+      ],
+      "image_width": 1920,
+      "image_height": 804,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53yuackaaayqacha2ujju4brodexbqaika.f323004002.hls#t=860.480",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；左侧虎头帽男孩，右缘队友入镜。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "jianlai_0014",
+      "work_slug": "jianlai",
+      "work_name": "剑来",
+      "work_category": "animation",
+      "image_path": "jianlai/jianlai_0014.jpg",
+      "target_character": "阿良",
+      "character_importance": "key_supporting",
+      "visual_difficulty": "normal",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "multiple_people"
+      ],
+      "target_bbox": [
+        0.27,
+        0.02,
+        0.85,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 804,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53yuackaaayqacha2ujju4brodexbqaika.f323004002.hls#t=908.040",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；夜景斗笠灰袍男子抬帽，后有虚焦行人。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "jianlai_0015",
+      "work_slug": "jianlai",
+      "work_name": "剑来",
+      "work_category": "animation",
+      "image_path": "jianlai/jianlai_0015.jpg",
+      "target_character": "朱鹿",
+      "character_importance": "supporting",
+      "visual_difficulty": "normal",
+      "is_multi_person": false,
+      "character_aliases": [],
+      "tags": [],
+      "target_bbox": [
+        0.21,
+        0.03,
+        0.81,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 804,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53yuackaaayqacha2ujju4brodexbqaika.f323004002.hls#t=920.040",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；夜景红衣、红耳饰年轻女子正面。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "jianlai_0016",
+      "work_slug": "jianlai",
+      "work_name": "剑来",
+      "work_category": "animation",
+      "image_path": "jianlai/jianlai_0016.jpg",
+      "target_character": "朱河",
+      "character_importance": "supporting",
+      "visual_difficulty": "side_face",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "multiple_people",
+        "side_face"
+      ],
+      "target_bbox": [
+        0.32,
+        0.09,
+        0.56,
+        1
+      ],
+      "image_width": 1920,
+      "image_height": 804,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53yuackaaayqacha2ujju4brodexbqaika.f323004002.hls#t=931.760",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；左侧红头带短须男子侧面，与朱鹿同行。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "jianlai_0017",
+      "work_slug": "jianlai",
+      "work_name": "剑来",
+      "work_category": "animation",
+      "image_path": "jianlai/jianlai_0017.jpg",
+      "target_character": "朱鹿",
+      "character_importance": "supporting",
+      "visual_difficulty": "normal",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "multiple_people"
+      ],
+      "target_bbox": [
+        0.44,
+        0.13,
+        0.82,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 804,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53yuackaaayqacha2ujju4brodexbqaika.f323004002.hls#t=943.040",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；右侧红衣年轻女子正面，左侧朱河。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "jianlai_0018",
+      "work_slug": "jianlai",
+      "work_name": "剑来",
+      "work_category": "animation",
+      "image_path": "jianlai/jianlai_0018.jpg",
+      "target_character": "朱河",
+      "character_importance": "supporting",
+      "visual_difficulty": "side_face",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "multiple_people",
+        "side_face"
+      ],
+      "target_bbox": [
+        0.05,
+        0,
+        0.55,
+        1
+      ],
+      "image_width": 1920,
+      "image_height": 804,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53yuackaaayqacha2ujju4brodexbqaika.f323004002.hls#t=999.000",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；左前景红头带短须男子侧脸，右侧朱鹿。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "jianlai_0019",
+      "work_slug": "jianlai",
+      "work_name": "剑来",
+      "work_category": "animation",
+      "image_path": "jianlai/jianlai_0019.jpg",
+      "target_character": "朱河",
+      "character_importance": "supporting",
+      "visual_difficulty": "normal",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "multiple_people"
+      ],
+      "target_bbox": [
+        0.13,
+        0.08,
+        0.46,
+        1
+      ],
+      "image_width": 1920,
+      "image_height": 804,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53yuackaaayqacha2ujju4brodexbqaika.f323004002.hls#t=1011.000",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；左前景红头带男子伸手，朱鹿在后。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "jianlai_0020",
+      "work_slug": "jianlai",
+      "work_name": "剑来",
+      "work_category": "animation",
+      "image_path": "jianlai/jianlai_0020.jpg",
+      "target_character": "林守一",
+      "character_importance": "key_supporting",
+      "visual_difficulty": "normal",
+      "is_multi_person": false,
+      "character_aliases": [],
+      "tags": [],
+      "target_bbox": [
+        0.25,
+        0.08,
+        0.81,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 804,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53yuackaaayqacha2ujju4brodexbqaika.f323004002.hls#t=1046.080",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；白衣深绿滚边、半束长发少年正面；已看原图。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "jianlai_0021",
+      "work_slug": "jianlai",
+      "work_name": "剑来",
+      "work_category": "animation",
+      "image_path": "jianlai/jianlai_0021.jpg",
+      "target_character": "林守一",
+      "character_importance": "key_supporting",
+      "visual_difficulty": "side_face",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "multiple_people",
+        "side_face"
+      ],
+      "target_bbox": [
+        0.03,
+        0.11,
+        0.48,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 804,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53yuackaaayqacha2ujju4brodexbqaika.f323004002.hls#t=1112.080",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；左侧白衣深绿滚边长发少年侧脸，右侧阿良。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "jianlai_0022",
+      "work_slug": "jianlai",
+      "work_name": "剑来",
+      "work_category": "animation",
+      "image_path": "jianlai/jianlai_0022.jpg",
+      "target_character": "阿良",
+      "character_importance": "key_supporting",
+      "visual_difficulty": "normal",
+      "is_multi_person": false,
+      "character_aliases": [],
+      "tags": [],
+      "target_bbox": [
+        0.15,
+        0.0,
+        0.96,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 804,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53yuackaaayqacha2ujju4brodexbqaika.f323004002.hls#t=1122.720",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；斗笠、灰披肩短须男子面部近景。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "jianlai_0023",
+      "work_slug": "jianlai",
+      "work_name": "剑来",
+      "work_category": "animation",
+      "image_path": "jianlai/jianlai_0023.jpg",
+      "target_character": "李宝瓶",
+      "character_importance": "key_supporting",
+      "visual_difficulty": "side_face",
+      "is_multi_person": false,
+      "character_aliases": [],
+      "tags": [
+        "side_face"
+      ],
+      "target_bbox": [
+        0.1,
+        0.01,
+        0.8,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 804,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53yuackaaayqacha2ujju4brodexbqaika.f323004002.hls#t=1133.240",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；红白棉袄双丸发女孩举手侧脸。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "jianlai_0024",
+      "work_slug": "jianlai",
+      "work_name": "剑来",
+      "work_category": "animation",
+      "image_path": "jianlai/jianlai_0024.jpg",
+      "target_character": "李槐",
+      "character_importance": "key_supporting",
+      "visual_difficulty": "normal",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "multiple_people"
+      ],
+      "target_bbox": [
+        0.62,
+        0.01,
+        0.95,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 804,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53yuackaaayqacha2ujju4brodexbqaika.f323004002.hls#t=1144.440",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；右侧虎头帽男孩举手，左侧李宝瓶。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "jianlai_0025",
+      "work_slug": "jianlai",
+      "work_name": "剑来",
+      "work_category": "animation",
+      "image_path": "jianlai/jianlai_0025.jpg",
+      "target_character": "阿良",
+      "character_importance": "key_supporting",
+      "visual_difficulty": "occluded",
+      "is_multi_person": false,
+      "character_aliases": [],
+      "tags": [
+        "occluded"
+      ],
+      "target_bbox": [
+        0.27,
+        0.04,
+        1.0,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 804,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53yuackaaayqacha2ujju4brodexbqaika.f323004002.hls#t=1328.880",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；桌边斗笠短须男子，帽沿遮挡眼部上缘。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "jianlai_0026",
+      "work_slug": "jianlai",
+      "work_name": "剑来",
+      "work_category": "animation",
+      "image_path": "jianlai/jianlai_0026.jpg",
+      "target_character": "朱鹿",
+      "character_importance": "supporting",
+      "visual_difficulty": "normal",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "multiple_people"
+      ],
+      "target_bbox": [
+        0.23,
+        0.14,
+        0.45,
+        1
+      ],
+      "image_width": 1920,
+      "image_height": 804,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53yuackaaayqacha2ujju4brodexbqaika.f323004002.hls#t=1363.840",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；左后方红衣红耳饰女子正面，陈平安占右前景。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "jianlai_0027",
+      "work_slug": "jianlai",
+      "work_name": "剑来",
+      "work_category": "animation",
+      "image_path": "jianlai/jianlai_0027.jpg",
+      "target_character": "朱鹿",
+      "character_importance": "supporting",
+      "visual_difficulty": "normal",
+      "is_multi_person": false,
+      "character_aliases": [],
+      "tags": [],
+      "target_bbox": [
+        0.16,
+        0.02,
+        0.85,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 804,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53yuackaaayqacha2ujju4brodexbqaika.f323004002.hls#t=1521.520",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；红衣年轻女子怒视正面，面容明确。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "jianlai_0028",
+      "work_slug": "jianlai",
+      "work_name": "剑来",
+      "work_category": "animation",
+      "image_path": "jianlai/jianlai_0028.jpg",
+      "target_character": "李宝瓶",
+      "character_importance": "key_supporting",
+      "visual_difficulty": "side_face",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "multiple_people",
+        "side_face"
+      ],
+      "target_bbox": [
+        0.01,
+        0.09,
+        0.53,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 804,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53oyag2aaageakt6s2lju4a5wdnvyaa2ka.f323004.hls#t=604.720",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；左侧红白棉袄女孩侧脸，与陈平安同行。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "jianlai_0029",
+      "work_slug": "jianlai",
+      "work_name": "剑来",
+      "work_category": "animation",
+      "image_path": "jianlai/jianlai_0029.jpg",
+      "target_character": "李宝瓶",
+      "character_importance": "key_supporting",
+      "visual_difficulty": "normal",
+      "is_multi_person": false,
+      "character_aliases": [],
+      "tags": [],
+      "target_bbox": [
+        0.21,
+        0.01,
+        0.88,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 804,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53oyag2aaageakt6s2lju4a5wdnvyaa2ka.f323004.hls#t=687.000",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；红白棉袄、双丸发饰女孩擦眼近景。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "jianlai_0030",
+      "work_slug": "jianlai",
+      "work_name": "剑来",
+      "work_category": "animation",
+      "image_path": "jianlai/jianlai_0030.jpg",
+      "target_character": "李宝瓶",
+      "character_importance": "key_supporting",
+      "visual_difficulty": "normal",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "multiple_people"
+      ],
+      "target_bbox": [
+        0.4,
+        0.02,
+        0.95,
+        1
+      ],
+      "image_width": 1920,
+      "image_height": 804,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53oyag2aaageakt6s2lju4a5wdnvyaa2ka.f323004.hls#t=719.680",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；右侧红白衣女孩伸手，前景陈平安背影。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "jianlai_0031",
+      "work_slug": "jianlai",
+      "work_name": "剑来",
+      "work_category": "animation",
+      "image_path": "jianlai/jianlai_0031.jpg",
+      "target_character": "朱河",
+      "character_importance": "supporting",
+      "visual_difficulty": "normal",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "multiple_people"
+      ],
+      "target_bbox": [
+        0.56,
+        0.18,
+        0.82,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 804,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53oyag2aaageakt6s2lju4a5wdnvyaa2ka.f323004.hls#t=885.680",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；右侧红头带男子与左侧红衣朱鹿蹲在草丛中。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "jianlai_0032",
+      "work_slug": "jianlai",
+      "work_name": "剑来",
+      "work_category": "animation",
+      "image_path": "jianlai/jianlai_0032.jpg",
+      "target_character": "林守一",
+      "character_importance": "key_supporting",
+      "visual_difficulty": "normal",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "multiple_people"
+      ],
+      "target_bbox": [
+        0.63,
+        0.24,
+        0.76,
+        0.68
+      ],
+      "image_width": 1920,
+      "image_height": 804,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53oyag2aaageakt6s2lju4a5wdnvyaa2ka.f323004.hls#t=1181.440",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；右后方白衣深绿滚边少年，陈平安在前、李宝瓶和李槐在左。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "jianlai_0033",
+      "work_slug": "jianlai",
+      "work_name": "剑来",
+      "work_category": "animation",
+      "image_path": "jianlai/jianlai_0033.jpg",
+      "target_character": "阿良",
+      "character_importance": "key_supporting",
+      "visual_difficulty": "normal",
+      "is_multi_person": false,
+      "character_aliases": [],
+      "tags": [],
+      "target_bbox": [
+        0.28,
+        0.01,
+        0.93,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 804,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53oyag2aaageakt6s2lju4a5wdnvyaa2ka.f323004.hls#t=1227.520",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；树下斗笠灰袍、短须男子坐姿。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "jianlai_0034",
+      "work_slug": "jianlai",
+      "work_name": "剑来",
+      "work_category": "animation",
+      "image_path": "jianlai/jianlai_0034.jpg",
+      "target_character": "阿良",
+      "character_importance": "key_supporting",
+      "visual_difficulty": "blurry",
+      "is_multi_person": false,
+      "character_aliases": [],
+      "tags": [
+        "blurry"
+      ],
+      "target_bbox": [
+        0.19,
+        0.0,
+        0.82,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 804,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53oyag2aaageakt6s2lju4a5wdnvyaa2ka.f323004.hls#t=1456.520",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；斗笠灰袍男子伸手，有动作模糊但面部仍可辨。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "jianlai_0035",
+      "work_slug": "jianlai",
+      "work_name": "剑来",
+      "work_category": "animation",
+      "image_path": "jianlai/jianlai_0035.jpg",
+      "target_character": "朱河",
+      "character_importance": "supporting",
+      "visual_difficulty": "normal",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "multiple_people"
+      ],
+      "target_bbox": [
+        0.63,
+        0.17,
+        0.87,
+        1
+      ],
+      "image_width": 1920,
+      "image_height": 804,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53oyag2aaageakt6s2lju4a5wdnvyaa2ka.f323004.hls#t=1490.920",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；右侧红头带男子，与陈平安和李宝瓶在洞口。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "jianlai_0036",
+      "work_slug": "jianlai",
+      "work_name": "剑来",
+      "work_category": "animation",
+      "image_path": "jianlai/jianlai_0036.jpg",
+      "target_character": "陈平安",
+      "character_importance": "main",
+      "visual_difficulty": "normal",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "multiple_people"
+      ],
+      "target_bbox": [
+        0.42,
+        0.12,
+        0.77,
+        1
+      ],
+      "image_width": 1920,
+      "image_height": 804,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53tqcqkaafr4ad7m6kinu4lhgdawnakaka.f323004003.hls#t=677.400",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；篝火旁中间灰色交领布衣少年正面，两侧同伴同框。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "jianlai_0037",
+      "work_slug": "jianlai",
+      "work_name": "剑来",
+      "work_category": "animation",
+      "image_path": "jianlai/jianlai_0037.jpg",
+      "target_character": "李槐",
+      "character_importance": "key_supporting",
+      "visual_difficulty": "normal",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "multiple_people"
+      ],
+      "target_bbox": [
+        0.43,
+        0.32,
+        0.56,
+        0.81
+      ],
+      "image_width": 1920,
+      "image_height": 804,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53tqcqkaafr4ad7m6kinu4lhgdawnakaka.f323004003.hls#t=1348.960",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；桌后中央虎头帽男孩，左侧李宝瓶、右前景白衣人物。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "jianlai_0038",
+      "work_slug": "jianlai",
+      "work_name": "剑来",
+      "work_category": "animation",
+      "image_path": "jianlai/jianlai_0038.jpg",
+      "target_character": "陈平安",
+      "character_importance": "main",
+      "visual_difficulty": "normal",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "multiple_people"
+      ],
+      "target_bbox": [
+        0.08,
+        0.0,
+        0.61,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 804,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53tqcqkaafr4ad7m6kinu4lhgdawnakaka.f323004003.hls#t=1452.080",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；左前景灰蓝布衣、蓝色束发少年带伤拱手，右侧他人肩背；已看原图。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "jianlai_0039",
+      "work_slug": "jianlai",
+      "work_name": "剑来",
+      "work_category": "animation",
+      "image_path": "jianlai/jianlai_0039.jpg",
+      "target_character": "陈平安",
+      "character_importance": "main",
+      "visual_difficulty": "normal",
+      "is_multi_person": true,
+      "character_aliases": [],
+      "tags": [
+        "multiple_people"
+      ],
+      "target_bbox": [
+        0.36,
+        0,
+        0.73,
+        1
+      ],
+      "image_width": 1920,
+      "image_height": 804,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53tqcqkaafr4ad7m6kinu4lhgdawnakaka.f323004003.hls#t=1486.480",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；右前景灰蓝布衣、脸部带伤少年，后方白衣人物。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    },
+    {
+      "sample_id": "jianlai_0040",
+      "work_slug": "jianlai",
+      "work_name": "剑来",
+      "work_category": "animation",
+      "image_path": "jianlai/jianlai_0040.jpg",
+      "target_character": "陈平安",
+      "character_importance": "main",
+      "visual_difficulty": "normal",
+      "is_multi_person": false,
+      "character_aliases": [],
+      "tags": [],
+      "target_bbox": [
+        0.07,
+        0.0,
+        0.98,
+        1.0
+      ],
+      "image_width": 1920,
+      "image_height": 804,
+      "annotation_status": "verified",
+      "source_type": "frame_capture",
+      "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53tqcqkaafr4ad7m6kinu4lhgdawnakaka.f323004003.hls#t=1521.680",
+      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；灰蓝布衣、面部伤痕少年仰脸近景。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+    }
+  ],
+  "annotation_revision": "/home/yanye/Person-Recognition/results/benchmark_20261113/gt_revision_01/revision.json",
+  "updated_at": "2026-11-13T01:45:00+00:00",
+  "cohort_revision": "/home/yanye/Person-Recognition/results/benchmark_20261113/replacements/revision.json"
+}

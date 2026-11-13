@@ -1,0 +1,213 @@
+work_slug: qingyunian2
+work_name: 庆余年第二季
+source_note: 角色/演员种子来源：https://piaofang.maoyan.com/i/movie/1318003/celebritylist；2024及作品信息：https://wetv.vip/zh-cn/play/kio6wi962m7lg7l。重要度仅为采样初始标签，别名及各图角色须人工确认。
+characters:
+- name: 范闲
+  aliases:
+  - 小范大人
+  actors:
+  - 张若昀
+  importance: main
+  notes: 角色名/演员映射已按来源登记，图片角色和采样重要度仍需人工复核。 独立持牌播方/权威报道别名证据见 results/benchmark_20261113/alias_evidence_audit.json。
+  needs_review: false
+- name: 林婉儿
+  aliases:
+  - 鸡腿姑娘
+  actors:
+  - 李沁
+  importance: main
+  notes: 角色名/演员映射已按来源登记，图片角色和采样重要度仍需人工复核。 独立持牌播方/权威报道别名证据见 results/benchmark_20261113/alias_evidence_audit.json。
+  needs_review: false
+- name: 庆帝
+  aliases: []
+  actors:
+  - 陈道明
+  importance: key_supporting
+  notes: 角色名/演员映射已按来源登记，图片角色和采样重要度仍需人工复核。
+  needs_review: false
+- name: 陈萍萍
+  aliases: []
+  actors:
+  - 吴刚
+  importance: key_supporting
+  notes: 角色名/演员映射已按来源登记，图片角色和采样重要度仍需人工复核。
+  needs_review: false
+- name: 王启年
+  aliases: []
+  actors:
+  - 田雨
+  importance: key_supporting
+  notes: 角色名/演员映射已按来源登记，图片角色和采样重要度仍需人工复核。
+  needs_review: false
+- name: 范思辙
+  aliases: []
+  actors:
+  - 郭麒麟
+  importance: key_supporting
+  notes: 角色名/演员映射已按来源登记，图片角色和采样重要度仍需人工复核。
+  needs_review: false
+- name: 范若若
+  aliases: []
+  actors:
+  - 宋轶
+  importance: key_supporting
+  notes: 角色名/演员映射已按来源登记，图片角色和采样重要度仍需人工复核。
+  needs_review: false
+- name: 二皇子
+  aliases:
+  - 李承泽
+  actors:
+  - 刘端端
+  importance: key_supporting
+  notes: 角色名/演员映射已按来源登记，图片角色和采样重要度仍需人工复核。 2026-11-13独立资料核实角色本名别名；证据见 results/benchmark_20261113/scoring_profile/alias_audit.json；未按模型响应拟合。
+  needs_review: false
+- name: 太子
+  aliases:
+  - 李承乾
+  actors:
+  - 张昊唯
+  importance: key_supporting
+  notes: 角色名/演员映射已按来源登记，图片角色和采样重要度仍需人工复核。 2026-11-13独立资料核实角色本名别名；证据见 results/benchmark_20261113/scoring_profile/alias_audit.json；未按模型响应拟合。
+  needs_review: false
+- name: 范建
+  aliases: []
+  actors:
+  - 高曙光
+  importance: key_supporting
+  notes: 角色名/演员映射已按来源登记，图片角色和采样重要度仍需人工复核。
+  needs_review: false
+- name: 林若甫
+  aliases: []
+  actors:
+  - 于洋
+  importance: key_supporting
+  notes: 角色名/演员映射已按来源登记，图片角色和采样重要度仍需人工复核。
+  needs_review: false
+- name: 长公主
+  aliases: []
+  actors:
+  - 李小冉
+  importance: key_supporting
+  notes: 角色名/演员映射已按来源登记，图片角色和采样重要度仍需人工复核。
+  needs_review: false
+- name: 皇后
+  aliases: []
+  actors:
+  - 俞飞鸿
+  importance: key_supporting
+  notes: 角色名/演员映射已按来源登记，图片角色和采样重要度仍需人工复核。
+  needs_review: false
+- name: 海棠朵朵
+  aliases: []
+  actors:
+  - 辛芷蕾
+  importance: key_supporting
+  notes: 角色名/演员映射已按来源登记，图片角色和采样重要度仍需人工复核。
+  needs_review: false
+- name: 明青达
+  aliases: []
+  actors:
+  - 宁理
+  importance: key_supporting
+  notes: 角色名/演员映射已按来源登记，图片角色和采样重要度仍需人工复核。
+  needs_review: false
+- name: 言冰云
+  aliases: []
+  actors:
+  - 吴幸键
+  importance: key_supporting
+  notes: 角色名/演员映射已按来源登记，图片角色和采样重要度仍需人工复核。
+  needs_review: false
+- name: 叶灵儿
+  aliases: []
+  actors:
+  - 金晨
+  importance: supporting
+  notes: 角色名/演员映射已按来源登记，图片角色和采样重要度仍需人工复核。
+  needs_review: false
+- name: 邓子越
+  aliases: []
+  actors:
+  - 余皑磊
+  importance: supporting
+  notes: 角色名/演员映射已按来源登记，图片角色和采样重要度仍需人工复核。
+  needs_review: false
+- name: 高达
+  aliases: []
+  actors:
+  - 李俊贤
+  importance: supporting
+  notes: 角色名/演员映射已按来源登记，图片角色和采样重要度仍需人工复核。
+  needs_review: false
+- name: 谢必安
+  aliases: []
+  actors:
+  - 赵振廷
+  importance: supporting
+  notes: 角色名/演员映射已按来源登记，图片角色和采样重要度仍需人工复核。
+  needs_review: false
+- name: 范无救
+  aliases: []
+  actors:
+  - 冯兵
+  importance: supporting
+  notes: 角色名/演员映射已按来源登记，图片角色和采样重要度仍需人工复核。
+  needs_review: false
+- name: 辛其物
+  aliases: []
+  actors:
+  - 傅迦
+  importance: supporting
+  notes: 角色名/演员映射已按来源登记，图片角色和采样重要度仍需人工复核。
+  needs_review: false
+- name: 赖名成
+  aliases: []
+  actors:
+  - 毕彦君
+  importance: supporting
+  notes: 角色名/演员映射已按来源登记，图片角色和采样重要度仍需人工复核。
+  needs_review: false
+- name: 袁宏道
+  aliases: []
+  actors:
+  - 罗二羊
+  importance: supporting
+  notes: 角色名/演员映射已按来源登记，图片角色和采样重要度仍需人工复核。
+  needs_review: false
+- name: 袁梦
+  aliases: []
+  actors:
+  - 王晓晨
+  importance: supporting
+  notes: 角色名/演员映射已按来源登记，图片角色和采样重要度仍需人工复核。
+  needs_review: false
+- name: 侯公公
+  aliases: []
+  actors:
+  - 崔志刚
+  importance: supporting
+  notes: 2026-11-13 assistant 授权代标时核对角色资料；非用户逐条人工复核，具体图片身份见逐图标注。 姓名映射来源：https://piaofang.maoyan.com/i/movie/1318003/celebritylist
+  needs_review: false
+- name: 五竹
+  aliases: []
+  actors:
+  - 佟梦实
+  importance: key_supporting
+  notes: 2026-11-13 assistant 授权代标时核对角色资料；非用户逐条人工复核，具体图片身份见逐图标注。 姓名映射来源：https://piaofang.maoyan.com/i/movie/1318003/celebritylist
+  needs_review: false
+- name: 桑文
+  aliases: []
+  actors:
+  - 王楚然
+  importance: supporting
+  notes: 姓名生产海报独立复核，证据见 results/benchmark_20261113/qingyunian2_gt_audit.json poster_sangwen。
+  needs_review: false
+- name: 三皇子
+  aliases:
+  - 李承平
+  actors:
+  - 郭子凡
+  importance: supporting
+  notes: 姓名生产海报及原剧官微剧照图注独立复核，见同目录audit poster_sanhuangzi/primary_press_still。 2026-11-13独立资料核实角色本名别名；证据见
+    results/benchmark_20261113/scoring_profile/alias_audit.json；未按模型响应拟合。
+  needs_review: false

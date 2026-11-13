@@ -2,6 +2,13 @@
 
 from __future__ import annotations
 
+import threading
+import time
+from concurrent.futures import ThreadPoolExecutor
+from dataclasses import replace
+from datetime import datetime, timezone
+from email.utils import format_datetime
+from types import SimpleNamespace
 from typing import Any
 
 import pytest
@@ -52,6 +59,53 @@ def test_classify_exception(exc, expected_type, retryable):
 
 def test_error_summary_truncates():
     assert len(error_summary(ValueError("x" * 1000), limit=100)) <= 120
+
+
+def test_error_summary_redacts_rate_limit_account_identifiers():
+    org_id = "org-example012345"
+    project_id = "proj-example987654"
+    key_id = "<ak-example-key-id>"
+    api_key = "sk-test-only-0123456789abcdef"
+    exc = _StatusErr(429)
+    exc.args = (
+        f"429 rate_limit_reached_error: Your account {org_id} / {project_id} "
+        f"{key_id} reached RPM rate limit; current:4, limit:3; "
+        f"error_retry_after: 20; Authorization: Bearer {api_key}",
+    )
+    summary = error_summary(exc)
+    for identifier in (org_id, project_id, key_id, api_key):
+        assert identifier not in summary
+    assert summary.startswith("_StatusErr: 429 rate_limit_reached_error:")
+    assert "RPM rate limit; current:4, limit:3" in summary
+    assert "error_retry_after: 20" in summary
+    assert "[account-id]" in summary
+    assert "[api-key-id]" in summary
+    assert "[api-key]" in summary
+    assert classify_exception(exc) == ("rate_limit", True)
+
+
+@pytest.mark.parametrize(
+    "identifier",
+    ["org-ABC012", "<ak-test_012-key>", "sk-proj-test_0123456789ABCDEF"],
+)
+def test_error_summary_redacts_identifier_variants(identifier):
+    summary = error_summary(ValueError(f"request failed: {identifier}"))
+    assert identifier not in summary
+    assert summary.startswith("ValueError: request failed:")
+
+
+def test_error_summary_redacts_before_truncation():
+    secret = "sk-test-only-" + "a" * 100
+    summary = error_summary(ValueError(f"Bearer {secret}; more context"), limit=35)
+    assert "sk-" not in summary
+    assert secret[:12] not in summary
+    assert "[api-key]" in summary
+    assert len(summary) <= 35
+
+
+@pytest.mark.parametrize("message", ["", "bad_request: unsupported temperature"])
+def test_error_summary_without_identifiers_is_unchanged(message):
+    assert error_summary(ValueError(message)) == f"ValueError: {message}"
 
 
 # ---------------------------------------------------------------- MockProvider
@@ -124,7 +178,13 @@ class FakeClient:
         self.chat.completions = FakeCompletions(behaviors)
 
 
-def _resp(content: str, model: str = "served-version-1"):
+def _resp(
+    content: str | None,
+    model: str = "served-version-1",
+    *,
+    reasoning: str | None = None,
+    finish_reason: str = "stop",
+):
     class Msg:
         pass
 
@@ -141,10 +201,10 @@ def _resp(content: str, model: str = "served-version-1"):
 
     m = Msg()
     m.content = content
-    m.reasoning_content = None
+    m.reasoning_content = reasoning
     c = Choice()
     c.message = m
-    c.finish_reason = "stop"
+    c.finish_reason = finish_reason
     r = R()
     r.choices = [c]
     r.model = model
@@ -152,14 +212,14 @@ def _resp(content: str, model: str = "served-version-1"):
     return r
 
 
-def _provider(client: FakeClient) -> OpenAICompatProvider:
+def _provider(client: FakeClient, *, settings=None, sleeper=None) -> OpenAICompatProvider:
     registry = load_registry()
     spec = registry.providers["dashscope"]
     return OpenAICompatProvider(
         spec,
-        settings=load_settings(),
+        settings=load_settings() if settings is None else settings,
         client_factory=lambda: client,
-        sleeper=lambda _s: None,
+        sleeper=(lambda _s: None) if sleeper is None else sleeper,
     )
 
 
@@ -174,6 +234,70 @@ def test_openai_compat_ok_response():
     assert result.raw_text == '{"character_name": "测试"}'
     assert result.served_model == "served-version-1"
     assert result.usage["total_tokens"] == 15
+    assert result.reasoning_text == ""
+    assert result.output_issue is None
+
+
+def test_openai_compat_plain_response_without_reasoning_field():
+    response = _resp('{"character_name": "安欣"}')
+    del response.choices[0].message.reasoning_content
+    client = FakeClient([response])
+    result = _provider(client).recognize(
+        load_registry().get("qwen3.8-max"), DATA_URL, SYS, USER, GEN
+    )
+    assert result.ok
+    assert result.raw_text == '{"character_name": "安欣"}'
+    assert result.reasoning_text == ""
+    assert result.output_issue is None
+
+
+def test_openai_compat_preserves_final_answer_separately_from_reasoning():
+    final = '{"character_name": "安欣", "is_uncertain": false}'
+    reasoning = '备选而非答案：{"character_name": "高启强"}'
+    client = FakeClient([_resp(final, reasoning=reasoning)])
+    result = _provider(client).recognize(
+        load_registry().get("qwen3.8-max"), DATA_URL, SYS, USER, GEN
+    )
+    assert result.raw_text == final
+    assert result.reasoning_text == reasoning
+    assert result.output_issue is None
+
+
+@pytest.mark.parametrize("content", [None, "", " \n\t"])
+def test_openai_compat_reasoning_json_cannot_become_final_answer(content):
+    from vcrb.evaluation.parser import parse_response
+
+    reasoning = '{"character_name": "安欣", "is_uncertain": false}'
+    client = FakeClient([_resp(content, reasoning=reasoning)])
+    result = _provider(client).recognize(
+        load_registry().get("qwen3.8-max"), DATA_URL, SYS, USER, GEN
+    )
+    assert result.ok and result.http_status == 200  # 不将模型输出问题改写成网络失败
+    assert result.error_type is None
+    assert result.raw_text == (content or "")
+    assert not parse_response(result.raw_text).parse_ok
+    assert result.reasoning_text == reasoning
+    assert result.output_issue == "empty_final_content"
+    assert len(client.chat.completions.calls) == 1
+
+
+@pytest.mark.parametrize("content", [None, '{"character_name":', '{"character_name": "安欣"}'])
+def test_openai_compat_truncation_is_audited_without_paid_retry(content):
+    client = FakeClient([
+        _resp(content, reasoning="尚未完成的思考", finish_reason="length"),
+        _resp("unexpected retry"),
+    ])
+    result = _provider(client).recognize(
+        load_registry().get("qwen3.8-max"), DATA_URL, SYS, USER, GEN
+    )
+    assert result.ok and result.http_status == 200
+    assert result.error_type is None
+    assert result.raw_text == (content or "")
+    assert result.finish_reason == "length"
+    assert result.output_issue == "truncated_output"
+    assert result.reasoning_text == "尚未完成的思考"
+    assert result.attempts == 1
+    assert len(client.chat.completions.calls) == 1
 
 
 def test_openai_compat_request_shape_and_fairness():
@@ -197,10 +321,12 @@ def test_openai_compat_request_shape_and_fairness():
 
 
 def test_openai_compat_kimi_omits_temperature_and_extra_body():
-    client = FakeClient([_resp("ok")])
+    client = FakeClient([_resp("ok"), _resp("ok")])
     provider = _provider(client)
     registry = load_registry()
-    provider.recognize(registry.get("kimi-k2.6"), DATA_URL, SYS, USER, GEN)
+    # 参数注入契约与当前在线模型配置分开测试。
+    kimi = replace(registry.get("kimi-k2.6"), params={"pass_temperature": False})
+    provider.recognize(kimi, DATA_URL, SYS, USER, GEN)
     (call,) = client.chat.completions.calls
     assert "temperature" not in call
     assert "extra_body" not in call
@@ -208,6 +334,55 @@ def test_openai_compat_kimi_omits_temperature_and_extra_body():
     provider.recognize(registry.get("deepseek-flash"), DATA_URL, SYS, USER, GEN)
     call2 = client.chat.completions.calls[-1]
     assert call2["temperature"] == 0.1
+
+
+def test_openai_compat_token_budget_defaults_to_max_tokens():
+    client = FakeClient([_resp("ok")])
+    model = replace(load_registry().get("deepseek-flash"), params={})
+    _provider(client).recognize(model, DATA_URL, SYS, USER, GEN)
+    (request,) = client.chat.completions.calls
+    assert request["max_tokens"] == GEN.max_tokens
+    assert "max_completion_tokens" not in request
+
+
+def test_openai_compat_k3_can_use_max_completion_tokens():
+    client = FakeClient([_resp("ok")])
+    model = replace(
+        load_registry().get("deepseek-flash"),
+        id="kimi-k3",
+        provider="moonshot",
+        vendor="Kimi",
+        params={"pass_temperature": False, "token_limit_parameter": "max_completion_tokens"},
+    )
+    _provider(client).recognize(model, DATA_URL, SYS, USER, GEN)
+    (request,) = client.chat.completions.calls
+    assert request["model"] == "kimi-k3"
+    assert request["max_completion_tokens"] == GEN.max_tokens
+    assert "max_tokens" not in request
+
+
+@pytest.mark.parametrize("parameter", ["max_output_tokens", "", None, 512, []])
+def test_openai_compat_rejects_invalid_token_budget_parameter(parameter):
+    client = FakeClient([])
+    model = replace(
+        load_registry().get("deepseek-flash"),
+        params={"token_limit_parameter": parameter},
+    )
+    with pytest.raises(ValueError, match="token_limit_parameter"):
+        _provider(client).recognize(model, DATA_URL, SYS, USER, GEN)
+    assert client.chat.completions.calls == []
+
+
+@pytest.mark.parametrize("extra_parameter", ["max_tokens", "max_completion_tokens"])
+def test_openai_compat_extra_body_cannot_override_or_duplicate_token_budget(extra_parameter):
+    client = FakeClient([])
+    model = replace(
+        load_registry().get("deepseek-flash"),
+        params={"extra_body": {extra_parameter: 999}},
+    )
+    with pytest.raises(ValueError, match="extra_body"):
+        _provider(client).recognize(model, DATA_URL, SYS, USER, GEN)
+    assert client.chat.completions.calls == []
 
 
 def test_openai_compat_retries_then_succeeds():
@@ -244,7 +419,146 @@ def test_openai_compat_persistent_5xx_exhausts_retries():
     assert len(client.chat.completions.calls) == max_attempts
 
 
+class _FakeClock:
+    def __init__(self):
+        self.now = 0.0
+        self.sleeps = []
+
+    def monotonic(self):
+        return self.now
+
+    def wall_time(self):
+        return 1700000000.0 + self.now
+
+    def sleep(self, seconds):
+        self.sleeps.append(seconds)
+        self.now += seconds
+
+
+def _clocked_provider(monkeypatch, client, *, settings=None):
+    clock = _FakeClock()
+    monkeypatch.setattr("vcrb.providers.openai_compat.time.monotonic", clock.monotonic)
+    monkeypatch.setattr("vcrb.providers.openai_compat.time.time", clock.wall_time)
+    provider = _provider(client, settings=settings, sleeper=clock.sleep)
+    return provider, clock
+
+
+def test_openai_compat_min_interval_between_actual_attempts(monkeypatch):
+    client = FakeClient([_resp("ok"), _resp("ok"), _resp("ok")])
+    model = load_registry().get("glm-4.6v")
+    provider, clock = _clocked_provider(monkeypatch, client, settings={
+        "runner": {"per_model_min_interval_seconds": {model.id: 6.1}},
+    })
+    # 其他模型默认0，不会继承限频，也不会消耗该模型的时间配额。
+    assert provider.recognize(model, DATA_URL, SYS, USER, GEN).ok
+    assert provider.recognize(load_registry().get("deepseek-flash"), DATA_URL, SYS, USER, GEN).ok
+    assert clock.sleeps == []
+    assert provider.recognize(model, DATA_URL, SYS, USER, GEN).ok
+    assert clock.sleeps == pytest.approx([6.1])
+
+
+def test_openai_compat_retry_also_obeys_min_interval(monkeypatch):
+    client = FakeClient([_StatusErr(429), _resp("ok")])
+    model = load_registry().get("glm-4.6v")
+    provider, clock = _clocked_provider(monkeypatch, client, settings={
+        "retry": {"backoff_base_seconds": 2},
+        "runner": {"per_model_min_interval_seconds": {model.id: 6.1}},
+    })
+    result = provider.recognize(model, DATA_URL, SYS, USER, GEN)
+    assert result.ok and result.attempts == 2
+    assert clock.sleeps == pytest.approx([2.0, 4.1])
+    assert clock.now == pytest.approx(6.1)
+
+
+def test_openai_compat_min_interval_cannot_be_bypassed_by_threads():
+    client = FakeClient([_resp("ok") for _ in range(4)])
+    model = load_registry().get("glm-4.6v")
+    provider = _provider(client, settings={
+        "runner": {"per_model_min_interval_seconds": {model.id: 0.02}},
+    }, sleeper=time.sleep)
+    starts = []
+    original_create = client.chat.completions.create
+
+    def record_start(**kwargs):
+        starts.append(time.monotonic())
+        return original_create(**kwargs)
+
+    client.chat.completions.create = record_start
+    barrier = threading.Barrier(4)
+
+    def recognize():
+        barrier.wait(timeout=3)
+        return provider.recognize(model, DATA_URL, SYS, USER, GEN)
+
+    with ThreadPoolExecutor(max_workers=4) as pool:
+        results = list(pool.map(lambda _: recognize(), range(4)))
+    assert all(result.ok for result in results)
+    assert len(starts) == 4
+    assert all(right - left >= 0.018 for left, right in zip(starts, starts[1:]))
+
+
+@pytest.mark.parametrize("interval", [-1, float("inf"), float("nan")])
+def test_openai_compat_rejects_invalid_min_interval(interval):
+    with pytest.raises(ValueError, match="per_model_min_interval_seconds"):
+        _provider(FakeClient([]), settings={
+            "runner": {"per_model_min_interval_seconds": {"test-model": interval}},
+        })
+
+
+@pytest.mark.parametrize("header,expected_wait", [("5", 5.0), ("0.5", 2.0), ("invalid", 2.0), ("120", 120.0)])
+def test_openai_compat_retry_after_seconds_respects_backoff(monkeypatch, header, expected_wait):
+    error = _StatusErr(429)
+    error.response = SimpleNamespace(headers={"Retry-After": header})
+    client = FakeClient([error, _resp("ok")])
+    provider, clock = _clocked_provider(monkeypatch, client, settings={
+        "retry": {"backoff_base_seconds": 2},
+    })
+    result = provider.recognize(load_registry().get("glm-4.6v"), DATA_URL, SYS, USER, GEN)
+    assert result.ok and result.attempts == 2
+    assert clock.sleeps == pytest.approx([expected_wait])
+
+
+def test_openai_compat_retry_after_http_date(monkeypatch):
+    error = _StatusErr(429)
+    client = FakeClient([error, _resp("ok")])
+    provider, clock = _clocked_provider(monkeypatch, client)
+    retry_at = datetime.fromtimestamp(clock.wall_time() + 12, tz=timezone.utc)
+    error.response = SimpleNamespace(headers={"Retry-After": format_datetime(retry_at, usegmt=True)})
+    result = provider.recognize(load_registry().get("glm-4.6v"), DATA_URL, SYS, USER, GEN)
+    assert result.ok
+    assert clock.sleeps == pytest.approx([12.0])
+
+
+def test_openai_compat_retry_after_header_is_case_insensitive(monkeypatch):
+    error = _StatusErr(503)
+    error.headers = {"RETRY-AFTER": "4"}
+    provider, clock = _clocked_provider(monkeypatch, FakeClient([error, _resp("ok")]))
+    assert provider.recognize(load_registry().get("glm-4.6v"), DATA_URL, SYS, USER, GEN).ok
+    assert clock.sleeps == pytest.approx([4.0])
+
+
+@pytest.mark.parametrize("use_date", [False, True])
+def test_openai_compat_long_retry_after_defers_instead_of_retrying_early(monkeypatch, use_date):
+    error = _StatusErr(429)
+    client = FakeClient([error, _resp("must not retry early")])
+    provider, clock = _clocked_provider(monkeypatch, client)
+    value = "1200"
+    if use_date:
+        retry_at = datetime.fromtimestamp(clock.wall_time() + 1200, tz=timezone.utc)
+        value = format_datetime(retry_at, usegmt=True)
+    error.response = SimpleNamespace(headers={"Retry-After": value})
+    result = provider.recognize(load_registry().get("glm-4.6v"), DATA_URL, SYS, USER, GEN)
+    assert not result.ok and result.error_type == "rate_limit"
+    assert result.http_status == 429 and result.attempts == 1
+    assert "retry deferred" in result.error_message
+    assert "1200" in result.error_message
+    assert clock.sleeps == []
+    assert len(client.chat.completions.calls) == 1
+
+
 def test_provider_result_defaults():
     r = ProviderResult(ok=False)
     assert r.raw_text == ""
     assert r.usage == {}
+    assert r.reasoning_text == ""
+    assert r.output_issue is None

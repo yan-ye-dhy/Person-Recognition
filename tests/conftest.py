@@ -58,6 +58,9 @@ def make_work(slug: str = "kuangbiao") -> Work:
         "langyabang": ("琅琊榜", "costume_drama", "电视剧", 2015,
                        ("琅琊榜 电视剧 剧照 梅长苏", "琅琊榜 靖王 剧照"),
                        ("iqiyi.com", "ent.sina.com.cn", "doubanio.com"), ("Nirvana in Fire",)),
+        "qingyunian2": ("庆余年第二季", "costume_drama", "电视剧", 2024,
+                        ("庆余年第二季 正片 范闲",), ("v.qq.com", "cctv.com"),
+                        ("Joy of Life S2",)),
         "gongfunvzu": ("功夫女足", "recent_movie", "电影", None,
                        ("功夫女足 电影 剧照", "功夫女足 电影 截图 角色"),
                        ("doubanio.com", "1905.com"), ()),
@@ -101,12 +104,12 @@ def make_sample(
 
 def build_tiny_dataset(dataset_dir: Path, n_per_work: int = 2) -> tuple[list[Sample], dict[str, Work]]:
     """在 dataset_dir 下生成微型正式集（真实图片文件 + Sample 列表）。"""
-    works = {slug: make_work(slug) for slug in ("kuangbiao", "langyabang")}
+    works = {slug: make_work(slug) for slug in ("kuangbiao", "qingyunian2")}
     samples: list[Sample] = []
     idx = 0
     characters = {
         "kuangbiao": [("高启强", "main", "normal", False), ("陈书婷", "key_supporting", "side_face", True)],
-        "langyabang": [("梅长苏", "main", "normal", False), ("靖王", "key_supporting", "normal", True)],
+        "qingyunian2": [("范闲", "main", "normal", False), ("王启年", "key_supporting", "normal", True)],
     }
     for slug, chars in characters.items():
         (dataset_dir / slug).mkdir(parents=True, exist_ok=True)

@@ -1,0 +1,7659 @@
+{
+  "run_id": "run_20261113_final_practical",
+  "prompt_version": "v1",
+  "dataset_hash": "507321ad831ac96b014074d030a13673",
+  "input_dataset_hash": "507321ad831ac96b014074d030a13673",
+  "annotation_revision_path": null,
+  "metrics": {
+    "deepseek-flash|A": {
+      "planned": 160,
+      "counts": {
+        "correct": 11,
+        "wrong_name": 95,
+        "actor_name": 0,
+        "uncertain": 54,
+        "refused": 0,
+        "parse_error": 0,
+        "api_failure": 0,
+        "not_run": 0
+      },
+      "accuracy_valid": 0.06875,
+      "accuracy_valid_ci95": [
+        0.03881942091091279,
+        0.11890292242451045
+      ],
+      "accuracy_e2e": 0.06875,
+      "accuracy_e2e_ci95": [
+        0.03881942091091279,
+        0.11890292242451045
+      ],
+      "api_failure_rate": 0.0
+    },
+    "deepseek-flash|B": {
+      "planned": 160,
+      "counts": {
+        "correct": 38,
+        "wrong_name": 85,
+        "actor_name": 0,
+        "uncertain": 37,
+        "refused": 0,
+        "parse_error": 0,
+        "api_failure": 0,
+        "not_run": 0
+      },
+      "accuracy_valid": 0.2375,
+      "accuracy_valid_ci95": [
+        0.1782035847518699,
+        0.3091056677131703
+      ],
+      "accuracy_e2e": 0.2375,
+      "accuracy_e2e_ci95": [
+        0.1782035847518699,
+        0.3091056677131703
+      ],
+      "api_failure_rate": 0.0
+    },
+    "glm-4.6v|A": {
+      "planned": 160,
+      "counts": {
+        "correct": 3,
+        "wrong_name": 153,
+        "actor_name": 1,
+        "uncertain": 3,
+        "refused": 0,
+        "parse_error": 0,
+        "api_failure": 0,
+        "not_run": 0
+      },
+      "accuracy_valid": 0.01875,
+      "accuracy_valid_ci95": [
+        0.00639685075325945,
+        0.0536701120993143
+      ],
+      "accuracy_e2e": 0.01875,
+      "accuracy_e2e_ci95": [
+        0.00639685075325945,
+        0.0536701120993143
+      ],
+      "api_failure_rate": 0.0
+    },
+    "glm-4.6v|B": {
+      "planned": 160,
+      "counts": {
+        "correct": 28,
+        "wrong_name": 113,
+        "actor_name": 0,
+        "uncertain": 19,
+        "refused": 0,
+        "parse_error": 0,
+        "api_failure": 0,
+        "not_run": 0
+      },
+      "accuracy_valid": 0.175,
+      "accuracy_valid_ci95": [
+        0.12394200193945988,
+        0.24129802492201852
+      ],
+      "accuracy_e2e": 0.175,
+      "accuracy_e2e_ci95": [
+        0.12394200193945988,
+        0.24129802492201852
+      ],
+      "api_failure_rate": 0.0
+    },
+    "glm-5.3-flash|A": {
+      "planned": 160,
+      "counts": {
+        "correct": 7,
+        "wrong_name": 21,
+        "actor_name": 0,
+        "uncertain": 132,
+        "refused": 0,
+        "parse_error": 0,
+        "api_failure": 0,
+        "not_run": 0
+      },
+      "accuracy_valid": 0.04375,
+      "accuracy_valid_ci95": [
+        0.02135161155153454,
+        0.08754304154246395
+      ],
+      "accuracy_e2e": 0.04375,
+      "accuracy_e2e_ci95": [
+        0.02135161155153454,
+        0.08754304154246395
+      ],
+      "api_failure_rate": 0.0
+    },
+    "glm-5.3-flash|B": {
+      "planned": 160,
+      "counts": {
+        "correct": 32,
+        "wrong_name": 43,
+        "actor_name": 0,
+        "uncertain": 85,
+        "refused": 0,
+        "parse_error": 0,
+        "api_failure": 0,
+        "not_run": 0
+      },
+      "accuracy_valid": 0.2,
+      "accuracy_valid_ci95": [
+        0.14538269154252415,
+        0.268685025560379
+      ],
+      "accuracy_e2e": 0.2,
+      "accuracy_e2e_ci95": [
+        0.14538269154252415,
+        0.268685025560379
+      ],
+      "api_failure_rate": 0.0
+    },
+    "kimi-k3.1-pro|A": {
+      "planned": 160,
+      "counts": {
+        "correct": 76,
+        "wrong_name": 46,
+        "actor_name": 0,
+        "uncertain": 38,
+        "refused": 0,
+        "parse_error": 0,
+        "api_failure": 0,
+        "not_run": 0
+      },
+      "accuracy_valid": 0.475,
+      "accuracy_valid_ci95": [
+        0.3991189168067862,
+        0.5520533929517891
+      ],
+      "accuracy_e2e": 0.475,
+      "accuracy_e2e_ci95": [
+        0.3991189168067862,
+        0.5520533929517891
+      ],
+      "api_failure_rate": 0.0
+    },
+    "kimi-k3.1-pro|B": {
+      "planned": 160,
+      "counts": {
+        "correct": 95,
+        "wrong_name": 26,
+        "actor_name": 0,
+        "uncertain": 39,
+        "refused": 0,
+        "parse_error": 0,
+        "api_failure": 0,
+        "not_run": 0
+      },
+      "accuracy_valid": 0.59375,
+      "accuracy_valid_ci95": [
+        0.5163168856257644,
+        0.6667869527795783
+      ],
+      "accuracy_e2e": 0.59375,
+      "accuracy_e2e_ci95": [
+        0.5163168856257644,
+        0.6667869527795783
+      ],
+      "api_failure_rate": 0.0
+    },
+    "qwen3.7-plus|A": {
+      "planned": 160,
+      "counts": {
+        "correct": 60,
+        "wrong_name": 92,
+        "actor_name": 0,
+        "uncertain": 6,
+        "refused": 0,
+        "parse_error": 2,
+        "api_failure": 0,
+        "not_run": 0
+      },
+      "accuracy_valid": 0.375,
+      "accuracy_valid_ci95": [
+        0.30374323210068377,
+        0.4521183166921926
+      ],
+      "accuracy_e2e": 0.375,
+      "accuracy_e2e_ci95": [
+        0.30374323210068377,
+        0.4521183166921926
+      ],
+      "api_failure_rate": 0.0
+    },
+    "qwen3.7-plus|B": {
+      "planned": 160,
+      "counts": {
+        "correct": 73,
+        "wrong_name": 84,
+        "actor_name": 0,
+        "uncertain": 3,
+        "refused": 0,
+        "parse_error": 0,
+        "api_failure": 0,
+        "not_run": 0
+      },
+      "accuracy_valid": 0.45625,
+      "accuracy_valid_ci95": [
+        0.38100176815340075,
+        0.533549773924106
+      ],
+      "accuracy_e2e": 0.45625,
+      "accuracy_e2e_ci95": [
+        0.38100176815340075,
+        0.533549773924106
+      ],
+      "api_failure_rate": 0.0
+    },
+    "qwen3.8-flash|A": {
+      "planned": 160,
+      "counts": {
+        "correct": 58,
+        "wrong_name": 65,
+        "actor_name": 0,
+        "uncertain": 36,
+        "refused": 0,
+        "parse_error": 1,
+        "api_failure": 0,
+        "not_run": 0
+      },
+      "accuracy_valid": 0.3625,
+      "accuracy_valid_ci95": [
+        0.29204439482073724,
+        0.4394033088514268
+      ],
+      "accuracy_e2e": 0.3625,
+      "accuracy_e2e_ci95": [
+        0.29204439482073724,
+        0.4394033088514268
+      ],
+      "api_failure_rate": 0.0
+    },
+    "qwen3.8-flash|B": {
+      "planned": 160,
+      "counts": {
+        "correct": 72,
+        "wrong_name": 65,
+        "actor_name": 0,
+        "uncertain": 23,
+        "refused": 0,
+        "parse_error": 0,
+        "api_failure": 0,
+        "not_run": 0
+      },
+      "accuracy_valid": 0.45,
+      "accuracy_valid_ci95": [
+        0.3749863030702235,
+        0.5273583164469271
+      ],
+      "accuracy_e2e": 0.45,
+      "accuracy_e2e_ci95": [
+        0.3749863030702235,
+        0.5273583164469271
+      ],
+      "api_failure_rate": 0.0
+    },
+    "qwen3.8-max|A": {
+      "planned": 160,
+      "counts": {
+        "correct": 90,
+        "wrong_name": 63,
+        "actor_name": 0,
+        "uncertain": 0,
+        "refused": 0,
+        "parse_error": 7,
+        "api_failure": 0,
+        "not_run": 0
+      },
+      "accuracy_valid": 0.5625,
+      "accuracy_valid_ci95": [
+        0.4850602128197586,
+        0.6370090127838032
+      ],
+      "accuracy_e2e": 0.5625,
+      "accuracy_e2e_ci95": [
+        0.4850602128197586,
+        0.6370090127838032
+      ],
+      "api_failure_rate": 0.0
+    },
+    "qwen3.8-max|B": {
+      "planned": 160,
+      "counts": {
+        "correct": 94,
+        "wrong_name": 49,
+        "actor_name": 0,
+        "uncertain": 3,
+        "refused": 0,
+        "parse_error": 14,
+        "api_failure": 0,
+        "not_run": 0
+      },
+      "accuracy_valid": 0.5875,
+      "accuracy_valid_ci95": [
+        0.510041245495629,
+        0.6608556703493577
+      ],
+      "accuracy_e2e": 0.5875,
+      "accuracy_e2e_ci95": [
+        0.510041245495629,
+        0.6608556703493577
+      ],
+      "api_failure_rate": 0.0
+    }
+  },
+  "by_work": {
+    "deepseek-flash|A": {
+      "kuangbiao": {
+        "planned": 40,
+        "counts": {
+          "correct": 1,
+          "wrong_name": 31,
+          "actor_name": 0,
+          "uncertain": 8,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.025,
+        "accuracy_valid_ci95": [
+          0.0044268315026814095,
+          0.1288136896347409
+        ],
+        "accuracy_e2e": 0.025,
+        "accuracy_e2e_ci95": [
+          0.0044268315026814095,
+          0.1288136896347409
+        ],
+        "api_failure_rate": 0.0
+      },
+      "qingyunian2": {
+        "planned": 40,
+        "counts": {
+          "correct": 9,
+          "wrong_name": 27,
+          "actor_name": 0,
+          "uncertain": 4,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.225,
+        "accuracy_valid_ci95": [
+          0.12316091323540743,
+          0.37503096742310027
+        ],
+        "accuracy_e2e": 0.225,
+        "accuracy_e2e_ci95": [
+          0.12316091323540743,
+          0.37503096742310027
+        ],
+        "api_failure_rate": 0.0
+      },
+      "gongfunvzu": {
+        "planned": 40,
+        "counts": {
+          "correct": 0,
+          "wrong_name": 9,
+          "actor_name": 0,
+          "uncertain": 31,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.0,
+        "accuracy_valid_ci95": [
+          0.0,
+          0.08762160119728664
+        ],
+        "accuracy_e2e": 0.0,
+        "accuracy_e2e_ci95": [
+          0.0,
+          0.08762160119728664
+        ],
+        "api_failure_rate": 0.0
+      },
+      "jianlai": {
+        "planned": 40,
+        "counts": {
+          "correct": 1,
+          "wrong_name": 28,
+          "actor_name": 0,
+          "uncertain": 11,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.025,
+        "accuracy_valid_ci95": [
+          0.0044268315026814095,
+          0.1288136896347409
+        ],
+        "accuracy_e2e": 0.025,
+        "accuracy_e2e_ci95": [
+          0.0044268315026814095,
+          0.1288136896347409
+        ],
+        "api_failure_rate": 0.0
+      }
+    },
+    "deepseek-flash|B": {
+      "kuangbiao": {
+        "planned": 40,
+        "counts": {
+          "correct": 11,
+          "wrong_name": 29,
+          "actor_name": 0,
+          "uncertain": 0,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.275,
+        "accuracy_valid_ci95": [
+          0.16108016247667337,
+          0.42834955806210573
+        ],
+        "accuracy_e2e": 0.275,
+        "accuracy_e2e_ci95": [
+          0.16108016247667337,
+          0.42834955806210573
+        ],
+        "api_failure_rate": 0.0
+      },
+      "qingyunian2": {
+        "planned": 40,
+        "counts": {
+          "correct": 14,
+          "wrong_name": 26,
+          "actor_name": 0,
+          "uncertain": 0,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.35,
+        "accuracy_valid_ci95": [
+          0.2213452887317629,
+          0.5049411916274231
+        ],
+        "accuracy_e2e": 0.35,
+        "accuracy_e2e_ci95": [
+          0.2213452887317629,
+          0.5049411916274231
+        ],
+        "api_failure_rate": 0.0
+      },
+      "gongfunvzu": {
+        "planned": 40,
+        "counts": {
+          "correct": 0,
+          "wrong_name": 3,
+          "actor_name": 0,
+          "uncertain": 37,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.0,
+        "accuracy_valid_ci95": [
+          0.0,
+          0.08762160119728664
+        ],
+        "accuracy_e2e": 0.0,
+        "accuracy_e2e_ci95": [
+          0.0,
+          0.08762160119728664
+        ],
+        "api_failure_rate": 0.0
+      },
+      "jianlai": {
+        "planned": 40,
+        "counts": {
+          "correct": 13,
+          "wrong_name": 27,
+          "actor_name": 0,
+          "uncertain": 0,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.325,
+        "accuracy_valid_ci95": [
+          0.200845022317827,
+          0.47982253810122333
+        ],
+        "accuracy_e2e": 0.325,
+        "accuracy_e2e_ci95": [
+          0.200845022317827,
+          0.47982253810122333
+        ],
+        "api_failure_rate": 0.0
+      }
+    },
+    "glm-4.6v|A": {
+      "kuangbiao": {
+        "planned": 40,
+        "counts": {
+          "correct": 1,
+          "wrong_name": 38,
+          "actor_name": 1,
+          "uncertain": 0,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.025,
+        "accuracy_valid_ci95": [
+          0.0044268315026814095,
+          0.1288136896347409
+        ],
+        "accuracy_e2e": 0.025,
+        "accuracy_e2e_ci95": [
+          0.0044268315026814095,
+          0.1288136896347409
+        ],
+        "api_failure_rate": 0.0
+      },
+      "qingyunian2": {
+        "planned": 40,
+        "counts": {
+          "correct": 2,
+          "wrong_name": 38,
+          "actor_name": 0,
+          "uncertain": 0,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.05,
+        "accuracy_valid_ci95": [
+          0.013820667386148344,
+          0.16503877369140962
+        ],
+        "accuracy_e2e": 0.05,
+        "accuracy_e2e_ci95": [
+          0.013820667386148344,
+          0.16503877369140962
+        ],
+        "api_failure_rate": 0.0
+      },
+      "gongfunvzu": {
+        "planned": 40,
+        "counts": {
+          "correct": 0,
+          "wrong_name": 37,
+          "actor_name": 0,
+          "uncertain": 3,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.0,
+        "accuracy_valid_ci95": [
+          0.0,
+          0.08762160119728664
+        ],
+        "accuracy_e2e": 0.0,
+        "accuracy_e2e_ci95": [
+          0.0,
+          0.08762160119728664
+        ],
+        "api_failure_rate": 0.0
+      },
+      "jianlai": {
+        "planned": 40,
+        "counts": {
+          "correct": 0,
+          "wrong_name": 40,
+          "actor_name": 0,
+          "uncertain": 0,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.0,
+        "accuracy_valid_ci95": [
+          0.0,
+          0.08762160119728664
+        ],
+        "accuracy_e2e": 0.0,
+        "accuracy_e2e_ci95": [
+          0.0,
+          0.08762160119728664
+        ],
+        "api_failure_rate": 0.0
+      }
+    },
+    "glm-4.6v|B": {
+      "kuangbiao": {
+        "planned": 40,
+        "counts": {
+          "correct": 8,
+          "wrong_name": 32,
+          "actor_name": 0,
+          "uncertain": 0,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.2,
+        "accuracy_valid_ci95": [
+          0.10499989725437704,
+          0.347573063463995
+        ],
+        "accuracy_e2e": 0.2,
+        "accuracy_e2e_ci95": [
+          0.10499989725437704,
+          0.347573063463995
+        ],
+        "api_failure_rate": 0.0
+      },
+      "qingyunian2": {
+        "planned": 40,
+        "counts": {
+          "correct": 14,
+          "wrong_name": 26,
+          "actor_name": 0,
+          "uncertain": 0,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.35,
+        "accuracy_valid_ci95": [
+          0.2213452887317629,
+          0.5049411916274231
+        ],
+        "accuracy_e2e": 0.35,
+        "accuracy_e2e_ci95": [
+          0.2213452887317629,
+          0.5049411916274231
+        ],
+        "api_failure_rate": 0.0
+      },
+      "gongfunvzu": {
+        "planned": 40,
+        "counts": {
+          "correct": 0,
+          "wrong_name": 21,
+          "actor_name": 0,
+          "uncertain": 19,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.0,
+        "accuracy_valid_ci95": [
+          0.0,
+          0.08762160119728664
+        ],
+        "accuracy_e2e": 0.0,
+        "accuracy_e2e_ci95": [
+          0.0,
+          0.08762160119728664
+        ],
+        "api_failure_rate": 0.0
+      },
+      "jianlai": {
+        "planned": 40,
+        "counts": {
+          "correct": 6,
+          "wrong_name": 34,
+          "actor_name": 0,
+          "uncertain": 0,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.15,
+        "accuracy_valid_ci95": [
+          0.07061187717320358,
+          0.2907232436648971
+        ],
+        "accuracy_e2e": 0.15,
+        "accuracy_e2e_ci95": [
+          0.07061187717320358,
+          0.2907232436648971
+        ],
+        "api_failure_rate": 0.0
+      }
+    },
+    "glm-5.3-flash|A": {
+      "kuangbiao": {
+        "planned": 40,
+        "counts": {
+          "correct": 5,
+          "wrong_name": 12,
+          "actor_name": 0,
+          "uncertain": 23,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.125,
+        "accuracy_valid_ci95": [
+          0.05459500250945401,
+          0.261121198388511
+        ],
+        "accuracy_e2e": 0.125,
+        "accuracy_e2e_ci95": [
+          0.05459500250945401,
+          0.261121198388511
+        ],
+        "api_failure_rate": 0.0
+      },
+      "qingyunian2": {
+        "planned": 40,
+        "counts": {
+          "correct": 2,
+          "wrong_name": 6,
+          "actor_name": 0,
+          "uncertain": 32,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.05,
+        "accuracy_valid_ci95": [
+          0.013820667386148344,
+          0.16503877369140962
+        ],
+        "accuracy_e2e": 0.05,
+        "accuracy_e2e_ci95": [
+          0.013820667386148344,
+          0.16503877369140962
+        ],
+        "api_failure_rate": 0.0
+      },
+      "gongfunvzu": {
+        "planned": 40,
+        "counts": {
+          "correct": 0,
+          "wrong_name": 1,
+          "actor_name": 0,
+          "uncertain": 39,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.0,
+        "accuracy_valid_ci95": [
+          0.0,
+          0.08762160119728664
+        ],
+        "accuracy_e2e": 0.0,
+        "accuracy_e2e_ci95": [
+          0.0,
+          0.08762160119728664
+        ],
+        "api_failure_rate": 0.0
+      },
+      "jianlai": {
+        "planned": 40,
+        "counts": {
+          "correct": 0,
+          "wrong_name": 2,
+          "actor_name": 0,
+          "uncertain": 38,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.0,
+        "accuracy_valid_ci95": [
+          0.0,
+          0.08762160119728664
+        ],
+        "accuracy_e2e": 0.0,
+        "accuracy_e2e_ci95": [
+          0.0,
+          0.08762160119728664
+        ],
+        "api_failure_rate": 0.0
+      }
+    },
+    "glm-5.3-flash|B": {
+      "kuangbiao": {
+        "planned": 40,
+        "counts": {
+          "correct": 10,
+          "wrong_name": 14,
+          "actor_name": 0,
+          "uncertain": 16,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.25,
+        "accuracy_valid_ci95": [
+          0.14187118639096302,
+          0.40193961420768026
+        ],
+        "accuracy_e2e": 0.25,
+        "accuracy_e2e_ci95": [
+          0.14187118639096302,
+          0.40193961420768026
+        ],
+        "api_failure_rate": 0.0
+      },
+      "qingyunian2": {
+        "planned": 40,
+        "counts": {
+          "correct": 11,
+          "wrong_name": 14,
+          "actor_name": 0,
+          "uncertain": 15,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.275,
+        "accuracy_valid_ci95": [
+          0.16108016247667337,
+          0.42834955806210573
+        ],
+        "accuracy_e2e": 0.275,
+        "accuracy_e2e_ci95": [
+          0.16108016247667337,
+          0.42834955806210573
+        ],
+        "api_failure_rate": 0.0
+      },
+      "gongfunvzu": {
+        "planned": 40,
+        "counts": {
+          "correct": 0,
+          "wrong_name": 0,
+          "actor_name": 0,
+          "uncertain": 40,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.0,
+        "accuracy_valid_ci95": [
+          0.0,
+          0.08762160119728664
+        ],
+        "accuracy_e2e": 0.0,
+        "accuracy_e2e_ci95": [
+          0.0,
+          0.08762160119728664
+        ],
+        "api_failure_rate": 0.0
+      },
+      "jianlai": {
+        "planned": 40,
+        "counts": {
+          "correct": 11,
+          "wrong_name": 15,
+          "actor_name": 0,
+          "uncertain": 14,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.275,
+        "accuracy_valid_ci95": [
+          0.16108016247667337,
+          0.42834955806210573
+        ],
+        "accuracy_e2e": 0.275,
+        "accuracy_e2e_ci95": [
+          0.16108016247667337,
+          0.42834955806210573
+        ],
+        "api_failure_rate": 0.0
+      }
+    },
+    "kimi-k3.1-pro|A": {
+      "kuangbiao": {
+        "planned": 40,
+        "counts": {
+          "correct": 29,
+          "wrong_name": 6,
+          "actor_name": 0,
+          "uncertain": 5,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.725,
+        "accuracy_valid_ci95": [
+          0.5716504419378943,
+          0.8389198375233267
+        ],
+        "accuracy_e2e": 0.725,
+        "accuracy_e2e_ci95": [
+          0.5716504419378943,
+          0.8389198375233267
+        ],
+        "api_failure_rate": 0.0
+      },
+      "qingyunian2": {
+        "planned": 40,
+        "counts": {
+          "correct": 31,
+          "wrong_name": 6,
+          "actor_name": 0,
+          "uncertain": 3,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.775,
+        "accuracy_valid_ci95": [
+          0.6249690325768998,
+          0.8768390867645927
+        ],
+        "accuracy_e2e": 0.775,
+        "accuracy_e2e_ci95": [
+          0.6249690325768998,
+          0.8768390867645927
+        ],
+        "api_failure_rate": 0.0
+      },
+      "gongfunvzu": {
+        "planned": 40,
+        "counts": {
+          "correct": 0,
+          "wrong_name": 21,
+          "actor_name": 0,
+          "uncertain": 19,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.0,
+        "accuracy_valid_ci95": [
+          0.0,
+          0.08762160119728664
+        ],
+        "accuracy_e2e": 0.0,
+        "accuracy_e2e_ci95": [
+          0.0,
+          0.08762160119728664
+        ],
+        "api_failure_rate": 0.0
+      },
+      "jianlai": {
+        "planned": 40,
+        "counts": {
+          "correct": 16,
+          "wrong_name": 13,
+          "actor_name": 0,
+          "uncertain": 11,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.4,
+        "accuracy_valid_ci95": [
+          0.2634832568429192,
+          0.5540410633965381
+        ],
+        "accuracy_e2e": 0.4,
+        "accuracy_e2e_ci95": [
+          0.2634832568429192,
+          0.5540410633965381
+        ],
+        "api_failure_rate": 0.0
+      }
+    },
+    "kimi-k3.1-pro|B": {
+      "kuangbiao": {
+        "planned": 40,
+        "counts": {
+          "correct": 37,
+          "wrong_name": 3,
+          "actor_name": 0,
+          "uncertain": 0,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.925,
+        "accuracy_valid_ci95": [
+          0.8013576647568946,
+          0.9741639742254119
+        ],
+        "accuracy_e2e": 0.925,
+        "accuracy_e2e_ci95": [
+          0.8013576647568946,
+          0.9741639742254119
+        ],
+        "api_failure_rate": 0.0
+      },
+      "qingyunian2": {
+        "planned": 40,
+        "counts": {
+          "correct": 33,
+          "wrong_name": 6,
+          "actor_name": 0,
+          "uncertain": 1,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.825,
+        "accuracy_valid_ci95": [
+          0.6805000966821229,
+          0.9125458625396408
+        ],
+        "accuracy_e2e": 0.825,
+        "accuracy_e2e_ci95": [
+          0.6805000966821229,
+          0.9125458625396408
+        ],
+        "api_failure_rate": 0.0
+      },
+      "gongfunvzu": {
+        "planned": 40,
+        "counts": {
+          "correct": 4,
+          "wrong_name": 3,
+          "actor_name": 0,
+          "uncertain": 33,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.1,
+        "accuracy_valid_ci95": [
+          0.03957952868260638,
+          0.23051775227522298
+        ],
+        "accuracy_e2e": 0.1,
+        "accuracy_e2e_ci95": [
+          0.03957952868260638,
+          0.23051775227522298
+        ],
+        "api_failure_rate": 0.0
+      },
+      "jianlai": {
+        "planned": 40,
+        "counts": {
+          "correct": 21,
+          "wrong_name": 14,
+          "actor_name": 0,
+          "uncertain": 5,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.525,
+        "accuracy_valid_ci95": [
+          0.3749736210669248,
+          0.670645298873211
+        ],
+        "accuracy_e2e": 0.525,
+        "accuracy_e2e_ci95": [
+          0.3749736210669248,
+          0.670645298873211
+        ],
+        "api_failure_rate": 0.0
+      }
+    },
+    "qwen3.7-plus|A": {
+      "kuangbiao": {
+        "planned": 40,
+        "counts": {
+          "correct": 23,
+          "wrong_name": 15,
+          "actor_name": 0,
+          "uncertain": 2,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.575,
+        "accuracy_valid_ci95": [
+          0.42195068541991065,
+          0.7149060744004962
+        ],
+        "accuracy_e2e": 0.575,
+        "accuracy_e2e_ci95": [
+          0.42195068541991065,
+          0.7149060744004962
+        ],
+        "api_failure_rate": 0.0
+      },
+      "qingyunian2": {
+        "planned": 40,
+        "counts": {
+          "correct": 27,
+          "wrong_name": 11,
+          "actor_name": 0,
+          "uncertain": 2,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.675,
+        "accuracy_valid_ci95": [
+          0.5201774618987768,
+          0.799154977682173
+        ],
+        "accuracy_e2e": 0.675,
+        "accuracy_e2e_ci95": [
+          0.5201774618987768,
+          0.799154977682173
+        ],
+        "api_failure_rate": 0.0
+      },
+      "gongfunvzu": {
+        "planned": 40,
+        "counts": {
+          "correct": 0,
+          "wrong_name": 36,
+          "actor_name": 0,
+          "uncertain": 2,
+          "refused": 0,
+          "parse_error": 2,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.0,
+        "accuracy_valid_ci95": [
+          0.0,
+          0.08762160119728664
+        ],
+        "accuracy_e2e": 0.0,
+        "accuracy_e2e_ci95": [
+          0.0,
+          0.08762160119728664
+        ],
+        "api_failure_rate": 0.0
+      },
+      "jianlai": {
+        "planned": 40,
+        "counts": {
+          "correct": 10,
+          "wrong_name": 30,
+          "actor_name": 0,
+          "uncertain": 0,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.25,
+        "accuracy_valid_ci95": [
+          0.14187118639096302,
+          0.40193961420768026
+        ],
+        "accuracy_e2e": 0.25,
+        "accuracy_e2e_ci95": [
+          0.14187118639096302,
+          0.40193961420768026
+        ],
+        "api_failure_rate": 0.0
+      }
+    },
+    "qwen3.7-plus|B": {
+      "kuangbiao": {
+        "planned": 40,
+        "counts": {
+          "correct": 29,
+          "wrong_name": 10,
+          "actor_name": 0,
+          "uncertain": 1,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.725,
+        "accuracy_valid_ci95": [
+          0.5716504419378943,
+          0.8389198375233267
+        ],
+        "accuracy_e2e": 0.725,
+        "accuracy_e2e_ci95": [
+          0.5716504419378943,
+          0.8389198375233267
+        ],
+        "api_failure_rate": 0.0
+      },
+      "qingyunian2": {
+        "planned": 40,
+        "counts": {
+          "correct": 28,
+          "wrong_name": 12,
+          "actor_name": 0,
+          "uncertain": 0,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.7,
+        "accuracy_valid_ci95": [
+          0.5456998118185507,
+          0.8192515477025347
+        ],
+        "accuracy_e2e": 0.7,
+        "accuracy_e2e_ci95": [
+          0.5456998118185507,
+          0.8192515477025347
+        ],
+        "api_failure_rate": 0.0
+      },
+      "gongfunvzu": {
+        "planned": 40,
+        "counts": {
+          "correct": 0,
+          "wrong_name": 38,
+          "actor_name": 0,
+          "uncertain": 2,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.0,
+        "accuracy_valid_ci95": [
+          0.0,
+          0.08762160119728664
+        ],
+        "accuracy_e2e": 0.0,
+        "accuracy_e2e_ci95": [
+          0.0,
+          0.08762160119728664
+        ],
+        "api_failure_rate": 0.0
+      },
+      "jianlai": {
+        "planned": 40,
+        "counts": {
+          "correct": 16,
+          "wrong_name": 24,
+          "actor_name": 0,
+          "uncertain": 0,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.4,
+        "accuracy_valid_ci95": [
+          0.2634832568429192,
+          0.5540410633965381
+        ],
+        "accuracy_e2e": 0.4,
+        "accuracy_e2e_ci95": [
+          0.2634832568429192,
+          0.5540410633965381
+        ],
+        "api_failure_rate": 0.0
+      }
+    },
+    "qwen3.8-flash|A": {
+      "kuangbiao": {
+        "planned": 40,
+        "counts": {
+          "correct": 21,
+          "wrong_name": 13,
+          "actor_name": 0,
+          "uncertain": 5,
+          "refused": 0,
+          "parse_error": 1,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.525,
+        "accuracy_valid_ci95": [
+          0.3749736210669248,
+          0.670645298873211
+        ],
+        "accuracy_e2e": 0.525,
+        "accuracy_e2e_ci95": [
+          0.3749736210669248,
+          0.670645298873211
+        ],
+        "api_failure_rate": 0.0
+      },
+      "qingyunian2": {
+        "planned": 40,
+        "counts": {
+          "correct": 26,
+          "wrong_name": 8,
+          "actor_name": 0,
+          "uncertain": 6,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.65,
+        "accuracy_valid_ci95": [
+          0.49505880837257693,
+          0.7786547112682372
+        ],
+        "accuracy_e2e": 0.65,
+        "accuracy_e2e_ci95": [
+          0.49505880837257693,
+          0.7786547112682372
+        ],
+        "api_failure_rate": 0.0
+      },
+      "gongfunvzu": {
+        "planned": 40,
+        "counts": {
+          "correct": 0,
+          "wrong_name": 26,
+          "actor_name": 0,
+          "uncertain": 14,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.0,
+        "accuracy_valid_ci95": [
+          0.0,
+          0.08762160119728664
+        ],
+        "accuracy_e2e": 0.0,
+        "accuracy_e2e_ci95": [
+          0.0,
+          0.08762160119728664
+        ],
+        "api_failure_rate": 0.0
+      },
+      "jianlai": {
+        "planned": 40,
+        "counts": {
+          "correct": 11,
+          "wrong_name": 18,
+          "actor_name": 0,
+          "uncertain": 11,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.275,
+        "accuracy_valid_ci95": [
+          0.16108016247667337,
+          0.42834955806210573
+        ],
+        "accuracy_e2e": 0.275,
+        "accuracy_e2e_ci95": [
+          0.16108016247667337,
+          0.42834955806210573
+        ],
+        "api_failure_rate": 0.0
+      }
+    },
+    "qwen3.8-flash|B": {
+      "kuangbiao": {
+        "planned": 40,
+        "counts": {
+          "correct": 28,
+          "wrong_name": 11,
+          "actor_name": 0,
+          "uncertain": 1,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.7,
+        "accuracy_valid_ci95": [
+          0.5456998118185507,
+          0.8192515477025347
+        ],
+        "accuracy_e2e": 0.7,
+        "accuracy_e2e_ci95": [
+          0.5456998118185507,
+          0.8192515477025347
+        ],
+        "api_failure_rate": 0.0
+      },
+      "qingyunian2": {
+        "planned": 40,
+        "counts": {
+          "correct": 27,
+          "wrong_name": 12,
+          "actor_name": 0,
+          "uncertain": 1,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.675,
+        "accuracy_valid_ci95": [
+          0.5201774618987768,
+          0.799154977682173
+        ],
+        "accuracy_e2e": 0.675,
+        "accuracy_e2e_ci95": [
+          0.5201774618987768,
+          0.799154977682173
+        ],
+        "api_failure_rate": 0.0
+      },
+      "gongfunvzu": {
+        "planned": 40,
+        "counts": {
+          "correct": 4,
+          "wrong_name": 17,
+          "actor_name": 0,
+          "uncertain": 19,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.1,
+        "accuracy_valid_ci95": [
+          0.03957952868260638,
+          0.23051775227522298
+        ],
+        "accuracy_e2e": 0.1,
+        "accuracy_e2e_ci95": [
+          0.03957952868260638,
+          0.23051775227522298
+        ],
+        "api_failure_rate": 0.0
+      },
+      "jianlai": {
+        "planned": 40,
+        "counts": {
+          "correct": 13,
+          "wrong_name": 25,
+          "actor_name": 0,
+          "uncertain": 2,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.325,
+        "accuracy_valid_ci95": [
+          0.200845022317827,
+          0.47982253810122333
+        ],
+        "accuracy_e2e": 0.325,
+        "accuracy_e2e_ci95": [
+          0.200845022317827,
+          0.47982253810122333
+        ],
+        "api_failure_rate": 0.0
+      }
+    },
+    "qwen3.8-max|A": {
+      "kuangbiao": {
+        "planned": 40,
+        "counts": {
+          "correct": 39,
+          "wrong_name": 1,
+          "actor_name": 0,
+          "uncertain": 0,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.975,
+        "accuracy_valid_ci95": [
+          0.8711863103652591,
+          0.9955731684973186
+        ],
+        "accuracy_e2e": 0.975,
+        "accuracy_e2e_ci95": [
+          0.8711863103652591,
+          0.9955731684973186
+        ],
+        "api_failure_rate": 0.0
+      },
+      "qingyunian2": {
+        "planned": 40,
+        "counts": {
+          "correct": 35,
+          "wrong_name": 5,
+          "actor_name": 0,
+          "uncertain": 0,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.875,
+        "accuracy_valid_ci95": [
+          0.738878801611489,
+          0.945404997490546
+        ],
+        "accuracy_e2e": 0.875,
+        "accuracy_e2e_ci95": [
+          0.738878801611489,
+          0.945404997490546
+        ],
+        "api_failure_rate": 0.0
+      },
+      "gongfunvzu": {
+        "planned": 40,
+        "counts": {
+          "correct": 0,
+          "wrong_name": 35,
+          "actor_name": 0,
+          "uncertain": 0,
+          "refused": 0,
+          "parse_error": 5,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.0,
+        "accuracy_valid_ci95": [
+          0.0,
+          0.08762160119728664
+        ],
+        "accuracy_e2e": 0.0,
+        "accuracy_e2e_ci95": [
+          0.0,
+          0.08762160119728664
+        ],
+        "api_failure_rate": 0.0
+      },
+      "jianlai": {
+        "planned": 40,
+        "counts": {
+          "correct": 16,
+          "wrong_name": 22,
+          "actor_name": 0,
+          "uncertain": 0,
+          "refused": 0,
+          "parse_error": 2,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.4,
+        "accuracy_valid_ci95": [
+          0.2634832568429192,
+          0.5540410633965381
+        ],
+        "accuracy_e2e": 0.4,
+        "accuracy_e2e_ci95": [
+          0.2634832568429192,
+          0.5540410633965381
+        ],
+        "api_failure_rate": 0.0
+      }
+    },
+    "qwen3.8-max|B": {
+      "kuangbiao": {
+        "planned": 40,
+        "counts": {
+          "correct": 39,
+          "wrong_name": 1,
+          "actor_name": 0,
+          "uncertain": 0,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.975,
+        "accuracy_valid_ci95": [
+          0.8711863103652591,
+          0.9955731684973186
+        ],
+        "accuracy_e2e": 0.975,
+        "accuracy_e2e_ci95": [
+          0.8711863103652591,
+          0.9955731684973186
+        ],
+        "api_failure_rate": 0.0
+      },
+      "qingyunian2": {
+        "planned": 40,
+        "counts": {
+          "correct": 35,
+          "wrong_name": 5,
+          "actor_name": 0,
+          "uncertain": 0,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.875,
+        "accuracy_valid_ci95": [
+          0.738878801611489,
+          0.945404997490546
+        ],
+        "accuracy_e2e": 0.875,
+        "accuracy_e2e_ci95": [
+          0.738878801611489,
+          0.945404997490546
+        ],
+        "api_failure_rate": 0.0
+      },
+      "gongfunvzu": {
+        "planned": 40,
+        "counts": {
+          "correct": 0,
+          "wrong_name": 24,
+          "actor_name": 0,
+          "uncertain": 3,
+          "refused": 0,
+          "parse_error": 13,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.0,
+        "accuracy_valid_ci95": [
+          0.0,
+          0.08762160119728664
+        ],
+        "accuracy_e2e": 0.0,
+        "accuracy_e2e_ci95": [
+          0.0,
+          0.08762160119728664
+        ],
+        "api_failure_rate": 0.0
+      },
+      "jianlai": {
+        "planned": 40,
+        "counts": {
+          "correct": 20,
+          "wrong_name": 19,
+          "actor_name": 0,
+          "uncertain": 0,
+          "refused": 0,
+          "parse_error": 1,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.5,
+        "accuracy_valid_ci95": [
+          0.35199526933465386,
+          0.6480047306653461
+        ],
+        "accuracy_e2e": 0.5,
+        "accuracy_e2e_ci95": [
+          0.35199526933465386,
+          0.6480047306653461
+        ],
+        "api_failure_rate": 0.0
+      }
+    }
+  },
+  "by_importance": {
+    "deepseek-flash|A": {
+      "key_supporting": {
+        "planned": 68,
+        "counts": {
+          "correct": 2,
+          "wrong_name": 50,
+          "actor_name": 0,
+          "uncertain": 16,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.029411764705882353,
+        "accuracy_valid_ci95": [
+          0.008103179543129883,
+          0.10104631365223063
+        ],
+        "accuracy_e2e": 0.029411764705882353,
+        "accuracy_e2e_ci95": [
+          0.008103179543129883,
+          0.10104631365223063
+        ],
+        "api_failure_rate": 0.0
+      },
+      "supporting": {
+        "planned": 31,
+        "counts": {
+          "correct": 0,
+          "wrong_name": 20,
+          "actor_name": 0,
+          "uncertain": 11,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.0,
+        "accuracy_valid_ci95": [
+          0.0,
+          0.11025539546043596
+        ],
+        "accuracy_e2e": 0.0,
+        "accuracy_e2e_ci95": [
+          0.0,
+          0.11025539546043596
+        ],
+        "api_failure_rate": 0.0
+      },
+      "main": {
+        "planned": 61,
+        "counts": {
+          "correct": 9,
+          "wrong_name": 25,
+          "actor_name": 0,
+          "uncertain": 27,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.14754098360655737,
+        "accuracy_valid_ci95": [
+          0.07961168507932755,
+          0.257232352947211
+        ],
+        "accuracy_e2e": 0.14754098360655737,
+        "accuracy_e2e_ci95": [
+          0.07961168507932755,
+          0.257232352947211
+        ],
+        "api_failure_rate": 0.0
+      }
+    },
+    "deepseek-flash|B": {
+      "key_supporting": {
+        "planned": 68,
+        "counts": {
+          "correct": 15,
+          "wrong_name": 50,
+          "actor_name": 0,
+          "uncertain": 3,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.22058823529411764,
+        "accuracy_valid_ci95": [
+          0.13849012387325205,
+          0.33256738771149325
+        ],
+        "accuracy_e2e": 0.22058823529411764,
+        "accuracy_e2e_ci95": [
+          0.13849012387325205,
+          0.33256738771149325
+        ],
+        "api_failure_rate": 0.0
+      },
+      "supporting": {
+        "planned": 31,
+        "counts": {
+          "correct": 0,
+          "wrong_name": 28,
+          "actor_name": 0,
+          "uncertain": 3,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.0,
+        "accuracy_valid_ci95": [
+          0.0,
+          0.11025539546043596
+        ],
+        "accuracy_e2e": 0.0,
+        "accuracy_e2e_ci95": [
+          0.0,
+          0.11025539546043596
+        ],
+        "api_failure_rate": 0.0
+      },
+      "main": {
+        "planned": 61,
+        "counts": {
+          "correct": 23,
+          "wrong_name": 7,
+          "actor_name": 0,
+          "uncertain": 31,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.3770491803278688,
+        "accuracy_valid_ci95": [
+          0.26614510331117014,
+          0.5025214215818083
+        ],
+        "accuracy_e2e": 0.3770491803278688,
+        "accuracy_e2e_ci95": [
+          0.26614510331117014,
+          0.5025214215818083
+        ],
+        "api_failure_rate": 0.0
+      }
+    },
+    "glm-4.6v|A": {
+      "key_supporting": {
+        "planned": 68,
+        "counts": {
+          "correct": 1,
+          "wrong_name": 66,
+          "actor_name": 0,
+          "uncertain": 1,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.014705882352941176,
+        "accuracy_valid_ci95": [
+          0.0026006835761068076,
+          0.07870973128160871
+        ],
+        "accuracy_e2e": 0.014705882352941176,
+        "accuracy_e2e_ci95": [
+          0.0026006835761068076,
+          0.07870973128160871
+        ],
+        "api_failure_rate": 0.0
+      },
+      "supporting": {
+        "planned": 31,
+        "counts": {
+          "correct": 0,
+          "wrong_name": 31,
+          "actor_name": 0,
+          "uncertain": 0,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.0,
+        "accuracy_valid_ci95": [
+          0.0,
+          0.11025539546043596
+        ],
+        "accuracy_e2e": 0.0,
+        "accuracy_e2e_ci95": [
+          0.0,
+          0.11025539546043596
+        ],
+        "api_failure_rate": 0.0
+      },
+      "main": {
+        "planned": 61,
+        "counts": {
+          "correct": 2,
+          "wrong_name": 56,
+          "actor_name": 1,
+          "uncertain": 2,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.03278688524590164,
+        "accuracy_valid_ci95": [
+          0.009037890398362391,
+          0.11189490419495614
+        ],
+        "accuracy_e2e": 0.03278688524590164,
+        "accuracy_e2e_ci95": [
+          0.009037890398362391,
+          0.11189490419495614
+        ],
+        "api_failure_rate": 0.0
+      }
+    },
+    "glm-4.6v|B": {
+      "key_supporting": {
+        "planned": 68,
+        "counts": {
+          "correct": 8,
+          "wrong_name": 60,
+          "actor_name": 0,
+          "uncertain": 0,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.11764705882352941,
+        "accuracy_valid_ci95": [
+          0.06083492602331342,
+          0.21534903719791698
+        ],
+        "accuracy_e2e": 0.11764705882352941,
+        "accuracy_e2e_ci95": [
+          0.06083492602331342,
+          0.21534903719791698
+        ],
+        "api_failure_rate": 0.0
+      },
+      "supporting": {
+        "planned": 31,
+        "counts": {
+          "correct": 0,
+          "wrong_name": 29,
+          "actor_name": 0,
+          "uncertain": 2,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.0,
+        "accuracy_valid_ci95": [
+          0.0,
+          0.11025539546043596
+        ],
+        "accuracy_e2e": 0.0,
+        "accuracy_e2e_ci95": [
+          0.0,
+          0.11025539546043596
+        ],
+        "api_failure_rate": 0.0
+      },
+      "main": {
+        "planned": 61,
+        "counts": {
+          "correct": 20,
+          "wrong_name": 24,
+          "actor_name": 0,
+          "uncertain": 17,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.32786885245901637,
+        "accuracy_valid_ci95": [
+          0.22335119798553627,
+          0.45278193686463364
+        ],
+        "accuracy_e2e": 0.32786885245901637,
+        "accuracy_e2e_ci95": [
+          0.22335119798553627,
+          0.45278193686463364
+        ],
+        "api_failure_rate": 0.0
+      }
+    },
+    "glm-5.3-flash|A": {
+      "key_supporting": {
+        "planned": 68,
+        "counts": {
+          "correct": 1,
+          "wrong_name": 12,
+          "actor_name": 0,
+          "uncertain": 55,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.014705882352941176,
+        "accuracy_valid_ci95": [
+          0.0026006835761068076,
+          0.07870973128160871
+        ],
+        "accuracy_e2e": 0.014705882352941176,
+        "accuracy_e2e_ci95": [
+          0.0026006835761068076,
+          0.07870973128160871
+        ],
+        "api_failure_rate": 0.0
+      },
+      "supporting": {
+        "planned": 31,
+        "counts": {
+          "correct": 0,
+          "wrong_name": 3,
+          "actor_name": 0,
+          "uncertain": 28,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.0,
+        "accuracy_valid_ci95": [
+          0.0,
+          0.11025539546043596
+        ],
+        "accuracy_e2e": 0.0,
+        "accuracy_e2e_ci95": [
+          0.0,
+          0.11025539546043596
+        ],
+        "api_failure_rate": 0.0
+      },
+      "main": {
+        "planned": 61,
+        "counts": {
+          "correct": 6,
+          "wrong_name": 6,
+          "actor_name": 0,
+          "uncertain": 49,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.09836065573770492,
+        "accuracy_valid_ci95": [
+          0.04586457581547049,
+          0.19844607216825946
+        ],
+        "accuracy_e2e": 0.09836065573770492,
+        "accuracy_e2e_ci95": [
+          0.04586457581547049,
+          0.19844607216825946
+        ],
+        "api_failure_rate": 0.0
+      }
+    },
+    "glm-5.3-flash|B": {
+      "key_supporting": {
+        "planned": 68,
+        "counts": {
+          "correct": 15,
+          "wrong_name": 26,
+          "actor_name": 0,
+          "uncertain": 27,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.22058823529411764,
+        "accuracy_valid_ci95": [
+          0.13849012387325205,
+          0.33256738771149325
+        ],
+        "accuracy_e2e": 0.22058823529411764,
+        "accuracy_e2e_ci95": [
+          0.13849012387325205,
+          0.33256738771149325
+        ],
+        "api_failure_rate": 0.0
+      },
+      "supporting": {
+        "planned": 31,
+        "counts": {
+          "correct": 0,
+          "wrong_name": 10,
+          "actor_name": 0,
+          "uncertain": 21,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.0,
+        "accuracy_valid_ci95": [
+          0.0,
+          0.11025539546043596
+        ],
+        "accuracy_e2e": 0.0,
+        "accuracy_e2e_ci95": [
+          0.0,
+          0.11025539546043596
+        ],
+        "api_failure_rate": 0.0
+      },
+      "main": {
+        "planned": 61,
+        "counts": {
+          "correct": 17,
+          "wrong_name": 7,
+          "actor_name": 0,
+          "uncertain": 37,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.2786885245901639,
+        "accuracy_valid_ci95": [
+          0.18188543892565973,
+          0.4017143058817016
+        ],
+        "accuracy_e2e": 0.2786885245901639,
+        "accuracy_e2e_ci95": [
+          0.18188543892565973,
+          0.4017143058817016
+        ],
+        "api_failure_rate": 0.0
+      }
+    },
+    "kimi-k3.1-pro|A": {
+      "key_supporting": {
+        "planned": 68,
+        "counts": {
+          "correct": 42,
+          "wrong_name": 16,
+          "actor_name": 0,
+          "uncertain": 10,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.6176470588235294,
+        "accuracy_valid_ci95": [
+          0.4988071245222142,
+          0.7239055021789457
+        ],
+        "accuracy_e2e": 0.6176470588235294,
+        "accuracy_e2e_ci95": [
+          0.4988071245222142,
+          0.7239055021789457
+        ],
+        "api_failure_rate": 0.0
+      },
+      "supporting": {
+        "planned": 31,
+        "counts": {
+          "correct": 6,
+          "wrong_name": 11,
+          "actor_name": 0,
+          "uncertain": 14,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.1935483870967742,
+        "accuracy_valid_ci95": [
+          0.09187008361586096,
+          0.36280257811795463
+        ],
+        "accuracy_e2e": 0.1935483870967742,
+        "accuracy_e2e_ci95": [
+          0.09187008361586096,
+          0.36280257811795463
+        ],
+        "api_failure_rate": 0.0
+      },
+      "main": {
+        "planned": 61,
+        "counts": {
+          "correct": 28,
+          "wrong_name": 19,
+          "actor_name": 0,
+          "uncertain": 14,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.45901639344262296,
+        "accuracy_valid_ci95": [
+          0.3401293229385576,
+          0.5827595186924353
+        ],
+        "accuracy_e2e": 0.45901639344262296,
+        "accuracy_e2e_ci95": [
+          0.3401293229385576,
+          0.5827595186924353
+        ],
+        "api_failure_rate": 0.0
+      }
+    },
+    "kimi-k3.1-pro|B": {
+      "key_supporting": {
+        "planned": 68,
+        "counts": {
+          "correct": 53,
+          "wrong_name": 11,
+          "actor_name": 0,
+          "uncertain": 4,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.7794117647058824,
+        "accuracy_valid_ci95": [
+          0.6674326122885067,
+          0.861509876126748
+        ],
+        "accuracy_e2e": 0.7794117647058824,
+        "accuracy_e2e_ci95": [
+          0.6674326122885067,
+          0.861509876126748
+        ],
+        "api_failure_rate": 0.0
+      },
+      "supporting": {
+        "planned": 31,
+        "counts": {
+          "correct": 10,
+          "wrong_name": 13,
+          "actor_name": 0,
+          "uncertain": 8,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.3225806451612903,
+        "accuracy_valid_ci95": [
+          0.18569426566359176,
+          0.49858990691914357
+        ],
+        "accuracy_e2e": 0.3225806451612903,
+        "accuracy_e2e_ci95": [
+          0.18569426566359176,
+          0.49858990691914357
+        ],
+        "api_failure_rate": 0.0
+      },
+      "main": {
+        "planned": 61,
+        "counts": {
+          "correct": 32,
+          "wrong_name": 2,
+          "actor_name": 0,
+          "uncertain": 27,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.5245901639344263,
+        "accuracy_valid_ci95": [
+          0.40157156924985693,
+          0.6446951257715474
+        ],
+        "accuracy_e2e": 0.5245901639344263,
+        "accuracy_e2e_ci95": [
+          0.40157156924985693,
+          0.6446951257715474
+        ],
+        "api_failure_rate": 0.0
+      }
+    },
+    "qwen3.7-plus|A": {
+      "key_supporting": {
+        "planned": 68,
+        "counts": {
+          "correct": 30,
+          "wrong_name": 34,
+          "actor_name": 0,
+          "uncertain": 4,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.4411764705882353,
+        "accuracy_valid_ci95": [
+          0.32946233969530203,
+          0.5591813469541181
+        ],
+        "accuracy_e2e": 0.4411764705882353,
+        "accuracy_e2e_ci95": [
+          0.32946233969530203,
+          0.5591813469541181
+        ],
+        "api_failure_rate": 0.0
+      },
+      "supporting": {
+        "planned": 31,
+        "counts": {
+          "correct": 5,
+          "wrong_name": 25,
+          "actor_name": 0,
+          "uncertain": 1,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.16129032258064516,
+        "accuracy_valid_ci95": [
+          0.070926244433653,
+          0.3263435395879326
+        ],
+        "accuracy_e2e": 0.16129032258064516,
+        "accuracy_e2e_ci95": [
+          0.070926244433653,
+          0.3263435395879326
+        ],
+        "api_failure_rate": 0.0
+      },
+      "main": {
+        "planned": 61,
+        "counts": {
+          "correct": 25,
+          "wrong_name": 33,
+          "actor_name": 0,
+          "uncertain": 1,
+          "refused": 0,
+          "parse_error": 2,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.4098360655737705,
+        "accuracy_valid_ci95": [
+          0.2953533743182536,
+          0.5350020772699307
+        ],
+        "accuracy_e2e": 0.4098360655737705,
+        "accuracy_e2e_ci95": [
+          0.2953533743182536,
+          0.5350020772699307
+        ],
+        "api_failure_rate": 0.0
+      }
+    },
+    "qwen3.7-plus|B": {
+      "key_supporting": {
+        "planned": 68,
+        "counts": {
+          "correct": 39,
+          "wrong_name": 28,
+          "actor_name": 0,
+          "uncertain": 1,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.5735294117647058,
+        "accuracy_valid_ci95": [
+          0.45516782316555565,
+          0.6840275685226692
+        ],
+        "accuracy_e2e": 0.5735294117647058,
+        "accuracy_e2e_ci95": [
+          0.45516782316555565,
+          0.6840275685226692
+        ],
+        "api_failure_rate": 0.0
+      },
+      "supporting": {
+        "planned": 31,
+        "counts": {
+          "correct": 6,
+          "wrong_name": 25,
+          "actor_name": 0,
+          "uncertain": 0,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.1935483870967742,
+        "accuracy_valid_ci95": [
+          0.09187008361586096,
+          0.36280257811795463
+        ],
+        "accuracy_e2e": 0.1935483870967742,
+        "accuracy_e2e_ci95": [
+          0.09187008361586096,
+          0.36280257811795463
+        ],
+        "api_failure_rate": 0.0
+      },
+      "main": {
+        "planned": 61,
+        "counts": {
+          "correct": 28,
+          "wrong_name": 31,
+          "actor_name": 0,
+          "uncertain": 2,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.45901639344262296,
+        "accuracy_valid_ci95": [
+          0.3401293229385576,
+          0.5827595186924353
+        ],
+        "accuracy_e2e": 0.45901639344262296,
+        "accuracy_e2e_ci95": [
+          0.3401293229385576,
+          0.5827595186924353
+        ],
+        "api_failure_rate": 0.0
+      }
+    },
+    "qwen3.8-flash|A": {
+      "key_supporting": {
+        "planned": 68,
+        "counts": {
+          "correct": 29,
+          "wrong_name": 29,
+          "actor_name": 0,
+          "uncertain": 9,
+          "refused": 0,
+          "parse_error": 1,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.4264705882352941,
+        "accuracy_valid_ci95": [
+          0.3159724314773308,
+          0.5448321768344444
+        ],
+        "accuracy_e2e": 0.4264705882352941,
+        "accuracy_e2e_ci95": [
+          0.3159724314773308,
+          0.5448321768344444
+        ],
+        "api_failure_rate": 0.0
+      },
+      "supporting": {
+        "planned": 31,
+        "counts": {
+          "correct": 1,
+          "wrong_name": 12,
+          "actor_name": 0,
+          "uncertain": 18,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.03225806451612903,
+        "accuracy_valid_ci95": [
+          0.005717221525416816,
+          0.16194105164724906
+        ],
+        "accuracy_e2e": 0.03225806451612903,
+        "accuracy_e2e_ci95": [
+          0.005717221525416816,
+          0.16194105164724906
+        ],
+        "api_failure_rate": 0.0
+      },
+      "main": {
+        "planned": 61,
+        "counts": {
+          "correct": 28,
+          "wrong_name": 24,
+          "actor_name": 0,
+          "uncertain": 9,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.45901639344262296,
+        "accuracy_valid_ci95": [
+          0.3401293229385576,
+          0.5827595186924353
+        ],
+        "accuracy_e2e": 0.45901639344262296,
+        "accuracy_e2e_ci95": [
+          0.3401293229385576,
+          0.5827595186924353
+        ],
+        "api_failure_rate": 0.0
+      }
+    },
+    "qwen3.8-flash|B": {
+      "key_supporting": {
+        "planned": 68,
+        "counts": {
+          "correct": 39,
+          "wrong_name": 27,
+          "actor_name": 0,
+          "uncertain": 2,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.5735294117647058,
+        "accuracy_valid_ci95": [
+          0.45516782316555565,
+          0.6840275685226692
+        ],
+        "accuracy_e2e": 0.5735294117647058,
+        "accuracy_e2e_ci95": [
+          0.45516782316555565,
+          0.6840275685226692
+        ],
+        "api_failure_rate": 0.0
+      },
+      "supporting": {
+        "planned": 31,
+        "counts": {
+          "correct": 3,
+          "wrong_name": 22,
+          "actor_name": 0,
+          "uncertain": 6,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.0967741935483871,
+        "accuracy_valid_ci95": [
+          0.03346464416319736,
+          0.24899938443392836
+        ],
+        "accuracy_e2e": 0.0967741935483871,
+        "accuracy_e2e_ci95": [
+          0.03346464416319736,
+          0.24899938443392836
+        ],
+        "api_failure_rate": 0.0
+      },
+      "main": {
+        "planned": 61,
+        "counts": {
+          "correct": 30,
+          "wrong_name": 16,
+          "actor_name": 0,
+          "uncertain": 15,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.4918032786885246,
+        "accuracy_valid_ci95": [
+          0.37060395323711026,
+          0.6139738150890883
+        ],
+        "accuracy_e2e": 0.4918032786885246,
+        "accuracy_e2e_ci95": [
+          0.37060395323711026,
+          0.6139738150890883
+        ],
+        "api_failure_rate": 0.0
+      }
+    },
+    "qwen3.8-max|A": {
+      "key_supporting": {
+        "planned": 68,
+        "counts": {
+          "correct": 53,
+          "wrong_name": 15,
+          "actor_name": 0,
+          "uncertain": 0,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.7794117647058824,
+        "accuracy_valid_ci95": [
+          0.6674326122885067,
+          0.861509876126748
+        ],
+        "accuracy_e2e": 0.7794117647058824,
+        "accuracy_e2e_ci95": [
+          0.6674326122885067,
+          0.861509876126748
+        ],
+        "api_failure_rate": 0.0
+      },
+      "supporting": {
+        "planned": 31,
+        "counts": {
+          "correct": 11,
+          "wrong_name": 19,
+          "actor_name": 0,
+          "uncertain": 0,
+          "refused": 0,
+          "parse_error": 1,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.3548387096774194,
+        "accuracy_valid_ci95": [
+          0.21116659093865403,
+          0.5305204593563113
+        ],
+        "accuracy_e2e": 0.3548387096774194,
+        "accuracy_e2e_ci95": [
+          0.21116659093865403,
+          0.5305204593563113
+        ],
+        "api_failure_rate": 0.0
+      },
+      "main": {
+        "planned": 61,
+        "counts": {
+          "correct": 26,
+          "wrong_name": 29,
+          "actor_name": 0,
+          "uncertain": 0,
+          "refused": 0,
+          "parse_error": 6,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.4262295081967213,
+        "accuracy_valid_ci95": [
+          0.3101522193852527,
+          0.5510476955505343
+        ],
+        "accuracy_e2e": 0.4262295081967213,
+        "accuracy_e2e_ci95": [
+          0.3101522193852527,
+          0.5510476955505343
+        ],
+        "api_failure_rate": 0.0
+      }
+    },
+    "qwen3.8-max|B": {
+      "key_supporting": {
+        "planned": 68,
+        "counts": {
+          "correct": 55,
+          "wrong_name": 10,
+          "actor_name": 0,
+          "uncertain": 0,
+          "refused": 0,
+          "parse_error": 3,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.8088235294117647,
+        "accuracy_valid_ci95": [
+          0.699893585399794,
+          0.8847270596907507
+        ],
+        "accuracy_e2e": 0.8088235294117647,
+        "accuracy_e2e_ci95": [
+          0.699893585399794,
+          0.8847270596907507
+        ],
+        "api_failure_rate": 0.0
+      },
+      "supporting": {
+        "planned": 31,
+        "counts": {
+          "correct": 11,
+          "wrong_name": 18,
+          "actor_name": 0,
+          "uncertain": 0,
+          "refused": 0,
+          "parse_error": 2,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.3548387096774194,
+        "accuracy_valid_ci95": [
+          0.21116659093865403,
+          0.5305204593563113
+        ],
+        "accuracy_e2e": 0.3548387096774194,
+        "accuracy_e2e_ci95": [
+          0.21116659093865403,
+          0.5305204593563113
+        ],
+        "api_failure_rate": 0.0
+      },
+      "main": {
+        "planned": 61,
+        "counts": {
+          "correct": 28,
+          "wrong_name": 21,
+          "actor_name": 0,
+          "uncertain": 3,
+          "refused": 0,
+          "parse_error": 9,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.45901639344262296,
+        "accuracy_valid_ci95": [
+          0.3401293229385576,
+          0.5827595186924353
+        ],
+        "accuracy_e2e": 0.45901639344262296,
+        "accuracy_e2e_ci95": [
+          0.3401293229385576,
+          0.5827595186924353
+        ],
+        "api_failure_rate": 0.0
+      }
+    }
+  },
+  "by_difficulty": {
+    "deepseek-flash|A": {
+      "normal": {
+        "planned": 126,
+        "counts": {
+          "correct": 7,
+          "wrong_name": 74,
+          "actor_name": 0,
+          "uncertain": 45,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.05555555555555555,
+        "accuracy_valid_ci95": [
+          0.027168755170159382,
+          0.11024081325846147
+        ],
+        "accuracy_e2e": 0.05555555555555555,
+        "accuracy_e2e_ci95": [
+          0.027168755170159382,
+          0.11024081325846147
+        ],
+        "api_failure_rate": 0.0
+      },
+      "side_face": {
+        "planned": 27,
+        "counts": {
+          "correct": 3,
+          "wrong_name": 18,
+          "actor_name": 0,
+          "uncertain": 6,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.1111111111111111,
+        "accuracy_valid_ci95": [
+          0.038520348283098374,
+          0.2805780081827982
+        ],
+        "accuracy_e2e": 0.1111111111111111,
+        "accuracy_e2e_ci95": [
+          0.038520348283098374,
+          0.2805780081827982
+        ],
+        "api_failure_rate": 0.0
+      },
+      "occluded": {
+        "planned": 6,
+        "counts": {
+          "correct": 1,
+          "wrong_name": 3,
+          "actor_name": 0,
+          "uncertain": 2,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.16666666666666666,
+        "accuracy_valid_ci95": [
+          0.030053369748306635,
+          0.5635028221864702
+        ],
+        "accuracy_e2e": 0.16666666666666666,
+        "accuracy_e2e_ci95": [
+          0.030053369748306635,
+          0.5635028221864702
+        ],
+        "api_failure_rate": 0.0
+      },
+      "blurry": {
+        "planned": 1,
+        "counts": {
+          "correct": 0,
+          "wrong_name": 0,
+          "actor_name": 0,
+          "uncertain": 1,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.0,
+        "accuracy_valid_ci95": [
+          0.0,
+          0.7934506856227626
+        ],
+        "accuracy_e2e": 0.0,
+        "accuracy_e2e_ci95": [
+          0.0,
+          0.7934506856227626
+        ],
+        "api_failure_rate": 0.0
+      }
+    },
+    "deepseek-flash|B": {
+      "normal": {
+        "planned": 126,
+        "counts": {
+          "correct": 26,
+          "wrong_name": 66,
+          "actor_name": 0,
+          "uncertain": 34,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.20634920634920634,
+        "accuracy_valid_ci95": [
+          0.14488926970077146,
+          0.2851849094395672
+        ],
+        "accuracy_e2e": 0.20634920634920634,
+        "accuracy_e2e_ci95": [
+          0.14488926970077146,
+          0.2851849094395672
+        ],
+        "api_failure_rate": 0.0
+      },
+      "side_face": {
+        "planned": 27,
+        "counts": {
+          "correct": 10,
+          "wrong_name": 15,
+          "actor_name": 0,
+          "uncertain": 2,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.37037037037037035,
+        "accuracy_valid_ci95": [
+          0.21532512960965597,
+          0.5577076558789761
+        ],
+        "accuracy_e2e": 0.37037037037037035,
+        "accuracy_e2e_ci95": [
+          0.21532512960965597,
+          0.5577076558789761
+        ],
+        "api_failure_rate": 0.0
+      },
+      "occluded": {
+        "planned": 6,
+        "counts": {
+          "correct": 2,
+          "wrong_name": 3,
+          "actor_name": 0,
+          "uncertain": 1,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.3333333333333333,
+        "accuracy_valid_ci95": [
+          0.09677141110578041,
+          0.700006684861608
+        ],
+        "accuracy_e2e": 0.3333333333333333,
+        "accuracy_e2e_ci95": [
+          0.09677141110578041,
+          0.700006684861608
+        ],
+        "api_failure_rate": 0.0
+      },
+      "blurry": {
+        "planned": 1,
+        "counts": {
+          "correct": 0,
+          "wrong_name": 1,
+          "actor_name": 0,
+          "uncertain": 0,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.0,
+        "accuracy_valid_ci95": [
+          0.0,
+          0.7934506856227626
+        ],
+        "accuracy_e2e": 0.0,
+        "accuracy_e2e_ci95": [
+          0.0,
+          0.7934506856227626
+        ],
+        "api_failure_rate": 0.0
+      }
+    },
+    "glm-4.6v|A": {
+      "normal": {
+        "planned": 126,
+        "counts": {
+          "correct": 1,
+          "wrong_name": 121,
+          "actor_name": 1,
+          "uncertain": 3,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.007936507936507936,
+        "accuracy_valid_ci95": [
+          0.0014023650608123127,
+          0.04358679998516077
+        ],
+        "accuracy_e2e": 0.007936507936507936,
+        "accuracy_e2e_ci95": [
+          0.0014023650608123127,
+          0.04358679998516077
+        ],
+        "api_failure_rate": 0.0
+      },
+      "side_face": {
+        "planned": 27,
+        "counts": {
+          "correct": 1,
+          "wrong_name": 26,
+          "actor_name": 0,
+          "uncertain": 0,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.037037037037037035,
+        "accuracy_valid_ci95": [
+          0.006568145980785103,
+          0.18283465933575843
+        ],
+        "accuracy_e2e": 0.037037037037037035,
+        "accuracy_e2e_ci95": [
+          0.006568145980785103,
+          0.18283465933575843
+        ],
+        "api_failure_rate": 0.0
+      },
+      "occluded": {
+        "planned": 6,
+        "counts": {
+          "correct": 1,
+          "wrong_name": 5,
+          "actor_name": 0,
+          "uncertain": 0,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.16666666666666666,
+        "accuracy_valid_ci95": [
+          0.030053369748306635,
+          0.5635028221864702
+        ],
+        "accuracy_e2e": 0.16666666666666666,
+        "accuracy_e2e_ci95": [
+          0.030053369748306635,
+          0.5635028221864702
+        ],
+        "api_failure_rate": 0.0
+      },
+      "blurry": {
+        "planned": 1,
+        "counts": {
+          "correct": 0,
+          "wrong_name": 1,
+          "actor_name": 0,
+          "uncertain": 0,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.0,
+        "accuracy_valid_ci95": [
+          0.0,
+          0.7934506856227626
+        ],
+        "accuracy_e2e": 0.0,
+        "accuracy_e2e_ci95": [
+          0.0,
+          0.7934506856227626
+        ],
+        "api_failure_rate": 0.0
+      }
+    },
+    "glm-4.6v|B": {
+      "normal": {
+        "planned": 126,
+        "counts": {
+          "correct": 21,
+          "wrong_name": 88,
+          "actor_name": 0,
+          "uncertain": 17,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.16666666666666666,
+        "accuracy_valid_ci95": [
+          0.11167188880425905,
+          0.2413852875172065
+        ],
+        "accuracy_e2e": 0.16666666666666666,
+        "accuracy_e2e_ci95": [
+          0.11167188880425905,
+          0.2413852875172065
+        ],
+        "api_failure_rate": 0.0
+      },
+      "side_face": {
+        "planned": 27,
+        "counts": {
+          "correct": 6,
+          "wrong_name": 20,
+          "actor_name": 0,
+          "uncertain": 1,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.2222222222222222,
+        "accuracy_valid_ci95": [
+          0.10607239452360037,
+          0.4075692886663257
+        ],
+        "accuracy_e2e": 0.2222222222222222,
+        "accuracy_e2e_ci95": [
+          0.10607239452360037,
+          0.4075692886663257
+        ],
+        "api_failure_rate": 0.0
+      },
+      "occluded": {
+        "planned": 6,
+        "counts": {
+          "correct": 1,
+          "wrong_name": 4,
+          "actor_name": 0,
+          "uncertain": 1,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.16666666666666666,
+        "accuracy_valid_ci95": [
+          0.030053369748306635,
+          0.5635028221864702
+        ],
+        "accuracy_e2e": 0.16666666666666666,
+        "accuracy_e2e_ci95": [
+          0.030053369748306635,
+          0.5635028221864702
+        ],
+        "api_failure_rate": 0.0
+      },
+      "blurry": {
+        "planned": 1,
+        "counts": {
+          "correct": 0,
+          "wrong_name": 1,
+          "actor_name": 0,
+          "uncertain": 0,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.0,
+        "accuracy_valid_ci95": [
+          0.0,
+          0.7934506856227626
+        ],
+        "accuracy_e2e": 0.0,
+        "accuracy_e2e_ci95": [
+          0.0,
+          0.7934506856227626
+        ],
+        "api_failure_rate": 0.0
+      }
+    },
+    "glm-5.3-flash|A": {
+      "normal": {
+        "planned": 126,
+        "counts": {
+          "correct": 4,
+          "wrong_name": 16,
+          "actor_name": 0,
+          "uncertain": 106,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.031746031746031744,
+        "accuracy_valid_ci95": [
+          0.012413278972689408,
+          0.07878608776460755
+        ],
+        "accuracy_e2e": 0.031746031746031744,
+        "accuracy_e2e_ci95": [
+          0.012413278972689408,
+          0.07878608776460755
+        ],
+        "api_failure_rate": 0.0
+      },
+      "side_face": {
+        "planned": 27,
+        "counts": {
+          "correct": 2,
+          "wrong_name": 5,
+          "actor_name": 0,
+          "uncertain": 20,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.07407407407407407,
+        "accuracy_valid_ci95": [
+          0.020554654060988622,
+          0.23369592683023144
+        ],
+        "accuracy_e2e": 0.07407407407407407,
+        "accuracy_e2e_ci95": [
+          0.020554654060988622,
+          0.23369592683023144
+        ],
+        "api_failure_rate": 0.0
+      },
+      "occluded": {
+        "planned": 6,
+        "counts": {
+          "correct": 1,
+          "wrong_name": 0,
+          "actor_name": 0,
+          "uncertain": 5,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.16666666666666666,
+        "accuracy_valid_ci95": [
+          0.030053369748306635,
+          0.5635028221864702
+        ],
+        "accuracy_e2e": 0.16666666666666666,
+        "accuracy_e2e_ci95": [
+          0.030053369748306635,
+          0.5635028221864702
+        ],
+        "api_failure_rate": 0.0
+      },
+      "blurry": {
+        "planned": 1,
+        "counts": {
+          "correct": 0,
+          "wrong_name": 0,
+          "actor_name": 0,
+          "uncertain": 1,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.0,
+        "accuracy_valid_ci95": [
+          0.0,
+          0.7934506856227626
+        ],
+        "accuracy_e2e": 0.0,
+        "accuracy_e2e_ci95": [
+          0.0,
+          0.7934506856227626
+        ],
+        "api_failure_rate": 0.0
+      }
+    },
+    "glm-5.3-flash|B": {
+      "normal": {
+        "planned": 126,
+        "counts": {
+          "correct": 23,
+          "wrong_name": 35,
+          "actor_name": 0,
+          "uncertain": 68,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.18253968253968253,
+        "accuracy_valid_ci95": [
+          0.12482780083060548,
+          0.2590361766184094
+        ],
+        "accuracy_e2e": 0.18253968253968253,
+        "accuracy_e2e_ci95": [
+          0.12482780083060548,
+          0.2590361766184094
+        ],
+        "api_failure_rate": 0.0
+      },
+      "side_face": {
+        "planned": 27,
+        "counts": {
+          "correct": 8,
+          "wrong_name": 8,
+          "actor_name": 0,
+          "uncertain": 11,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.2962962962962963,
+        "accuracy_valid_ci95": [
+          0.1585304046977976,
+          0.4848068296414814
+        ],
+        "accuracy_e2e": 0.2962962962962963,
+        "accuracy_e2e_ci95": [
+          0.1585304046977976,
+          0.4848068296414814
+        ],
+        "api_failure_rate": 0.0
+      },
+      "occluded": {
+        "planned": 6,
+        "counts": {
+          "correct": 1,
+          "wrong_name": 0,
+          "actor_name": 0,
+          "uncertain": 5,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.16666666666666666,
+        "accuracy_valid_ci95": [
+          0.030053369748306635,
+          0.5635028221864702
+        ],
+        "accuracy_e2e": 0.16666666666666666,
+        "accuracy_e2e_ci95": [
+          0.030053369748306635,
+          0.5635028221864702
+        ],
+        "api_failure_rate": 0.0
+      },
+      "blurry": {
+        "planned": 1,
+        "counts": {
+          "correct": 0,
+          "wrong_name": 0,
+          "actor_name": 0,
+          "uncertain": 1,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.0,
+        "accuracy_valid_ci95": [
+          0.0,
+          0.7934506856227626
+        ],
+        "accuracy_e2e": 0.0,
+        "accuracy_e2e_ci95": [
+          0.0,
+          0.7934506856227626
+        ],
+        "api_failure_rate": 0.0
+      }
+    },
+    "kimi-k3.1-pro|A": {
+      "normal": {
+        "planned": 126,
+        "counts": {
+          "correct": 58,
+          "wrong_name": 38,
+          "actor_name": 0,
+          "uncertain": 30,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.4603174603174603,
+        "accuracy_valid_ci95": [
+          0.3757521805033807,
+          0.547230816677746
+        ],
+        "accuracy_e2e": 0.4603174603174603,
+        "accuracy_e2e_ci95": [
+          0.3757521805033807,
+          0.547230816677746
+        ],
+        "api_failure_rate": 0.0
+      },
+      "side_face": {
+        "planned": 27,
+        "counts": {
+          "correct": 16,
+          "wrong_name": 7,
+          "actor_name": 0,
+          "uncertain": 4,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.5925925925925926,
+        "accuracy_valid_ci95": [
+          0.4072670096806468,
+          0.7548524292560443
+        ],
+        "accuracy_e2e": 0.5925925925925926,
+        "accuracy_e2e_ci95": [
+          0.4072670096806468,
+          0.7548524292560443
+        ],
+        "api_failure_rate": 0.0
+      },
+      "occluded": {
+        "planned": 6,
+        "counts": {
+          "correct": 2,
+          "wrong_name": 0,
+          "actor_name": 0,
+          "uncertain": 4,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.3333333333333333,
+        "accuracy_valid_ci95": [
+          0.09677141110578041,
+          0.700006684861608
+        ],
+        "accuracy_e2e": 0.3333333333333333,
+        "accuracy_e2e_ci95": [
+          0.09677141110578041,
+          0.700006684861608
+        ],
+        "api_failure_rate": 0.0
+      },
+      "blurry": {
+        "planned": 1,
+        "counts": {
+          "correct": 0,
+          "wrong_name": 1,
+          "actor_name": 0,
+          "uncertain": 0,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.0,
+        "accuracy_valid_ci95": [
+          0.0,
+          0.7934506856227626
+        ],
+        "accuracy_e2e": 0.0,
+        "accuracy_e2e_ci95": [
+          0.0,
+          0.7934506856227626
+        ],
+        "api_failure_rate": 0.0
+      }
+    },
+    "kimi-k3.1-pro|B": {
+      "normal": {
+        "planned": 126,
+        "counts": {
+          "correct": 76,
+          "wrong_name": 16,
+          "actor_name": 0,
+          "uncertain": 34,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.6031746031746031,
+        "accuracy_valid_ci95": [
+          0.5159151060445828,
+          0.6843291012844872
+        ],
+        "accuracy_e2e": 0.6031746031746031,
+        "accuracy_e2e_ci95": [
+          0.5159151060445828,
+          0.6843291012844872
+        ],
+        "api_failure_rate": 0.0
+      },
+      "side_face": {
+        "planned": 27,
+        "counts": {
+          "correct": 16,
+          "wrong_name": 7,
+          "actor_name": 0,
+          "uncertain": 4,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.5925925925925926,
+        "accuracy_valid_ci95": [
+          0.4072670096806468,
+          0.7548524292560443
+        ],
+        "accuracy_e2e": 0.5925925925925926,
+        "accuracy_e2e_ci95": [
+          0.4072670096806468,
+          0.7548524292560443
+        ],
+        "api_failure_rate": 0.0
+      },
+      "occluded": {
+        "planned": 6,
+        "counts": {
+          "correct": 3,
+          "wrong_name": 2,
+          "actor_name": 0,
+          "uncertain": 1,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.5,
+        "accuracy_valid_ci95": [
+          0.1876163064826506,
+          0.8123836935173494
+        ],
+        "accuracy_e2e": 0.5,
+        "accuracy_e2e_ci95": [
+          0.1876163064826506,
+          0.8123836935173494
+        ],
+        "api_failure_rate": 0.0
+      },
+      "blurry": {
+        "planned": 1,
+        "counts": {
+          "correct": 0,
+          "wrong_name": 1,
+          "actor_name": 0,
+          "uncertain": 0,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.0,
+        "accuracy_valid_ci95": [
+          0.0,
+          0.7934506856227626
+        ],
+        "accuracy_e2e": 0.0,
+        "accuracy_e2e_ci95": [
+          0.0,
+          0.7934506856227626
+        ],
+        "api_failure_rate": 0.0
+      }
+    },
+    "qwen3.7-plus|A": {
+      "normal": {
+        "planned": 126,
+        "counts": {
+          "correct": 45,
+          "wrong_name": 74,
+          "actor_name": 0,
+          "uncertain": 5,
+          "refused": 0,
+          "parse_error": 2,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.35714285714285715,
+        "accuracy_valid_ci95": [
+          0.27884355878787953,
+          0.4438952310641771
+        ],
+        "accuracy_e2e": 0.35714285714285715,
+        "accuracy_e2e_ci95": [
+          0.27884355878787953,
+          0.4438952310641771
+        ],
+        "api_failure_rate": 0.0
+      },
+      "side_face": {
+        "planned": 27,
+        "counts": {
+          "correct": 12,
+          "wrong_name": 14,
+          "actor_name": 0,
+          "uncertain": 1,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.4444444444444444,
+        "accuracy_valid_ci95": [
+          0.27585858177023004,
+          0.6268697548677552
+        ],
+        "accuracy_e2e": 0.4444444444444444,
+        "accuracy_e2e_ci95": [
+          0.27585858177023004,
+          0.6268697548677552
+        ],
+        "api_failure_rate": 0.0
+      },
+      "occluded": {
+        "planned": 6,
+        "counts": {
+          "correct": 3,
+          "wrong_name": 3,
+          "actor_name": 0,
+          "uncertain": 0,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.5,
+        "accuracy_valid_ci95": [
+          0.1876163064826506,
+          0.8123836935173494
+        ],
+        "accuracy_e2e": 0.5,
+        "accuracy_e2e_ci95": [
+          0.1876163064826506,
+          0.8123836935173494
+        ],
+        "api_failure_rate": 0.0
+      },
+      "blurry": {
+        "planned": 1,
+        "counts": {
+          "correct": 0,
+          "wrong_name": 1,
+          "actor_name": 0,
+          "uncertain": 0,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.0,
+        "accuracy_valid_ci95": [
+          0.0,
+          0.7934506856227626
+        ],
+        "accuracy_e2e": 0.0,
+        "accuracy_e2e_ci95": [
+          0.0,
+          0.7934506856227626
+        ],
+        "api_failure_rate": 0.0
+      }
+    },
+    "qwen3.7-plus|B": {
+      "normal": {
+        "planned": 126,
+        "counts": {
+          "correct": 54,
+          "wrong_name": 70,
+          "actor_name": 0,
+          "uncertain": 2,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.42857142857142855,
+        "accuracy_valid_ci95": [
+          0.34553800493777653,
+          0.5158313899882517
+        ],
+        "accuracy_e2e": 0.42857142857142855,
+        "accuracy_e2e_ci95": [
+          0.34553800493777653,
+          0.5158313899882517
+        ],
+        "api_failure_rate": 0.0
+      },
+      "side_face": {
+        "planned": 27,
+        "counts": {
+          "correct": 16,
+          "wrong_name": 10,
+          "actor_name": 0,
+          "uncertain": 1,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.5925925925925926,
+        "accuracy_valid_ci95": [
+          0.4072670096806468,
+          0.7548524292560443
+        ],
+        "accuracy_e2e": 0.5925925925925926,
+        "accuracy_e2e_ci95": [
+          0.4072670096806468,
+          0.7548524292560443
+        ],
+        "api_failure_rate": 0.0
+      },
+      "occluded": {
+        "planned": 6,
+        "counts": {
+          "correct": 3,
+          "wrong_name": 3,
+          "actor_name": 0,
+          "uncertain": 0,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.5,
+        "accuracy_valid_ci95": [
+          0.1876163064826506,
+          0.8123836935173494
+        ],
+        "accuracy_e2e": 0.5,
+        "accuracy_e2e_ci95": [
+          0.1876163064826506,
+          0.8123836935173494
+        ],
+        "api_failure_rate": 0.0
+      },
+      "blurry": {
+        "planned": 1,
+        "counts": {
+          "correct": 0,
+          "wrong_name": 1,
+          "actor_name": 0,
+          "uncertain": 0,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.0,
+        "accuracy_valid_ci95": [
+          0.0,
+          0.7934506856227626
+        ],
+        "accuracy_e2e": 0.0,
+        "accuracy_e2e_ci95": [
+          0.0,
+          0.7934506856227626
+        ],
+        "api_failure_rate": 0.0
+      }
+    },
+    "qwen3.8-flash|A": {
+      "normal": {
+        "planned": 126,
+        "counts": {
+          "correct": 44,
+          "wrong_name": 56,
+          "actor_name": 0,
+          "uncertain": 25,
+          "refused": 0,
+          "parse_error": 1,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.3492063492063492,
+        "accuracy_valid_ci95": [
+          0.2715482562775235,
+          0.4357871330107585
+        ],
+        "accuracy_e2e": 0.3492063492063492,
+        "accuracy_e2e_ci95": [
+          0.2715482562775235,
+          0.4357871330107585
+        ],
+        "api_failure_rate": 0.0
+      },
+      "side_face": {
+        "planned": 27,
+        "counts": {
+          "correct": 12,
+          "wrong_name": 9,
+          "actor_name": 0,
+          "uncertain": 6,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.4444444444444444,
+        "accuracy_valid_ci95": [
+          0.27585858177023004,
+          0.6268697548677552
+        ],
+        "accuracy_e2e": 0.4444444444444444,
+        "accuracy_e2e_ci95": [
+          0.27585858177023004,
+          0.6268697548677552
+        ],
+        "api_failure_rate": 0.0
+      },
+      "occluded": {
+        "planned": 6,
+        "counts": {
+          "correct": 2,
+          "wrong_name": 0,
+          "actor_name": 0,
+          "uncertain": 4,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.3333333333333333,
+        "accuracy_valid_ci95": [
+          0.09677141110578041,
+          0.700006684861608
+        ],
+        "accuracy_e2e": 0.3333333333333333,
+        "accuracy_e2e_ci95": [
+          0.09677141110578041,
+          0.700006684861608
+        ],
+        "api_failure_rate": 0.0
+      },
+      "blurry": {
+        "planned": 1,
+        "counts": {
+          "correct": 0,
+          "wrong_name": 0,
+          "actor_name": 0,
+          "uncertain": 1,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.0,
+        "accuracy_valid_ci95": [
+          0.0,
+          0.7934506856227626
+        ],
+        "accuracy_e2e": 0.0,
+        "accuracy_e2e_ci95": [
+          0.0,
+          0.7934506856227626
+        ],
+        "api_failure_rate": 0.0
+      }
+    },
+    "qwen3.8-flash|B": {
+      "normal": {
+        "planned": 126,
+        "counts": {
+          "correct": 52,
+          "wrong_name": 55,
+          "actor_name": 0,
+          "uncertain": 19,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.4126984126984127,
+        "accuracy_valid_ci95": [
+          0.33056044633223847,
+          0.5000021474662405
+        ],
+        "accuracy_e2e": 0.4126984126984127,
+        "accuracy_e2e_ci95": [
+          0.33056044633223847,
+          0.5000021474662405
+        ],
+        "api_failure_rate": 0.0
+      },
+      "side_face": {
+        "planned": 27,
+        "counts": {
+          "correct": 17,
+          "wrong_name": 8,
+          "actor_name": 0,
+          "uncertain": 2,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.6296296296296297,
+        "accuracy_valid_ci95": [
+          0.4422923441210239,
+          0.784674870390344
+        ],
+        "accuracy_e2e": 0.6296296296296297,
+        "accuracy_e2e_ci95": [
+          0.4422923441210239,
+          0.784674870390344
+        ],
+        "api_failure_rate": 0.0
+      },
+      "occluded": {
+        "planned": 6,
+        "counts": {
+          "correct": 3,
+          "wrong_name": 1,
+          "actor_name": 0,
+          "uncertain": 2,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.5,
+        "accuracy_valid_ci95": [
+          0.1876163064826506,
+          0.8123836935173494
+        ],
+        "accuracy_e2e": 0.5,
+        "accuracy_e2e_ci95": [
+          0.1876163064826506,
+          0.8123836935173494
+        ],
+        "api_failure_rate": 0.0
+      },
+      "blurry": {
+        "planned": 1,
+        "counts": {
+          "correct": 0,
+          "wrong_name": 1,
+          "actor_name": 0,
+          "uncertain": 0,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.0,
+        "accuracy_valid_ci95": [
+          0.0,
+          0.7934506856227626
+        ],
+        "accuracy_e2e": 0.0,
+        "accuracy_e2e_ci95": [
+          0.0,
+          0.7934506856227626
+        ],
+        "api_failure_rate": 0.0
+      }
+    },
+    "qwen3.8-max|A": {
+      "normal": {
+        "planned": 126,
+        "counts": {
+          "correct": 67,
+          "wrong_name": 52,
+          "actor_name": 0,
+          "uncertain": 0,
+          "refused": 0,
+          "parse_error": 7,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.5317460317460317,
+        "accuracy_valid_ci95": [
+          0.44497262128249504,
+          0.6166409809726036
+        ],
+        "accuracy_e2e": 0.5317460317460317,
+        "accuracy_e2e_ci95": [
+          0.44497262128249504,
+          0.6166409809726036
+        ],
+        "api_failure_rate": 0.0
+      },
+      "side_face": {
+        "planned": 27,
+        "counts": {
+          "correct": 19,
+          "wrong_name": 8,
+          "actor_name": 0,
+          "uncertain": 0,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.7037037037037037,
+        "accuracy_valid_ci95": [
+          0.5151931703585185,
+          0.8414695953022023
+        ],
+        "accuracy_e2e": 0.7037037037037037,
+        "accuracy_e2e_ci95": [
+          0.5151931703585185,
+          0.8414695953022023
+        ],
+        "api_failure_rate": 0.0
+      },
+      "occluded": {
+        "planned": 6,
+        "counts": {
+          "correct": 4,
+          "wrong_name": 2,
+          "actor_name": 0,
+          "uncertain": 0,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.6666666666666666,
+        "accuracy_valid_ci95": [
+          0.299993315138392,
+          0.9032285888942195
+        ],
+        "accuracy_e2e": 0.6666666666666666,
+        "accuracy_e2e_ci95": [
+          0.299993315138392,
+          0.9032285888942195
+        ],
+        "api_failure_rate": 0.0
+      },
+      "blurry": {
+        "planned": 1,
+        "counts": {
+          "correct": 0,
+          "wrong_name": 1,
+          "actor_name": 0,
+          "uncertain": 0,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.0,
+        "accuracy_valid_ci95": [
+          0.0,
+          0.7934506856227626
+        ],
+        "accuracy_e2e": 0.0,
+        "accuracy_e2e_ci95": [
+          0.0,
+          0.7934506856227626
+        ],
+        "api_failure_rate": 0.0
+      }
+    },
+    "qwen3.8-max|B": {
+      "normal": {
+        "planned": 126,
+        "counts": {
+          "correct": 70,
+          "wrong_name": 41,
+          "actor_name": 0,
+          "uncertain": 3,
+          "refused": 0,
+          "parse_error": 12,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.5555555555555556,
+        "accuracy_valid_ci95": [
+          0.4684260632059607,
+          0.6393977407404616
+        ],
+        "accuracy_e2e": 0.5555555555555556,
+        "accuracy_e2e_ci95": [
+          0.4684260632059607,
+          0.6393977407404616
+        ],
+        "api_failure_rate": 0.0
+      },
+      "side_face": {
+        "planned": 27,
+        "counts": {
+          "correct": 19,
+          "wrong_name": 7,
+          "actor_name": 0,
+          "uncertain": 0,
+          "refused": 0,
+          "parse_error": 1,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.7037037037037037,
+        "accuracy_valid_ci95": [
+          0.5151931703585185,
+          0.8414695953022023
+        ],
+        "accuracy_e2e": 0.7037037037037037,
+        "accuracy_e2e_ci95": [
+          0.5151931703585185,
+          0.8414695953022023
+        ],
+        "api_failure_rate": 0.0
+      },
+      "occluded": {
+        "planned": 6,
+        "counts": {
+          "correct": 4,
+          "wrong_name": 1,
+          "actor_name": 0,
+          "uncertain": 0,
+          "refused": 0,
+          "parse_error": 1,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.6666666666666666,
+        "accuracy_valid_ci95": [
+          0.299993315138392,
+          0.9032285888942195
+        ],
+        "accuracy_e2e": 0.6666666666666666,
+        "accuracy_e2e_ci95": [
+          0.299993315138392,
+          0.9032285888942195
+        ],
+        "api_failure_rate": 0.0
+      },
+      "blurry": {
+        "planned": 1,
+        "counts": {
+          "correct": 1,
+          "wrong_name": 0,
+          "actor_name": 0,
+          "uncertain": 0,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 1.0,
+        "accuracy_valid_ci95": [
+          0.20654931437723745,
+          1.0
+        ],
+        "accuracy_e2e": 1.0,
+        "accuracy_e2e_ci95": [
+          0.20654931437723745,
+          1.0
+        ],
+        "api_failure_rate": 0.0
+      }
+    }
+  },
+  "by_multi_person": {
+    "deepseek-flash|A": {
+      "多人同框": {
+        "planned": 95,
+        "counts": {
+          "correct": 3,
+          "wrong_name": 59,
+          "actor_name": 0,
+          "uncertain": 33,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.031578947368421054,
+        "accuracy_valid_ci95": [
+          0.010797139474424379,
+          0.08877098647308188
+        ],
+        "accuracy_e2e": 0.031578947368421054,
+        "accuracy_e2e_ci95": [
+          0.010797139474424379,
+          0.08877098647308188
+        ],
+        "api_failure_rate": 0.0
+      },
+      "单人/主体": {
+        "planned": 65,
+        "counts": {
+          "correct": 8,
+          "wrong_name": 36,
+          "actor_name": 0,
+          "uncertain": 21,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.12307692307692308,
+        "accuracy_valid_ci95": [
+          0.06370467509869226,
+          0.22451494082161527
+        ],
+        "accuracy_e2e": 0.12307692307692308,
+        "accuracy_e2e_ci95": [
+          0.06370467509869226,
+          0.22451494082161527
+        ],
+        "api_failure_rate": 0.0
+      }
+    },
+    "deepseek-flash|B": {
+      "多人同框": {
+        "planned": 95,
+        "counts": {
+          "correct": 18,
+          "wrong_name": 56,
+          "actor_name": 0,
+          "uncertain": 21,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.18947368421052632,
+        "accuracy_valid_ci95": [
+          0.12334852229116193,
+          0.27973596569651077
+        ],
+        "accuracy_e2e": 0.18947368421052632,
+        "accuracy_e2e_ci95": [
+          0.12334852229116193,
+          0.27973596569651077
+        ],
+        "api_failure_rate": 0.0
+      },
+      "单人/主体": {
+        "planned": 65,
+        "counts": {
+          "correct": 20,
+          "wrong_name": 29,
+          "actor_name": 0,
+          "uncertain": 16,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.3076923076923077,
+        "accuracy_valid_ci95": [
+          0.20887031366921027,
+          0.4279764291472733
+        ],
+        "accuracy_e2e": 0.3076923076923077,
+        "accuracy_e2e_ci95": [
+          0.20887031366921027,
+          0.4279764291472733
+        ],
+        "api_failure_rate": 0.0
+      }
+    },
+    "glm-4.6v|A": {
+      "多人同框": {
+        "planned": 95,
+        "counts": {
+          "correct": 1,
+          "wrong_name": 92,
+          "actor_name": 1,
+          "uncertain": 1,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.010526315789473684,
+        "accuracy_valid_ci95": [
+          0.001860576262347903,
+          0.05723870141313616
+        ],
+        "accuracy_e2e": 0.010526315789473684,
+        "accuracy_e2e_ci95": [
+          0.001860576262347903,
+          0.05723870141313616
+        ],
+        "api_failure_rate": 0.0
+      },
+      "单人/主体": {
+        "planned": 65,
+        "counts": {
+          "correct": 2,
+          "wrong_name": 61,
+          "actor_name": 0,
+          "uncertain": 2,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.03076923076923077,
+        "accuracy_valid_ci95": [
+          0.008478997236440126,
+          0.10542705523577942
+        ],
+        "accuracy_e2e": 0.03076923076923077,
+        "accuracy_e2e_ci95": [
+          0.008478997236440126,
+          0.10542705523577942
+        ],
+        "api_failure_rate": 0.0
+      }
+    },
+    "glm-4.6v|B": {
+      "多人同框": {
+        "planned": 95,
+        "counts": {
+          "correct": 12,
+          "wrong_name": 74,
+          "actor_name": 0,
+          "uncertain": 9,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.12631578947368421,
+        "accuracy_valid_ci95": [
+          0.07375654198137557,
+          0.20792140119023053
+        ],
+        "accuracy_e2e": 0.12631578947368421,
+        "accuracy_e2e_ci95": [
+          0.07375654198137557,
+          0.20792140119023053
+        ],
+        "api_failure_rate": 0.0
+      },
+      "单人/主体": {
+        "planned": 65,
+        "counts": {
+          "correct": 16,
+          "wrong_name": 39,
+          "actor_name": 0,
+          "uncertain": 10,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.24615384615384617,
+        "accuracy_valid_ci95": [
+          0.15757986855897987,
+          0.3630578319587784
+        ],
+        "accuracy_e2e": 0.24615384615384617,
+        "accuracy_e2e_ci95": [
+          0.15757986855897987,
+          0.3630578319587784
+        ],
+        "api_failure_rate": 0.0
+      }
+    },
+    "glm-5.3-flash|A": {
+      "多人同框": {
+        "planned": 95,
+        "counts": {
+          "correct": 4,
+          "wrong_name": 14,
+          "actor_name": 0,
+          "uncertain": 77,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.042105263157894736,
+        "accuracy_valid_ci95": [
+          0.016493772862549924,
+          0.10330877722096742
+        ],
+        "accuracy_e2e": 0.042105263157894736,
+        "accuracy_e2e_ci95": [
+          0.016493772862549924,
+          0.10330877722096742
+        ],
+        "api_failure_rate": 0.0
+      },
+      "单人/主体": {
+        "planned": 65,
+        "counts": {
+          "correct": 3,
+          "wrong_name": 7,
+          "actor_name": 0,
+          "uncertain": 55,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.046153846153846156,
+        "accuracy_valid_ci95": [
+          0.015819840413512566,
+          0.12713847263338832
+        ],
+        "accuracy_e2e": 0.046153846153846156,
+        "accuracy_e2e_ci95": [
+          0.015819840413512566,
+          0.12713847263338832
+        ],
+        "api_failure_rate": 0.0
+      }
+    },
+    "glm-5.3-flash|B": {
+      "多人同框": {
+        "planned": 95,
+        "counts": {
+          "correct": 16,
+          "wrong_name": 26,
+          "actor_name": 0,
+          "uncertain": 53,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.16842105263157894,
+        "accuracy_valid_ci95": [
+          0.10641255003021141,
+          0.25620308968543903
+        ],
+        "accuracy_e2e": 0.16842105263157894,
+        "accuracy_e2e_ci95": [
+          0.10641255003021141,
+          0.25620308968543903
+        ],
+        "api_failure_rate": 0.0
+      },
+      "单人/主体": {
+        "planned": 65,
+        "counts": {
+          "correct": 16,
+          "wrong_name": 17,
+          "actor_name": 0,
+          "uncertain": 32,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.24615384615384617,
+        "accuracy_valid_ci95": [
+          0.15757986855897987,
+          0.3630578319587784
+        ],
+        "accuracy_e2e": 0.24615384615384617,
+        "accuracy_e2e_ci95": [
+          0.15757986855897987,
+          0.3630578319587784
+        ],
+        "api_failure_rate": 0.0
+      }
+    },
+    "kimi-k3.1-pro|A": {
+      "多人同框": {
+        "planned": 95,
+        "counts": {
+          "correct": 47,
+          "wrong_name": 31,
+          "actor_name": 0,
+          "uncertain": 17,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.49473684210526314,
+        "accuracy_valid_ci95": [
+          0.3963757882123102,
+          0.5935069997196842
+        ],
+        "accuracy_e2e": 0.49473684210526314,
+        "accuracy_e2e_ci95": [
+          0.3963757882123102,
+          0.5935069997196842
+        ],
+        "api_failure_rate": 0.0
+      },
+      "单人/主体": {
+        "planned": 65,
+        "counts": {
+          "correct": 29,
+          "wrong_name": 15,
+          "actor_name": 0,
+          "uncertain": 21,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.4461538461538462,
+        "accuracy_valid_ci95": [
+          0.33169527476665517,
+          0.5666218132219604
+        ],
+        "accuracy_e2e": 0.4461538461538462,
+        "accuracy_e2e_ci95": [
+          0.33169527476665517,
+          0.5666218132219604
+        ],
+        "api_failure_rate": 0.0
+      }
+    },
+    "kimi-k3.1-pro|B": {
+      "多人同框": {
+        "planned": 95,
+        "counts": {
+          "correct": 57,
+          "wrong_name": 12,
+          "actor_name": 0,
+          "uncertain": 26,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.6,
+        "accuracy_valid_ci95": [
+          0.4994560285527347,
+          0.6927710007393706
+        ],
+        "accuracy_e2e": 0.6,
+        "accuracy_e2e_ci95": [
+          0.4994560285527347,
+          0.6927710007393706
+        ],
+        "api_failure_rate": 0.0
+      },
+      "单人/主体": {
+        "planned": 65,
+        "counts": {
+          "correct": 38,
+          "wrong_name": 14,
+          "actor_name": 0,
+          "uncertain": 13,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.5846153846153846,
+        "accuracy_valid_ci95": [
+          0.46338984873497363,
+          0.6963975844257738
+        ],
+        "accuracy_e2e": 0.5846153846153846,
+        "accuracy_e2e_ci95": [
+          0.46338984873497363,
+          0.6963975844257738
+        ],
+        "api_failure_rate": 0.0
+      }
+    },
+    "qwen3.7-plus|A": {
+      "多人同框": {
+        "planned": 95,
+        "counts": {
+          "correct": 31,
+          "wrong_name": 60,
+          "actor_name": 0,
+          "uncertain": 3,
+          "refused": 0,
+          "parse_error": 1,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.3263157894736842,
+        "accuracy_valid_ci95": [
+          0.24038712734007606,
+          0.42574487441574094
+        ],
+        "accuracy_e2e": 0.3263157894736842,
+        "accuracy_e2e_ci95": [
+          0.24038712734007606,
+          0.42574487441574094
+        ],
+        "api_failure_rate": 0.0
+      },
+      "单人/主体": {
+        "planned": 65,
+        "counts": {
+          "correct": 29,
+          "wrong_name": 32,
+          "actor_name": 0,
+          "uncertain": 3,
+          "refused": 0,
+          "parse_error": 1,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.4461538461538462,
+        "accuracy_valid_ci95": [
+          0.33169527476665517,
+          0.5666218132219604
+        ],
+        "accuracy_e2e": 0.4461538461538462,
+        "accuracy_e2e_ci95": [
+          0.33169527476665517,
+          0.5666218132219604
+        ],
+        "api_failure_rate": 0.0
+      }
+    },
+    "qwen3.7-plus|B": {
+      "多人同框": {
+        "planned": 95,
+        "counts": {
+          "correct": 39,
+          "wrong_name": 54,
+          "actor_name": 0,
+          "uncertain": 2,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.4105263157894737,
+        "accuracy_valid_ci95": [
+          0.31696158583207545,
+          0.5110458090118303
+        ],
+        "accuracy_e2e": 0.4105263157894737,
+        "accuracy_e2e_ci95": [
+          0.31696158583207545,
+          0.5110458090118303
+        ],
+        "api_failure_rate": 0.0
+      },
+      "单人/主体": {
+        "planned": 65,
+        "counts": {
+          "correct": 34,
+          "wrong_name": 30,
+          "actor_name": 0,
+          "uncertain": 1,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.5230769230769231,
+        "accuracy_valid_ci95": [
+          0.40379629614730184,
+          0.6397820947147201
+        ],
+        "accuracy_e2e": 0.5230769230769231,
+        "accuracy_e2e_ci95": [
+          0.40379629614730184,
+          0.6397820947147201
+        ],
+        "api_failure_rate": 0.0
+      }
+    },
+    "qwen3.8-flash|A": {
+      "多人同框": {
+        "planned": 95,
+        "counts": {
+          "correct": 30,
+          "wrong_name": 45,
+          "actor_name": 0,
+          "uncertain": 19,
+          "refused": 0,
+          "parse_error": 1,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.3157894736842105,
+        "accuracy_valid_ci95": [
+          0.23103226162043158,
+          0.41486531599937426
+        ],
+        "accuracy_e2e": 0.3157894736842105,
+        "accuracy_e2e_ci95": [
+          0.23103226162043158,
+          0.41486531599937426
+        ],
+        "api_failure_rate": 0.0
+      },
+      "单人/主体": {
+        "planned": 65,
+        "counts": {
+          "correct": 28,
+          "wrong_name": 20,
+          "actor_name": 0,
+          "uncertain": 17,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.4307692307692308,
+        "accuracy_valid_ci95": [
+          0.3175945741563928,
+          0.5516702532575414
+        ],
+        "accuracy_e2e": 0.4307692307692308,
+        "accuracy_e2e_ci95": [
+          0.3175945741563928,
+          0.5516702532575414
+        ],
+        "api_failure_rate": 0.0
+      }
+    },
+    "qwen3.8-flash|B": {
+      "多人同框": {
+        "planned": 95,
+        "counts": {
+          "correct": 41,
+          "wrong_name": 43,
+          "actor_name": 0,
+          "uncertain": 11,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.43157894736842106,
+        "accuracy_valid_ci95": [
+          0.3365583329880693,
+          0.5319179101278586
+        ],
+        "accuracy_e2e": 0.43157894736842106,
+        "accuracy_e2e_ci95": [
+          0.3365583329880693,
+          0.5319179101278586
+        ],
+        "api_failure_rate": 0.0
+      },
+      "单人/主体": {
+        "planned": 65,
+        "counts": {
+          "correct": 31,
+          "wrong_name": 22,
+          "actor_name": 0,
+          "uncertain": 12,
+          "refused": 0,
+          "parse_error": 0,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.47692307692307695,
+        "accuracy_valid_ci95": [
+          0.36021790528527997,
+          0.5962037038526982
+        ],
+        "accuracy_e2e": 0.47692307692307695,
+        "accuracy_e2e_ci95": [
+          0.36021790528527997,
+          0.5962037038526982
+        ],
+        "api_failure_rate": 0.0
+      }
+    },
+    "qwen3.8-max|A": {
+      "多人同框": {
+        "planned": 95,
+        "counts": {
+          "correct": 48,
+          "wrong_name": 42,
+          "actor_name": 0,
+          "uncertain": 0,
+          "refused": 0,
+          "parse_error": 5,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.5052631578947369,
+        "accuracy_valid_ci95": [
+          0.4064930002803157,
+          0.6036242117876898
+        ],
+        "accuracy_e2e": 0.5052631578947369,
+        "accuracy_e2e_ci95": [
+          0.4064930002803157,
+          0.6036242117876898
+        ],
+        "api_failure_rate": 0.0
+      },
+      "单人/主体": {
+        "planned": 65,
+        "counts": {
+          "correct": 42,
+          "wrong_name": 21,
+          "actor_name": 0,
+          "uncertain": 0,
+          "refused": 0,
+          "parse_error": 2,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.6461538461538462,
+        "accuracy_valid_ci95": [
+          0.5247510601023302,
+          0.7512454153571424
+        ],
+        "accuracy_e2e": 0.6461538461538462,
+        "accuracy_e2e_ci95": [
+          0.5247510601023302,
+          0.7512454153571424
+        ],
+        "api_failure_rate": 0.0
+      }
+    },
+    "qwen3.8-max|B": {
+      "多人同框": {
+        "planned": 95,
+        "counts": {
+          "correct": 50,
+          "wrong_name": 34,
+          "actor_name": 0,
+          "uncertain": 1,
+          "refused": 0,
+          "parse_error": 10,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.5263157894736842,
+        "accuracy_valid_ci95": [
+          0.42685348170018467,
+          0.623732578639843
+        ],
+        "accuracy_e2e": 0.5263157894736842,
+        "accuracy_e2e_ci95": [
+          0.42685348170018467,
+          0.623732578639843
+        ],
+        "api_failure_rate": 0.0
+      },
+      "单人/主体": {
+        "planned": 65,
+        "counts": {
+          "correct": 44,
+          "wrong_name": 15,
+          "actor_name": 0,
+          "uncertain": 2,
+          "refused": 0,
+          "parse_error": 4,
+          "api_failure": 0,
+          "not_run": 0
+        },
+        "accuracy_valid": 0.676923076923077,
+        "accuracy_valid_ci95": [
+          0.5561398872118912,
+          0.7779611093969441
+        ],
+        "accuracy_e2e": 0.676923076923077,
+        "accuracy_e2e_ci95": [
+          0.5561398872118912,
+          0.7779611093969441
+        ],
+        "api_failure_rate": 0.0
+      }
+    }
+  },
+  "per_character": {
+    "deepseek-flash|A": {
+      "characters": {
+        "kuangbiao::徐忠": {
+          "n": 8,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "kuangbiao::周志合": {
+          "n": 3,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "kuangbiao::纪泽": {
+          "n": 10,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "kuangbiao::龚开疆": {
+          "n": 2,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "kuangbiao::安欣": {
+          "n": 9,
+          "correct": 1,
+          "accuracy": 0.1111111111111111
+        },
+        "kuangbiao::高启强": {
+          "n": 4,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "kuangbiao::唐小龙": {
+          "n": 2,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "kuangbiao::李响": {
+          "n": 2,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::范闲": {
+          "n": 8,
+          "correct": 6,
+          "accuracy": 0.75
+        },
+        "qingyunian2::袁梦": {
+          "n": 2,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::范思辙": {
+          "n": 3,
+          "correct": 1,
+          "accuracy": 0.3333333333333333
+        },
+        "qingyunian2::桑文": {
+          "n": 1,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::三皇子": {
+          "n": 1,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::二皇子": {
+          "n": 4,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::王启年": {
+          "n": 3,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::陈萍萍": {
+          "n": 3,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::太子": {
+          "n": 2,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::侯公公": {
+          "n": 1,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::范无救": {
+          "n": 1,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::赖名成": {
+          "n": 2,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::庆帝": {
+          "n": 3,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::范若若": {
+          "n": 3,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::范建": {
+          "n": 1,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::林婉儿": {
+          "n": 1,
+          "correct": 1,
+          "accuracy": 1.0
+        },
+        "qingyunian2::五竹": {
+          "n": 1,
+          "correct": 1,
+          "accuracy": 1.0
+        },
+        "gongfunvzu::钰珑": {
+          "n": 6,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "gongfunvzu::徐风": {
+          "n": 14,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "gongfunvzu::双双": {
+          "n": 13,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "gongfunvzu::孖八": {
+          "n": 2,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "gongfunvzu::师太": {
+          "n": 3,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "gongfunvzu::丧彪": {
+          "n": 2,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "jianlai::李宝瓶": {
+          "n": 6,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "jianlai::朱河": {
+          "n": 6,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "jianlai::朱鹿": {
+          "n": 6,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "jianlai::李槐": {
+          "n": 5,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "jianlai::陈平安": {
+          "n": 6,
+          "correct": 1,
+          "accuracy": 0.16666666666666666
+        },
+        "jianlai::阿良": {
+          "n": 8,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "jianlai::林守一": {
+          "n": 3,
+          "correct": 0,
+          "accuracy": 0.0
+        }
+      },
+      "macro_accuracy": 0.08845029239766082
+    },
+    "deepseek-flash|B": {
+      "characters": {
+        "kuangbiao::徐忠": {
+          "n": 8,
+          "correct": 2,
+          "accuracy": 0.25
+        },
+        "kuangbiao::周志合": {
+          "n": 3,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "kuangbiao::纪泽": {
+          "n": 10,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "kuangbiao::龚开疆": {
+          "n": 2,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "kuangbiao::安欣": {
+          "n": 9,
+          "correct": 4,
+          "accuracy": 0.4444444444444444
+        },
+        "kuangbiao::高启强": {
+          "n": 4,
+          "correct": 4,
+          "accuracy": 1.0
+        },
+        "kuangbiao::唐小龙": {
+          "n": 2,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "kuangbiao::李响": {
+          "n": 2,
+          "correct": 1,
+          "accuracy": 0.5
+        },
+        "qingyunian2::范闲": {
+          "n": 8,
+          "correct": 8,
+          "accuracy": 1.0
+        },
+        "qingyunian2::袁梦": {
+          "n": 2,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::范思辙": {
+          "n": 3,
+          "correct": 2,
+          "accuracy": 0.6666666666666666
+        },
+        "qingyunian2::桑文": {
+          "n": 1,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::三皇子": {
+          "n": 1,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::二皇子": {
+          "n": 4,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::王启年": {
+          "n": 3,
+          "correct": 1,
+          "accuracy": 0.3333333333333333
+        },
+        "qingyunian2::陈萍萍": {
+          "n": 3,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::太子": {
+          "n": 2,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::侯公公": {
+          "n": 1,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::范无救": {
+          "n": 1,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::赖名成": {
+          "n": 2,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::庆帝": {
+          "n": 3,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::范若若": {
+          "n": 3,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::范建": {
+          "n": 1,
+          "correct": 1,
+          "accuracy": 1.0
+        },
+        "qingyunian2::林婉儿": {
+          "n": 1,
+          "correct": 1,
+          "accuracy": 1.0
+        },
+        "qingyunian2::五竹": {
+          "n": 1,
+          "correct": 1,
+          "accuracy": 1.0
+        },
+        "gongfunvzu::钰珑": {
+          "n": 6,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "gongfunvzu::徐风": {
+          "n": 14,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "gongfunvzu::双双": {
+          "n": 13,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "gongfunvzu::孖八": {
+          "n": 2,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "gongfunvzu::师太": {
+          "n": 3,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "gongfunvzu::丧彪": {
+          "n": 2,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "jianlai::李宝瓶": {
+          "n": 6,
+          "correct": 5,
+          "accuracy": 0.8333333333333334
+        },
+        "jianlai::朱河": {
+          "n": 6,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "jianlai::朱鹿": {
+          "n": 6,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "jianlai::李槐": {
+          "n": 5,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "jianlai::陈平安": {
+          "n": 6,
+          "correct": 6,
+          "accuracy": 1.0
+        },
+        "jianlai::阿良": {
+          "n": 8,
+          "correct": 2,
+          "accuracy": 0.25
+        },
+        "jianlai::林守一": {
+          "n": 3,
+          "correct": 0,
+          "accuracy": 0.0
+        }
+      },
+      "macro_accuracy": 0.24415204678362576
+    },
+    "glm-4.6v|A": {
+      "characters": {
+        "kuangbiao::徐忠": {
+          "n": 8,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "kuangbiao::周志合": {
+          "n": 3,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "kuangbiao::纪泽": {
+          "n": 10,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "kuangbiao::龚开疆": {
+          "n": 2,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "kuangbiao::安欣": {
+          "n": 9,
+          "correct": 1,
+          "accuracy": 0.1111111111111111
+        },
+        "kuangbiao::高启强": {
+          "n": 4,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "kuangbiao::唐小龙": {
+          "n": 2,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "kuangbiao::李响": {
+          "n": 2,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::范闲": {
+          "n": 8,
+          "correct": 1,
+          "accuracy": 0.125
+        },
+        "qingyunian2::袁梦": {
+          "n": 2,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::范思辙": {
+          "n": 3,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::桑文": {
+          "n": 1,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::三皇子": {
+          "n": 1,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::二皇子": {
+          "n": 4,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::王启年": {
+          "n": 3,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::陈萍萍": {
+          "n": 3,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::太子": {
+          "n": 2,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::侯公公": {
+          "n": 1,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::范无救": {
+          "n": 1,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::赖名成": {
+          "n": 2,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::庆帝": {
+          "n": 3,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::范若若": {
+          "n": 3,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::范建": {
+          "n": 1,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::林婉儿": {
+          "n": 1,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::五竹": {
+          "n": 1,
+          "correct": 1,
+          "accuracy": 1.0
+        },
+        "gongfunvzu::钰珑": {
+          "n": 6,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "gongfunvzu::徐风": {
+          "n": 14,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "gongfunvzu::双双": {
+          "n": 13,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "gongfunvzu::孖八": {
+          "n": 2,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "gongfunvzu::师太": {
+          "n": 3,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "gongfunvzu::丧彪": {
+          "n": 2,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "jianlai::李宝瓶": {
+          "n": 6,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "jianlai::朱河": {
+          "n": 6,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "jianlai::朱鹿": {
+          "n": 6,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "jianlai::李槐": {
+          "n": 5,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "jianlai::陈平安": {
+          "n": 6,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "jianlai::阿良": {
+          "n": 8,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "jianlai::林守一": {
+          "n": 3,
+          "correct": 0,
+          "accuracy": 0.0
+        }
+      },
+      "macro_accuracy": 0.03252923976608187
+    },
+    "glm-4.6v|B": {
+      "characters": {
+        "kuangbiao::徐忠": {
+          "n": 8,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "kuangbiao::周志合": {
+          "n": 3,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "kuangbiao::纪泽": {
+          "n": 10,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "kuangbiao::龚开疆": {
+          "n": 2,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "kuangbiao::安欣": {
+          "n": 9,
+          "correct": 4,
+          "accuracy": 0.4444444444444444
+        },
+        "kuangbiao::高启强": {
+          "n": 4,
+          "correct": 2,
+          "accuracy": 0.5
+        },
+        "kuangbiao::唐小龙": {
+          "n": 2,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "kuangbiao::李响": {
+          "n": 2,
+          "correct": 2,
+          "accuracy": 1.0
+        },
+        "qingyunian2::范闲": {
+          "n": 8,
+          "correct": 7,
+          "accuracy": 0.875
+        },
+        "qingyunian2::袁梦": {
+          "n": 2,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::范思辙": {
+          "n": 3,
+          "correct": 3,
+          "accuracy": 1.0
+        },
+        "qingyunian2::桑文": {
+          "n": 1,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::三皇子": {
+          "n": 1,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::二皇子": {
+          "n": 4,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::王启年": {
+          "n": 3,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::陈萍萍": {
+          "n": 3,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::太子": {
+          "n": 2,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::侯公公": {
+          "n": 1,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::范无救": {
+          "n": 1,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::赖名成": {
+          "n": 2,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::庆帝": {
+          "n": 3,
+          "correct": 1,
+          "accuracy": 0.3333333333333333
+        },
+        "qingyunian2::范若若": {
+          "n": 3,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::范建": {
+          "n": 1,
+          "correct": 1,
+          "accuracy": 1.0
+        },
+        "qingyunian2::林婉儿": {
+          "n": 1,
+          "correct": 1,
+          "accuracy": 1.0
+        },
+        "qingyunian2::五竹": {
+          "n": 1,
+          "correct": 1,
+          "accuracy": 1.0
+        },
+        "gongfunvzu::钰珑": {
+          "n": 6,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "gongfunvzu::徐风": {
+          "n": 14,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "gongfunvzu::双双": {
+          "n": 13,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "gongfunvzu::孖八": {
+          "n": 2,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "gongfunvzu::师太": {
+          "n": 3,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "gongfunvzu::丧彪": {
+          "n": 2,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "jianlai::李宝瓶": {
+          "n": 6,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "jianlai::朱河": {
+          "n": 6,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "jianlai::朱鹿": {
+          "n": 6,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "jianlai::李槐": {
+          "n": 5,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "jianlai::陈平安": {
+          "n": 6,
+          "correct": 6,
+          "accuracy": 1.0
+        },
+        "jianlai::阿良": {
+          "n": 8,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "jianlai::林守一": {
+          "n": 3,
+          "correct": 0,
+          "accuracy": 0.0
+        }
+      },
+      "macro_accuracy": 0.214546783625731
+    },
+    "glm-5.3-flash|A": {
+      "characters": {
+        "kuangbiao::徐忠": {
+          "n": 8,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "kuangbiao::周志合": {
+          "n": 3,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "kuangbiao::纪泽": {
+          "n": 10,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "kuangbiao::龚开疆": {
+          "n": 2,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "kuangbiao::安欣": {
+          "n": 9,
+          "correct": 5,
+          "accuracy": 0.5555555555555556
+        },
+        "kuangbiao::高启强": {
+          "n": 4,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "kuangbiao::唐小龙": {
+          "n": 2,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "kuangbiao::李响": {
+          "n": 2,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::范闲": {
+          "n": 8,
+          "correct": 1,
+          "accuracy": 0.125
+        },
+        "qingyunian2::袁梦": {
+          "n": 2,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::范思辙": {
+          "n": 3,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::桑文": {
+          "n": 1,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::三皇子": {
+          "n": 1,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::二皇子": {
+          "n": 4,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::王启年": {
+          "n": 3,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::陈萍萍": {
+          "n": 3,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::太子": {
+          "n": 2,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::侯公公": {
+          "n": 1,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::范无救": {
+          "n": 1,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::赖名成": {
+          "n": 2,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::庆帝": {
+          "n": 3,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::范若若": {
+          "n": 3,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::范建": {
+          "n": 1,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::林婉儿": {
+          "n": 1,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::五竹": {
+          "n": 1,
+          "correct": 1,
+          "accuracy": 1.0
+        },
+        "gongfunvzu::钰珑": {
+          "n": 6,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "gongfunvzu::徐风": {
+          "n": 14,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "gongfunvzu::双双": {
+          "n": 13,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "gongfunvzu::孖八": {
+          "n": 2,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "gongfunvzu::师太": {
+          "n": 3,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "gongfunvzu::丧彪": {
+          "n": 2,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "jianlai::李宝瓶": {
+          "n": 6,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "jianlai::朱河": {
+          "n": 6,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "jianlai::朱鹿": {
+          "n": 6,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "jianlai::李槐": {
+          "n": 5,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "jianlai::陈平安": {
+          "n": 6,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "jianlai::阿良": {
+          "n": 8,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "jianlai::林守一": {
+          "n": 3,
+          "correct": 0,
+          "accuracy": 0.0
+        }
+      },
+      "macro_accuracy": 0.04422514619883041
+    },
+    "glm-5.3-flash|B": {
+      "characters": {
+        "kuangbiao::徐忠": {
+          "n": 8,
+          "correct": 1,
+          "accuracy": 0.125
+        },
+        "kuangbiao::周志合": {
+          "n": 3,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "kuangbiao::纪泽": {
+          "n": 10,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "kuangbiao::龚开疆": {
+          "n": 2,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "kuangbiao::安欣": {
+          "n": 9,
+          "correct": 8,
+          "accuracy": 0.8888888888888888
+        },
+        "kuangbiao::高启强": {
+          "n": 4,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "kuangbiao::唐小龙": {
+          "n": 2,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "kuangbiao::李响": {
+          "n": 2,
+          "correct": 1,
+          "accuracy": 0.5
+        },
+        "qingyunian2::范闲": {
+          "n": 8,
+          "correct": 2,
+          "accuracy": 0.25
+        },
+        "qingyunian2::袁梦": {
+          "n": 2,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::范思辙": {
+          "n": 3,
+          "correct": 3,
+          "accuracy": 1.0
+        },
+        "qingyunian2::桑文": {
+          "n": 1,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::三皇子": {
+          "n": 1,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::二皇子": {
+          "n": 4,
+          "correct": 1,
+          "accuracy": 0.25
+        },
+        "qingyunian2::王启年": {
+          "n": 3,
+          "correct": 1,
+          "accuracy": 0.3333333333333333
+        },
+        "qingyunian2::陈萍萍": {
+          "n": 3,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::太子": {
+          "n": 2,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::侯公公": {
+          "n": 1,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::范无救": {
+          "n": 1,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::赖名成": {
+          "n": 2,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::庆帝": {
+          "n": 3,
+          "correct": 1,
+          "accuracy": 0.3333333333333333
+        },
+        "qingyunian2::范若若": {
+          "n": 3,
+          "correct": 1,
+          "accuracy": 0.3333333333333333
+        },
+        "qingyunian2::范建": {
+          "n": 1,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::林婉儿": {
+          "n": 1,
+          "correct": 1,
+          "accuracy": 1.0
+        },
+        "qingyunian2::五竹": {
+          "n": 1,
+          "correct": 1,
+          "accuracy": 1.0
+        },
+        "gongfunvzu::钰珑": {
+          "n": 6,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "gongfunvzu::徐风": {
+          "n": 14,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "gongfunvzu::双双": {
+          "n": 13,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "gongfunvzu::孖八": {
+          "n": 2,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "gongfunvzu::师太": {
+          "n": 3,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "gongfunvzu::丧彪": {
+          "n": 2,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "jianlai::李宝瓶": {
+          "n": 6,
+          "correct": 3,
+          "accuracy": 0.5
+        },
+        "jianlai::朱河": {
+          "n": 6,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "jianlai::朱鹿": {
+          "n": 6,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "jianlai::李槐": {
+          "n": 5,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "jianlai::陈平安": {
+          "n": 6,
+          "correct": 6,
+          "accuracy": 1.0
+        },
+        "jianlai::阿良": {
+          "n": 8,
+          "correct": 2,
+          "accuracy": 0.25
+        },
+        "jianlai::林守一": {
+          "n": 3,
+          "correct": 0,
+          "accuracy": 0.0
+        }
+      },
+      "macro_accuracy": 0.204312865497076
+    },
+    "kimi-k3.1-pro|A": {
+      "characters": {
+        "kuangbiao::徐忠": {
+          "n": 8,
+          "correct": 5,
+          "accuracy": 0.625
+        },
+        "kuangbiao::周志合": {
+          "n": 3,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "kuangbiao::纪泽": {
+          "n": 10,
+          "correct": 7,
+          "accuracy": 0.7
+        },
+        "kuangbiao::龚开疆": {
+          "n": 2,
+          "correct": 2,
+          "accuracy": 1.0
+        },
+        "kuangbiao::安欣": {
+          "n": 9,
+          "correct": 9,
+          "accuracy": 1.0
+        },
+        "kuangbiao::高启强": {
+          "n": 4,
+          "correct": 4,
+          "accuracy": 1.0
+        },
+        "kuangbiao::唐小龙": {
+          "n": 2,
+          "correct": 1,
+          "accuracy": 0.5
+        },
+        "kuangbiao::李响": {
+          "n": 2,
+          "correct": 1,
+          "accuracy": 0.5
+        },
+        "qingyunian2::范闲": {
+          "n": 8,
+          "correct": 8,
+          "accuracy": 1.0
+        },
+        "qingyunian2::袁梦": {
+          "n": 2,
+          "correct": 1,
+          "accuracy": 0.5
+        },
+        "qingyunian2::范思辙": {
+          "n": 3,
+          "correct": 2,
+          "accuracy": 0.6666666666666666
+        },
+        "qingyunian2::桑文": {
+          "n": 1,
+          "correct": 1,
+          "accuracy": 1.0
+        },
+        "qingyunian2::三皇子": {
+          "n": 1,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::二皇子": {
+          "n": 4,
+          "correct": 4,
+          "accuracy": 1.0
+        },
+        "qingyunian2::王启年": {
+          "n": 3,
+          "correct": 2,
+          "accuracy": 0.6666666666666666
+        },
+        "qingyunian2::陈萍萍": {
+          "n": 3,
+          "correct": 3,
+          "accuracy": 1.0
+        },
+        "qingyunian2::太子": {
+          "n": 2,
+          "correct": 2,
+          "accuracy": 1.0
+        },
+        "qingyunian2::侯公公": {
+          "n": 1,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::范无救": {
+          "n": 1,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::赖名成": {
+          "n": 2,
+          "correct": 1,
+          "accuracy": 0.5
+        },
+        "qingyunian2::庆帝": {
+          "n": 3,
+          "correct": 3,
+          "accuracy": 1.0
+        },
+        "qingyunian2::范若若": {
+          "n": 3,
+          "correct": 2,
+          "accuracy": 0.6666666666666666
+        },
+        "qingyunian2::范建": {
+          "n": 1,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::林婉儿": {
+          "n": 1,
+          "correct": 1,
+          "accuracy": 1.0
+        },
+        "qingyunian2::五竹": {
+          "n": 1,
+          "correct": 1,
+          "accuracy": 1.0
+        },
+        "gongfunvzu::钰珑": {
+          "n": 6,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "gongfunvzu::徐风": {
+          "n": 14,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "gongfunvzu::双双": {
+          "n": 13,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "gongfunvzu::孖八": {
+          "n": 2,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "gongfunvzu::师太": {
+          "n": 3,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "gongfunvzu::丧彪": {
+          "n": 2,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "jianlai::李宝瓶": {
+          "n": 6,
+          "correct": 4,
+          "accuracy": 0.6666666666666666
+        },
+        "jianlai::朱河": {
+          "n": 6,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "jianlai::朱鹿": {
+          "n": 6,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "jianlai::李槐": {
+          "n": 5,
+          "correct": 1,
+          "accuracy": 0.2
+        },
+        "jianlai::陈平安": {
+          "n": 6,
+          "correct": 6,
+          "accuracy": 1.0
+        },
+        "jianlai::阿良": {
+          "n": 8,
+          "correct": 4,
+          "accuracy": 0.5
+        },
+        "jianlai::林守一": {
+          "n": 3,
+          "correct": 1,
+          "accuracy": 0.3333333333333333
+        }
+      },
+      "macro_accuracy": 0.5006578947368421
+    },
+    "kimi-k3.1-pro|B": {
+      "characters": {
+        "kuangbiao::徐忠": {
+          "n": 8,
+          "correct": 8,
+          "accuracy": 1.0
+        },
+        "kuangbiao::周志合": {
+          "n": 3,
+          "correct": 1,
+          "accuracy": 0.3333333333333333
+        },
+        "kuangbiao::纪泽": {
+          "n": 10,
+          "correct": 9,
+          "accuracy": 0.9
+        },
+        "kuangbiao::龚开疆": {
+          "n": 2,
+          "correct": 2,
+          "accuracy": 1.0
+        },
+        "kuangbiao::安欣": {
+          "n": 9,
+          "correct": 9,
+          "accuracy": 1.0
+        },
+        "kuangbiao::高启强": {
+          "n": 4,
+          "correct": 4,
+          "accuracy": 1.0
+        },
+        "kuangbiao::唐小龙": {
+          "n": 2,
+          "correct": 2,
+          "accuracy": 1.0
+        },
+        "kuangbiao::李响": {
+          "n": 2,
+          "correct": 2,
+          "accuracy": 1.0
+        },
+        "qingyunian2::范闲": {
+          "n": 8,
+          "correct": 8,
+          "accuracy": 1.0
+        },
+        "qingyunian2::袁梦": {
+          "n": 2,
+          "correct": 2,
+          "accuracy": 1.0
+        },
+        "qingyunian2::范思辙": {
+          "n": 3,
+          "correct": 3,
+          "accuracy": 1.0
+        },
+        "qingyunian2::桑文": {
+          "n": 1,
+          "correct": 1,
+          "accuracy": 1.0
+        },
+        "qingyunian2::三皇子": {
+          "n": 1,
+          "correct": 1,
+          "accuracy": 1.0
+        },
+        "qingyunian2::二皇子": {
+          "n": 4,
+          "correct": 4,
+          "accuracy": 1.0
+        },
+        "qingyunian2::王启年": {
+          "n": 3,
+          "correct": 2,
+          "accuracy": 0.6666666666666666
+        },
+        "qingyunian2::陈萍萍": {
+          "n": 3,
+          "correct": 3,
+          "accuracy": 1.0
+        },
+        "qingyunian2::太子": {
+          "n": 2,
+          "correct": 2,
+          "accuracy": 1.0
+        },
+        "qingyunian2::侯公公": {
+          "n": 1,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::范无救": {
+          "n": 1,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::赖名成": {
+          "n": 2,
+          "correct": 1,
+          "accuracy": 0.5
+        },
+        "qingyunian2::庆帝": {
+          "n": 3,
+          "correct": 1,
+          "accuracy": 0.3333333333333333
+        },
+        "qingyunian2::范若若": {
+          "n": 3,
+          "correct": 2,
+          "accuracy": 0.6666666666666666
+        },
+        "qingyunian2::范建": {
+          "n": 1,
+          "correct": 1,
+          "accuracy": 1.0
+        },
+        "qingyunian2::林婉儿": {
+          "n": 1,
+          "correct": 1,
+          "accuracy": 1.0
+        },
+        "qingyunian2::五竹": {
+          "n": 1,
+          "correct": 1,
+          "accuracy": 1.0
+        },
+        "gongfunvzu::钰珑": {
+          "n": 6,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "gongfunvzu::徐风": {
+          "n": 14,
+          "correct": 2,
+          "accuracy": 0.14285714285714285
+        },
+        "gongfunvzu::双双": {
+          "n": 13,
+          "correct": 2,
+          "accuracy": 0.15384615384615385
+        },
+        "gongfunvzu::孖八": {
+          "n": 2,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "gongfunvzu::师太": {
+          "n": 3,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "gongfunvzu::丧彪": {
+          "n": 2,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "jianlai::李宝瓶": {
+          "n": 6,
+          "correct": 6,
+          "accuracy": 1.0
+        },
+        "jianlai::朱河": {
+          "n": 6,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "jianlai::朱鹿": {
+          "n": 6,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "jianlai::李槐": {
+          "n": 5,
+          "correct": 2,
+          "accuracy": 0.4
+        },
+        "jianlai::陈平安": {
+          "n": 6,
+          "correct": 6,
+          "accuracy": 1.0
+        },
+        "jianlai::阿良": {
+          "n": 8,
+          "correct": 7,
+          "accuracy": 0.875
+        },
+        "jianlai::林守一": {
+          "n": 3,
+          "correct": 0,
+          "accuracy": 0.0
+        }
+      },
+      "macro_accuracy": 0.6308342972816657
+    },
+    "qwen3.7-plus|A": {
+      "characters": {
+        "kuangbiao::徐忠": {
+          "n": 8,
+          "correct": 1,
+          "accuracy": 0.125
+        },
+        "kuangbiao::周志合": {
+          "n": 3,
+          "correct": 1,
+          "accuracy": 0.3333333333333333
+        },
+        "kuangbiao::纪泽": {
+          "n": 10,
+          "correct": 5,
+          "accuracy": 0.5
+        },
+        "kuangbiao::龚开疆": {
+          "n": 2,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "kuangbiao::安欣": {
+          "n": 9,
+          "correct": 9,
+          "accuracy": 1.0
+        },
+        "kuangbiao::高启强": {
+          "n": 4,
+          "correct": 4,
+          "accuracy": 1.0
+        },
+        "kuangbiao::唐小龙": {
+          "n": 2,
+          "correct": 1,
+          "accuracy": 0.5
+        },
+        "kuangbiao::李响": {
+          "n": 2,
+          "correct": 2,
+          "accuracy": 1.0
+        },
+        "qingyunian2::范闲": {
+          "n": 8,
+          "correct": 8,
+          "accuracy": 1.0
+        },
+        "qingyunian2::袁梦": {
+          "n": 2,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::范思辙": {
+          "n": 3,
+          "correct": 2,
+          "accuracy": 0.6666666666666666
+        },
+        "qingyunian2::桑文": {
+          "n": 1,
+          "correct": 1,
+          "accuracy": 1.0
+        },
+        "qingyunian2::三皇子": {
+          "n": 1,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::二皇子": {
+          "n": 4,
+          "correct": 4,
+          "accuracy": 1.0
+        },
+        "qingyunian2::王启年": {
+          "n": 3,
+          "correct": 2,
+          "accuracy": 0.6666666666666666
+        },
+        "qingyunian2::陈萍萍": {
+          "n": 3,
+          "correct": 3,
+          "accuracy": 1.0
+        },
+        "qingyunian2::太子": {
+          "n": 2,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::侯公公": {
+          "n": 1,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::范无救": {
+          "n": 1,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::赖名成": {
+          "n": 2,
+          "correct": 2,
+          "accuracy": 1.0
+        },
+        "qingyunian2::庆帝": {
+          "n": 3,
+          "correct": 2,
+          "accuracy": 0.6666666666666666
+        },
+        "qingyunian2::范若若": {
+          "n": 3,
+          "correct": 1,
+          "accuracy": 0.3333333333333333
+        },
+        "qingyunian2::范建": {
+          "n": 1,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::林婉儿": {
+          "n": 1,
+          "correct": 1,
+          "accuracy": 1.0
+        },
+        "qingyunian2::五竹": {
+          "n": 1,
+          "correct": 1,
+          "accuracy": 1.0
+        },
+        "gongfunvzu::钰珑": {
+          "n": 6,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "gongfunvzu::徐风": {
+          "n": 14,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "gongfunvzu::双双": {
+          "n": 13,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "gongfunvzu::孖八": {
+          "n": 2,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "gongfunvzu::师太": {
+          "n": 3,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "gongfunvzu::丧彪": {
+          "n": 2,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "jianlai::李宝瓶": {
+          "n": 6,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "jianlai::朱河": {
+          "n": 6,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "jianlai::朱鹿": {
+          "n": 6,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "jianlai::李槐": {
+          "n": 5,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "jianlai::陈平安": {
+          "n": 6,
+          "correct": 3,
+          "accuracy": 0.5
+        },
+        "jianlai::阿良": {
+          "n": 8,
+          "correct": 7,
+          "accuracy": 0.875
+        },
+        "jianlai::林守一": {
+          "n": 3,
+          "correct": 0,
+          "accuracy": 0.0
+        }
+      },
+      "macro_accuracy": 0.3991228070175438
+    },
+    "qwen3.7-plus|B": {
+      "characters": {
+        "kuangbiao::徐忠": {
+          "n": 8,
+          "correct": 2,
+          "accuracy": 0.25
+        },
+        "kuangbiao::周志合": {
+          "n": 3,
+          "correct": 3,
+          "accuracy": 1.0
+        },
+        "kuangbiao::纪泽": {
+          "n": 10,
+          "correct": 9,
+          "accuracy": 0.9
+        },
+        "kuangbiao::龚开疆": {
+          "n": 2,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "kuangbiao::安欣": {
+          "n": 9,
+          "correct": 9,
+          "accuracy": 1.0
+        },
+        "kuangbiao::高启强": {
+          "n": 4,
+          "correct": 4,
+          "accuracy": 1.0
+        },
+        "kuangbiao::唐小龙": {
+          "n": 2,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "kuangbiao::李响": {
+          "n": 2,
+          "correct": 2,
+          "accuracy": 1.0
+        },
+        "qingyunian2::范闲": {
+          "n": 8,
+          "correct": 8,
+          "accuracy": 1.0
+        },
+        "qingyunian2::袁梦": {
+          "n": 2,
+          "correct": 1,
+          "accuracy": 0.5
+        },
+        "qingyunian2::范思辙": {
+          "n": 3,
+          "correct": 2,
+          "accuracy": 0.6666666666666666
+        },
+        "qingyunian2::桑文": {
+          "n": 1,
+          "correct": 1,
+          "accuracy": 1.0
+        },
+        "qingyunian2::三皇子": {
+          "n": 1,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::二皇子": {
+          "n": 4,
+          "correct": 4,
+          "accuracy": 1.0
+        },
+        "qingyunian2::王启年": {
+          "n": 3,
+          "correct": 2,
+          "accuracy": 0.6666666666666666
+        },
+        "qingyunian2::陈萍萍": {
+          "n": 3,
+          "correct": 2,
+          "accuracy": 0.6666666666666666
+        },
+        "qingyunian2::太子": {
+          "n": 2,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::侯公公": {
+          "n": 1,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::范无救": {
+          "n": 1,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::赖名成": {
+          "n": 2,
+          "correct": 1,
+          "accuracy": 0.5
+        },
+        "qingyunian2::庆帝": {
+          "n": 3,
+          "correct": 3,
+          "accuracy": 1.0
+        },
+        "qingyunian2::范若若": {
+          "n": 3,
+          "correct": 2,
+          "accuracy": 0.6666666666666666
+        },
+        "qingyunian2::范建": {
+          "n": 1,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::林婉儿": {
+          "n": 1,
+          "correct": 1,
+          "accuracy": 1.0
+        },
+        "qingyunian2::五竹": {
+          "n": 1,
+          "correct": 1,
+          "accuracy": 1.0
+        },
+        "gongfunvzu::钰珑": {
+          "n": 6,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "gongfunvzu::徐风": {
+          "n": 14,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "gongfunvzu::双双": {
+          "n": 13,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "gongfunvzu::孖八": {
+          "n": 2,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "gongfunvzu::师太": {
+          "n": 3,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "gongfunvzu::丧彪": {
+          "n": 2,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "jianlai::李宝瓶": {
+          "n": 6,
+          "correct": 6,
+          "accuracy": 1.0
+        },
+        "jianlai::朱河": {
+          "n": 6,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "jianlai::朱鹿": {
+          "n": 6,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "jianlai::李槐": {
+          "n": 5,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "jianlai::陈平安": {
+          "n": 6,
+          "correct": 6,
+          "accuracy": 1.0
+        },
+        "jianlai::阿良": {
+          "n": 8,
+          "correct": 4,
+          "accuracy": 0.5
+        },
+        "jianlai::林守一": {
+          "n": 3,
+          "correct": 0,
+          "accuracy": 0.0
+        }
+      },
+      "macro_accuracy": 0.4557017543859649
+    },
+    "qwen3.8-flash|A": {
+      "characters": {
+        "kuangbiao::徐忠": {
+          "n": 8,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "kuangbiao::周志合": {
+          "n": 3,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "kuangbiao::纪泽": {
+          "n": 10,
+          "correct": 7,
+          "accuracy": 0.7
+        },
+        "kuangbiao::龚开疆": {
+          "n": 2,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "kuangbiao::安欣": {
+          "n": 9,
+          "correct": 9,
+          "accuracy": 1.0
+        },
+        "kuangbiao::高启强": {
+          "n": 4,
+          "correct": 4,
+          "accuracy": 1.0
+        },
+        "kuangbiao::唐小龙": {
+          "n": 2,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "kuangbiao::李响": {
+          "n": 2,
+          "correct": 1,
+          "accuracy": 0.5
+        },
+        "qingyunian2::范闲": {
+          "n": 8,
+          "correct": 8,
+          "accuracy": 1.0
+        },
+        "qingyunian2::袁梦": {
+          "n": 2,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::范思辙": {
+          "n": 3,
+          "correct": 2,
+          "accuracy": 0.6666666666666666
+        },
+        "qingyunian2::桑文": {
+          "n": 1,
+          "correct": 1,
+          "accuracy": 1.0
+        },
+        "qingyunian2::三皇子": {
+          "n": 1,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::二皇子": {
+          "n": 4,
+          "correct": 4,
+          "accuracy": 1.0
+        },
+        "qingyunian2::王启年": {
+          "n": 3,
+          "correct": 2,
+          "accuracy": 0.6666666666666666
+        },
+        "qingyunian2::陈萍萍": {
+          "n": 3,
+          "correct": 2,
+          "accuracy": 0.6666666666666666
+        },
+        "qingyunian2::太子": {
+          "n": 2,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::侯公公": {
+          "n": 1,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::范无救": {
+          "n": 1,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::赖名成": {
+          "n": 2,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::庆帝": {
+          "n": 3,
+          "correct": 3,
+          "accuracy": 1.0
+        },
+        "qingyunian2::范若若": {
+          "n": 3,
+          "correct": 2,
+          "accuracy": 0.6666666666666666
+        },
+        "qingyunian2::范建": {
+          "n": 1,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::林婉儿": {
+          "n": 1,
+          "correct": 1,
+          "accuracy": 1.0
+        },
+        "qingyunian2::五竹": {
+          "n": 1,
+          "correct": 1,
+          "accuracy": 1.0
+        },
+        "gongfunvzu::钰珑": {
+          "n": 6,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "gongfunvzu::徐风": {
+          "n": 14,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "gongfunvzu::双双": {
+          "n": 13,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "gongfunvzu::孖八": {
+          "n": 2,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "gongfunvzu::师太": {
+          "n": 3,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "gongfunvzu::丧彪": {
+          "n": 2,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "jianlai::李宝瓶": {
+          "n": 6,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "jianlai::朱河": {
+          "n": 6,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "jianlai::朱鹿": {
+          "n": 6,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "jianlai::李槐": {
+          "n": 5,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "jianlai::陈平安": {
+          "n": 6,
+          "correct": 6,
+          "accuracy": 1.0
+        },
+        "jianlai::阿良": {
+          "n": 8,
+          "correct": 5,
+          "accuracy": 0.625
+        },
+        "jianlai::林守一": {
+          "n": 3,
+          "correct": 0,
+          "accuracy": 0.0
+        }
+      },
+      "macro_accuracy": 0.35504385964912283
+    },
+    "qwen3.8-flash|B": {
+      "characters": {
+        "kuangbiao::徐忠": {
+          "n": 8,
+          "correct": 7,
+          "accuracy": 0.875
+        },
+        "kuangbiao::周志合": {
+          "n": 3,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "kuangbiao::纪泽": {
+          "n": 10,
+          "correct": 8,
+          "accuracy": 0.8
+        },
+        "kuangbiao::龚开疆": {
+          "n": 2,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "kuangbiao::安欣": {
+          "n": 9,
+          "correct": 9,
+          "accuracy": 1.0
+        },
+        "kuangbiao::高启强": {
+          "n": 4,
+          "correct": 2,
+          "accuracy": 0.5
+        },
+        "kuangbiao::唐小龙": {
+          "n": 2,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "kuangbiao::李响": {
+          "n": 2,
+          "correct": 2,
+          "accuracy": 1.0
+        },
+        "qingyunian2::范闲": {
+          "n": 8,
+          "correct": 8,
+          "accuracy": 1.0
+        },
+        "qingyunian2::袁梦": {
+          "n": 2,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::范思辙": {
+          "n": 3,
+          "correct": 3,
+          "accuracy": 1.0
+        },
+        "qingyunian2::桑文": {
+          "n": 1,
+          "correct": 1,
+          "accuracy": 1.0
+        },
+        "qingyunian2::三皇子": {
+          "n": 1,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::二皇子": {
+          "n": 4,
+          "correct": 4,
+          "accuracy": 1.0
+        },
+        "qingyunian2::王启年": {
+          "n": 3,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::陈萍萍": {
+          "n": 3,
+          "correct": 2,
+          "accuracy": 0.6666666666666666
+        },
+        "qingyunian2::太子": {
+          "n": 2,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::侯公公": {
+          "n": 1,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::范无救": {
+          "n": 1,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::赖名成": {
+          "n": 2,
+          "correct": 2,
+          "accuracy": 1.0
+        },
+        "qingyunian2::庆帝": {
+          "n": 3,
+          "correct": 3,
+          "accuracy": 1.0
+        },
+        "qingyunian2::范若若": {
+          "n": 3,
+          "correct": 2,
+          "accuracy": 0.6666666666666666
+        },
+        "qingyunian2::范建": {
+          "n": 1,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::林婉儿": {
+          "n": 1,
+          "correct": 1,
+          "accuracy": 1.0
+        },
+        "qingyunian2::五竹": {
+          "n": 1,
+          "correct": 1,
+          "accuracy": 1.0
+        },
+        "gongfunvzu::钰珑": {
+          "n": 6,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "gongfunvzu::徐风": {
+          "n": 14,
+          "correct": 1,
+          "accuracy": 0.07142857142857142
+        },
+        "gongfunvzu::双双": {
+          "n": 13,
+          "correct": 3,
+          "accuracy": 0.23076923076923078
+        },
+        "gongfunvzu::孖八": {
+          "n": 2,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "gongfunvzu::师太": {
+          "n": 3,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "gongfunvzu::丧彪": {
+          "n": 2,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "jianlai::李宝瓶": {
+          "n": 6,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "jianlai::朱河": {
+          "n": 6,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "jianlai::朱鹿": {
+          "n": 6,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "jianlai::李槐": {
+          "n": 5,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "jianlai::陈平安": {
+          "n": 6,
+          "correct": 6,
+          "accuracy": 1.0
+        },
+        "jianlai::阿良": {
+          "n": 8,
+          "correct": 7,
+          "accuracy": 0.875
+        },
+        "jianlai::林守一": {
+          "n": 3,
+          "correct": 0,
+          "accuracy": 0.0
+        }
+      },
+      "macro_accuracy": 0.4127771351455562
+    },
+    "qwen3.8-max|A": {
+      "characters": {
+        "kuangbiao::徐忠": {
+          "n": 8,
+          "correct": 8,
+          "accuracy": 1.0
+        },
+        "kuangbiao::周志合": {
+          "n": 3,
+          "correct": 3,
+          "accuracy": 1.0
+        },
+        "kuangbiao::纪泽": {
+          "n": 10,
+          "correct": 9,
+          "accuracy": 0.9
+        },
+        "kuangbiao::龚开疆": {
+          "n": 2,
+          "correct": 2,
+          "accuracy": 1.0
+        },
+        "kuangbiao::安欣": {
+          "n": 9,
+          "correct": 9,
+          "accuracy": 1.0
+        },
+        "kuangbiao::高启强": {
+          "n": 4,
+          "correct": 4,
+          "accuracy": 1.0
+        },
+        "kuangbiao::唐小龙": {
+          "n": 2,
+          "correct": 2,
+          "accuracy": 1.0
+        },
+        "kuangbiao::李响": {
+          "n": 2,
+          "correct": 2,
+          "accuracy": 1.0
+        },
+        "qingyunian2::范闲": {
+          "n": 8,
+          "correct": 8,
+          "accuracy": 1.0
+        },
+        "qingyunian2::袁梦": {
+          "n": 2,
+          "correct": 2,
+          "accuracy": 1.0
+        },
+        "qingyunian2::范思辙": {
+          "n": 3,
+          "correct": 3,
+          "accuracy": 1.0
+        },
+        "qingyunian2::桑文": {
+          "n": 1,
+          "correct": 1,
+          "accuracy": 1.0
+        },
+        "qingyunian2::三皇子": {
+          "n": 1,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::二皇子": {
+          "n": 4,
+          "correct": 4,
+          "accuracy": 1.0
+        },
+        "qingyunian2::王启年": {
+          "n": 3,
+          "correct": 3,
+          "accuracy": 1.0
+        },
+        "qingyunian2::陈萍萍": {
+          "n": 3,
+          "correct": 3,
+          "accuracy": 1.0
+        },
+        "qingyunian2::太子": {
+          "n": 2,
+          "correct": 2,
+          "accuracy": 1.0
+        },
+        "qingyunian2::侯公公": {
+          "n": 1,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::范无救": {
+          "n": 1,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::赖名成": {
+          "n": 2,
+          "correct": 1,
+          "accuracy": 0.5
+        },
+        "qingyunian2::庆帝": {
+          "n": 3,
+          "correct": 3,
+          "accuracy": 1.0
+        },
+        "qingyunian2::范若若": {
+          "n": 3,
+          "correct": 3,
+          "accuracy": 1.0
+        },
+        "qingyunian2::范建": {
+          "n": 1,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::林婉儿": {
+          "n": 1,
+          "correct": 1,
+          "accuracy": 1.0
+        },
+        "qingyunian2::五竹": {
+          "n": 1,
+          "correct": 1,
+          "accuracy": 1.0
+        },
+        "gongfunvzu::钰珑": {
+          "n": 6,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "gongfunvzu::徐风": {
+          "n": 14,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "gongfunvzu::双双": {
+          "n": 13,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "gongfunvzu::孖八": {
+          "n": 2,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "gongfunvzu::师太": {
+          "n": 3,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "gongfunvzu::丧彪": {
+          "n": 2,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "jianlai::李宝瓶": {
+          "n": 6,
+          "correct": 6,
+          "accuracy": 1.0
+        },
+        "jianlai::朱河": {
+          "n": 6,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "jianlai::朱鹿": {
+          "n": 6,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "jianlai::李槐": {
+          "n": 5,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "jianlai::陈平安": {
+          "n": 6,
+          "correct": 4,
+          "accuracy": 0.6666666666666666
+        },
+        "jianlai::阿良": {
+          "n": 8,
+          "correct": 6,
+          "accuracy": 0.75
+        },
+        "jianlai::林守一": {
+          "n": 3,
+          "correct": 0,
+          "accuracy": 0.0
+        }
+      },
+      "macro_accuracy": 0.6004385964912281
+    },
+    "qwen3.8-max|B": {
+      "characters": {
+        "kuangbiao::徐忠": {
+          "n": 8,
+          "correct": 8,
+          "accuracy": 1.0
+        },
+        "kuangbiao::周志合": {
+          "n": 3,
+          "correct": 3,
+          "accuracy": 1.0
+        },
+        "kuangbiao::纪泽": {
+          "n": 10,
+          "correct": 9,
+          "accuracy": 0.9
+        },
+        "kuangbiao::龚开疆": {
+          "n": 2,
+          "correct": 2,
+          "accuracy": 1.0
+        },
+        "kuangbiao::安欣": {
+          "n": 9,
+          "correct": 9,
+          "accuracy": 1.0
+        },
+        "kuangbiao::高启强": {
+          "n": 4,
+          "correct": 4,
+          "accuracy": 1.0
+        },
+        "kuangbiao::唐小龙": {
+          "n": 2,
+          "correct": 2,
+          "accuracy": 1.0
+        },
+        "kuangbiao::李响": {
+          "n": 2,
+          "correct": 2,
+          "accuracy": 1.0
+        },
+        "qingyunian2::范闲": {
+          "n": 8,
+          "correct": 8,
+          "accuracy": 1.0
+        },
+        "qingyunian2::袁梦": {
+          "n": 2,
+          "correct": 2,
+          "accuracy": 1.0
+        },
+        "qingyunian2::范思辙": {
+          "n": 3,
+          "correct": 3,
+          "accuracy": 1.0
+        },
+        "qingyunian2::桑文": {
+          "n": 1,
+          "correct": 1,
+          "accuracy": 1.0
+        },
+        "qingyunian2::三皇子": {
+          "n": 1,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::二皇子": {
+          "n": 4,
+          "correct": 4,
+          "accuracy": 1.0
+        },
+        "qingyunian2::王启年": {
+          "n": 3,
+          "correct": 3,
+          "accuracy": 1.0
+        },
+        "qingyunian2::陈萍萍": {
+          "n": 3,
+          "correct": 3,
+          "accuracy": 1.0
+        },
+        "qingyunian2::太子": {
+          "n": 2,
+          "correct": 2,
+          "accuracy": 1.0
+        },
+        "qingyunian2::侯公公": {
+          "n": 1,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::范无救": {
+          "n": 1,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::赖名成": {
+          "n": 2,
+          "correct": 1,
+          "accuracy": 0.5
+        },
+        "qingyunian2::庆帝": {
+          "n": 3,
+          "correct": 3,
+          "accuracy": 1.0
+        },
+        "qingyunian2::范若若": {
+          "n": 3,
+          "correct": 3,
+          "accuracy": 1.0
+        },
+        "qingyunian2::范建": {
+          "n": 1,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "qingyunian2::林婉儿": {
+          "n": 1,
+          "correct": 1,
+          "accuracy": 1.0
+        },
+        "qingyunian2::五竹": {
+          "n": 1,
+          "correct": 1,
+          "accuracy": 1.0
+        },
+        "gongfunvzu::钰珑": {
+          "n": 6,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "gongfunvzu::徐风": {
+          "n": 14,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "gongfunvzu::双双": {
+          "n": 13,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "gongfunvzu::孖八": {
+          "n": 2,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "gongfunvzu::师太": {
+          "n": 3,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "gongfunvzu::丧彪": {
+          "n": 2,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "jianlai::李宝瓶": {
+          "n": 6,
+          "correct": 6,
+          "accuracy": 1.0
+        },
+        "jianlai::朱河": {
+          "n": 6,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "jianlai::朱鹿": {
+          "n": 6,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "jianlai::李槐": {
+          "n": 5,
+          "correct": 0,
+          "accuracy": 0.0
+        },
+        "jianlai::陈平安": {
+          "n": 6,
+          "correct": 6,
+          "accuracy": 1.0
+        },
+        "jianlai::阿良": {
+          "n": 8,
+          "correct": 8,
+          "accuracy": 1.0
+        },
+        "jianlai::林守一": {
+          "n": 3,
+          "correct": 0,
+          "accuracy": 0.0
+        }
+      },
+      "macro_accuracy": 0.6157894736842104
+    }
+  },
+  "ab_tests": {
+    "deepseek-flash": {
+      "paired_n": 160,
+      "accuracy_A_on_paired": 0.06875,
+      "accuracy_B_on_paired": 0.2375,
+      "delta_pp": 16.875,
+      "b": 27,
+      "c": 0,
+      "n_discordant": 27,
+      "statistic": 0,
+      "p_value": 1.4901161193847656e-08,
+      "method": "binomial_exact(scipy)"
+    },
+    "glm-4.6v": {
+      "paired_n": 160,
+      "accuracy_A_on_paired": 0.01875,
+      "accuracy_B_on_paired": 0.175,
+      "delta_pp": 15.625,
+      "b": 25,
+      "c": 0,
+      "n_discordant": 25,
+      "statistic": 0,
+      "p_value": 5.960464477539063e-08,
+      "method": "binomial_exact(scipy)"
+    },
+    "glm-5.3-flash": {
+      "paired_n": 160,
+      "accuracy_A_on_paired": 0.04375,
+      "accuracy_B_on_paired": 0.2,
+      "delta_pp": 15.625,
+      "b": 26,
+      "c": 1,
+      "n_discordant": 27,
+      "statistic": 1,
+      "p_value": 4.172325134277344e-07,
+      "method": "binomial_exact(scipy)"
+    },
+    "kimi-k3.1-pro": {
+      "paired_n": 160,
+      "accuracy_A_on_paired": 0.475,
+      "accuracy_B_on_paired": 0.59375,
+      "delta_pp": 11.875000000000002,
+      "b": 23,
+      "c": 4,
+      "n_discordant": 27,
+      "statistic": 4,
+      "p_value": 0.000310748815536499,
+      "method": "binomial_exact(scipy)"
+    },
+    "qwen3.7-plus": {
+      "paired_n": 160,
+      "accuracy_A_on_paired": 0.375,
+      "accuracy_B_on_paired": 0.45625,
+      "delta_pp": 8.124999999999998,
+      "b": 19,
+      "c": 6,
+      "n_discordant": 25,
+      "statistic": 6,
+      "p_value": 0.01463329792022705,
+      "method": "binomial_exact(scipy)"
+    },
+    "qwen3.8-flash": {
+      "paired_n": 160,
+      "accuracy_A_on_paired": 0.3625,
+      "accuracy_B_on_paired": 0.45,
+      "delta_pp": 8.750000000000002,
+      "b": 21,
+      "c": 7,
+      "n_discordant": 28,
+      "statistic": 7,
+      "p_value": 0.012540951371192932,
+      "method": "binomial_exact(scipy)"
+    },
+    "qwen3.8-max": {
+      "paired_n": 160,
+      "accuracy_A_on_paired": 0.5625,
+      "accuracy_B_on_paired": 0.5875,
+      "delta_pp": 2.500000000000002,
+      "b": 4,
+      "c": 0,
+      "n_discordant": 4,
+      "statistic": 0,
+      "p_value": 0.125,
+      "method": "binomial_exact(scipy)"
+    }
+  },
+  "_portable_export": {
+    "source_file_sha256": "29d63859bab5351b3dc1e5f491693dd6c388a94e223783f521f52f9262f99142",
+    "omitted_fields": [
+      "records"
+    ],
+    "scored_records_csv": "detail.csv",
+    "note": "2240条评分结果单独保存在detail.csv；此JSON保留全部原聚合指标，未包含原始API响应。"
+  }
+}

@@ -1,86 +1,86 @@
 work_slug: gongfunvzu
 work_name: 功夫女足
-source_note: >-
-  2026-11-12 网络调研（Bing/搜狗聚合：1905电影网条目摘要、豆瓣条目摘要、爱奇艺/腾讯
-  官方页快照、企鹅号/公众号影评报道；百度百科与维基镜像被反爬拦截，未能直接核验）。
-  影片信息：《功夫女足》，2026-07-11 中国大陆上映，导演/编剧/监制周星驰，106 分钟，
-  中港合拍运动喜剧（曾用名：女足/少林女足/E计划）。
-  全部条目 needs_review: true —— 待人工在标注页逐条确认（或修正角色名）后方可生效为
-  评分别名；名字来源详见各条 notes，未核实处如实标注，不臆造。
+source_note: 2026-11-13 授权代标补核：角色中文名参考1905演职员表 https://m.1905.com/m/film/starlist/2259233.shtml，丧彪参考1905官方对话栏目。needs_review=false仅表示角色名单姓名映射已核对；各图状态和来源归属另见标注库。未核实名字的占位项继续
+  needs_review=true。
 characters:
-  - name: 双双
-    aliases: [队长双双]
-    actors: [张小斐]
-    importance: main
-    notes: 峨眉队队长（爱奇艺官方简介“张小斐（饰双双）”、1905“队长双双（张小斐 饰）”双向确认）
-    needs_review: true
-
-  - name: 钰珑
-    aliases: []
-    actors: [迪丽热巴]
-    importance: main
-    notes: 峨眉队前锋（爱奇艺官方简介“迪丽热巴（饰钰珑）”、1905“前锋钰珑（迪丽热巴 饰）”双向确认；TMDB 英文名 Yulong）
-    needs_review: true
-
-  - name: 徐风
-    aliases: [师叔公]
-    actors: [张艺兴]
-    importance: main
-    notes: 峨眉队教练/师叔公，曾习武术（爱奇艺“张艺兴（饰徐风）”、1905 与影评“师叔公徐风”确认；TMDB 英文名 Xu Feng）
-    needs_review: true
-
-  - name: 师太
-    aliases: [峨眉师太]
-    actors: [刘嘉玲]
-    importance: key_supporting
-    notes: 峨眉派隐世师太，刘嘉玲零片酬特别出演（多篇影评/报道一致：“刘嘉玲《功夫女足》饰演师太”“峨眉师太”）
-    needs_review: true
-
-  - name: 亦如
-    aliases: []
-    actors: [马睎悦]
-    importance: supporting
-    notes: 峨眉女足队员（企鹅号报道：马睎悦饰演峨眉女足队员亦如，功夫戏真身上阵）
-    needs_review: true
-
-  - name: "88"
-    aliases: []
-    actors: [蔡思贝]
-    importance: supporting
-    notes: 角色名"88"来自 TMDB 演职员数据（蔡思贝 饰 88），中文名待核实——确认时请更正为正式角色名
-    needs_review: true
-
-  - name: Chusan
-    aliases: []
-    actors: [艾米]
-    importance: supporting
-    notes: TMDB 演职员数据：艾米 饰 Chusan，中文角色名未核实——确认时请更正为正式角色名
-    needs_review: true
-
-  - name: Snowy
-    aliases: []
-    actors: [雪野]
-    importance: supporting
-    notes: TMDB 演职员数据：雪野 饰 Snowy，中文角色名未核实——确认时请更正为正式角色名
-    needs_review: true
-
-  - name: Loony
-    aliases: []
-    actors: [胡予安]
-    importance: supporting
-    notes: TMDB 演职员数据：胡予安 饰 Loony，中文角色名未核实——确认时请更正为正式角色名
-    needs_review: true
-
-  - name: 佐藤健角色（名待核实）
-    aliases: []
-    actors: [佐藤健]
-    importance: supporting
-    notes: 佐藤健特别出演（官方演员表确认），角色名未能核实到可靠来源——确认时请更正为正式角色名；本条目仅用于演员名识别
-    needs_review: true
-
-  - name: 徐娇角色（名待核实）
-    aliases: []
-    actors: [徐娇]
-    importance: supporting
-    notes: 网易报道提及其参演（“老”星女郎徐娇再回锅），角色名未核实——确认时请更正或删除
-    needs_review: true
+- name: 双双
+  aliases:
+  - 队长双双
+  actors:
+  - 张小斐
+  importance: main
+  notes: 2026-11-13 assistant 授权代标时核对角色资料；非用户逐条人工复核，具体图片身份见逐图标注。 演职员表姓名映射：https://m.1905.com/m/film/starlist/2259233.shtml
+  needs_review: false
+- name: 钰珑
+  aliases: []
+  actors:
+  - 迪丽热巴
+  importance: main
+  notes: 2026-11-13 assistant 授权代标时核对角色资料；非用户逐条人工复核，具体图片身份见逐图标注。 演职员表姓名映射：https://m.1905.com/m/film/starlist/2259233.shtml
+  needs_review: false
+- name: 徐风
+  aliases:
+  - 师叔公
+  actors:
+  - 张艺兴
+  importance: main
+  notes: 2026-11-13 assistant 授权代标时核对角色资料；非用户逐条人工复核，具体图片身份见逐图标注。 演职员表姓名映射：https://m.1905.com/m/film/starlist/2259233.shtml
+  needs_review: false
+- name: 师太
+  aliases:
+  - 峨眉师太
+  actors:
+  - 刘嘉玲
+  importance: key_supporting
+  notes: 2026-11-13 assistant 授权代标时核对角色资料；非用户逐条人工复核，具体图片身份见逐图标注。 演职员表姓名映射：https://m.1905.com/m/film/starlist/2259233.shtml
+  needs_review: false
+- name: 亦如
+  aliases: []
+  actors:
+  - 马睎悦
+  importance: supporting
+  notes: 峨眉女足队员（企鹅号报道：马睎悦饰演峨眉女足队员亦如，功夫戏真身上阵）
+  needs_review: true
+- name: 孖八
+  aliases: []
+  actors:
+  - 蔡思贝
+  importance: supporting
+  notes: 2026-11-13 assistant 授权代标时核对角色资料；非用户逐条人工复核，具体图片身份见逐图标注。 演职员表姓名映射：https://m.1905.com/m/film/starlist/2259233.shtml
+  needs_review: false
+- name: 初三
+  aliases: []
+  actors:
+  - 艾米
+  importance: supporting
+  notes: 2026-11-13 assistant 授权代标时核对角色资料；非用户逐条人工复核，具体图片身份见逐图标注。 演职员表姓名映射：https://m.1905.com/m/film/starlist/2259233.shtml
+  needs_review: false
+- name: 雪野
+  aliases: []
+  actors:
+  - 雪野
+  importance: supporting
+  notes: 2026-11-13 assistant 授权代标时核对角色资料；非用户逐条人工复核，具体图片身份见逐图标注。 原种子占位名 Snowy 已更正为中文名。
+    1905演职员表列为雪野；未可靠核对具体样本，保留待复核。https://m.1905.com/m/film/starlist/2259233.shtml
+  needs_review: true
+- name: 丧彪
+  aliases: []
+  actors:
+  - 胡予安
+  importance: supporting
+  notes: 2026-11-13 assistant 授权代标时核对角色资料；非用户逐条人工复核，具体图片身份见逐图标注。 1905官方对话栏目明确胡予安饰丧彪：https://weibo.com/2/detail/5335793989059468；3号队服与面容用于本批对照。
+  needs_review: false
+- name: 佐藤健角色（名待核实）
+  aliases: []
+  actors:
+  - 佐藤健
+  importance: supporting
+  notes: 佐藤健特别出演（官方演员表确认），角色名未能核实到可靠来源——确认时请更正为正式角色名；本条目仅用于演员名识别
+  needs_review: true
+- name: 徐娇角色（名待核实）
+  aliases: []
+  actors:
+  - 徐娇
+  importance: supporting
+  notes: 网易报道提及其参演（“老”星女郎徐娇再回锅），角色名未核实——确认时请更正或删除
+  needs_review: true

@@ -23,8 +23,8 @@ from PIL import Image, ImageDraw
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
 from vcrb.annotation.rosters import CharacterEntry, load_roster, save_roster  # noqa: E402
-from vcrb.config import load_settings, load_works  # noqa: E402
-from vcrb.dataset.schema import DIFFICULTY_LEVELS, IMPORTANCE_LEVELS, SAMPLING_GROUPS  # noqa: E402
+from vcrb.config import DEFAULT_TARGET_PER_GROUP, DEFAULT_TARGET_PER_WORK, load_settings, load_works  # noqa: E402
+from vcrb.dataset.schema import DIFFICULTY_LEVELS, IMPORTANCE_LEVELS, SAMPLING_GROUPS, sampling_group  # noqa: E402
 from vcrb.dataset.store import AnnotationStore  # noqa: E402
 from vcrb.paths import CANDIDATES_DIR, DATASET_JSON  # noqa: E402
 from vcrb.runner.store import RunStore  # noqa: E402
@@ -78,12 +78,11 @@ def get_run_store() -> RunStore:
     return RunStore()
 
 
-@st.cache_data
 def get_works():
+    # 配置体积很小；每次页面刷新读取，作品替换后不显示旧缓存。
     return load_works()
 
 
-@st.cache_data
 def get_settings():
     return load_settings()
 
@@ -373,7 +372,7 @@ def page_screen() -> None:
         st.toast(
             f"自动判定 {rep.decided} 张：verified {rep.counts.get('verified', 0)} / "
             f"rejected {rep.counts.get('rejected', 0)} / needs_review {rep.counts.get('needs_review', 0)}"
-            f"（保留人工决定 {rep.kept_user} 张）"
+            f"（保留用户决定 {rep.kept_user} 张、授权代标 {rep.kept_assistant} 张）"
         )
         st.rerun()
 
@@ -497,7 +496,8 @@ def page_progress() -> None:
     st.title("数据准备进度")
     store = get_store()
     settings = get_settings()
-    target = int(settings.get("export", {}).get("target_per_group", 20))
+    target = int(settings.get("export", {}).get("target_per_group", DEFAULT_TARGET_PER_GROUP))
+    work_target = int(settings.get("export", {}).get("target_per_work", DEFAULT_TARGET_PER_WORK))
     stats = store.stats()
     works = get_works()
     cols = st.columns(len(works))
@@ -515,7 +515,10 @@ def page_progress() -> None:
                 f"🟡{ab.get('needs_review', 0) + ab.get('pending', 0)}"
             )
     st.divider()
-    rows = store.samples(status="verified")
+    rows = [
+        row for row in store.samples(status="verified")
+        if row.get("attribution_status") == "verified"
+    ]
     table = {}
     for work in works:
         table[work.name] = {g: 0 for g in SAMPLING_GROUPS}
@@ -524,23 +527,16 @@ def page_progress() -> None:
         multi = bool(r.get("is_multi_person"))
         difficulty = r.get("visual_difficulty") or "normal"
         importance = r.get("character_importance") or "supporting"
-        group = (
-            "multi_person" if multi
-            else ("hard_case" if difficulty != "normal" else {
-                "main": "main_character",
-                "key_supporting": "key_supporting_character",
-                "supporting": "supporting_character",
-            }[importance])
-        )
+        group = sampling_group(importance, difficulty, multi)
         name = next(w.name for w in works if w.slug == r["work_slug"])
         table[name][group] += 1
         table[name]["总计"] += 1
-    st.subheader("五组采样配额达成（目标每组 20）")
+    st.subheader(f"可入评测候选配额（目标每组 {target}，每部导出上限 {work_target}）")
     header = ["作品"] + [GROUP_LABELS[g] for g in SAMPLING_GROUPS] + ["总计"]
     data = []
     for name, bucket in table.items():
         data.append([name] + [bucket[g] for g in SAMPLING_GROUPS] + [bucket["总计"]])
-    data.append(["目标"] + [target] * len(SAMPLING_GROUPS) + [target * len(SAMPLING_GROUPS)])
+    data.append(["目标"] + [target] * len(SAMPLING_GROUPS) + [work_target])
     st.table([header] + data)
     if DATASET_JSON.exists():
         import json as _json

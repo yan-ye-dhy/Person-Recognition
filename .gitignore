@@ -14,8 +14,21 @@ htmlcov/
 # 环境变量（绝不提交 API Key）
 .env
 
-# 运行时数据（图片素材、标注库、实验结果）
-data/
+# 运行时数据：只同步最终160张测试图及标注清单；缓存/视频/数据库仍忽略
+data/*
+!data/final/
+data/final/*
+!data/final/dataset.json
+!data/final/kuangbiao/
+!data/final/qingyunian2/
+!data/final/gongfunvzu/
+!data/final/jianlai/
+data/final/*/*
+!data/final/kuangbiao/kuangbiao_[0-9][0-9][0-9][0-9].jpg
+!data/final/qingyunian2/qingyunian2_[0-9][0-9][0-9][0-9].jpg
+!data/final/gongfunvzu/gongfunvzu_[0-9][0-9][0-9][0-9].jpg
+!data/final/jianlai/jianlai_[0-9][0-9][0-9][0-9].jpg
+# 完整运行记录保留本地；可同步报告另存 reports/
 results/
 
 # IDE / 系统

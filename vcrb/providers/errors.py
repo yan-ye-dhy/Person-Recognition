@@ -2,7 +2,12 @@
 
 from __future__ import annotations
 
-from typing import Any
+import re
+
+
+_ACCOUNT_ID_RE = re.compile(r"\b(?:org|proj)-[a-z0-9]+\b", re.IGNORECASE)
+_KEY_ID_RE = re.compile(r"<\s*ak-[^<>\r\n]+>", re.IGNORECASE)
+_API_KEY_RE = re.compile(r"(?<![a-z0-9_])sk-[a-z0-9_-]{8,}", re.IGNORECASE)
 
 
 def _status_of(exc: BaseException) -> int | None:
@@ -41,6 +46,13 @@ def classify_exception(exc: BaseException) -> tuple[str, bool]:
 
 
 def error_summary(exc: BaseException, limit: int = 400) -> str:
-    """截断的异常描述（不得包含鉴权头信息；openai 异常 message 默认安全）。"""
+    """去标识化后截断，避免厂商异常正文中的账户/Key 标识进入日志。
+
+    必须先处理完整异常再截断，否则横跨截断边界的 Key 会泄露前缀。
+    保留异常类型、状态码和限流描述，供错误分类及故障排查使用。
+    """
     text = f"{type(exc).__name__}: {exc}"
+    text = _ACCOUNT_ID_RE.sub("[account-id]", text)
+    text = _KEY_ID_RE.sub("[api-key-id]", text)
+    text = _API_KEY_RE.sub("[api-key]", text)
     return text[:limit]

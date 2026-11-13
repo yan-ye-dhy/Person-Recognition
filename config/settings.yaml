@@ -5,12 +5,21 @@ retry:
   timeout_seconds: 120       # 单次 HTTP 请求超时
 
 generation:
-  temperature: 0.1          # 所有接受该参数的模型统一使用（Kimi k2.5/k2.6 不传，已记录）
-  max_tokens: 512
+  temperature: 0.1          # 接受该参数的模型统一使用；K3.1固定1，仅省略并记录差异
+  max_tokens: 4096         # 思考模型的推理与最终JSON共享预算，预检检查截断
+
+runner:
+  concurrency: 8          # 有界并发；SQLite与原始响应仍由主线程逐条保存
+  per_model_concurrency:
+    kimi-k3.1-pro: 4       # 用户充值后并发探测通过，提升并发并继续观察服务端限额
+    glm-4.6v-flash: 1      # 免费档避免并发限流
+  per_model_min_interval_seconds:
+    kimi-k3.1-pro: 0       # 用户充值后已通过并发探测，解除原starter节流
+    glm-4.6v-flash: 6.1    # 同账户付费型号已完成，免费档单独以低于10RPM继续观察
 
 collect:
   request_timeout_seconds: 15
-  max_images_per_work: 150     # 候选池上限（目标 100 张审核通过）
+  max_images_per_work: 150     # 候选采集上限（筛选后每部保留 40 张已确认样本）
   min_image_bytes: 10240       # 小于 10KB 视为无效
   user_agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36"
 
@@ -21,8 +30,8 @@ clean:
   allowed_formats: [jpg, jpeg, png, webp]
 
 export:
-  target_per_group: 20         # 每部作品 5 组采样配额各 20 张（目标，如实报告达成情况）
-  target_per_work: 100
+  target_per_group: 8          # 五组各 8 张作为参考目标，按真实覆盖报告缺口
+  target_per_work: 40          # 每部精简为 40 张已确认样本；不足时如实记录缺口
 
 scoring:
   fuzzy_review_threshold: 0.9  # 字符串相似度达到该值但未精确命中 → needs_review，不自动判对

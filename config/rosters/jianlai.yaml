@@ -1,54 +1,88 @@
 work_slug: jianlai
 work_name: 剑来
-source_note: 动画《剑来》(2024-) 角色名单种子 —— 动画无真人演员；needs_review 条目待人工确认出场与名称
+source_note: 动画《剑来》角色种子；2026-11-13 assistant补核第二季送学队伍。阿良有本地字幕自报姓名，其他角色结合角色资料、形象及同行场景核对。名单核对不等同于每图均已确认，未知人物仍保留待确认。官方简介：https://wetv.vip/zh-cn/play/mlz46dus64wwr4y/z4102grw76e；补充角色资料：https://bgm.tv/subject/520300/characters。
 characters:
-  - name: 陈平安
-    aliases: [平安]
-    actors: []
-    importance: main
-    needs_review: false
-  - name: 宁姚
-    aliases: []
-    actors: []
-    importance: key_supporting
-    needs_review: false
-  - name: 齐静春
-    aliases: [齐先生]
-    actors: []
-    importance: key_supporting
-    needs_review: false
-  - name: 刘羡阳
-    aliases: []
-    actors: []
-    importance: supporting
-    needs_review: true
-  - name: 顾璨
-    aliases: []
-    actors: []
-    importance: supporting
-    needs_review: true
-  - name: 阿良
-    aliases: []
-    actors: []
-    importance: key_supporting
-    needs_review: true
-  - name: 宋集薪
-    aliases: []
-    actors: []
-    importance: supporting
-    needs_review: true
-  - name: 马苦玄
-    aliases: []
-    actors: []
-    importance: supporting
-    needs_review: true
-  - name: 老秀才
-    aliases: [文圣]
-    actors: []
-    importance: supporting
-    needs_review: true
-  - name: 李柳
-    aliases: []
-    actors: []
-    importance: supporting
-    needs_review: true
+- name: 陈平安
+  aliases:
+  - 平安
+  actors: []
+  importance: main
+  needs_review: false
+- name: 宁姚
+  aliases: []
+  actors: []
+  importance: key_supporting
+  needs_review: false
+- name: 齐静春
+  aliases:
+  - 齐先生
+  actors: []
+  importance: key_supporting
+  needs_review: false
+- name: 刘羡阳
+  aliases: []
+  actors: []
+  importance: supporting
+  needs_review: true
+- name: 顾璨
+  aliases: []
+  actors: []
+  importance: supporting
+  needs_review: true
+- name: 阿良
+  aliases: []
+  actors: []
+  importance: key_supporting
+  needs_review: false
+  notes: 2026-11-13 assistant 授权代标时核对角色资料；非用户逐条人工复核，具体图片身份见逐图标注。 本地第1集第16张字幕“我叫阿良”；官方简介亦列阿良。
+- name: 宋集薪
+  aliases: []
+  actors: []
+  importance: supporting
+  needs_review: true
+- name: 马苦玄
+  aliases: []
+  actors: []
+  importance: supporting
+  needs_review: true
+- name: 老秀才
+  aliases:
+  - 文圣
+  actors: []
+  importance: supporting
+  needs_review: true
+- name: 李柳
+  aliases: []
+  actors: []
+  importance: supporting
+  needs_review: true
+- name: 李宝瓶
+  aliases: []
+  actors: []
+  importance: key_supporting
+  needs_review: false
+  notes: 2026-11-13 assistant 授权代标时核对角色资料；非用户逐条人工复核，具体图片身份见逐图标注。 名称资料：https://wetv.vip/zh-cn/play/mlz46dus64wwr4y/z4102grw76e
+- name: 李槐
+  aliases: []
+  actors: []
+  importance: key_supporting
+  needs_review: false
+  notes: 2026-11-13 assistant 授权代标时核对角色资料；非用户逐条人工复核，具体图片身份见逐图标注。 名称资料：https://bgm.tv/character/195899
+- name: 林守一
+  aliases: []
+  actors: []
+  importance: key_supporting
+  needs_review: false
+  notes: 2026-11-13 assistant 授权代标时核对角色资料；非用户逐条人工复核，具体图片身份见逐图标注。 名称资料：https://bgm.tv/character/195900
+- name: 朱河
+  aliases: []
+  actors: []
+  importance: supporting
+  needs_review: false
+  notes: 2026-11-13 assistant 授权代标时核对角色资料；非用户逐条人工复核，具体图片身份见逐图标注。 名称资料：https://bkso.baidu.com/item/朱河/67129026
+- name: 朱鹿
+  aliases: []
+  actors: []
+  importance: supporting
+  needs_review: false
+  notes: 2026-11-13 assistant 授权代标时核对角色资料；非用户逐条人工复核，具体图片身份见逐图标注。 名称资料：https://wapbaike.baidu.com/item/朱鹿/62200266

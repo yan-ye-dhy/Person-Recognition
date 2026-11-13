@@ -68,7 +68,12 @@ def test_clean_work_end_to_end(tmp_path):
     Image.new("RGB", (100, 80), (90, 90, 200)).save(raw / "tiny.jpg")      # 尺寸过小
     (raw / "broken.jpg").write_bytes(b"not image")                          # 损坏
     with (raw / "manifest.jsonl").open("w", encoding="utf-8") as fh:
-        fh.write(json.dumps({"file": "a1.jpg", "source_type": "official_still", "source_url": "https://x/a1"}) + "\n")
+        fh.write(json.dumps({
+            "file": "a1.jpg", "source_type": "frame_capture",
+            "source_url": "https://x/video#t=120", "page_url": "https://x/video",
+            "page_title": "狂飙 第1集", "video_timestamp_seconds": 120,
+            "source_channel": "官方频道",
+        }) + "\n")
         fh.write(json.dumps({"file": "b1.jpg", "source_type": "web_image"}) + "\n")
 
     report = clean_work("kuangbiao", raw, out, SETTINGS)
@@ -81,7 +86,11 @@ def test_clean_work_end_to_end(tmp_path):
     files = sorted(p.name for p in out.glob("cand_*"))
     assert files == ["cand_0001.jpg", "cand_0002.jpg"]
     manifest = load_manifest(out)
-    assert manifest["cand_0001.jpg"]["source_type"] == "official_still"
+    assert manifest["cand_0001.jpg"]["source_type"] == "frame_capture"
+    assert manifest["cand_0001.jpg"]["page_url"] == "https://x/video"
+    assert manifest["cand_0001.jpg"]["page_title"] == "狂飙 第1集"
+    assert manifest["cand_0001.jpg"]["video_timestamp_seconds"] == 120
+    assert manifest["cand_0001.jpg"]["source_channel"] == "官方频道"
     assert manifest["cand_0002.jpg"]["source_type"] == "web_image"
     assert manifest["cand_0001.jpg"]["original_file"] == "a1.jpg"
 

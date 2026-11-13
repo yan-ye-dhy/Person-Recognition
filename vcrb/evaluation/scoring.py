@@ -180,6 +180,8 @@ class ScoreResult:
     by_multi_person: dict[tuple[str, str], dict[str, CellMetrics]] = field(default_factory=dict)
     per_character: dict[tuple[str, str], dict[str, dict[str, Any]]] = field(default_factory=dict)
     ab_tests: dict[str, dict[str, Any]] = field(default_factory=dict)
+    input_dataset_hash: str = ""
+    annotation_revision_path: str | None = None
 
     def to_dict(self) -> dict[str, Any]:
         def key(m: str, e: str) -> str:
@@ -189,6 +191,8 @@ class ScoreResult:
             "run_id": self.run_id,
             "prompt_version": self.prompt_version,
             "dataset_hash": self.dataset_hash,
+            "input_dataset_hash": self.input_dataset_hash,
+            "annotation_revision_path": self.annotation_revision_path,
             "metrics": {key(*k): v.to_dict() for k, v in self.metrics.items()},
             "by_work": {
                 key(*k): {w: m.to_dict() for w, m in v.items()}
@@ -215,6 +219,24 @@ class ScoreResult:
 # ---------------------------------------------------------------- 主评分流程
 
 
+def validate_annotation_only_revision(
+    original: list[Sample], revised: list[Sample],
+) -> None:
+    """GT revisions may change scoring annotations, never a model's inputs."""
+    input_fields = (
+        "sample_id", "work_slug", "work_name", "work_category", "image_path",
+        "target_bbox", "image_width", "image_height",
+    )
+    if len(original) != len(revised):
+        raise ValueError("标注修订不得改变模型输入：样本数量不一致")
+    for before, after in zip(original, revised):
+        for name in input_fields:
+            if getattr(before, name) != getattr(after, name):
+                raise ValueError(
+                    f"标注修订不得改变模型输入：{before.sample_id} 的 {name} 不一致"
+                )
+
+
 def score_run(
     store: RunStore,
     run_id: str,
@@ -226,6 +248,35 @@ def score_run(
     run = store.get_run(run_id)
     if run is None:
         raise ValueError(f"未知 run_id：{run_id}")
+    fairness = run.get("fairness_meta") or {}
+    evaluation_hash = fairness.get("evaluation_dataset_hash")
+    revision_path = fairness.get("annotation_revision_path")
+    if any(fairness.get(key) for key in (
+        "evaluation_snapshot_path", "evaluation_dataset_hash", "annotation_revision_path",
+    )):
+        if not all(fairness.get(key) for key in (
+            "evaluation_snapshot_path", "evaluation_dataset_hash", "annotation_revision_path",
+        )):
+            raise ValueError("GT修订登记不完整：需要评分快照、哈希及审计记录路径")
+        if not Path(revision_path).is_file():
+            raise ValueError("GT修订审计记录不存在")
+        original_path = fairness.get("dataset_snapshot_path")
+        evaluation_path = fairness.get("evaluation_snapshot_path")
+        if not original_path or not Path(original_path).is_file():
+            raise ValueError("GT修订缺少原始输入快照")
+        if not Path(evaluation_path).is_file():
+            raise ValueError("GT修订评分快照不存在")
+        from ..dataset.schema import load_dataset
+        from ..runner.executor import dataset_hash
+
+        original_samples = load_dataset(Path(original_path))
+        if dataset_hash(original_samples) != run["dataset_hash"]:
+            raise ValueError("原始输入快照哈希不一致")
+        if dataset_hash(samples) != evaluation_hash:
+            raise ValueError("评分样本与已登记的GT修订快照哈希不一致")
+        if dataset_hash(load_dataset(Path(evaluation_path))) != evaluation_hash:
+            raise ValueError("已登记的GT修订评分快照哈希不一致")
+        validate_annotation_only_revision(original_samples, samples)
     refusal_keywords = list(
         settings.get("scoring", {}).get("refusal_keywords", []) or []
     ) or None  # None → 使用 parser 默认表
@@ -254,8 +305,10 @@ def score_run(
     result = ScoreResult(
         run_id=run_id,
         prompt_version=run.get("prompt_version", ""),
-        dataset_hash=run.get("dataset_hash", ""),
+        dataset_hash=evaluation_hash or run.get("dataset_hash", ""),
         records=scored,
+        input_dataset_hash=run.get("dataset_hash", ""),
+        annotation_revision_path=revision_path,
     )
     _annotate_dimensions(result, samples)
     _aggregate(result)
@@ -318,6 +371,7 @@ def _classify_record(
         detail_map = {
             "actor_of_other": "回答了其他角色的演员",
             "other_character": "回答了其他角色",
+            "ambiguous": "包含多个角色候选或未作明确选择，转人工复核",
             "fuzzy": f"与正确答案高度相似（{match.similarity:.2f}），转人工复核",
             "none": "未命中任何角色",
             "empty": "回答为空",

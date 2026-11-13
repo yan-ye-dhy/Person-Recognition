@@ -1,0 +1,1019 @@
+{
+  "generated_at": "2026-11-13T01:57:45+00:00",
+  "explicit_run_ids": [
+    "run_20261113_final_practical"
+  ],
+  "database_read_only": true,
+  "report_scope": "all_explicit_runs",
+  "is_stage_result": false,
+  "included_model_count": 7,
+  "completed_model_count": 7,
+  "in_progress_model_count": 0,
+  "annotation_revision_applied": false,
+  "has_reused_responses": true,
+  "cohorts": [
+    {
+      "sample_count": 160,
+      "dataset_hash": "507321ad831ac96b014074d030a13673",
+      "evaluation_dataset_hash": "507321ad831ac96b014074d030a13673",
+      "input_dataset_hashes": [
+        "507321ad831ac96b014074d030a13673"
+      ],
+      "annotation_revision_paths": [
+        "annotation_changes.json"
+      ],
+      "annotation_revision_applied": false,
+      "has_reused_responses": true,
+      "prompt_version": "v1",
+      "by_work": {
+        "kuangbiao": 40,
+        "qingyunian2": 40,
+        "gongfunvzu": 40,
+        "jianlai": 40
+      },
+      "models": [
+        {
+          "model_id": "deepseek-flash",
+          "cells": {
+            "A": {
+              "experiment": "A",
+              "run_id": "run_20261113_final_practical",
+              "planned": 160,
+              "correct": 11,
+              "valid_responses": 160,
+              "counts": {
+                "correct": 11,
+                "wrong_name": 95,
+                "actor_name": 0,
+                "uncertain": 54,
+                "refused": 0,
+                "parse_error": 0,
+                "api_failure": 0,
+                "not_run": 0
+              },
+              "accuracy_valid": 0.06875,
+              "accuracy_valid_ci95": [
+                0.03881942091091279,
+                0.11890292242451045
+              ],
+              "accuracy_e2e": 0.06875,
+              "api_failure_rate": 0.0,
+              "completed_requests": 160,
+              "recorded_http_attempts": 160,
+              "latency_observations": 160,
+              "http_mean_seconds": 1.23999375,
+              "http_p95_seconds": 1.6121,
+              "usage_prompt_tokens": 137760,
+              "usage_completion_tokens": 7677,
+              "usage_total_tokens": 145437,
+              "requests_with_usage": 160,
+              "requests_without_usage": 0,
+              "served_models": {
+                "deepseek-flash": 160
+              },
+              "finish_reasons": {
+                "stop": 160
+              },
+              "output_issues": {}
+            },
+            "B": {
+              "experiment": "B",
+              "run_id": "run_20261113_final_practical",
+              "planned": 160,
+              "correct": 38,
+              "valid_responses": 160,
+              "counts": {
+                "correct": 38,
+                "wrong_name": 85,
+                "actor_name": 0,
+                "uncertain": 37,
+                "refused": 0,
+                "parse_error": 0,
+                "api_failure": 0,
+                "not_run": 0
+              },
+              "accuracy_valid": 0.2375,
+              "accuracy_valid_ci95": [
+                0.1782035847518699,
+                0.3091056677131703
+              ],
+              "accuracy_e2e": 0.2375,
+              "api_failure_rate": 0.0,
+              "completed_requests": 160,
+              "recorded_http_attempts": 160,
+              "latency_observations": 160,
+              "http_mean_seconds": 1.06505,
+              "http_p95_seconds": 1.3803999999999998,
+              "usage_prompt_tokens": 139160,
+              "usage_completion_tokens": 7616,
+              "usage_total_tokens": 146776,
+              "requests_with_usage": 160,
+              "requests_without_usage": 0,
+              "served_models": {
+                "deepseek-flash": 160
+              },
+              "finish_reasons": {
+                "stop": 160
+              },
+              "output_issues": {}
+            }
+          },
+          "run_ids": [
+            "run_20261113_final_practical"
+          ],
+          "thinking_mode": "关闭思考",
+          "parameter_snapshot": {
+            "extra_body": {
+              "thinking": {
+                "type": "disabled"
+              }
+            },
+            "passes_temperature": true,
+            "token_limit_parameter": "max_tokens",
+            "temperature": 0.1,
+            "max_tokens": 4096
+          },
+          "completed_requests": 320,
+          "recorded_http_attempts": 320,
+          "latency_observations": 320,
+          "http_mean_seconds": 1.152521875,
+          "http_p95_seconds": 1.5542500000000001,
+          "usage_prompt_tokens": 276920,
+          "usage_completion_tokens": 15293,
+          "usage_total_tokens": 292213,
+          "requests_with_usage": 320,
+          "requests_without_usage": 0,
+          "served_models": {
+            "deepseek-flash": 320
+          },
+          "finish_reasons": {
+            "stop": 320
+          },
+          "output_issues": {},
+          "planned_requests": 320,
+          "api_failure_count": 0,
+          "api_failure_rate": 0.0
+        },
+        {
+          "model_id": "glm-4.6v",
+          "cells": {
+            "A": {
+              "experiment": "A",
+              "run_id": "run_20261113_final_practical",
+              "planned": 160,
+              "correct": 3,
+              "valid_responses": 160,
+              "counts": {
+                "correct": 3,
+                "wrong_name": 153,
+                "actor_name": 1,
+                "uncertain": 3,
+                "refused": 0,
+                "parse_error": 0,
+                "api_failure": 0,
+                "not_run": 0
+              },
+              "accuracy_valid": 0.01875,
+              "accuracy_valid_ci95": [
+                0.00639685075325945,
+                0.0536701120993143
+              ],
+              "accuracy_e2e": 0.01875,
+              "api_failure_rate": 0.0,
+              "completed_requests": 160,
+              "recorded_http_attempts": 160,
+              "latency_observations": 160,
+              "http_mean_seconds": 2.71313125,
+              "http_p95_seconds": 4.306749999999989,
+              "usage_prompt_tokens": 259360,
+              "usage_completion_tokens": 8140,
+              "usage_total_tokens": 267500,
+              "requests_with_usage": 160,
+              "requests_without_usage": 0,
+              "served_models": {
+                "glm-4.6v": 160
+              },
+              "finish_reasons": {
+                "stop": 160
+              },
+              "output_issues": {}
+            },
+            "B": {
+              "experiment": "B",
+              "run_id": "run_20261113_final_practical",
+              "planned": 160,
+              "correct": 28,
+              "valid_responses": 160,
+              "counts": {
+                "correct": 28,
+                "wrong_name": 113,
+                "actor_name": 0,
+                "uncertain": 19,
+                "refused": 0,
+                "parse_error": 0,
+                "api_failure": 0,
+                "not_run": 0
+              },
+              "accuracy_valid": 0.175,
+              "accuracy_valid_ci95": [
+                0.12394200193945988,
+                0.24129802492201852
+              ],
+              "accuracy_e2e": 0.175,
+              "api_failure_rate": 0.0,
+              "completed_requests": 160,
+              "recorded_http_attempts": 160,
+              "latency_observations": 160,
+              "http_mean_seconds": 2.5771375,
+              "http_p95_seconds": 4.0875499999999985,
+              "usage_prompt_tokens": 260840,
+              "usage_completion_tokens": 7629,
+              "usage_total_tokens": 268469,
+              "requests_with_usage": 160,
+              "requests_without_usage": 0,
+              "served_models": {
+                "glm-4.6v": 160
+              },
+              "finish_reasons": {
+                "stop": 160
+              },
+              "output_issues": {}
+            }
+          },
+          "run_ids": [
+            "run_20261113_final_practical"
+          ],
+          "thinking_mode": "关闭思考",
+          "parameter_snapshot": {
+            "extra_body": {
+              "thinking": {
+                "type": "disabled"
+              }
+            },
+            "passes_temperature": true,
+            "token_limit_parameter": "max_tokens",
+            "temperature": 0.1,
+            "max_tokens": 4096
+          },
+          "completed_requests": 320,
+          "recorded_http_attempts": 320,
+          "latency_observations": 320,
+          "http_mean_seconds": 2.645134375,
+          "http_p95_seconds": 4.225750000000001,
+          "usage_prompt_tokens": 520200,
+          "usage_completion_tokens": 15769,
+          "usage_total_tokens": 535969,
+          "requests_with_usage": 320,
+          "requests_without_usage": 0,
+          "served_models": {
+            "glm-4.6v": 320
+          },
+          "finish_reasons": {
+            "stop": 320
+          },
+          "output_issues": {},
+          "planned_requests": 320,
+          "api_failure_count": 0,
+          "api_failure_rate": 0.0
+        },
+        {
+          "model_id": "glm-5.3-flash",
+          "cells": {
+            "A": {
+              "experiment": "A",
+              "run_id": "run_20261113_final_practical",
+              "planned": 160,
+              "correct": 7,
+              "valid_responses": 160,
+              "counts": {
+                "correct": 7,
+                "wrong_name": 21,
+                "actor_name": 0,
+                "uncertain": 132,
+                "refused": 0,
+                "parse_error": 0,
+                "api_failure": 0,
+                "not_run": 0
+              },
+              "accuracy_valid": 0.04375,
+              "accuracy_valid_ci95": [
+                0.02135161155153454,
+                0.08754304154246395
+              ],
+              "accuracy_e2e": 0.04375,
+              "api_failure_rate": 0.0,
+              "completed_requests": 160,
+              "recorded_http_attempts": 160,
+              "latency_observations": 160,
+              "http_mean_seconds": 4.485625,
+              "http_p95_seconds": 7.417349999999999,
+              "usage_prompt_tokens": 265040,
+              "usage_completion_tokens": 12854,
+              "usage_total_tokens": 277894,
+              "requests_with_usage": 160,
+              "requests_without_usage": 0,
+              "served_models": {
+                "glm-5.3-flash": 160
+              },
+              "finish_reasons": {
+                "stop": 160
+              },
+              "output_issues": {}
+            },
+            "B": {
+              "experiment": "B",
+              "run_id": "run_20261113_final_practical",
+              "planned": 160,
+              "correct": 32,
+              "valid_responses": 160,
+              "counts": {
+                "correct": 32,
+                "wrong_name": 43,
+                "actor_name": 0,
+                "uncertain": 85,
+                "refused": 0,
+                "parse_error": 0,
+                "api_failure": 0,
+                "not_run": 0
+              },
+              "accuracy_valid": 0.2,
+              "accuracy_valid_ci95": [
+                0.14538269154252415,
+                0.268685025560379
+              ],
+              "accuracy_e2e": 0.2,
+              "api_failure_rate": 0.0,
+              "completed_requests": 160,
+              "recorded_http_attempts": 160,
+              "latency_observations": 160,
+              "http_mean_seconds": 4.00909375,
+              "http_p95_seconds": 6.958549999999989,
+              "usage_prompt_tokens": 266520,
+              "usage_completion_tokens": 11156,
+              "usage_total_tokens": 277676,
+              "requests_with_usage": 160,
+              "requests_without_usage": 0,
+              "served_models": {
+                "glm-5.3-flash": 160
+              },
+              "finish_reasons": {
+                "stop": 160
+              },
+              "output_issues": {}
+            }
+          },
+          "run_ids": [
+            "run_20261113_final_practical"
+          ],
+          "thinking_mode": "思考 low（不可关闭）",
+          "parameter_snapshot": {
+            "extra_body": {
+              "thinking": {
+                "type": "enabled"
+              },
+              "reasoning_effort": "low"
+            },
+            "passes_temperature": true,
+            "token_limit_parameter": "max_tokens",
+            "temperature": 0.1,
+            "max_tokens": 4096
+          },
+          "completed_requests": 320,
+          "recorded_http_attempts": 320,
+          "latency_observations": 320,
+          "http_mean_seconds": 4.247359375,
+          "http_p95_seconds": 7.417350000000001,
+          "usage_prompt_tokens": 531560,
+          "usage_completion_tokens": 24010,
+          "usage_total_tokens": 555570,
+          "requests_with_usage": 320,
+          "requests_without_usage": 0,
+          "served_models": {
+            "glm-5.3-flash": 320
+          },
+          "finish_reasons": {
+            "stop": 320
+          },
+          "output_issues": {},
+          "planned_requests": 320,
+          "api_failure_count": 0,
+          "api_failure_rate": 0.0
+        },
+        {
+          "model_id": "kimi-k3.1-pro",
+          "cells": {
+            "A": {
+              "experiment": "A",
+              "run_id": "run_20261113_final_practical",
+              "planned": 160,
+              "correct": 76,
+              "valid_responses": 160,
+              "counts": {
+                "correct": 76,
+                "wrong_name": 46,
+                "actor_name": 0,
+                "uncertain": 38,
+                "refused": 0,
+                "parse_error": 0,
+                "api_failure": 0,
+                "not_run": 0
+              },
+              "accuracy_valid": 0.475,
+              "accuracy_valid_ci95": [
+                0.3991189168067862,
+                0.5520533929517891
+              ],
+              "accuracy_e2e": 0.475,
+              "api_failure_rate": 0.0,
+              "completed_requests": 160,
+              "recorded_http_attempts": 160,
+              "latency_observations": 160,
+              "http_mean_seconds": 16.8613,
+              "http_p95_seconds": 35.447649999999946,
+              "usage_prompt_tokens": 279280,
+              "usage_completion_tokens": 45652,
+              "usage_total_tokens": 324932,
+              "requests_with_usage": 160,
+              "requests_without_usage": 0,
+              "served_models": {
+                "kimi-k3.1-pro": 160
+              },
+              "finish_reasons": {
+                "stop": 160
+              },
+              "output_issues": {}
+            },
+            "B": {
+              "experiment": "B",
+              "run_id": "run_20261113_final_practical",
+              "planned": 160,
+              "correct": 95,
+              "valid_responses": 160,
+              "counts": {
+                "correct": 95,
+                "wrong_name": 26,
+                "actor_name": 0,
+                "uncertain": 39,
+                "refused": 0,
+                "parse_error": 0,
+                "api_failure": 0,
+                "not_run": 0
+              },
+              "accuracy_valid": 0.59375,
+              "accuracy_valid_ci95": [
+                0.5163168856257644,
+                0.6667869527795783
+              ],
+              "accuracy_e2e": 0.59375,
+              "api_failure_rate": 0.0,
+              "completed_requests": 160,
+              "recorded_http_attempts": 160,
+              "latency_observations": 160,
+              "http_mean_seconds": 14.1657,
+              "http_p95_seconds": 30.286599999999993,
+              "usage_prompt_tokens": 280760,
+              "usage_completion_tokens": 36032,
+              "usage_total_tokens": 316792,
+              "requests_with_usage": 160,
+              "requests_without_usage": 0,
+              "served_models": {
+                "kimi-k3.1-pro": 160
+              },
+              "finish_reasons": {
+                "stop": 160
+              },
+              "output_issues": {}
+            }
+          },
+          "run_ids": [
+            "run_20261113_final_practical"
+          ],
+          "thinking_mode": "思考 low（不可关闭）",
+          "parameter_snapshot": {
+            "extra_body": {
+              "reasoning_effort": "low"
+            },
+            "passes_temperature": false,
+            "token_limit_parameter": "max_completion_tokens",
+            "temperature": null,
+            "max_tokens": 4096
+          },
+          "completed_requests": 320,
+          "recorded_http_attempts": 320,
+          "latency_observations": 320,
+          "http_mean_seconds": 15.5135,
+          "http_p95_seconds": 32.69595000000001,
+          "usage_prompt_tokens": 560040,
+          "usage_completion_tokens": 81684,
+          "usage_total_tokens": 641724,
+          "requests_with_usage": 320,
+          "requests_without_usage": 0,
+          "served_models": {
+            "kimi-k3.1-pro": 320
+          },
+          "finish_reasons": {
+            "stop": 320
+          },
+          "output_issues": {},
+          "planned_requests": 320,
+          "api_failure_count": 0,
+          "api_failure_rate": 0.0
+        },
+        {
+          "model_id": "qwen3.7-plus",
+          "cells": {
+            "A": {
+              "experiment": "A",
+              "run_id": "run_20261113_final_practical",
+              "planned": 160,
+              "correct": 60,
+              "valid_responses": 160,
+              "counts": {
+                "correct": 60,
+                "wrong_name": 92,
+                "actor_name": 0,
+                "uncertain": 6,
+                "refused": 0,
+                "parse_error": 2,
+                "api_failure": 0,
+                "not_run": 0
+              },
+              "accuracy_valid": 0.375,
+              "accuracy_valid_ci95": [
+                0.30374323210068377,
+                0.4521183166921926
+              ],
+              "accuracy_e2e": 0.375,
+              "api_failure_rate": 0.0,
+              "completed_requests": 160,
+              "recorded_http_attempts": 160,
+              "latency_observations": 160,
+              "http_mean_seconds": 2.2778,
+              "http_p95_seconds": 2.586299999999999,
+              "usage_prompt_tokens": 206240,
+              "usage_completion_tokens": 12265,
+              "usage_total_tokens": 218505,
+              "requests_with_usage": 160,
+              "requests_without_usage": 0,
+              "served_models": {
+                "qwen3.7-plus": 160
+              },
+              "finish_reasons": {
+                "stop": 160
+              },
+              "output_issues": {}
+            },
+            "B": {
+              "experiment": "B",
+              "run_id": "run_20261113_final_practical",
+              "planned": 160,
+              "correct": 73,
+              "valid_responses": 160,
+              "counts": {
+                "correct": 73,
+                "wrong_name": 84,
+                "actor_name": 0,
+                "uncertain": 3,
+                "refused": 0,
+                "parse_error": 0,
+                "api_failure": 0,
+                "not_run": 0
+              },
+              "accuracy_valid": 0.45625,
+              "accuracy_valid_ci95": [
+                0.38100176815340075,
+                0.533549773924106
+              ],
+              "accuracy_e2e": 0.45625,
+              "api_failure_rate": 0.0,
+              "completed_requests": 160,
+              "recorded_http_attempts": 160,
+              "latency_observations": 160,
+              "http_mean_seconds": 2.0275625,
+              "http_p95_seconds": 2.546749999999998,
+              "usage_prompt_tokens": 207920,
+              "usage_completion_tokens": 10202,
+              "usage_total_tokens": 218122,
+              "requests_with_usage": 160,
+              "requests_without_usage": 0,
+              "served_models": {
+                "qwen3.7-plus": 160
+              },
+              "finish_reasons": {
+                "stop": 160
+              },
+              "output_issues": {}
+            }
+          },
+          "run_ids": [
+            "run_20261113_final_practical"
+          ],
+          "thinking_mode": "关闭思考",
+          "parameter_snapshot": {
+            "extra_body": {
+              "enable_thinking": false
+            },
+            "passes_temperature": true,
+            "token_limit_parameter": "max_tokens",
+            "temperature": 0.1,
+            "max_tokens": 4096
+          },
+          "completed_requests": 320,
+          "recorded_http_attempts": 320,
+          "latency_observations": 320,
+          "http_mean_seconds": 2.15268125,
+          "http_p95_seconds": 2.5863000000000005,
+          "usage_prompt_tokens": 414160,
+          "usage_completion_tokens": 22467,
+          "usage_total_tokens": 436627,
+          "requests_with_usage": 320,
+          "requests_without_usage": 0,
+          "served_models": {
+            "qwen3.7-plus": 320
+          },
+          "finish_reasons": {
+            "stop": 320
+          },
+          "output_issues": {},
+          "planned_requests": 320,
+          "api_failure_count": 0,
+          "api_failure_rate": 0.0
+        },
+        {
+          "model_id": "qwen3.8-flash",
+          "cells": {
+            "A": {
+              "experiment": "A",
+              "run_id": "run_20261113_final_practical",
+              "planned": 160,
+              "correct": 58,
+              "valid_responses": 160,
+              "counts": {
+                "correct": 58,
+                "wrong_name": 65,
+                "actor_name": 0,
+                "uncertain": 36,
+                "refused": 0,
+                "parse_error": 1,
+                "api_failure": 0,
+                "not_run": 0
+              },
+              "accuracy_valid": 0.3625,
+              "accuracy_valid_ci95": [
+                0.29204439482073724,
+                0.4394033088514268
+              ],
+              "accuracy_e2e": 0.3625,
+              "api_failure_rate": 0.0,
+              "completed_requests": 160,
+              "recorded_http_attempts": 160,
+              "latency_observations": 160,
+              "http_mean_seconds": 1.73589375,
+              "http_p95_seconds": 2.332749999999998,
+              "usage_prompt_tokens": 206240,
+              "usage_completion_tokens": 9423,
+              "usage_total_tokens": 215663,
+              "requests_with_usage": 160,
+              "requests_without_usage": 0,
+              "served_models": {
+                "qwen3.8-flash": 160
+              },
+              "finish_reasons": {
+                "stop": 160
+              },
+              "output_issues": {}
+            },
+            "B": {
+              "experiment": "B",
+              "run_id": "run_20261113_final_practical",
+              "planned": 160,
+              "correct": 72,
+              "valid_responses": 160,
+              "counts": {
+                "correct": 72,
+                "wrong_name": 65,
+                "actor_name": 0,
+                "uncertain": 23,
+                "refused": 0,
+                "parse_error": 0,
+                "api_failure": 0,
+                "not_run": 0
+              },
+              "accuracy_valid": 0.45,
+              "accuracy_valid_ci95": [
+                0.3749863030702235,
+                0.5273583164469271
+              ],
+              "accuracy_e2e": 0.45,
+              "api_failure_rate": 0.0,
+              "completed_requests": 160,
+              "recorded_http_attempts": 160,
+              "latency_observations": 160,
+              "http_mean_seconds": 1.4575375,
+              "http_p95_seconds": 1.9886999999999997,
+              "usage_prompt_tokens": 207920,
+              "usage_completion_tokens": 8229,
+              "usage_total_tokens": 216149,
+              "requests_with_usage": 160,
+              "requests_without_usage": 0,
+              "served_models": {
+                "qwen3.8-flash": 160
+              },
+              "finish_reasons": {
+                "stop": 160
+              },
+              "output_issues": {}
+            }
+          },
+          "run_ids": [
+            "run_20261113_final_practical"
+          ],
+          "thinking_mode": "关闭思考",
+          "parameter_snapshot": {
+            "extra_body": {
+              "enable_thinking": false
+            },
+            "passes_temperature": true,
+            "token_limit_parameter": "max_tokens",
+            "temperature": 0.1,
+            "max_tokens": 4096
+          },
+          "completed_requests": 320,
+          "recorded_http_attempts": 320,
+          "latency_observations": 320,
+          "http_mean_seconds": 1.596715625,
+          "http_p95_seconds": 2.0782499999999997,
+          "usage_prompt_tokens": 414160,
+          "usage_completion_tokens": 17652,
+          "usage_total_tokens": 431812,
+          "requests_with_usage": 320,
+          "requests_without_usage": 0,
+          "served_models": {
+            "qwen3.8-flash": 320
+          },
+          "finish_reasons": {
+            "stop": 320
+          },
+          "output_issues": {},
+          "planned_requests": 320,
+          "api_failure_count": 0,
+          "api_failure_rate": 0.0
+        },
+        {
+          "model_id": "qwen3.8-max",
+          "cells": {
+            "A": {
+              "experiment": "A",
+              "run_id": "run_20261113_final_practical",
+              "planned": 160,
+              "correct": 90,
+              "valid_responses": 160,
+              "counts": {
+                "correct": 90,
+                "wrong_name": 63,
+                "actor_name": 0,
+                "uncertain": 0,
+                "refused": 0,
+                "parse_error": 7,
+                "api_failure": 0,
+                "not_run": 0
+              },
+              "accuracy_valid": 0.5625,
+              "accuracy_valid_ci95": [
+                0.4850602128197586,
+                0.6370090127838032
+              ],
+              "accuracy_e2e": 0.5625,
+              "api_failure_rate": 0.0,
+              "completed_requests": 160,
+              "recorded_http_attempts": 160,
+              "latency_observations": 160,
+              "http_mean_seconds": 4.00168125,
+              "http_p95_seconds": 3.899249999999993,
+              "usage_prompt_tokens": 206240,
+              "usage_completion_tokens": 21836,
+              "usage_total_tokens": 228076,
+              "requests_with_usage": 160,
+              "requests_without_usage": 0,
+              "served_models": {
+                "qwen3.8-max": 160
+              },
+              "finish_reasons": {
+                "length": 1,
+                "stop": 159
+              },
+              "output_issues": {
+                "truncated_output": 1
+              }
+            },
+            "B": {
+              "experiment": "B",
+              "run_id": "run_20261113_final_practical",
+              "planned": 160,
+              "correct": 94,
+              "valid_responses": 160,
+              "counts": {
+                "correct": 94,
+                "wrong_name": 49,
+                "actor_name": 0,
+                "uncertain": 3,
+                "refused": 0,
+                "parse_error": 14,
+                "api_failure": 0,
+                "not_run": 0
+              },
+              "accuracy_valid": 0.5875,
+              "accuracy_valid_ci95": [
+                0.510041245495629,
+                0.6608556703493577
+              ],
+              "accuracy_e2e": 0.5875,
+              "api_failure_rate": 0.0,
+              "completed_requests": 160,
+              "recorded_http_attempts": 160,
+              "latency_observations": 160,
+              "http_mean_seconds": 6.1900375,
+              "http_p95_seconds": 26.993949999999998,
+              "usage_prompt_tokens": 207920,
+              "usage_completion_tokens": 41511,
+              "usage_total_tokens": 249431,
+              "requests_with_usage": 160,
+              "requests_without_usage": 0,
+              "served_models": {
+                "qwen3.8-max": 160
+              },
+              "finish_reasons": {
+                "length": 3,
+                "stop": 157
+              },
+              "output_issues": {
+                "truncated_output": 3
+              }
+            }
+          },
+          "run_ids": [
+            "run_20261113_final_practical"
+          ],
+          "thinking_mode": "关闭思考",
+          "parameter_snapshot": {
+            "extra_body": {
+              "enable_thinking": false
+            },
+            "passes_temperature": true,
+            "token_limit_parameter": "max_tokens",
+            "temperature": 0.1,
+            "max_tokens": 4096
+          },
+          "completed_requests": 320,
+          "recorded_http_attempts": 320,
+          "latency_observations": 320,
+          "http_mean_seconds": 5.095859375,
+          "http_p95_seconds": 23.108450000000012,
+          "usage_prompt_tokens": 414160,
+          "usage_completion_tokens": 63347,
+          "usage_total_tokens": 477507,
+          "requests_with_usage": 320,
+          "requests_without_usage": 0,
+          "served_models": {
+            "qwen3.8-max": 320
+          },
+          "finish_reasons": {
+            "length": 4,
+            "stop": 316
+          },
+          "output_issues": {
+            "truncated_output": 4
+          },
+          "planned_requests": 320,
+          "api_failure_count": 0,
+          "api_failure_rate": 0.0
+        }
+      ],
+      "pending_models": [],
+      "source_runs": [
+        "run_20261113_final_practical"
+      ],
+      "cohort_id": "cohort_1_n160_507321ad"
+    }
+  ],
+  "source_runs": [
+    {
+      "run_id": "run_20261113_final_practical",
+      "label": "Final cohort (saved-response assembly)",
+      "status": "done",
+      "created_at": "2026-11-13T01:55:50+00:00",
+      "dataset_hash": "507321ad831ac96b014074d030a13673",
+      "evaluation_dataset_hash": "507321ad831ac96b014074d030a13673",
+      "input_dataset_hash": "507321ad831ac96b014074d030a13673",
+      "sample_count": 160,
+      "snapshot_path": null,
+      "snapshot_sha256": "541705aa6e7c07e042557ad4c4f7c51a4e31fb2ff5adb8305ef74e2e92945729",
+      "original_snapshot_path": null,
+      "original_snapshot_sha256": "541705aa6e7c07e042557ad4c4f7c51a4e31fb2ff5adb8305ef74e2e92945729",
+      "annotation_revision_applied": false,
+      "annotation_revision_path": null,
+      "annotation_revision_sha256": null,
+      "cohort_assembly": {
+        "kind": "offline_response_reuse",
+        "source_run_ids": [
+          "run_20261113_010640",
+          "run_20261113_010800",
+          "run_20261113_014628",
+          "run_20261113_015201"
+        ],
+        "source_record_counts": {
+          "run_20261113_010640": 1896,
+          "run_20261113_010800": 316,
+          "run_20261113_014628": 24,
+          "run_20261113_015201": 4
+        },
+        "imported_records": 2240,
+        "source_image_manifests": [
+          "provenance/input_image_hashes.json",
+          "provenance/final_image_hashes.json"
+        ],
+        "annotation_revision_path": "annotation_changes.json",
+        "historical_image_digest_available": false,
+        "limitations": [
+          "Historical raw requests contain image_meta, not image digests. Image reuse is checked against source snapshot paths/bboxes and frozen SHA256 manifests; these digests do not purport to be captured at historical request time."
+        ],
+        "no_api_calls": true
+      },
+      "score_summary_path": "data/score_summary.json",
+      "metrics_path": "data/metrics.csv",
+      "metrics_sha256": "0a2a0c407293283903f2e104dd3934ac42bb62fc0a463bb4439d210e171cac06",
+      "completed_records": 2240,
+      "completed_model_ids": [
+        "deepseek-flash",
+        "glm-4.6v",
+        "glm-5.3-flash",
+        "kimi-k3.1-pro",
+        "qwen3.7-plus",
+        "qwen3.8-flash",
+        "qwen3.8-max"
+      ],
+      "in_progress_model_ids": [],
+      "report_links": {
+        "report.md": "details/report.md",
+        "errors.html": null
+      }
+    }
+  ],
+  "excluded_models": [
+    {
+      "model_id": "kimi-k2.5",
+      "ok": null,
+      "error_type": "model_not_found",
+      "summary": "实测404，当前账号不可用；未参与正式比较。"
+    },
+    {
+      "model_id": "kimi-k2.6",
+      "ok": null,
+      "error_type": "model_not_found",
+      "summary": "实测404，当前账号不可用；未参与正式比较。"
+    },
+    {
+      "model_id": "glm-4.6v-flash",
+      "ok": null,
+      "error_type": "excluded_after_availability_check",
+      "summary": "反复返回模型访问量过大；114项部分测试101 HTTP成功、13最终API失败。按用户关注实际稳定性停止后续全量，未参与准确率比较。"
+    }
+  ],
+  "definitions": {
+    "accuracy": "正确数 / 有效响应数；拒答、无法识别、格式错误仍计入有效响应。",
+    "end_to_end": "正确数 / 计划请求数。API失败与未执行计入端到端分母。",
+    "api_failure_rate": "API失败数 / 计划请求数。未执行单独显示。",
+    "wilson": "有效响应识别准确率的95% Wilson二项比例区间，未调整同角色重复样本相关性。",
+    "latency": "所有已完成任务（成功与失败）的 records.latency_ms；累计各次HTTP尝试耗时，不含限频排队及重试退避；不是用户墙钟总时长。P95使用线性插值。",
+    "tokens": "只合计记录中返回的 usage；没有usage的失败/中断请求可能仍有计费，不能当成完整账单。",
+    "cohorts": "仅同一快照、相同样本数和提示词版本合并展示；不同规模/快照单独分组，不生成跨组排名。",
+    "ground_truth": "准确率使用评分绑定的评估标签快照。审计修订仅变更标注，样本顺序、图像路径、目标框等模型输入字段与原快照一致；原输入哈希和修订记录单独保留。",
+    "response_reuse": "离线组合沿用源运行已保存的请求和响应，不产生额外模型调用。组合记录的接口耗时与usage来自原请求；导入记录数不能当成新增调用数。",
+    "inference": "可关闭思考的型号采用关闭模式；K3.1/GLM5.3不可关闭，若使用low会在各模型参数栏如实显示。"
+  },
+  "_portable_export": {
+    "final_dataset_path": "../../data/final/dataset.json",
+    "final_dataset_sha256": "733ff61e0277e42de5a9d6fef9db420b241d67e9ec43f466a21d338e608a609d",
+    "original_scoring_snapshot_note": "原评分快照和完整样本清单具有不同格式/元数据。原snapshot SHA保持原值；此处final_dataset_sha256只标记仓库完整样本清单。",
+    "annotation_changes_path": "annotation_changes.json",
+    "source_summary_sha256": "67d0a4556357b92aaea78bb71cd07b0c95959d14f03eb83d4575c05ca7471e6d",
+    "local_only_artifacts": [
+      {
+        "context": "/source_runs/0/snapshot_path",
+        "repository_relative_source": "results/snapshots/run_20261113_final_practical/dataset.json",
+        "disposition": "retained locally; path omitted from exported JSON"
+      },
+      {
+        "context": "/source_runs/0/original_snapshot_path",
+        "repository_relative_source": "results/snapshots/run_20261113_final_practical/dataset.json",
+        "disposition": "retained locally; path omitted from exported JSON"
+      },
+      {
+        "context": "/source_runs/0/report_links/errors.html",
+        "repository_relative_source": "results/reports/run_20261113_final_practical/errors.html",
+        "disposition": "retained locally; not included"
+      }
+    ],
+    "raw_api_responses_included": false
+  }
+}

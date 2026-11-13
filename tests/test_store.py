@@ -174,10 +174,13 @@ def test_export_dataset_anonymized(tmp_path, make_image):
     out_dir = tmp_path / "final"
     path = export_dataset(
         store, [make_work("kuangbiao")], out_dir=out_dir,
-        candidates_dir=tmp_path / "candidates", target_per_group=20,
+        candidates_dir=tmp_path / "candidates",
     )
     payload = json.loads(path.read_text(encoding="utf-8"))
     assert payload["total"] == 2
+    assert payload["target_per_group"] == 8
+    assert payload["target_per_work"] == 40
+    assert payload["gap_per_work"]["kuangbiao"] == 38
     assert payload["quota_per_group"]["kuangbiao"]["main_character"] == 1
     # 匿名化：文件名 = slug_000N.jpg，绝不含角色名
     for s in payload["samples"]:
@@ -239,3 +242,83 @@ def test_export_skips_unverified(tmp_path, make_image):
     )
     payload = json.loads(path.read_text(encoding="utf-8"))
     assert payload["total"] == 0
+
+
+def _grouped_export_store(tmp_path, counts):
+    """主角先全部登记，保证限额不能靠截取前 100 行满足五组覆盖。"""
+    store = AnnotationStore(tmp_path / "annotations.db")
+    candidates = tmp_path / "candidates" / "kuangbiao"
+    attributes = [
+        ("main", "normal", False),
+        ("key_supporting", "normal", False),
+        ("supporting", "normal", False),
+        ("main", "side_face", False),
+        ("main", "normal", True),
+    ]
+    index = 0
+    for count, (importance, difficulty, multi) in zip(counts, attributes):
+        for _ in range(count):
+            index += 1
+            name = f"cand_{index:04d}.jpg"
+            _make_jpeg(candidates / name, (index % 255, 40, 80))
+            store.register_candidates(
+                "kuangbiao", [CandidateItem("kuangbiao", name, 64, 48)], None
+            )
+            row = store.samples("kuangbiao")[-1]
+            store.update_annotation(row["pk"], {
+                "status": "verified", "target_character": f"角色{index}",
+                "character_importance": importance, "visual_difficulty": difficulty,
+                "is_multi_person": multi,
+            })
+            store.set_attribution([row["pk"]], "verified", ["测试"], actor="user")
+    return store
+
+
+def test_export_caps_each_work_and_preserves_all_sampling_groups(tmp_path):
+    store = _grouped_export_store(tmp_path, [60, 24, 24, 24, 24])
+    # 在较早的主角候选里隔离一张，分层选择仍应凑齐每组8张。
+    first = store.samples("kuangbiao")[0]
+    store.set_attribution([first["pk"]], "needs_review", ["归属待复核"], actor="user")
+    kwargs = dict(
+        out_dir=tmp_path / "final", candidates_dir=tmp_path / "candidates",
+    )
+    path = export_dataset(store, [make_work()], **kwargs)
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    assert payload["total"] == 40
+    assert set(payload["quota_per_group"]["kuangbiao"].values()) == {8}
+    assert payload["gap_per_work"]["kuangbiao"] == 0
+    assert set(payload["quota_shortfall"]["kuangbiao"].values()) == {0}
+    assert payload["eligible_per_work"]["kuangbiao"] == 155
+    assert payload["quarantined_not_exported"]["kuangbiao"] == 1
+    assert "角色1" not in {sample["target_character"] for sample in payload["samples"]}
+    assert len(store.samples("kuangbiao")) == 156
+    assert len(list((tmp_path / "candidates" / "kuangbiao").glob("*.jpg"))) == 156
+    first_export = payload["samples"]
+    path = export_dataset(store, [make_work()], **kwargs)
+    assert json.loads(path.read_text(encoding="utf-8"))["samples"] == first_export
+
+
+def test_export_fills_group_shortfall_from_remaining_eligible_samples(tmp_path):
+    store = _grouped_export_store(tmp_path, [92, 2, 2, 2, 2])
+    path = export_dataset(
+        store, [make_work()], out_dir=tmp_path / "final",
+        candidates_dir=tmp_path / "candidates",
+    )
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    assert payload["total"] == 40
+    assert payload["quota_per_group"]["kuangbiao"]["main_character"] == 32
+    assert payload["quota_per_group"]["kuangbiao"]["hard_case"] == 2
+    assert payload["quota_shortfall"]["kuangbiao"]["hard_case"] == 6
+    assert payload["gap_per_work"]["kuangbiao"] == 0
+
+
+def test_export_obeys_custom_work_limit(tmp_path):
+    store = _grouped_export_store(tmp_path, [4, 4, 4, 4, 4])
+    path = export_dataset(
+        store, [make_work()], out_dir=tmp_path / "final",
+        candidates_dir=tmp_path / "candidates", target_per_group=2, target_per_work=10,
+    )
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    assert payload["total"] == 10
+    assert payload["target_per_work"] == 10
+    assert set(payload["quota_per_group"]["kuangbiao"].values()) == {2}

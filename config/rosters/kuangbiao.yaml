@@ -1,6 +1,6 @@
 work_slug: kuangbiao
 work_name: 狂飙
-source_note: 电视剧《狂飙》(2023) 角色名单种子 —— needs_review 条目的演员映射待人工确认
+source_note: 电视剧《狂飙》(2023)；2026-11-13 核对爱奇艺官方演职员表 https://www.iqiyi.com/a_1fkgtbddd2x.html 。周志合姓名由用户原片第1集156秒姓名叠字确认，演员留空。名单对应与单张图片角色确认分别审核。
 characters:
   - name: 高启强
     aliases: [强哥, 老高]
@@ -16,7 +16,7 @@ characters:
     aliases: []
     actors: [苏小玎]
     importance: key_supporting
-    needs_review: true
+    needs_review: false
   - name: 陈书婷
     aliases: [大嫂]
     actors: [高叶]
@@ -26,39 +26,54 @@ characters:
     aliases: []
     actors: [李健]
     importance: key_supporting
-    needs_review: true
+    needs_review: false
   - name: 徐忠
     aliases: []
     actors: [吴刚]
     importance: key_supporting
-    needs_review: true
+    needs_review: false
   - name: 孟德海
     aliases: []
     actors: [张志坚]
     importance: key_supporting
-    needs_review: true
+    needs_review: false
   - name: 老默
-    aliases: [冯兵]
-    actors: []
+    aliases: []
+    actors: [冯兵]
     importance: key_supporting
-    needs_review: true
+    needs_review: false
   - name: 唐小龙
     aliases: []
     actors: [林家川]
     importance: supporting
-    needs_review: true
+    needs_review: false
   - name: 唐小虎
     aliases: []
     actors: [孙岩]
     importance: supporting
-    needs_review: true
+    needs_review: false
   - name: 孟钰
     aliases: []
-    actors: [隆妮]
+    actors: [李一桐]
     importance: supporting
-    needs_review: true
+    needs_review: false
   - name: 黄瑶
+    aliases: []
+    actors: [程金铭]
+    importance: supporting
+    needs_review: false
+  - name: 纪泽
+    aliases: []
+    actors: [李建义]
+    importance: key_supporting
+    needs_review: false
+  - name: 龚开疆
+    aliases: []
+    actors: [崔志刚]
+    importance: supporting
+    needs_review: false
+  - name: 周志合
     aliases: []
     actors: []
     importance: supporting
-    needs_review: true
+    needs_review: false

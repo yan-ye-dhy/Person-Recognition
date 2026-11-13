@@ -4,7 +4,7 @@
   character_importance : main / key_supporting / supporting
   visual_difficulty    : normal / side_face / occluded / blurry / costume_change
   is_multi_person      : bool
-五组采样配额（每部 5×20）由 sampling_group() 从三字段导出，仅用于配额统计。
+五组采样配额（默认每部 5×8）由 sampling_group() 从三字段导出，用于分层选择与统计。
 """
 
 from __future__ import annotations
@@ -13,6 +13,8 @@ import json
 from dataclasses import asdict, dataclass, field
 from pathlib import Path
 from typing import Any
+
+from ..config import load_works
 
 IMPORTANCE_LEVELS = {"main", "key_supporting", "supporting"}
 DIFFICULTY_LEVELS = {"normal", "side_face", "occluded", "blurry", "costume_change"}
@@ -43,6 +45,21 @@ REQUIRED_FIELDS = [
 ]
 
 
+def sampling_group(
+    character_importance: str, visual_difficulty: str, is_multi_person: bool
+) -> str:
+    """三维标注映射到互斥采样组：多人优先，其次难度，最后人物重要度。"""
+    if is_multi_person:
+        return "multi_person"
+    if visual_difficulty != "normal":
+        return "hard_case"
+    return {
+        "main": "main_character",
+        "key_supporting": "key_supporting_character",
+        "supporting": "supporting_character",
+    }[character_importance]
+
+
 @dataclass
 class Sample:
     sample_id: str
@@ -67,22 +84,16 @@ class Sample:
     # ---- 派生 ----
     @property
     def sampling_group(self) -> str:
-        if self.is_multi_person:
-            return "multi_person"
-        if self.visual_difficulty != "normal":
-            return "hard_case"
-        return {
-            "main": "main_character",
-            "key_supporting": "key_supporting_character",
-            "supporting": "supporting_character",
-        }[self.character_importance]
+        return sampling_group(
+            self.character_importance, self.visual_difficulty, self.is_multi_person
+        )
 
     # ---- 校验 ----
     def validate(self) -> list[str]:
         errors: list[str] = []
         if not self.sample_id:
             errors.append("sample_id 为空")
-        if self.work_slug not in {"kuangbiao", "langyabang", "gongfunvzu", "jianlai"}:
+        if self.work_slug not in {work.slug for work in load_works()}:
             errors.append(f"未知作品 slug：{self.work_slug}")
         if not self.target_character:
             errors.append("target_character 为空")

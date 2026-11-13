@@ -68,9 +68,9 @@ def main() -> None:
         "kuangbiao": [("高启强", "main", "normal", False), ("安欣", "main", "normal", False),
                       ("陈书婷", "key_supporting", "normal", True), ("高启盛", "key_supporting", "side_face", False),
                       ("李响", "supporting", "blurry", False), ("老默", "supporting", "occluded", True)],
-        "langyabang": [("梅长苏", "main", "normal", False), ("靖王", "main", "normal", True),
-                       ("霓凰郡主", "key_supporting", "normal", False), ("誉王", "key_supporting", "costume_change", False),
-                       ("飞流", "supporting", "normal", False), ("谢玉", "supporting", "occluded", True)],
+        "qingyunian2": [("范闲", "main", "normal", False), ("庆帝", "main", "normal", True),
+                       ("林婉儿", "key_supporting", "normal", False), ("王启年", "key_supporting", "costume_change", False),
+                       ("范若若", "supporting", "normal", False), ("陈萍萍", "supporting", "occluded", True)],
     }
     store = AnnotationStore(DEMO / "annotations.db")
     seed = 0
@@ -100,7 +100,7 @@ def main() -> None:
 
     # 2) 导出匿名化正式集
     dataset_json = export_dataset(store, works, out_dir=DEMO / "final",
-                                  candidates_dir=candidates, target_per_group=20)
+                                  candidates_dir=candidates)
     samples = load_dataset(dataset_json)
     print(f"[1/5] 演示数据集导出：{len(samples)} 样本 → {dataset_json}")
 

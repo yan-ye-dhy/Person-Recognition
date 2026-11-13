@@ -1,8 +1,7 @@
 """筛查编排：run_screening（全量重筛） / backfill_evidence（回补页面标题证据）
 / report_screening（六项数字报告）。
 
-- 自动筛查不覆盖人工决定：某样本最近一次归属决定的 actor 以 "user" 开头
-  时，自动规则跳过该样本（可经 --force 覆盖）。
+- 自动筛查不覆盖用户或用户授权的逐图代标决定（可经 --force 覆盖）。
 - 视觉指标写入 attribution_evidence，人工审核页可见判定依据。
 """
 
@@ -13,11 +12,16 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 
-from ..config import Work, load_settings
+from ..config import DEFAULT_TARGET_PER_WORK, Work, load_settings
 from ..dataset.store import AnnotationStore
 from ..paths import CANDIDATES_DIR
 from .rules import classify_sample
 from .visual import analyze_image
+
+
+def _reviewed_actor(actor: str | None) -> bool:
+    """仅保护用户决定和明确登记的授权代标，不保护一般自动模型输出。"""
+    return bool(actor and (actor.startswith("user") or actor == "assistant:delegated_review"))
 
 
 @dataclass
@@ -26,6 +30,7 @@ class ScreenReport:
     total: int = 0
     decided: int = 0
     kept_user: int = 0
+    kept_assistant: int = 0
     skipped_missing_file: int = 0
     counts: dict[str, int] = field(default_factory=dict)
 
@@ -35,6 +40,7 @@ class ScreenReport:
             "total": self.total,
             "decided": self.decided,
             "kept_user": self.kept_user,
+            "kept_assistant": self.kept_assistant,
             "skipped_missing_file": self.skipped_missing_file,
             "counts": self.counts,
         }
@@ -57,8 +63,11 @@ def run_screening(
         report.total += 1
         if not force:
             actor = store.last_attribution_actor(row["pk"])
-            if actor and actor.startswith("user"):
-                report.kept_user += 1
+            if _reviewed_actor(actor):
+                if actor == "assistant:delegated_review":
+                    report.kept_assistant += 1
+                else:
+                    report.kept_user += 1
                 continue
         img = cdir / row["filename"]
         if not img.exists():
@@ -145,7 +154,7 @@ def backfill_evidence(
             continue  # 原有证据保留
         report.updated += 1
         actor = store.last_attribution_actor(row["pk"])
-        if not force and actor and actor.startswith("user"):
+        if not force and _reviewed_actor(actor):
             continue
         img = cdir / row["filename"]
         flags: list[str] = []
@@ -178,7 +187,7 @@ def backfill_evidence(
 
 
 def report_screening(
-    store: AnnotationStore, works: list[Work], target_per_work: int = 100
+    store: AnnotationStore, works: list[Work], target_per_work: int = DEFAULT_TARGET_PER_WORK
 ) -> list[dict[str, Any]]:
     """用户要求 9 的六项数字（每作品一行）。"""
     attr = store.attribution_stats()
@@ -208,7 +217,8 @@ def report_screening(
                 "attribution_verified": verified_attr,
                 "needs_human": needs,
                 "benchmark_ready": eligible,
-                "gap_to_100": max(0, target_per_work - eligible),
+                "target_per_work": target_per_work,
+                "gap_to_target": max(0, target_per_work - eligible),
             }
         )
     return rows

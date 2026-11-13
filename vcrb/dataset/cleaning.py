@@ -150,6 +150,14 @@ def clean_work(
                 "license_note": meta.get("license_note", ""),
                 "cleaned_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
             }
+            # 清洗改名后仍须能回到原播放页与原视频时间点。
+            for key in (
+                "page_url", "page_title", "video_timestamp_seconds", "source_channel",
+                "segment_index", "segment_start_seconds", "timestamp_basis",
+                "decode_warnings", "requires_visual_review",
+            ):
+                if key in meta:
+                    entry[key] = meta[key]
             fh.write(json.dumps(entry, ensure_ascii=False) + "\n")
     report.kept = len(kept)
     return report

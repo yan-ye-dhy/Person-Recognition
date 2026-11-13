@@ -60,6 +60,14 @@ def test_gongfunvzu_work_category():
     assert s.work_category == "recent_movie"
 
 
+def test_replacement_work_can_enter_dataset():
+    sample = make_sample(
+        work_slug="qingyunian2", sample_id="qingyunian2_0001", target_character="范闲",
+    )
+    assert sample.work_name == "庆余年第二季"
+    assert sample.validate() == []
+
+
 def test_enums_complete():
     assert IMPORTANCE_LEVELS == {"main", "key_supporting", "supporting"}
     assert DIFFICULTY_LEVELS == {

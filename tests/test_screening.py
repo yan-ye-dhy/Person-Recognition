@@ -263,6 +263,53 @@ def test_run_screening_keeps_user_decisions(tmp_path):
     assert store.samples(work.slug)[0]["attribution_status"] == "verified"
 
 
+@pytest.mark.parametrize("force", [False, True])
+def test_screening_preserves_delegated_review_unless_forced(tmp_path, force):
+    work = make_work("kuangbiao")
+    store, cand = _setup_work_store(tmp_path, work, n=2)
+    reviewed, automatic = store.samples(work.slug)
+    store.set_attribution(
+        [reviewed["pk"]], "verified", ["用户授权逐图代标"],
+        actor="assistant:delegated_review",
+    )
+    store.set_attribution(
+        [automatic["pk"]], "verified", ["普通自动输出"], actor="assistant:auto",
+    )
+    rep = run_screening(store, work, load_settings(), candidates_dir=cand, force=force)
+    rows = store.samples(work.slug)
+    assert rep.kept_user == 0
+    assert rep.kept_assistant == (0 if force else 1)
+    assert rep.decided == (2 if force else 1)
+    assert rows[0]["attribution_status"] == ("needs_review" if force else "verified")
+    assert rows[1]["attribution_status"] == "needs_review"
+    assert store.last_attribution_actor(reviewed["pk"]) == (
+        "auto:rules" if force else "assistant:delegated_review"
+    )
+
+
+@pytest.mark.parametrize("force", [False, True])
+def test_backfill_preserves_delegated_review_unless_forced(tmp_path, monkeypatch, force):
+    from types import SimpleNamespace
+    from vcrb.collectors.sources import BingImageSource
+    from vcrb.screening.service import backfill_evidence
+
+    work = make_work("kuangbiao")
+    store, cand = _setup_work_store(tmp_path, work, n=1)
+    row = store.samples(work.slug)[0]
+    store.set_attribution(
+        [row["pk"]], "verified", ["用户授权逐图代标"], actor="assistant:delegated_review",
+    )
+    monkeypatch.setattr(BingImageSource, "search", lambda self, query: [SimpleNamespace(
+        url=row["source_url"], page_title="待补充的页面", page_url="https://example.org/"
+    )])
+    report = backfill_evidence(store, work, load_settings(), candidates_dir=cand, force=force)
+    assert report.updated == 1
+    assert report.rescreened == (1 if force else 0)
+    assert store.samples(work.slug)[0]["attribution_status"] == (
+        "needs_review" if force else "verified"
+    )
+
+
 def test_screening_report_numbers(tmp_path):
     work = make_work("kuangbiao")
     store, cand = _setup_work_store(tmp_path, work, n=4)
@@ -276,13 +323,18 @@ def test_screening_report_numbers(tmp_path):
          "is_multi_person": 0},
     )
     store.set_attribution([rows[1]["pk"]], "rejected", ["测试排除"], actor="auto:rules")
-    result = report_screening(store, [work], target_per_work=100)[0]
+    result = report_screening(store, [work])[0]
     assert result["candidates"] == 4
     assert result["attribution_verified"] == 1
     assert result["auto_rejected"] == 1
     assert result["needs_human"] == 2  # 剩余 needs_review/pending
     assert result["benchmark_ready"] == 1
-    assert result["gap_to_100"] == 99
+    assert result["target_per_work"] == 40
+    assert result["gap_to_target"] == 39
+    assert "gap_to_100" not in result
+    custom = report_screening(store, [work], target_per_work=12)[0]
+    assert custom["target_per_work"] == 12
+    assert custom["gap_to_target"] == 11
 
 
 def test_set_attribution_validates_status(tmp_path):

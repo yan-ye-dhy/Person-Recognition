@@ -23,27 +23,23 @@ works:
       - "狂飙 老默 李响 剧照"
       - "狂飙 电视剧 高启强 安欣 同框"
 
-  - slug: langyabang
-    name: 琅琊榜
+  - slug: qingyunian2
+    name: 庆余年第二季
     category: costume_drama
     media_type: 电视剧
-    year: 2015
+    year: 2024
     trusted_domains:
-      - iqiyi.com
-      - sina.com.cn
-      - sina.cn
+      - v.qq.com
+      - wetv.vip
+      - cctv.com
       - baike.baidu.com
-      - doubanio.com            # 豆瓣条目图库（页面域 movie.douban.com 时同样可信）
-    evidence_aliases: ["Nirvana in Fire"]
+    evidence_aliases: ["庆余年2", "庆余年 第二季", "Joy of Life S2", "Joy of Life Season 2"]
     search_queries:
-      - "琅琊榜 电视剧 剧照 梅长苏"
-      - "琅琊榜 靖王 誉王 剧照"
-      - "琅琊榜 电视剧 截图 角色"
-      - "琅琊榜 霓凰 蒙挚 剧照"
-      - "琅琊榜 剧照 多人"
-      - "琅琊榜 静妃 梁帝 剧照"
-      - "琅琊榜 飞流 蔺晨 剧照"
-      - "琅琊榜 谢玉 夏江 剧照"
+      - "\"庆余年第二季\" 正片 截图 范闲"
+      - "\"庆余年第二季\" 正片 截图 庆帝 陈萍萍"
+      - "\"庆余年第二季\" 正片 截图 王启年 邓子越"
+      - "\"庆余年第二季\" 正片 截图 林婉儿 范若若"
+      - "\"庆余年第二季\" 正片 多人 同框"
 
   - slug: gongfunvzu
     name: 功夫女足

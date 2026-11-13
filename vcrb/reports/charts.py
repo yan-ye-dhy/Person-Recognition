@@ -9,6 +9,7 @@ import matplotlib
 
 matplotlib.use("Agg")  # 无显示环境
 import matplotlib.pyplot as plt  # noqa: E402
+from matplotlib import font_manager  # noqa: E402
 from matplotlib.patches import Patch  # noqa: E402
 
 from ..evaluation.scoring import OUTCOME_LABELS, ScoreResult  # noqa: E402
@@ -31,6 +32,20 @@ _FONT_CHAIN = [
     "Arial Unicode MS",
     "DejaVu Sans",
 ]
+
+# WSL does not discover fonts on the mounted Windows system automatically.
+# Register in this process only; no package installation or system font changes.
+_WINDOWS_CJK_FONT = Path("/mnt/c/Windows/Fonts/msyh.ttc")
+if _WINDOWS_CJK_FONT.is_file():
+    try:
+        font_manager.fontManager.addfont(str(_WINDOWS_CJK_FONT))
+        _mounted_family = font_manager.FontProperties(fname=str(_WINDOWS_CJK_FONT)).get_name()
+    except (OSError, RuntimeError, ValueError):
+        pass  # Preserve the normal fallback chain if the mounted font is unusable.
+    else:
+        if _mounted_family in _FONT_CHAIN:
+            _FONT_CHAIN.remove(_mounted_family)
+        _FONT_CHAIN.insert(0, _mounted_family)
 matplotlib.rcParams["font.sans-serif"] = _FONT_CHAIN
 matplotlib.rcParams["axes.unicode_minus"] = False
 
@@ -99,7 +114,7 @@ def render_charts(result: ScoreResult, out_dir: Path) -> list[Path]:
             cell = result.metrics.get((m, exp))
             accs.append(cell.accuracy_valid if cell else 0.0)
             cis.append(cell.accuracy_valid_ci if cell else (0.0, 0.0))
-        offset = (i - 0.5) * width if len(models) > 1 else 0
+        offset = (i - 0.5) * width
         _accuracy_with_ci(
             ax, [x + offset for x in xs], accs, cis, width, [PALETTE[exp]] * len(models)
         )
@@ -151,7 +166,7 @@ def render_charts(result: ScoreResult, out_dir: Path) -> list[Path]:
         fig, ax = plt.subplots(figsize=(max(8, len(models) * max(1.2, len(keys) * 0.5)), 5))
         n_groups = max(len(models), 1)
         n_bars = len(keys) or 1
-        total_width = 0.8 / max(n_groups, 1)
+        total_width = 0.8
         bar_width = total_width / n_bars
         for gi, m in enumerate(models):
             cell_map = slice_dict.get((m, "B"), {})

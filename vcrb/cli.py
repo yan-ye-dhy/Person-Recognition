@@ -19,6 +19,8 @@ from rich.table import Table
 from . import paths
 from .config import (
     ConfigError,
+    DEFAULT_TARGET_PER_GROUP,
+    DEFAULT_TARGET_PER_WORK,
     get_api_key,
     load_settings,
     load_works,
@@ -44,9 +46,6 @@ app.add_typer(review_app, name="review")
 app.add_typer(screen_app, name="screen")
 
 console = Console()
-
-WORK_SLUGS = ["kuangbiao", "langyabang", "gongfunvzu", "jianlai"]
-
 
 def _fail(msg: str) -> None:
     console.print(f"[red]错误：[/red]{msg}")
@@ -134,7 +133,7 @@ def models_verify(
     store = RunStore()
     gen = GenerationParams(
         temperature=float(settings["generation"]["temperature"]),
-        max_tokens=128,
+        max_tokens=int(settings["generation"]["max_tokens"]),
     )
     probe_prompt = '请描述这张图片的主体颜色。输出 JSON：{"character_name": null, "is_uncertain": true, "reason": "..."}'
     results = Table(title="连通性检查结果")
@@ -148,14 +147,24 @@ def models_verify(
             continue
         provider = OpenAICompatProvider(spec, settings=settings)
         r = provider.recognize(m, data_url, SYSTEM_PROMPT, probe_prompt, gen)
+        from .evaluation.parser import parse_response
+
+        output_issue = getattr(r, "output_issue", None)
+        if r.ok and not output_issue and not parse_response(r.raw_text).parse_ok:
+            output_issue = "invalid_final_json"
+        usable = r.ok and output_issue is None
+        verify_error = r.error_type or output_issue
+        verify_message = r.error_message or (
+            f"HTTP成功，但最终输出不可用于评测：{output_issue}" if output_issue else None
+        )
         store.save_verify(
-            m.id, r.ok, r.error_type, r.error_message, r.served_model, r.raw_text
+            m.id, usable, verify_error, verify_message, r.served_model, r.raw_text
         )
         results.add_row(
             m.id,
-            "[green]通过[/green]" if r.ok else f"[red]失败({r.error_type})[/red]",
+            "[green]通过[/green]" if usable else f"[red]失败({verify_error})[/red]",
             r.served_model or "-",
-            (r.error_message or "")[:60],
+            (verify_message or "")[:60],
         )
     console.print(results)
     console.print("结果已写入 results/runs.db 的 verify 表（不影响 models.yaml）。")
@@ -166,7 +175,7 @@ def models_verify(
 
 @collect_app.command("web")
 def collect_web_cmd(
-    work: str = typer.Option(..., "--work", help=f"作品 slug：{'/'.join(WORK_SLUGS)}"),
+    work: str = typer.Option(..., "--work", help="作品 slug（见 config/works.yaml）"),
     limit: int = typer.Option(0, "--limit", help="本次采集上限（0=用 settings 上限）"),
     no_evidence_check: bool = typer.Option(
         False, "--no-evidence-check",
@@ -227,6 +236,42 @@ def collect_video_cmd(
         console.print(f"[red]抽帧失败：[/red]{report.errors[0][:300]}")
         raise typer.Exit(1)
     console.print(f"完成：{report.frames} 帧已写入 {RAW_DIR / work}")
+
+
+@collect_app.command("cache")
+def collect_cache_cmd(
+    work: str = typer.Option(..., "--work"),
+    cache_dir: Path = typer.Option(..., "--cache-dir", help="对应剧集的 .hls 缓存目录（含 .m3u8）"),
+    title: str = typer.Option("", "--title", help="含季/集数的来源标题"),
+    max_frames: int = typer.Option(100, "--max-frames", min=1),
+    skip_start: float = typer.Option(180, "--skip-start", min=0, help="跳过片头秒数"),
+    skip_end: float = typer.Option(120, "--skip-end", min=0, help="跳过片尾秒数"),
+    out_dir: Optional[Path] = typer.Option(None, "--out-dir", help="试采输出目录；默认 data/raw/{work}"),
+):
+    """从腾讯本地 HLS 分片分散抽取可解码关键帧（不支持所有缓存格式）。"""
+    from .collectors.tencent_cache import extract_cache_frames
+    from .collectors.video_frames import FfmpegNotAvailable
+
+    works = {w.slug: w for w in load_works()}
+    if work not in works:
+        _fail(f"未知作品：{work}")
+    target = out_dir if out_dir is not None else RAW_DIR / work
+    try:
+        report = extract_cache_frames(
+            cache_dir, target, max_frames=max_frames, title=title or works[work].name,
+            skip_start_seconds=skip_start, skip_end_seconds=skip_end,
+        )
+    except (ValueError, OSError, FfmpegNotAvailable) as exc:
+        _fail(str(exc))
+    console.print(
+        f"抽取 {report.frames} 帧，已存在跳过 {report.skipped_existing}，"
+        f"未采到 {len(report.errors)}，解码含警告 {report.decode_warnings} → {target}"
+    )
+    console.print("图片保留原始分辨率与时间点，需目视复核画质及角色；不自动确认归属或标注。")
+    for error in report.errors[:5]:
+        console.print(f"[yellow]{error}[/yellow]")
+    if not report.frames and not report.skipped_existing:
+        raise typer.Exit(1)
 
 
 @collect_app.command("import")
@@ -314,7 +359,7 @@ def screen_run_cmd(
         _fail(f"未知作品：{work}")
     store = AnnotationStore()
     table = Table(title="作品归属筛查结果（自动）")
-    for col in ["作品", "候选", "判定", "verified", "rejected", "needs_review", "保留人工决定", "文件缺失"]:
+    for col in ["作品", "候选", "判定", "verified", "rejected", "needs_review", "保留用户决定", "保留授权代标", "文件缺失"]:
         table.add_column(col, justify="right")
     for w in works:
         rep = run_screening(store, w, settings, force=force)
@@ -323,7 +368,7 @@ def screen_run_cmd(
             w.name, str(rep.total), str(rep.decided),
             str(counts.get("verified", 0)), str(counts.get("rejected", 0)),
             str(counts.get("needs_review", 0)),
-            str(rep.kept_user), str(rep.skipped_missing_file),
+            str(rep.kept_user), str(rep.kept_assistant), str(rep.skipped_missing_file),
         )
     console.print(table)
     console.print(
@@ -415,7 +460,7 @@ def screen_report_cmd(
     from .screening.service import report_screening
 
     settings = load_settings()
-    target = int(settings.get("export", {}).get("target_per_work", 100))
+    target = int(settings.get("export", {}).get("target_per_work", DEFAULT_TARGET_PER_WORK))
     store = AnnotationStore()
     rows = report_screening(store, load_works(), target_per_work=target)
     if json_out:
@@ -428,11 +473,11 @@ def screen_report_cmd(
         table.add_row(
             r["work"], str(r["candidates"]), str(r["auto_rejected"]),
             str(r["attribution_verified"]), str(r["needs_human"]),
-            str(r["benchmark_ready"]), str(r["gap_to_100"]),
+            str(r["benchmark_ready"]), str(r["gap_to_target"]),
         )
     console.print(table)
     console.print(
-        "[dim]可入正式评测 = 归属 verified 且标注 verified；缺口 = 目标 100 − 可入数。"
+        f"[dim]可入正式评测 = 归属 verified 且标注 verified；缺口 = 目标 {target} − 可入数。"
         "素材不足将如实报告，不以重复图/其他作品/二创凑数；"
         "可后续用已授权视频抽帧补齐（vcrb collect video）。[/dim]"
     )
@@ -478,21 +523,42 @@ def annotate_cmd():
 
 @app.command("export-dataset")
 def export_dataset_cmd(
-    target_per_group: int = typer.Option(20, "--target", help="配额目标（仅记录到 dataset.json）"),
+    target_per_group: Optional[int] = typer.Option(
+        None, "--target", min=1, help="每组优先采样配额（默认读取 settings.yaml）"
+    ),
+    target_per_work: Optional[int] = typer.Option(
+        None, "--target-per-work", min=1, help="每部导出上限（默认读取 settings.yaml）"
+    ),
 ):
-    """导出匿名化正式测试集（仅 annotation_status=verified 样本）。"""
+    """按配额导出匿名化正式测试集（标注与归属均 verified）。"""
     from .dataset.store import AnnotationStore, export_dataset
 
+    cfg = load_settings().get("export", {})
+    group_target = target_per_group if target_per_group is not None else int(
+        cfg.get("target_per_group", DEFAULT_TARGET_PER_GROUP)
+    )
+    work_target = target_per_work if target_per_work is not None else int(
+        cfg.get("target_per_work", DEFAULT_TARGET_PER_WORK)
+    )
     store = AnnotationStore()
     verified = store.verified()
     if not verified:
         _fail("没有任何 verified 样本，请先在标注页确认。")
-    stats = store.stats()
-    for slug in WORK_SLUGS:
-        n = stats.get(slug, {}).get("verified", 0)
-        if n < 20:
-            console.print(f"[yellow]《{slug}》仅 {n} 张已确认（目标 100），将如实导出并记录缺口。[/yellow]")
-    path = export_dataset(store, load_works(), FINAL_DIR, target_per_group=target_per_group)
+    for work in load_works():
+        slug = work.slug
+        n = sum(
+            row["work_slug"] == slug and row.get("attribution_status") == "verified"
+            for row in verified
+        )
+        if n < work_target:
+            console.print(
+                f"[yellow]《{slug}》仅 {n} 张标注与归属均已确认（目标 {work_target}），"
+                "将如实导出并记录缺口。[/yellow]"
+            )
+    path = export_dataset(
+        store, load_works(), FINAL_DIR,
+        target_per_group=group_target, target_per_work=work_target,
+    )
     payload = json.loads(path.read_text(encoding="utf-8"))
     console.print(f"[green]已导出 {payload['total']} 样本 → {path}[/green]")
 
@@ -615,6 +681,7 @@ def run_cmd(
     if not DATASET_JSON.exists():
         _fail(f"缺少 {DATASET_JSON}。流程：collect → clean → annotate → export-dataset")
     samples = load_dataset(DATASET_JSON)
+    samples_source = DATASET_JSON
     if works:
         wanted = {w.strip() for w in works.split(",")}
         samples = [s for s in samples if s.work_slug in wanted]
@@ -646,6 +713,9 @@ def run_cmd(
 
     store = RunStore()
     resume = run_id and store.get_run(run_id)
+    if resume:
+        samples = _resume_input_samples(resume, samples)
+        samples_source = (resume.get("fairness_meta") or {}).get("dataset_snapshot_path") or DATASET_JSON
     active_run_id = run_id if resume else new_run_id()
     existing_ok = store.existing_ok_keys(active_run_id) if resume else set()
     existing_failed = store.failed_keys(active_run_id) if resume else set()
@@ -668,7 +738,7 @@ def run_cmd(
         for e in exps:
             table.add_row(m.id, e, str(len(samples)), str(len(samples)))
     console.print(table)
-    console.print(f"样本来源：{DATASET_JSON}（{len(samples)} 张，hash 前 8 位 {dataset_hash(samples)[:8]}）")
+    console.print(f"样本来源：{samples_source}（{len(samples)} 张，hash 前 8 位 {dataset_hash(samples)[:8]}）")
     if skipped:
         console.print(f"[yellow]以下模型缺少 Key 已跳过：{skipped}[/yellow]")
     if todo == 0 and resume:
@@ -685,14 +755,28 @@ def run_cmd(
         from .prompts import PROMPT_VERSION
         from .runner.executor import _fairness_meta
 
+        snapshot = paths.RESULTS_DIR / "snapshots" / active_run_id / "dataset.json"
+        snapshot.parent.mkdir(parents=True, exist_ok=True)
+        snapshot.write_text(json.dumps({
+            "total": len(samples), "samples": [s.to_dict() for s in samples],
+        }, ensure_ascii=False, indent=2), encoding="utf-8")
+        fairness = _fairness_meta([m for m, _ in tasks], settings)
+        fairness["dataset_snapshot_path"] = str(snapshot)
+        fairness["sample_ids"] = [s.sample_id for s in samples]
+        fairness["settings_snapshot"] = settings
+        fairness["excluded_unavailable_models"] = [
+            {"model_id": model_id, "error_type": v.get("error_type"),
+             "error_message": v.get("error_message")}
+            for model_id, v in store.latest_verify().items() if not v["ok"]
+        ]
         store.create_run(
             run_id=active_run_id,
             experiments=exps,
             models=[m.id for m, _ in tasks],
             prompt_version=PROMPT_VERSION,
             dataset_hash=dataset_hash(samples),
-            dataset_path=str(DATASET_JSON),
-            fairness_meta=_fairness_meta([m for m, _ in tasks], settings),
+            dataset_path=str(snapshot),
+            fairness_meta=fairness,
             label=label,
         )
     with console.status("[bold green]执行中…（Ctrl-C 可中断，重跑自动续传）[/bold green]"):
@@ -720,6 +804,66 @@ def run_cmd(
 
 # ================================================================ score / report
 
+def _load_run_samples(run: dict, *, input_snapshot: bool = False):
+    """Load immutable inputs or an explicitly audited annotation-only revision."""
+    from .dataset.schema import load_dataset
+    from .evaluation.scoring import validate_annotation_only_revision
+    from .runner.executor import dataset_hash
+
+    fairness = run.get("fairness_meta") or {}
+    original_snapshot = fairness.get("dataset_snapshot_path")
+    path = Path(original_snapshot) if original_snapshot else DATASET_JSON
+    if not path.exists():
+        _fail(f"缺少本次运行的数据集快照：{path}")
+    original = load_dataset(path)
+    if original_snapshot and dataset_hash(original) != run["dataset_hash"]:
+        _fail("本次运行的原始输入快照哈希不一致，拒绝使用被修改的快照。")
+    if input_snapshot:
+        return original
+
+    revision_keys = (
+        "evaluation_snapshot_path", "evaluation_dataset_hash", "annotation_revision_path",
+    )
+    if not any(fairness.get(key) for key in revision_keys):
+        return original
+    if not original_snapshot:
+        _fail("GT修订缺少原始输入快照，无法确认输入保持一致。")
+    if not all(fairness.get(key) for key in revision_keys):
+        _fail("GT修订登记不完整：需要评分快照、哈希及审计记录路径。")
+    revised_path = Path(fairness["evaluation_snapshot_path"])
+    if not revised_path.is_file():
+        _fail(f"缺少已登记的GT修订评分快照：{revised_path}")
+    if not Path(fairness["annotation_revision_path"]).is_file():
+        _fail("GT修订审计记录不存在，拒绝无审计重评分。")
+    revised = load_dataset(revised_path)
+    if dataset_hash(revised) != fairness["evaluation_dataset_hash"]:
+        _fail("已登记的GT修订评分快照哈希不一致。")
+    try:
+        validate_annotation_only_revision(original, revised)
+    except ValueError as exc:
+        _fail(str(exc))
+    return revised
+
+
+def _resume_input_samples(run: dict, current_samples: list):
+    """Continue paid work with its original inputs after an audited GT fix."""
+    from .evaluation.scoring import validate_annotation_only_revision
+    from .runner.executor import dataset_hash
+
+    current_hash = dataset_hash(current_samples)
+    fairness = run.get("fairness_meta") or {}
+    if current_hash not in {run["dataset_hash"], fairness.get("evaluation_dataset_hash")}:
+        _fail("续跑样本与原run快照不一致；未登记的变更不可续跑，请保持原筛选参数或创建新的run。")
+    original = _load_run_samples(run, input_snapshot=True)
+    # This validates both the registered evaluation hash and its immutable input
+    # fields. Registration itself cannot authorize a different image or box.
+    _load_run_samples(run)
+    try:
+        validate_annotation_only_revision(original, current_samples)
+    except ValueError as exc:
+        _fail(str(exc))
+    return original
+
 
 @app.command("score")
 def score_cmd(
@@ -736,13 +880,12 @@ def score_cmd(
     rid = run_id or store.latest_run_id()
     if not rid or not store.get_run(rid):
         _fail("没有可评分的 run")
-    if not DATASET_JSON.exists():
-        _fail("缺少 dataset.json")
-    samples = load_dataset(DATASET_JSON)
     run = store.get_run(rid)
+    samples = _load_run_samples(run)
     from .runner.executor import dataset_hash as _dh
 
-    if run["dataset_hash"] != _dh(samples):
+    evaluation_hash = (run.get("fairness_meta") or {}).get("evaluation_dataset_hash")
+    if (evaluation_hash or run["dataset_hash"]) != _dh(samples):
         console.print("[yellow]警告：数据集与该 run 快照不一致，评分可能失真。[/yellow]")
     works = {w.slug: w for w in load_works()}
     rosters = {slug: load_roster(w) for slug, w in works.items()}
@@ -776,9 +919,8 @@ def report_cmd(
     rid = run_id or store.latest_run_id()
     if not rid or not store.get_run(rid):
         _fail("没有可出报告的 run")
-    if not DATASET_JSON.exists():
-        _fail("缺少 dataset.json")
-    samples = load_dataset(DATASET_JSON)
+    run = store.get_run(rid)
+    samples = _load_run_samples(run)
     settings = load_settings()
     works = {w.slug: w for w in load_works()}
     rosters = {slug: load_roster(w) for slug, w in works.items()}
@@ -833,9 +975,7 @@ def review_list(
     rid = run_id or store.latest_run_id()
     if not rid or not store.get_run(rid):
         _fail("没有可复核的 run")
-    if not DATASET_JSON.exists():
-        _fail("缺少 dataset.json")
-    samples = load_dataset(DATASET_JSON)
+    samples = _load_run_samples(store.get_run(rid))
     settings = load_settings()
     works = {w.slug: w for w in load_works()}
     matcher = CharacterMatcher(

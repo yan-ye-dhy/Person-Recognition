@@ -30,6 +30,7 @@ _PUNCT_TABLE = dict.fromkeys(
 
 _ROLE_MARK_RE = re.compile(r"[（(][^（）()]*?(?:饰|扮演|出演)[^（）()]*?[）)]")
 _NAME_SPLIT_RE = re.compile(r"(?:饰演|扮演|出演|饰)")
+_ALTERNATIVE_RE = re.compile(r"(?:或者|或是|抑或|还是|也可能|或)")
 
 
 def normalize_name(name: str | None) -> str:
@@ -57,7 +58,7 @@ def split_role_marker(name: str) -> str:
 
 @dataclass
 class MatchResult:
-    kind: str  # exact / alias / substring / actor / actor_of_other / other_character / fuzzy / none / empty
+    kind: str  # exact / alias / substring / actor / actor_of_other / other_character / fuzzy / ambiguous / none / empty
     matched: str = ""
     similarity: float = 0.0
 
@@ -67,7 +68,7 @@ class MatchResult:
 
     @property
     def needs_review(self) -> bool:
-        return self.kind == "fuzzy"
+        return self.kind in {"fuzzy", "ambiguous"}
 
 
 class CharacterMatcher:
@@ -107,14 +108,25 @@ class CharacterMatcher:
         if derived and derived not in candidates:
             candidates.append(derived)
 
+        # A complete GT appearing among several candidates is not a single
+        # identification. Inspect the whole answer before accepting a normalized
+        # substring or a name extracted from an actor/role marker.
+        names = dict(self._names.get(work_slug, {}))
+        names.update({name: gt_character for name in gt_names})
+        mentioned = {character for name, character in names.items()
+                     if len(name) >= 2 and name in candidates[0]}
+        if len(mentioned) > 1 or (mentioned and _ALTERNATIVE_RE.search(str(predicted or ""))):
+            return MatchResult("ambiguous", matched=" / ".join(sorted(mentioned)))
+
         for p in candidates:
             if not p:
                 continue
             if p in gt_names:
                 return MatchResult("exact", matched=p)
-            # 子串包含（“电视剧狂飙里的高启强” / 只答姓氏别名的场景，要求长度≥2 防误伤）
+            # Accept a complete name inside an explanation. A shorter fragment
+            # of GT is only valid if explicitly registered as a confirmed alias.
             for g in gt_names:
-                if len(p) >= 2 and len(g) >= 2 and (p in g or g in p):
+                if len(g) >= 2 and g in p:
                     return MatchResult("substring", matched=p)
             names = self._names.get(work_slug, {})
             if p in names:

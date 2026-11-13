@@ -9,6 +9,8 @@ from __future__ import annotations
 
 import hashlib
 import json
+from collections import Counter, deque
+from concurrent.futures import FIRST_COMPLETED, Future, ThreadPoolExecutor, wait
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from pathlib import Path
@@ -20,7 +22,7 @@ from ..imageutils import draw_target_box, encode_for_request
 from ..models import ModelSpec
 from ..paths import RESULTS_DIR
 from ..prompts import PROMPT_VERSION, SYSTEM_PROMPT, build_user_prompt, describe_marking
-from ..providers import GenerationParams, VisionProvider
+from ..providers import GenerationParams, ProviderResult, VisionProvider
 from .store import RunStore
 
 Experiment = str  # "A" | "B"
@@ -78,12 +80,13 @@ def _fairness_meta(models: list[ModelSpec], settings: dict[str, Any]) -> dict[st
         "generation_params": {
             "temperature": gen.get("temperature", 0.1),
             "max_tokens": gen.get("max_tokens", 512),
-            "note": "Kimi k2.5/k2.6 不接受显式采样参数（官方文档），故未传 temperature，其余模型统一 temperature",
+            "note": "K3.1固定temperature=1故不显式传；其余接受者统一0.1。可关闭型号关闭思考，K3.1/GLM5.3使用不可关闭的low思考；具体模式见per_model_notes。",
         },
         "per_model_notes": {
             m.id: {
                 "extra_body": m.extra_body,
                 "passes_temperature": m.passes_temperature,
+                "token_limit_parameter": m.params.get("token_limit_parameter", "max_tokens"),
                 "official_series": m.official_series,
                 "notes": m.notes,
             }
@@ -91,6 +94,17 @@ def _fairness_meta(models: list[ModelSpec], settings: dict[str, Any]) -> dict[st
         },
         "image_encoding": "JPEG data-URL，长边≤1600，质量92（所有模型一致；详见各记录 image_meta）",
         "tools_disabled": "不传 tools/tool_choice；不启用联网搜索",
+        "execution": {
+            "concurrency": max(1, int(settings.get("runner", {}).get("concurrency", 1))),
+            "per_model_concurrency_limit": 2,
+            "per_model_concurrency": {
+                model.id: max(1, int(
+                    settings.get("runner", {}).get("per_model_concurrency", {}).get(model.id, 2)
+                ))
+                for model in models
+            },
+            "persistence": "主线程实时写入 SQLite 与 raw JSONL",
+        },
     }
 
 
@@ -108,6 +122,13 @@ def execute_run(
     retry_failed: bool = False,
     progress_cb: Callable[[int, str], None] | None = None,
 ) -> RunSummary:
+    """Run calls with bounded optional concurrency; all persistence stays here.
+
+    ``runner.concurrency`` defaults to one. Parallel mode rotates between models
+    and permits two outstanding calls per model by default. Individual caps are
+    read from ``runner.per_model_concurrency``. No unbounded backlog is submitted,
+    so an interrupt can stop further paid work immediately.
+    """
     gen = GenerationParams(
         temperature=float(settings.get("generation", {}).get("temperature", 0.1)),
         max_tokens=int(settings.get("generation", {}).get("max_tokens", 512)),
@@ -133,111 +154,210 @@ def execute_run(
         marked_paths[sample.sample_id] = dst
 
     done = 0
-    try:
-        for model, provider in tasks:
-            for exp in experiments:
-                exp_norm = exp.upper()
-                prompt_a: str | None = None          # A 组：全局唯一提示词
-                prompt_b_by_work: dict[str, str] = {}  # B 组：按作品缓存
-                for sample in samples:
-                    key = (model.id, exp_norm, sample.sample_id)
-                    if key in ok_keys:
-                        summary.skipped_existing += 1
-                        done += 1
-                        continue
-                    if not retry_failed and key in failed_keys:
-                        # 已有失败记录且未要求重试：不重复付费调用
-                        summary.skipped_existing += 1
-                        done += 1
-                        continue
-                    marked = marked_paths.get(sample.sample_id)
-                    if marked is None:
-                        summary.errors.append(f"{sample.sample_id}: 无标注图，跳过")
-                        done += 1
-                        continue
-                    work = works_by_slug.get(sample.work_slug)
-                    if exp_norm == "B" and work is None:
-                        summary.errors.append(f"{sample.sample_id}: 未知作品 {sample.work_slug}")
-                        done += 1
-                        continue
-                    if exp_norm == "A":
-                        if prompt_a is None:
-                            prompt_a = build_user_prompt("A")
-                        prompt = prompt_a
-                    else:
-                        if sample.work_slug not in prompt_b_by_work:
-                            prompt_b_by_work[sample.work_slug] = build_user_prompt("B", work)
-                        prompt = prompt_b_by_work[sample.work_slug]
+    concurrency = max(1, int(settings.get("runner", {}).get("concurrency", 1)))
+    configured_caps = settings.get("runner", {}).get("per_model_concurrency", {})
+    model_caps = [max(1, int(configured_caps.get(model.id, 2))) for model, _ in tasks]
+    if len({model.id for model, _ in tasks}) != len(tasks):
+        raise ValueError("A run may contain each model only once")
 
-                    data_url, img_meta = encode_for_request(marked)
-                    result = provider.recognize(
-                        model, data_url, SYSTEM_PROMPT, prompt, gen
-                    )
-
-                    raw_file = store.raw_file_for(run_id, model.id, exp_norm, base=raw_dir)
-                    raw_payload = {
-                        "sample_id": sample.sample_id,
-                        "work_slug": sample.work_slug,
-                        "experiment": exp_norm,
-                        "model_id": model.id,
-                        "request": {
-                            "model": model.id,
-                            "system": SYSTEM_PROMPT,
-                            "user": prompt,
-                            "max_tokens": gen.max_tokens,
-                            "temperature": gen.temperature if model.passes_temperature else None,
-                            "extra_body": model.extra_body or None,
-                            "image_meta": img_meta,
-                            "tools": None,
-                        },
-                        "response": {
-                            "ok": result.ok,
-                            "raw_text": result.raw_text,
-                            "finish_reason": result.finish_reason,
-                            "served_model": result.served_model,
-                            "usage": result.usage,
-                            "latency_ms": result.latency_ms,
-                            "attempts": result.attempts,
-                            "error_type": result.error_type,
-                            "error_message": result.error_message,
-                            "http_status": result.http_status,
-                        },
-                        "created_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-                    }
-                    record = {
-                        "run_id": run_id,
-                        "model_id": model.id,
-                        "experiment": exp_norm,
-                        "sample_id": sample.sample_id,
-                        "work_slug": sample.work_slug,
-                        "attempt": result.attempts,
-                        "ok": int(result.ok),
-                        "http_status": result.http_status,
-                        "latency_ms": result.latency_ms,
-                        "error_type": result.error_type,
-                        "error_message": result.error_message,
-                        "served_model": result.served_model,
-                        "usage": json.dumps(result.usage, ensure_ascii=False),
-                        "raw_json": json.dumps(raw_payload, ensure_ascii=False),
-                        "raw_file": str(raw_file),
-                        "created_at": raw_payload["created_at"],
-                    }
-                    store.upsert_record(record)
-                    store.append_raw(raw_file, raw_payload)
-
-                    if result.ok:
-                        summary.ok += 1
-                        ok_keys.add(key)
-                    else:
-                        summary.api_failures += 1
-                        failed_keys.add(key)
-                    summary.executed += 1
+    # Metadata-only queues. Images are encoded lazily on the main thread and
+    # reused byte-for-byte for every model and both experiments.
+    pending = []
+    for model, provider in tasks:
+        calls = deque()
+        for exp in experiments:
+            exp_norm = exp.upper()
+            for sample in samples:
+                key = (model.id, exp_norm, sample.sample_id)
+                if key in ok_keys:
+                    summary.skipped_existing += 1
                     done += 1
-                    if progress_cb:
-                        progress_cb(done, f"{model.id}/{exp_norm}/{sample.sample_id}")
-    except KeyboardInterrupt:
-        summary.interrupted = True
-        store.finish_run(run_id, status="interrupted", note="用户中断，可重跑续传")
+                    continue
+                if not retry_failed and key in failed_keys:
+                    # 已有失败记录且未要求重试：不重复付费调用
+                    summary.skipped_existing += 1
+                    done += 1
+                    continue
+                marked = marked_paths.get(sample.sample_id)
+                if marked is None:
+                    summary.errors.append(f"{sample.sample_id}: 无标注图，跳过")
+                    done += 1
+                    continue
+                work = works_by_slug.get(sample.work_slug)
+                if exp_norm == "B" and work is None:
+                    summary.errors.append(f"{sample.sample_id}: 未知作品 {sample.work_slug}")
+                    done += 1
+                    continue
+                calls.append((model, provider, exp_norm, sample, marked, work))
+        pending.append(calls)
+
+    image_cache: dict[str, tuple[str, dict[str, Any]]] = {}
+    prompt_cache: dict[tuple[str, str], str] = {}
+
+    def prepare(call):
+        model, provider, exp_norm, sample, marked, work = call
+        prompt_key = (exp_norm, sample.work_slug if exp_norm == "B" else "")
+        if prompt_key not in prompt_cache:
+            prompt_cache[prompt_key] = build_user_prompt(
+                exp_norm, work if exp_norm == "B" else None
+            )
+        if sample.sample_id not in image_cache:
+            image_cache[sample.sample_id] = encode_for_request(marked)
+        data_url, img_meta = image_cache[sample.sample_id]
+        return model, provider, exp_norm, sample, prompt_cache[prompt_key], data_url, img_meta
+
+    def invoke(prepared):
+        model, provider, _exp, _sample, prompt, data_url, _meta = prepared
+        try:
+            return provider.recognize(model, data_url, SYSTEM_PROMPT, prompt, gen)
+        except Exception as exc:
+            # Expected HTTP failures are classified by the adapter. Do not print
+            # unexpected exception text, which could contain request credentials.
+            return ProviderResult(
+                ok=False, error_type="internal_error", error_message=type(exc).__name__
+            )
+
+    def persist(prepared, result):
+        nonlocal done
+        model, _provider, exp_norm, sample, prompt, _data_url, img_meta = prepared
+        key = (model.id, exp_norm, sample.sample_id)
+        raw_file = store.raw_file_for(run_id, model.id, exp_norm, base=raw_dir)
+        raw_payload = {
+            "sample_id": sample.sample_id,
+            "work_slug": sample.work_slug,
+            "experiment": exp_norm,
+            "model_id": model.id,
+            "request": {
+                "model": model.id,
+                "system": SYSTEM_PROMPT,
+                "user": prompt,
+                model.params.get("token_limit_parameter", "max_tokens"): gen.max_tokens,
+                "temperature": gen.temperature if model.passes_temperature else None,
+                "extra_body": model.extra_body or None,
+                "image_meta": img_meta,
+                "tools": None,
+            },
+            "response": {
+                "ok": result.ok,
+                "raw_text": result.raw_text,
+                "reasoning_text": getattr(result, "reasoning_text", ""),
+                "output_issue": getattr(result, "output_issue", None),
+                "finish_reason": result.finish_reason,
+                "served_model": result.served_model,
+                "usage": result.usage,
+                "latency_ms": result.latency_ms,
+                "attempts": result.attempts,
+                "error_type": result.error_type,
+                "error_message": result.error_message,
+                "http_status": result.http_status,
+            },
+            "created_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        }
+        record = {
+            "run_id": run_id,
+            "model_id": model.id,
+            "experiment": exp_norm,
+            "sample_id": sample.sample_id,
+            "work_slug": sample.work_slug,
+            "attempt": result.attempts,
+            "ok": int(result.ok),
+            "http_status": result.http_status,
+            "latency_ms": result.latency_ms,
+            "error_type": result.error_type,
+            "error_message": result.error_message,
+            "served_model": result.served_model,
+            "usage": json.dumps(result.usage, ensure_ascii=False),
+            "raw_json": json.dumps(raw_payload, ensure_ascii=False),
+            "raw_file": str(raw_file),
+            "created_at": raw_payload["created_at"],
+        }
+        store.upsert_record(record)
+        store.append_raw(raw_file, raw_payload)
+
+        if result.ok:
+            summary.ok += 1
+            ok_keys.add(key)
+        else:
+            summary.api_failures += 1
+            failed_keys.add(key)
+        summary.executed += 1
+        done += 1
+        if progress_cb:
+            progress_cb(done, f"{model.id}/{exp_norm}/{sample.sample_id}")
+
+    if concurrency == 1:
+        # Keep the historical model -> experiment -> sample order by default.
+        try:
+            for calls in pending:
+                while calls:
+                    prepared = prepare(calls.popleft())
+                    persist(prepared, invoke(prepared))
+        except KeyboardInterrupt:
+            summary.interrupted = True
+    else:
+        # Construct HTTP clients before sharing adapters across worker threads.
+        # This performs no network requests and avoids races in lazy client setup.
+        for (_model, provider), calls in zip(tasks, pending):
+            initialize = getattr(provider, "_get_client", None)
+            if calls and callable(initialize):
+                initialize()
+
+        pool = ThreadPoolExecutor(max_workers=concurrency, thread_name_prefix="vcrb-api")
+        in_flight: dict[Future, tuple[int, Any]] = {}
+        active_by_model: Counter[int] = Counter()
+        cursor = 0
+
+        def submit_available():
+            nonlocal cursor
+            while len(in_flight) < concurrency:
+                chosen = None
+                for offset in range(len(pending)):
+                    index = (cursor + offset) % len(pending)
+                    if pending[index] and active_by_model[index] < model_caps[index]:
+                        chosen = index
+                        break
+                if chosen is None:
+                    return
+                prepared = prepare(pending[chosen].popleft())
+                future = pool.submit(invoke, prepared)
+                in_flight[future] = (chosen, prepared)
+                active_by_model[chosen] += 1
+                cursor = (chosen + 1) % len(pending)
+
+        def collect(future):
+            index, prepared = in_flight.pop(future)
+            active_by_model[index] -= 1
+            persist(prepared, future.result())
+
+        try:
+            submit_available()
+            while in_flight:
+                completed, _ = wait(in_flight, return_when=FIRST_COMPLETED)
+                for future in completed:
+                    collect(future)
+                submit_available()
+        except KeyboardInterrupt:
+            summary.interrupted = True
+            # Cancel requests that have not started. Drain actual in-flight calls
+            # to persist paid responses, without scheduling any replacement work.
+            for future in list(in_flight):
+                if future.cancel():
+                    index, _prepared = in_flight.pop(future)
+                    active_by_model[index] -= 1
+            while in_flight:
+                try:
+                    completed, _ = wait(in_flight, return_when=FIRST_COMPLETED)
+                    for future in completed:
+                        collect(future)
+                except KeyboardInterrupt:
+                    # A second interrupt must not turn an already returned paid
+                    # response into an unrecorded request that will be sent again.
+                    summary.interrupted = True
+        finally:
+            pool.shutdown(wait=True, cancel_futures=True)
+
+    if summary.interrupted:
+        store.finish_run(run_id, status="interrupted", note="用户中断，已停止新调用并保存返回结果，可续跑")
         return summary
     status = "done" if not summary.errors else "done_with_warnings"
     store.finish_run(
