@@ -24,8 +24,8 @@
       "multi_person": 24
     },
     "jianlai": {
-      "main_character": 1,
-      "key_supporting_character": 5,
+      "main_character": 0,
+      "key_supporting_character": 6,
       "supporting_character": 3,
       "hard_case": 5,
       "multi_person": 26
@@ -68,8 +68,8 @@
       "multi_person": 0
     },
     "jianlai": {
-      "main_character": 7,
-      "key_supporting_character": 3,
+      "main_character": 8,
+      "key_supporting_character": 2,
       "supporting_character": 5,
       "hard_case": 3,
       "multi_person": 0
@@ -4355,13 +4355,14 @@
       "work_name": "剑来",
       "work_category": "animation",
       "image_path": "jianlai/jianlai_0038.jpg",
-      "target_character": "陈平安",
-      "character_importance": "main",
+      "target_character": "于禄",
+      "character_importance": "key_supporting",
       "visual_difficulty": "normal",
       "is_multi_person": true,
       "character_aliases": [],
       "tags": [
-        "multiple_people"
+        "multiple_people",
+        "user_corrected_20261113"
       ],
       "target_bbox": [
         0.08,
@@ -4374,7 +4375,7 @@
       "annotation_status": "verified",
       "source_type": "frame_capture",
       "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53tqcqkaafr4ad7m6kinu4lhgdawnakaka.f323004003.hls#t=1452.080",
-      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；左前景灰蓝布衣、蓝色束发少年带伤拱手，右侧他人肩背；已看原图。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+      "note": "2026-11-13 用户在审核页截图中明确指出本图红框人物为于禄（卢氏王朝前朝太子），原assistant标签陈平安错误；三图为同一灰蓝衣、蓝色束发、脸部有伤人物。按用户纠正修订，原标签与证据留存于 gt_revision_02/revision.json；图像、目标框和编号不变。"
     },
     {
       "sample_id": "jianlai_0039",
@@ -4382,13 +4383,14 @@
       "work_name": "剑来",
       "work_category": "animation",
       "image_path": "jianlai/jianlai_0039.jpg",
-      "target_character": "陈平安",
-      "character_importance": "main",
+      "target_character": "于禄",
+      "character_importance": "key_supporting",
       "visual_difficulty": "normal",
       "is_multi_person": true,
       "character_aliases": [],
       "tags": [
-        "multiple_people"
+        "multiple_people",
+        "user_corrected_20261113"
       ],
       "target_bbox": [
         0.36,
@@ -4401,7 +4403,7 @@
       "annotation_status": "verified",
       "source_type": "frame_capture",
       "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53tqcqkaafr4ad7m6kinu4lhgdawnakaka.f323004003.hls#t=1486.480",
-      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；右前景灰蓝布衣、脸部带伤少年，后方白衣人物。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+      "note": "2026-11-13 用户在审核页截图中明确指出本图红框人物为于禄（卢氏王朝前朝太子），原assistant标签陈平安错误；三图为同一灰蓝衣、蓝色束发、脸部有伤人物。按用户纠正修订，原标签与证据留存于 gt_revision_02/revision.json；图像、目标框和编号不变。"
     },
     {
       "sample_id": "jianlai_0040",
@@ -4409,12 +4411,14 @@
       "work_name": "剑来",
       "work_category": "animation",
       "image_path": "jianlai/jianlai_0040.jpg",
-      "target_character": "陈平安",
-      "character_importance": "main",
+      "target_character": "于禄",
+      "character_importance": "key_supporting",
       "visual_difficulty": "normal",
       "is_multi_person": false,
       "character_aliases": [],
-      "tags": [],
+      "tags": [
+        "user_corrected_20261113"
+      ],
       "target_bbox": [
         0.07,
         0.0,
@@ -4426,10 +4430,19 @@
       "annotation_status": "verified",
       "source_type": "frame_capture",
       "source_url": "/mnt/f/6d4b18e291496b687e8b8c1da030deeb/0b53tqcqkaafr4ad7m6kinu4lhgdawnakaka.f323004003.hls#t=1521.680",
-      "note": "assistant 授权代标（2026-11-13）；角色与目标已确认；灰蓝布衣、面部伤痕少年仰脸近景。\n精简集入选：2026-11-13，每部40张；已复核目标框、角色、近重复及直接姓名字幕。"
+      "note": "2026-11-13 用户在审核页截图中明确指出本图红框人物为于禄（卢氏王朝前朝太子），原assistant标签陈平安错误；三图为同一灰蓝衣、蓝色束发、脸部有伤人物。按用户纠正修订，原标签与证据留存于 gt_revision_02/revision.json；图像、目标框和编号不变。"
     }
   ],
-  "annotation_revision": "/home/yanye/Person-Recognition/results/benchmark_20261113/gt_revision_01/revision.json",
-  "updated_at": "2026-11-13T01:45:00+00:00",
-  "cohort_revision": "/home/yanye/Person-Recognition/results/benchmark_20261113/replacements/revision.json"
+  "annotation_revision": "/home/yanye/Person-Recognition/results/benchmark_20261113/gt_revision_02/revision.json",
+  "updated_at": "2026-11-13T02:41:18+00:00",
+  "cohort_revision": "/home/yanye/Person-Recognition/results/benchmark_20261113/replacements/revision.json",
+  "annotation_revision_history": [
+    "/home/yanye/Person-Recognition/results/benchmark_20261113/gt_revision_01/revision.json",
+    "/home/yanye/Person-Recognition/results/benchmark_20261113/gt_revision_02/revision.json"
+  ],
+  "user_corrected_sample_ids": [
+    "jianlai_0038",
+    "jianlai_0039",
+    "jianlai_0040"
+  ]
 }

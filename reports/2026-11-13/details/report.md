@@ -1,10 +1,10 @@
 # 国产多模态大模型影视角色识别评测报告
 
-> 可移植报告版本。返回[汇总页](../index.html)，查看[17项标签修订与2张替换摘要](../annotation_changes.json)及[最终160张样本清单](../../../data/final/dataset.json)。原输入快照、完整审计与截图错误页保留本地；表内统计和原来源哈希未改。
+> 可移植报告版本。返回[汇总页](../index.html)，查看[累计20项标签修订与2张替换摘要](../annotation_changes.json)及[最终160张样本清单](../../../data/final/dataset.json)。新增3项为用户直接纠正剑来0038/0039/0040为于禄；原输入快照、完整审计与截图错误页保留本地。统计已用gt_revision_02离线重评，原响应未变、未新增调用。
 
 - Run ID：`run_20261113_final_practical`
 - Prompt 版本：`v1`
-- 数据集快照哈希：`507321ad831ac96b…`
+- 数据集快照哈希：`921e13f7f0ac1b72…`
 - 运行时间：2026-11-13T01:55:50+00:00
 - 标签：Final cohort (saved-response assembly)
 - 参与模型数：7；样本数：160
@@ -16,7 +16,7 @@
 | kuangbiao | 40 | 5 | 2 | 4 | 3 | 26 |
 | qingyunian2 | 40 | 4 | 8 | 1 | 8 | 19 |
 | gongfunvzu | 40 | 13 | 1 | 0 | 2 | 24 |
-| jianlai | 40 | 1 | 5 | 3 | 5 | 26 |
+| jianlai | 40 | 0 | 6 | 3 | 5 | 26 |
 
 ## 2. 模型总体排行榜（核心指标：有效响应识别准确率，95% Wilson CI）
 
@@ -25,130 +25,130 @@
 
 | 模型 | 厂商/档位 | A组准确率 | B组准确率 | B−A 提升 | A/B 配对检验 |
 |---|---|---|---|---|---|
-| Kimi K3.1 Pro | Kimi/flagship | 47.5% [39.9%–55.2%] | 59.4% [51.6%–66.7%] | +11.9pp | p=0.000（binomial_exact(scipy)） |
-| Qwen3.8-Max | Qwen/flagship | 56.2% [48.5%–63.7%] | 58.8% [51.0%–66.1%] | +2.5pp | p=0.125（binomial_exact(scipy)） |
-| Qwen3.7-Plus | Qwen/standard | 37.5% [30.4%–45.2%] | 45.6% [38.1%–53.4%] | +8.1pp | p=0.015（binomial_exact(scipy)） |
-| Qwen3.8-Flash | Qwen/flash | 36.2% [29.2%–43.9%] | 45.0% [37.5%–52.7%] | +8.8pp | p=0.013（binomial_exact(scipy)） |
-| DeepSeek Flash (V4.1-Flash-1017) | DeepSeek/flash | 6.9% [3.9%–11.9%] | 23.8% [17.8%–30.9%] | +16.9pp | p=0.000（binomial_exact(scipy)） |
-| GLM-5.3-Flash | GLM/flagship | 4.4% [2.1%–8.8%] | 20.0% [14.5%–26.9%] | +15.6pp | p=0.000（binomial_exact(scipy)） |
-| GLM-4.6V | GLM/standard | 1.9% [0.6%–5.4%] | 17.5% [12.4%–24.1%] | +15.6pp | p=0.000（binomial_exact(scipy)） |
+| Kimi K3.1 Pro | Kimi/flagship | 45.6% [38.1%–53.4%] | 57.5% [49.8%–64.9%] | +11.9pp | p=0.000（binomial_exact(scipy)） |
+| Qwen3.8-Max | Qwen/flagship | 55.6% [47.9%–63.1%] | 56.9% [49.1%–64.3%] | +1.2pp | p=0.500（binomial_exact(scipy)） |
+| Qwen3.7-Plus | Qwen/standard | 37.5% [30.4%–45.2%] | 43.8% [36.3%–51.5%] | +6.2pp | p=0.052（binomial_exact(scipy)） |
+| Qwen3.8-Flash | Qwen/flash | 34.4% [27.5%–42.0%] | 43.1% [35.7%–50.9%] | +8.8pp | p=0.013（binomial_exact(scipy)） |
+| DeepSeek Flash (V4.1-Flash-1017) | DeepSeek/flash | 6.2% [3.4%–11.1%] | 21.9% [16.2%–28.9%] | +15.6pp | p=0.000（binomial_exact(scipy)） |
+| GLM-5.3-Flash | GLM/flagship | 4.4% [2.1%–8.8%] | 18.1% [12.9%–24.8%] | +13.8pp | p=0.000（binomial_exact(scipy)） |
+| GLM-4.6V | GLM/standard | 1.9% [0.6%–5.4%] | 15.6% [10.8%–22.0%] | +13.8pp | p=0.000（binomial_exact(scipy)） |
 
 ## 3. 双口径指标（调整 5：网络故障不得扭曲模型能力评价）
 
 | 模型 | 实验 | 计划 | 有效响应 | 正确 | 端到端正确率 | 有效响应准确率 | API失败率 |
 |---|---|---|---|---|---|---|---|
-| DeepSeek Flash (V4.1-Flash-1017) | A | 160 | 160 | 11 | 6.9% | 6.9% | 0.0% |
-| DeepSeek Flash (V4.1-Flash-1017) | B | 160 | 160 | 38 | 23.8% | 23.8% | 0.0% |
+| DeepSeek Flash (V4.1-Flash-1017) | A | 160 | 160 | 10 | 6.2% | 6.2% | 0.0% |
+| DeepSeek Flash (V4.1-Flash-1017) | B | 160 | 160 | 35 | 21.9% | 21.9% | 0.0% |
 | GLM-4.6V | A | 160 | 160 | 3 | 1.9% | 1.9% | 0.0% |
-| GLM-4.6V | B | 160 | 160 | 28 | 17.5% | 17.5% | 0.0% |
+| GLM-4.6V | B | 160 | 160 | 25 | 15.6% | 15.6% | 0.0% |
 | GLM-5.3-Flash | A | 160 | 160 | 7 | 4.4% | 4.4% | 0.0% |
-| GLM-5.3-Flash | B | 160 | 160 | 32 | 20.0% | 20.0% | 0.0% |
-| Kimi K3.1 Pro | A | 160 | 160 | 76 | 47.5% | 47.5% | 0.0% |
-| Kimi K3.1 Pro | B | 160 | 160 | 95 | 59.4% | 59.4% | 0.0% |
+| GLM-5.3-Flash | B | 160 | 160 | 29 | 18.1% | 18.1% | 0.0% |
+| Kimi K3.1 Pro | A | 160 | 160 | 73 | 45.6% | 45.6% | 0.0% |
+| Kimi K3.1 Pro | B | 160 | 160 | 92 | 57.5% | 57.5% | 0.0% |
 | Qwen3.7-Plus | A | 160 | 160 | 60 | 37.5% | 37.5% | 0.0% |
-| Qwen3.7-Plus | B | 160 | 160 | 73 | 45.6% | 45.6% | 0.0% |
-| Qwen3.8-Flash | A | 160 | 160 | 58 | 36.2% | 36.2% | 0.0% |
-| Qwen3.8-Flash | B | 160 | 160 | 72 | 45.0% | 45.0% | 0.0% |
-| Qwen3.8-Max | A | 160 | 160 | 90 | 56.2% | 56.2% | 0.0% |
-| Qwen3.8-Max | B | 160 | 160 | 94 | 58.8% | 58.8% | 0.0% |
+| Qwen3.7-Plus | B | 160 | 160 | 70 | 43.8% | 43.8% | 0.0% |
+| Qwen3.8-Flash | A | 160 | 160 | 55 | 34.4% | 34.4% | 0.0% |
+| Qwen3.8-Flash | B | 160 | 160 | 69 | 43.1% | 43.1% | 0.0% |
+| Qwen3.8-Max | A | 160 | 160 | 89 | 55.6% | 55.6% | 0.0% |
+| Qwen3.8-Max | B | 160 | 160 | 91 | 56.9% | 56.9% | 0.0% |
 
 ## 4. 结果分类明细
 
 | 模型 | 实验 | 正确 | 错误识别 | 答演员名 | 无法识别 | 拒答 | 格式错误 | API失败 | 未执行 |
 |---|---|---|---|---|---|---|---|---|---|
-| DeepSeek Flash (V4.1-Flash-1017) | A | 11 | 95 | 0 | 54 | 0 | 0 | 0 | 0 |
-| DeepSeek Flash (V4.1-Flash-1017) | B | 38 | 85 | 0 | 37 | 0 | 0 | 0 | 0 |
+| DeepSeek Flash (V4.1-Flash-1017) | A | 10 | 96 | 0 | 54 | 0 | 0 | 0 | 0 |
+| DeepSeek Flash (V4.1-Flash-1017) | B | 35 | 88 | 0 | 37 | 0 | 0 | 0 | 0 |
 | GLM-4.6V | A | 3 | 153 | 1 | 3 | 0 | 0 | 0 | 0 |
-| GLM-4.6V | B | 28 | 113 | 0 | 19 | 0 | 0 | 0 | 0 |
+| GLM-4.6V | B | 25 | 116 | 0 | 19 | 0 | 0 | 0 | 0 |
 | GLM-5.3-Flash | A | 7 | 21 | 0 | 132 | 0 | 0 | 0 | 0 |
-| GLM-5.3-Flash | B | 32 | 43 | 0 | 85 | 0 | 0 | 0 | 0 |
-| Kimi K3.1 Pro | A | 76 | 46 | 0 | 38 | 0 | 0 | 0 | 0 |
-| Kimi K3.1 Pro | B | 95 | 26 | 0 | 39 | 0 | 0 | 0 | 0 |
+| GLM-5.3-Flash | B | 29 | 46 | 0 | 85 | 0 | 0 | 0 | 0 |
+| Kimi K3.1 Pro | A | 73 | 49 | 0 | 38 | 0 | 0 | 0 | 0 |
+| Kimi K3.1 Pro | B | 92 | 29 | 0 | 39 | 0 | 0 | 0 | 0 |
 | Qwen3.7-Plus | A | 60 | 92 | 0 | 6 | 0 | 2 | 0 | 0 |
-| Qwen3.7-Plus | B | 73 | 84 | 0 | 3 | 0 | 0 | 0 | 0 |
-| Qwen3.8-Flash | A | 58 | 65 | 0 | 36 | 0 | 1 | 0 | 0 |
-| Qwen3.8-Flash | B | 72 | 65 | 0 | 23 | 0 | 0 | 0 | 0 |
-| Qwen3.8-Max | A | 90 | 63 | 0 | 0 | 0 | 7 | 0 | 0 |
-| Qwen3.8-Max | B | 94 | 49 | 0 | 3 | 0 | 14 | 0 | 0 |
+| Qwen3.7-Plus | B | 70 | 87 | 0 | 3 | 0 | 0 | 0 | 0 |
+| Qwen3.8-Flash | A | 55 | 68 | 0 | 36 | 0 | 1 | 0 | 0 |
+| Qwen3.8-Flash | B | 69 | 68 | 0 | 23 | 0 | 0 | 0 | 0 |
+| Qwen3.8-Max | A | 89 | 64 | 0 | 0 | 0 | 7 | 0 | 0 |
+| Qwen3.8-Max | B | 91 | 52 | 0 | 3 | 0 | 14 | 0 | 0 |
 
 ## 5. 分作品准确率（有效响应口径）
 
 | 模型 | kuangbiao | qingyunian2 | gongfunvzu | jianlai |
 |---|---|---|---|---|
-| DeepSeek Flash (V4.1-Flash-1017) | 27.5% | 35.0% | 0.0% | 32.5% |
-| GLM-4.6V | 20.0% | 35.0% | 0.0% | 15.0% |
-| GLM-5.3-Flash | 25.0% | 27.5% | 0.0% | 27.5% |
-| Kimi K3.1 Pro | 92.5% | 82.5% | 10.0% | 52.5% |
-| Qwen3.7-Plus | 72.5% | 70.0% | 0.0% | 40.0% |
-| Qwen3.8-Flash | 70.0% | 67.5% | 10.0% | 32.5% |
-| Qwen3.8-Max | 97.5% | 87.5% | 0.0% | 50.0% |
+| DeepSeek Flash (V4.1-Flash-1017) | 27.5% | 35.0% | 0.0% | 25.0% |
+| GLM-4.6V | 20.0% | 35.0% | 0.0% | 7.5% |
+| GLM-5.3-Flash | 25.0% | 27.5% | 0.0% | 20.0% |
+| Kimi K3.1 Pro | 92.5% | 82.5% | 10.0% | 45.0% |
+| Qwen3.7-Plus | 72.5% | 70.0% | 0.0% | 32.5% |
+| Qwen3.8-Flash | 70.0% | 67.5% | 10.0% | 25.0% |
+| Qwen3.8-Max | 97.5% | 87.5% | 0.0% | 42.5% |
 
 ## 6. 分人物重要度准确率（B组）
 
 | 模型 | main | key_supporting | supporting |
 |---|---|---|---|
-| DeepSeek Flash (V4.1-Flash-1017) | 37.7% | 22.1% | 0.0% |
-| GLM-4.6V | 32.8% | 11.8% | 0.0% |
-| GLM-5.3-Flash | 27.9% | 22.1% | 0.0% |
-| Kimi K3.1 Pro | 52.5% | 77.9% | 32.3% |
-| Qwen3.7-Plus | 45.9% | 57.4% | 19.4% |
-| Qwen3.8-Flash | 49.2% | 57.4% | 9.7% |
-| Qwen3.8-Max | 45.9% | 80.9% | 35.5% |
+| DeepSeek Flash (V4.1-Flash-1017) | 34.5% | 21.1% | 0.0% |
+| GLM-4.6V | 29.3% | 11.3% | 0.0% |
+| GLM-5.3-Flash | 24.1% | 21.1% | 0.0% |
+| Kimi K3.1 Pro | 50.0% | 74.6% | 32.3% |
+| Qwen3.7-Plus | 43.1% | 54.9% | 19.4% |
+| Qwen3.8-Flash | 46.6% | 54.9% | 9.7% |
+| Qwen3.8-Max | 43.1% | 77.5% | 35.5% |
 
 ## 7. 分视觉难度准确率（B组）
 
 | 模型 | normal | side_face | occluded | blurry | costume_change |
 |---|---|---|---|---|---|
-| DeepSeek Flash (V4.1-Flash-1017) | 20.6% | 37.0% | 33.3% | 0.0% | — |
-| GLM-4.6V | 16.7% | 22.2% | 16.7% | 0.0% | — |
-| GLM-5.3-Flash | 18.3% | 29.6% | 16.7% | 0.0% | — |
-| Kimi K3.1 Pro | 60.3% | 59.3% | 50.0% | 0.0% | — |
-| Qwen3.7-Plus | 42.9% | 59.3% | 50.0% | 0.0% | — |
-| Qwen3.8-Flash | 41.3% | 63.0% | 50.0% | 0.0% | — |
-| Qwen3.8-Max | 55.6% | 70.4% | 66.7% | 100.0% | — |
+| DeepSeek Flash (V4.1-Flash-1017) | 18.3% | 37.0% | 33.3% | 0.0% | — |
+| GLM-4.6V | 14.3% | 22.2% | 16.7% | 0.0% | — |
+| GLM-5.3-Flash | 15.9% | 29.6% | 16.7% | 0.0% | — |
+| Kimi K3.1 Pro | 57.9% | 59.3% | 50.0% | 0.0% | — |
+| Qwen3.7-Plus | 40.5% | 59.3% | 50.0% | 0.0% | — |
+| Qwen3.8-Flash | 38.9% | 63.0% | 50.0% | 0.0% | — |
+| Qwen3.8-Max | 53.2% | 70.4% | 66.7% | 100.0% | — |
 
 ## 8. 多人同框 vs 单人画面（B组）
 
 | 模型 | 单人/主体 | 多人同框 |
 |---|---|---|
-| DeepSeek Flash (V4.1-Flash-1017) | 30.8% | 18.9% |
-| GLM-4.6V | 24.6% | 12.6% |
-| GLM-5.3-Flash | 24.6% | 16.8% |
-| Kimi K3.1 Pro | 58.5% | 60.0% |
-| Qwen3.7-Plus | 52.3% | 41.1% |
-| Qwen3.8-Flash | 47.7% | 43.2% |
-| Qwen3.8-Max | 67.7% | 52.6% |
+| DeepSeek Flash (V4.1-Flash-1017) | 29.2% | 16.8% |
+| GLM-4.6V | 23.1% | 10.5% |
+| GLM-5.3-Flash | 23.1% | 14.7% |
+| Kimi K3.1 Pro | 56.9% | 57.9% |
+| Qwen3.7-Plus | 50.8% | 38.9% |
+| Qwen3.8-Flash | 46.2% | 41.1% |
+| Qwen3.8-Max | 66.2% | 50.5% |
 
 ## 9. 按角色统计（防高频角色掩盖短板）
 
 | 模型 | 实验 | 角色宏平均准确率 | 覆盖角色数 | 最弱角色（准确率最低的前 5） |
 |---|---|---|---|---|
-| DeepSeek Flash (V4.1-Flash-1017) | A | 8.8% | 38 | 桑文 0/1；三皇子 0/1；侯公公 0/1；范无救 0/1；范建 0/1 |
-| DeepSeek Flash (V4.1-Flash-1017) | B | 24.4% | 38 | 桑文 0/1；三皇子 0/1；侯公公 0/1；范无救 0/1；龚开疆 0/2 |
-| GLM-4.6V | A | 3.3% | 38 | 桑文 0/1；三皇子 0/1；侯公公 0/1；范无救 0/1；范建 0/1 |
-| GLM-4.6V | B | 21.5% | 38 | 桑文 0/1；三皇子 0/1；侯公公 0/1；范无救 0/1；龚开疆 0/2 |
-| GLM-5.3-Flash | A | 4.4% | 38 | 桑文 0/1；三皇子 0/1；侯公公 0/1；范无救 0/1；范建 0/1 |
-| GLM-5.3-Flash | B | 20.4% | 38 | 桑文 0/1；三皇子 0/1；侯公公 0/1；范无救 0/1；范建 0/1 |
-| Kimi K3.1 Pro | A | 50.1% | 38 | 三皇子 0/1；侯公公 0/1；范无救 0/1；范建 0/1；孖八 0/2 |
-| Kimi K3.1 Pro | B | 63.1% | 38 | 侯公公 0/1；范无救 0/1；孖八 0/2；丧彪 0/2；师太 0/3 |
-| Qwen3.7-Plus | A | 39.9% | 38 | 三皇子 0/1；侯公公 0/1；范无救 0/1；范建 0/1；龚开疆 0/2 |
-| Qwen3.7-Plus | B | 45.6% | 38 | 三皇子 0/1；侯公公 0/1；范无救 0/1；范建 0/1；龚开疆 0/2 |
-| Qwen3.8-Flash | A | 35.5% | 38 | 三皇子 0/1；侯公公 0/1；范无救 0/1；范建 0/1；龚开疆 0/2 |
-| Qwen3.8-Flash | B | 41.3% | 38 | 三皇子 0/1；侯公公 0/1；范无救 0/1；范建 0/1；龚开疆 0/2 |
-| Qwen3.8-Max | A | 60.0% | 38 | 三皇子 0/1；侯公公 0/1；范无救 0/1；范建 0/1；孖八 0/2 |
-| Qwen3.8-Max | B | 61.6% | 38 | 三皇子 0/1；侯公公 0/1；范无救 0/1；范建 0/1；孖八 0/2 |
+| DeepSeek Flash (V4.1-Flash-1017) | A | 8.2% | 39 | 桑文 0/1；三皇子 0/1；侯公公 0/1；范无救 0/1；范建 0/1 |
+| DeepSeek Flash (V4.1-Flash-1017) | B | 23.8% | 39 | 桑文 0/1；三皇子 0/1；侯公公 0/1；范无救 0/1；龚开疆 0/2 |
+| GLM-4.6V | A | 3.2% | 39 | 桑文 0/1；三皇子 0/1；侯公公 0/1；范无救 0/1；范建 0/1 |
+| GLM-4.6V | B | 20.9% | 39 | 桑文 0/1；三皇子 0/1；侯公公 0/1；范无救 0/1；龚开疆 0/2 |
+| GLM-5.3-Flash | A | 4.3% | 39 | 桑文 0/1；三皇子 0/1；侯公公 0/1；范无救 0/1；范建 0/1 |
+| GLM-5.3-Flash | B | 19.9% | 39 | 桑文 0/1；三皇子 0/1；侯公公 0/1；范无救 0/1；范建 0/1 |
+| Kimi K3.1 Pro | A | 48.8% | 39 | 三皇子 0/1；侯公公 0/1；范无救 0/1；范建 0/1；孖八 0/2 |
+| Kimi K3.1 Pro | B | 61.5% | 39 | 侯公公 0/1；范无救 0/1；孖八 0/2；丧彪 0/2；师太 0/3 |
+| Qwen3.7-Plus | A | 40.2% | 39 | 三皇子 0/1；侯公公 0/1；范无救 0/1；范建 0/1；龚开疆 0/2 |
+| Qwen3.7-Plus | B | 44.4% | 39 | 三皇子 0/1；侯公公 0/1；范无救 0/1；范建 0/1；龚开疆 0/2 |
+| Qwen3.8-Flash | A | 34.6% | 39 | 三皇子 0/1；侯公公 0/1；范无救 0/1；范建 0/1；龚开疆 0/2 |
+| Qwen3.8-Flash | B | 40.2% | 39 | 三皇子 0/1；侯公公 0/1；范无救 0/1；范建 0/1；龚开疆 0/2 |
+| Qwen3.8-Max | A | 59.4% | 39 | 三皇子 0/1；侯公公 0/1；范无救 0/1；范建 0/1；孖八 0/2 |
+| Qwen3.8-Max | B | 60.0% | 39 | 三皇子 0/1；侯公公 0/1；范无救 0/1；范建 0/1；孖八 0/2 |
 
 ## 10. 同厂商档位对比（tier 仅为项目分组标签，性能以实测为准）
 
 | 厂商 | 模型 | 档位标签 | A组 | B组 |
 |---|---|---|---|---|
-| DeepSeek | DeepSeek Flash (V4.1-Flash-1017) | flash | 6.9% | 23.8% |
-| GLM | GLM-4.6V | standard | 1.9% | 17.5% |
-| GLM | GLM-5.3-Flash | flagship | 4.4% | 20.0% |
-| Kimi | Kimi K3.1 Pro | flagship | 47.5% | 59.4% |
-| Qwen | Qwen3.7-Plus | standard | 37.5% | 45.6% |
-| Qwen | Qwen3.8-Flash | flash | 36.2% | 45.0% |
-| Qwen | Qwen3.8-Max | flagship | 56.2% | 58.8% |
+| DeepSeek | DeepSeek Flash (V4.1-Flash-1017) | flash | 6.2% | 21.9% |
+| GLM | GLM-4.6V | standard | 1.9% | 15.6% |
+| GLM | GLM-5.3-Flash | flagship | 4.4% | 18.1% |
+| Kimi | Kimi K3.1 Pro | flagship | 45.6% | 57.5% |
+| Qwen | Qwen3.7-Plus | standard | 37.5% | 43.8% |
+| Qwen | Qwen3.8-Flash | flash | 34.4% | 43.1% |
+| Qwen | Qwen3.8-Max | flagship | 55.6% | 56.9% |
 
 ## 11. 可视化图表
 
@@ -180,10 +180,13 @@
 - **tools_disabled**：不传 tools/tool_choice；不启用联网搜索
 - **settings_snapshot**：{'retry': {'max_attempts': 4, 'backoff_base_seconds': 2.0, 'timeout_seconds': 120}, 'generation': {'temperature': 0.1, 'max_tokens': 4096}, 'collect': {'request_timeout_seconds': 15, 'max_images_per_work': 150, 'min_image_bytes': 10240, 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36'}, 'clean': {'min_width': 300, 'min_height': 200, 'phash_hamming_threshold': 8, 'allowed_formats': ['jpg', 'jpeg', 'png', 'webp']}, 'export': {'target_per_group': 8, 'target_per_work': 40}, 'scoring': {'fuzzy_review_threshold': 0.9, 'refusal_keywords': ['无法识别身份', '不能识别人脸', '无法识别人脸', '不进行人脸识别', '涉及隐私', '无法确认人物身份', '我不能识别']}, 'pilot': {'per_model_connectivity': 1, 'per_model_small': 10, 'per_work_formal': 10}, 'runner': {'concurrency': 8, 'per_model_concurrency': {'kimi-k3.1-pro': 1, 'glm-4.6v-flash': 1}, 'per_model_min_interval_seconds': {'kimi-k3.1-pro': 20.1, 'glm-4.6v-flash': 6.1}}, 'screening': {'grayscale_sat_mean': 0.05, 'grayscale_sat_p95': 0.12, 'poster_aspect_max': 0.85, 'odd_aspect_min': 1.3, 'odd_aspect_max': 2.45, 'white_border_frac': 0.6, 'white_border_threshold': 235, 'collage_peak_ratio': 3.0, 'collage_span_min': 0.85, 'collage_min_peaks': 2, 'collage_spacing_cv': 0.35, 'blocklist_domains': ['pixiv.net', 'pximg.net', 'civitai.com', 'lofter.com']}}
 - **cohort_assembly**：{'kind': 'offline_response_reuse', 'source_run_ids': ['run_20261113_010640', 'run_20261113_010800', 'run_20261113_014628', 'run_20261113_015201'], 'source_runs': [{'run_id': 'run_20261113_010640', 'dataset_hash': '7eed2fb56b1d5d161a5168b898bd88b5', 'dataset_snapshot_path': '保留本地（未包含）：results/snapshots/run_20261113_010640/dataset.json', 'status': 'interrupted'}, {'run_id': 'run_20261113_010800', 'dataset_hash': '7eed2fb56b1d5d161a5168b898bd88b5', 'dataset_snapshot_path': '保留本地（未包含）：results/snapshots/run_20261113_010800/dataset.json', 'status': 'done'}, {'run_id': 'run_20261113_014628', 'dataset_hash': '582eb30343a802f12486899b6760e6ea', 'dataset_snapshot_path': '保留本地（未包含）：results/snapshots/run_20261113_014628/dataset.json', 'status': 'done'}, {'run_id': 'run_20261113_015201', 'dataset_hash': '582eb30343a802f12486899b6760e6ea', 'dataset_snapshot_path': '保留本地（未包含）：results/snapshots/run_20261113_015201/dataset.json', 'status': 'done'}], 'source_record_counts': {'run_20261113_010640': 1896, 'run_20261113_010800': 316, 'run_20261113_014628': 24, 'run_20261113_015201': 4}, 'source_records_by_run': {'run_20261113_010640': 1896, 'run_20261113_010800': 316, 'run_20261113_014628': 24, 'run_20261113_015201': 4}, 'imported_records': 2240, 'source_image_manifests': ['../provenance/input_image_hashes.json', '../provenance/final_image_hashes.json'], 'annotation_revision_path': '../annotation_changes.json', 'historical_image_digest_available': False, 'limitations': ['Historical raw requests contain image_meta, not image digests. Image reuse is checked against source snapshot paths/bboxes and frozen SHA256 manifests; these digests do not purport to be captured at historical request time.'], 'no_api_calls': True, 'last_assembled_at': '2026-11-13T01:55:50+00:00', 'actual_request_contracts': {'deepseek-flash': {'model': 'deepseek-flash', 'max_tokens': 4096, 'temperature': 0.1, 'extra_body': {'thinking': {'type': 'disabled'}}, 'tools': None}, 'glm-5.3-flash': {'model': 'glm-5.3-flash', 'max_tokens': 4096, 'temperature': 0.1, 'extra_body': {'thinking': {'type': 'enabled'}, 'reasoning_effort': 'low'}, 'tools': None}, 'glm-4.6v': {'model': 'glm-4.6v', 'max_tokens': 4096, 'temperature': 0.1, 'extra_body': {'thinking': {'type': 'disabled'}}, 'tools': None}, 'qwen3.8-max': {'model': 'qwen3.8-max', 'max_tokens': 4096, 'temperature': 0.1, 'extra_body': {'enable_thinking': False}, 'tools': None}, 'qwen3.7-plus': {'model': 'qwen3.7-plus', 'max_tokens': 4096, 'temperature': 0.1, 'extra_body': {'enable_thinking': False}, 'tools': None}, 'qwen3.8-flash': {'model': 'qwen3.8-flash', 'max_tokens': 4096, 'temperature': 0.1, 'extra_body': {'enable_thinking': False}, 'tools': None}, 'kimi-k3.1-pro': {'model': 'kimi-k3.1-pro', 'max_completion_tokens': 4096, 'temperature': None, 'extra_body': {'reasoning_effort': 'low'}, 'tools': None}}, 'excluded_models': [{'model_id': 'glm-4.6v-flash', 'reason': '按用户对实际响应速度和稳定性的关注排除；实测反复返回模型当前访问量过大，保留114项可用性记录，不作全量准确率排名。'}]}
-- **scoring_profile_path**：保留本地（未包含）：results/benchmark_20261113/scoring_profile/profile.json
+- **scoring_profile_path**：保留本地（未包含）：results/benchmark_20261113/gt_revision_02/scoring_profile/profile.json
 - **alias_evidence_audit_path**：保留本地（未包含）：results/benchmark_20261113/alias_evidence_audit.json
-- **ground_truth_revision**：{'role_labels_corrected': 17, 'inputs_replaced': 2, 'unchanged_original_inputs': 158, 'role_revision_audit': '../annotation_changes.json', 'replacement_audit': '../annotation_changes.json'}
+- **ground_truth_revision**：{'role_labels_corrected': 20, 'inputs_replaced': 2, 'unchanged_original_inputs': 158, 'role_revision_audit': '../annotation_changes.json', 'replacement_audit': '../annotation_changes.json', 'user_label_corrections': 3, 'latest_role_revision_audit': '../annotation_changes.json'}
 - **excluded_unavailable_models**：[{'model_id': 'kimi-k2.5', 'error_type': 'model_not_found', 'error_message': '实测404，当前账号不可用；未参与正式比较。'}, {'model_id': 'kimi-k2.6', 'error_type': 'model_not_found', 'error_message': '实测404，当前账号不可用；未参与正式比较。'}, {'model_id': 'glm-4.6v-flash', 'error_type': 'excluded_after_availability_check', 'error_message': '反复返回模型访问量过大；114项部分测试101 HTTP成功、13最终API失败。按用户关注实际稳定性停止后续全量，未参与准确率比较。'}]
+- **evaluation_snapshot_path**：保留本地（未包含）：results/snapshots/run_20261113_final_practical/evaluation_rev2.json
+- **evaluation_dataset_hash**：921e13f7f0ac1b724d1fc33119de68f1
+- **annotation_revision_path**：../annotation_changes.json
 
 ## 13. 人工复核记录
 
@@ -193,9 +196,9 @@
 
 ## 14. 实验结论
 
-- 总体（B组）最佳：Kimi K3.1 Pro，有效响应准确率 59.4%。
+- 总体（B组）最佳：Kimi K3.1 Pro，有效响应准确率 57.5%。
 - gongfunvzu 最佳（B组）：Kimi K3.1 Pro 10.0%
-- jianlai 最佳（B组）：Kimi K3.1 Pro 52.5%
+- jianlai 最佳（B组）：Kimi K3.1 Pro 45.0%
 - kuangbiao 最佳（B组）：Qwen3.8-Max 97.5%
 - qingyunian2 最佳（B组）：Qwen3.8-Max 87.5%
-- 作品名称平均影响：+11.3pp（6/7 个模型达到统计显著 p<0.05）。
+- 作品名称平均影响：+10.2pp（5/7 个模型达到统计显著 p<0.05）。

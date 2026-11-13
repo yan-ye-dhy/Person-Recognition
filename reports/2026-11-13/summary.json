@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-13T01:57:45+00:00",
+  "generated_at": "2026-11-13T02:42:43+00:00",
   "explicit_run_ids": [
     "run_20261113_final_practical"
   ],
@@ -9,20 +9,20 @@
   "included_model_count": 7,
   "completed_model_count": 7,
   "in_progress_model_count": 0,
-  "annotation_revision_applied": false,
+  "annotation_revision_applied": true,
   "has_reused_responses": true,
   "cohorts": [
     {
       "sample_count": 160,
-      "dataset_hash": "507321ad831ac96b014074d030a13673",
-      "evaluation_dataset_hash": "507321ad831ac96b014074d030a13673",
+      "dataset_hash": "921e13f7f0ac1b724d1fc33119de68f1",
+      "evaluation_dataset_hash": "921e13f7f0ac1b724d1fc33119de68f1",
       "input_dataset_hashes": [
         "507321ad831ac96b014074d030a13673"
       ],
       "annotation_revision_paths": [
         "annotation_changes.json"
       ],
-      "annotation_revision_applied": false,
+      "annotation_revision_applied": true,
       "has_reused_responses": true,
       "prompt_version": "v1",
       "by_work": {
@@ -39,11 +39,11 @@
               "experiment": "A",
               "run_id": "run_20261113_final_practical",
               "planned": 160,
-              "correct": 11,
+              "correct": 10,
               "valid_responses": 160,
               "counts": {
-                "correct": 11,
-                "wrong_name": 95,
+                "correct": 10,
+                "wrong_name": 96,
                 "actor_name": 0,
                 "uncertain": 54,
                 "refused": 0,
@@ -51,12 +51,12 @@
                 "api_failure": 0,
                 "not_run": 0
               },
-              "accuracy_valid": 0.06875,
+              "accuracy_valid": 0.0625,
               "accuracy_valid_ci95": [
-                0.03881942091091279,
-                0.11890292242451045
+                0.034299666746119624,
+                0.11121575402894743
               ],
-              "accuracy_e2e": 0.06875,
+              "accuracy_e2e": 0.0625,
               "api_failure_rate": 0.0,
               "completed_requests": 160,
               "recorded_http_attempts": 160,
@@ -80,11 +80,11 @@
               "experiment": "B",
               "run_id": "run_20261113_final_practical",
               "planned": 160,
-              "correct": 38,
+              "correct": 35,
               "valid_responses": 160,
               "counts": {
-                "correct": 38,
-                "wrong_name": 85,
+                "correct": 35,
+                "wrong_name": 88,
                 "actor_name": 0,
                 "uncertain": 37,
                 "refused": 0,
@@ -92,12 +92,12 @@
                 "api_failure": 0,
                 "not_run": 0
               },
-              "accuracy_valid": 0.2375,
+              "accuracy_valid": 0.21875,
               "accuracy_valid_ci95": [
-                0.1782035847518699,
-                0.3091056677131703
+                0.1617014725523996,
+                0.2889870122315721
               ],
-              "accuracy_e2e": 0.2375,
+              "accuracy_e2e": 0.21875,
               "api_failure_rate": 0.0,
               "completed_requests": 160,
               "recorded_http_attempts": 160,
@@ -202,11 +202,11 @@
               "experiment": "B",
               "run_id": "run_20261113_final_practical",
               "planned": 160,
-              "correct": 28,
+              "correct": 25,
               "valid_responses": 160,
               "counts": {
-                "correct": 28,
-                "wrong_name": 113,
+                "correct": 25,
+                "wrong_name": 116,
                 "actor_name": 0,
                 "uncertain": 19,
                 "refused": 0,
@@ -214,12 +214,12 @@
                 "api_failure": 0,
                 "not_run": 0
               },
-              "accuracy_valid": 0.175,
+              "accuracy_valid": 0.15625,
               "accuracy_valid_ci95": [
-                0.12394200193945988,
-                0.24129802492201852
+                0.10813126408910952,
+                0.22048799509130035
               ],
-              "accuracy_e2e": 0.175,
+              "accuracy_e2e": 0.15625,
               "api_failure_rate": 0.0,
               "completed_requests": 160,
               "recorded_http_attempts": 160,
@@ -324,11 +324,11 @@
               "experiment": "B",
               "run_id": "run_20261113_final_practical",
               "planned": 160,
-              "correct": 32,
+              "correct": 29,
               "valid_responses": 160,
               "counts": {
-                "correct": 32,
-                "wrong_name": 43,
+                "correct": 29,
+                "wrong_name": 46,
                 "actor_name": 0,
                 "uncertain": 85,
                 "refused": 0,
@@ -336,12 +336,12 @@
                 "api_failure": 0,
                 "not_run": 0
               },
-              "accuracy_valid": 0.2,
+              "accuracy_valid": 0.18125,
               "accuracy_valid_ci95": [
-                0.14538269154252415,
-                0.268685025560379
+                0.1292656614898936,
+                0.24818128793194094
               ],
-              "accuracy_e2e": 0.2,
+              "accuracy_e2e": 0.18125,
               "api_failure_rate": 0.0,
               "completed_requests": 160,
               "recorded_http_attempts": 160,
@@ -406,11 +406,11 @@
               "experiment": "A",
               "run_id": "run_20261113_final_practical",
               "planned": 160,
-              "correct": 76,
+              "correct": 73,
               "valid_responses": 160,
               "counts": {
-                "correct": 76,
-                "wrong_name": 46,
+                "correct": 73,
+                "wrong_name": 49,
                 "actor_name": 0,
                 "uncertain": 38,
                 "refused": 0,
@@ -418,12 +418,12 @@
                 "api_failure": 0,
                 "not_run": 0
               },
-              "accuracy_valid": 0.475,
+              "accuracy_valid": 0.45625,
               "accuracy_valid_ci95": [
-                0.3991189168067862,
-                0.5520533929517891
+                0.38100176815340075,
+                0.533549773924106
               ],
-              "accuracy_e2e": 0.475,
+              "accuracy_e2e": 0.45625,
               "api_failure_rate": 0.0,
               "completed_requests": 160,
               "recorded_http_attempts": 160,
@@ -447,11 +447,11 @@
               "experiment": "B",
               "run_id": "run_20261113_final_practical",
               "planned": 160,
-              "correct": 95,
+              "correct": 92,
               "valid_responses": 160,
               "counts": {
-                "correct": 95,
-                "wrong_name": 26,
+                "correct": 92,
+                "wrong_name": 29,
                 "actor_name": 0,
                 "uncertain": 39,
                 "refused": 0,
@@ -459,12 +459,12 @@
                 "api_failure": 0,
                 "not_run": 0
               },
-              "accuracy_valid": 0.59375,
+              "accuracy_valid": 0.575,
               "accuracy_valid_ci95": [
-                0.5163168856257644,
-                0.6667869527795783
+                0.49752656892273883,
+                0.6489565018015353
               ],
-              "accuracy_e2e": 0.59375,
+              "accuracy_e2e": 0.575,
               "api_failure_rate": 0.0,
               "completed_requests": 160,
               "recorded_http_attempts": 160,
@@ -567,11 +567,11 @@
               "experiment": "B",
               "run_id": "run_20261113_final_practical",
               "planned": 160,
-              "correct": 73,
+              "correct": 70,
               "valid_responses": 160,
               "counts": {
-                "correct": 73,
-                "wrong_name": 84,
+                "correct": 70,
+                "wrong_name": 87,
                 "actor_name": 0,
                 "uncertain": 3,
                 "refused": 0,
@@ -579,12 +579,12 @@
                 "api_failure": 0,
                 "not_run": 0
               },
-              "accuracy_valid": 0.45625,
+              "accuracy_valid": 0.4375,
               "accuracy_valid_ci95": [
-                0.38100176815340075,
-                0.533549773924106
+                0.3629909872161968,
+                0.5149397871802415
               ],
-              "accuracy_e2e": 0.45625,
+              "accuracy_e2e": 0.4375,
               "api_failure_rate": 0.0,
               "completed_requests": 160,
               "recorded_http_attempts": 160,
@@ -646,11 +646,11 @@
               "experiment": "A",
               "run_id": "run_20261113_final_practical",
               "planned": 160,
-              "correct": 58,
+              "correct": 55,
               "valid_responses": 160,
               "counts": {
-                "correct": 58,
-                "wrong_name": 65,
+                "correct": 55,
+                "wrong_name": 68,
                 "actor_name": 0,
                 "uncertain": 36,
                 "refused": 0,
@@ -658,12 +658,12 @@
                 "api_failure": 0,
                 "not_run": 0
               },
-              "accuracy_valid": 0.3625,
+              "accuracy_valid": 0.34375,
               "accuracy_valid_ci95": [
-                0.29204439482073724,
-                0.4394033088514268
+                0.27459483771231336,
+                0.4202320982787821
               ],
-              "accuracy_e2e": 0.3625,
+              "accuracy_e2e": 0.34375,
               "api_failure_rate": 0.0,
               "completed_requests": 160,
               "recorded_http_attempts": 160,
@@ -687,11 +687,11 @@
               "experiment": "B",
               "run_id": "run_20261113_final_practical",
               "planned": 160,
-              "correct": 72,
+              "correct": 69,
               "valid_responses": 160,
               "counts": {
-                "correct": 72,
-                "wrong_name": 65,
+                "correct": 69,
+                "wrong_name": 68,
                 "actor_name": 0,
                 "uncertain": 23,
                 "refused": 0,
@@ -699,12 +699,12 @@
                 "api_failure": 0,
                 "not_run": 0
               },
-              "accuracy_valid": 0.45,
+              "accuracy_valid": 0.43125,
               "accuracy_valid_ci95": [
-                0.3749863030702235,
-                0.5273583164469271
+                0.3570112358013636,
+                0.5087126160347185
               ],
-              "accuracy_e2e": 0.45,
+              "accuracy_e2e": 0.43125,
               "api_failure_rate": 0.0,
               "completed_requests": 160,
               "recorded_http_attempts": 160,
@@ -766,11 +766,11 @@
               "experiment": "A",
               "run_id": "run_20261113_final_practical",
               "planned": 160,
-              "correct": 90,
+              "correct": 89,
               "valid_responses": 160,
               "counts": {
-                "correct": 90,
-                "wrong_name": 63,
+                "correct": 89,
+                "wrong_name": 64,
                 "actor_name": 0,
                 "uncertain": 0,
                 "refused": 0,
@@ -778,12 +778,12 @@
                 "api_failure": 0,
                 "not_run": 0
               },
-              "accuracy_valid": 0.5625,
+              "accuracy_valid": 0.55625,
               "accuracy_valid_ci95": [
-                0.4850602128197586,
-                0.6370090127838032
+                0.47884499688572035,
+                0.6310173061574854
               ],
-              "accuracy_e2e": 0.5625,
+              "accuracy_e2e": 0.55625,
               "api_failure_rate": 0.0,
               "completed_requests": 160,
               "recorded_http_attempts": 160,
@@ -810,11 +810,11 @@
               "experiment": "B",
               "run_id": "run_20261113_final_practical",
               "planned": 160,
-              "correct": 94,
+              "correct": 91,
               "valid_responses": 160,
               "counts": {
-                "correct": 94,
-                "wrong_name": 49,
+                "correct": 91,
+                "wrong_name": 52,
                 "actor_name": 0,
                 "uncertain": 3,
                 "refused": 0,
@@ -822,12 +822,12 @@
                 "api_failure": 0,
                 "not_run": 0
               },
-              "accuracy_valid": 0.5875,
+              "accuracy_valid": 0.56875,
               "accuracy_valid_ci95": [
-                0.510041245495629,
-                0.6608556703493577
+                0.4912873839652816,
+                0.6429887641986365
               ],
-              "accuracy_e2e": 0.5875,
+              "accuracy_e2e": 0.56875,
               "api_failure_rate": 0.0,
               "completed_requests": 160,
               "recorded_http_attempts": 160,
@@ -893,7 +893,7 @@
       "source_runs": [
         "run_20261113_final_practical"
       ],
-      "cohort_id": "cohort_1_n160_507321ad"
+      "cohort_id": "cohort_1_n160_921e13f7"
     }
   ],
   "source_runs": [
@@ -902,17 +902,17 @@
       "label": "Final cohort (saved-response assembly)",
       "status": "done",
       "created_at": "2026-11-13T01:55:50+00:00",
-      "dataset_hash": "507321ad831ac96b014074d030a13673",
-      "evaluation_dataset_hash": "507321ad831ac96b014074d030a13673",
+      "dataset_hash": "921e13f7f0ac1b724d1fc33119de68f1",
+      "evaluation_dataset_hash": "921e13f7f0ac1b724d1fc33119de68f1",
       "input_dataset_hash": "507321ad831ac96b014074d030a13673",
       "sample_count": 160,
       "snapshot_path": null,
-      "snapshot_sha256": "541705aa6e7c07e042557ad4c4f7c51a4e31fb2ff5adb8305ef74e2e92945729",
+      "snapshot_sha256": "eb4a8b4177f77765db939e6723b67711d5619588bfce6f646a3396cc3b9fd8c7",
       "original_snapshot_path": null,
       "original_snapshot_sha256": "541705aa6e7c07e042557ad4c4f7c51a4e31fb2ff5adb8305ef74e2e92945729",
-      "annotation_revision_applied": false,
-      "annotation_revision_path": null,
-      "annotation_revision_sha256": null,
+      "annotation_revision_applied": true,
+      "annotation_revision_path": "annotation_changes.json",
+      "annotation_revision_sha256": "0ad381161d080e62fea7621a92e0ef8f26d67f331a7b80f2794c087f5196f826",
       "cohort_assembly": {
         "kind": "offline_response_reuse",
         "source_run_ids": [
@@ -941,7 +941,7 @@
       },
       "score_summary_path": "data/score_summary.json",
       "metrics_path": "data/metrics.csv",
-      "metrics_sha256": "0a2a0c407293283903f2e104dd3934ac42bb62fc0a463bb4439d210e171cac06",
+      "metrics_sha256": "431d629e9115f72f955c4414d7379fc31df13c83ebcdcd382b9f02ff106cb438",
       "completed_records": 2240,
       "completed_model_ids": [
         "deepseek-flash",
@@ -993,14 +993,15 @@
   },
   "_portable_export": {
     "final_dataset_path": "../../data/final/dataset.json",
-    "final_dataset_sha256": "733ff61e0277e42de5a9d6fef9db420b241d67e9ec43f466a21d338e608a609d",
-    "original_scoring_snapshot_note": "原评分快照和完整样本清单具有不同格式/元数据。原snapshot SHA保持原值；此处final_dataset_sha256只标记仓库完整样本清单。",
+    "final_dataset_sha256": "eb4a8b4177f77765db939e6723b67711d5619588bfce6f646a3396cc3b9fd8c7",
+    "original_scoring_snapshot_note": "原始输入快照保留首次评分前标签；当前评估快照已应用gt_revision_02。完整样本清单格式/元数据与快照不同，各自哈希独立记录。此处final_dataset_sha256只标记仓库完整样本清单。",
     "annotation_changes_path": "annotation_changes.json",
-    "source_summary_sha256": "67d0a4556357b92aaea78bb71cd07b0c95959d14f03eb83d4575c05ca7471e6d",
+    "evaluation_dataset_hash": "921e13f7f0ac1b724d1fc33119de68f1",
+    "source_summary_sha256": "849f0e881e49608bde85d56c985923bdf40d073b4cdf21807b869c3e8a901f5a",
     "local_only_artifacts": [
       {
         "context": "/source_runs/0/snapshot_path",
-        "repository_relative_source": "results/snapshots/run_20261113_final_practical/dataset.json",
+        "repository_relative_source": "results/snapshots/run_20261113_final_practical/evaluation_rev2.json",
         "disposition": "retained locally; path omitted from exported JSON"
       },
       {

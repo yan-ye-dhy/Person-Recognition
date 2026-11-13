@@ -86,3 +86,9 @@ characters:
   importance: supporting
   needs_review: false
   notes: 2026-11-13 assistant 授权代标时核对角色资料；非用户逐条人工复核，具体图片身份见逐图标注。 名称资料：https://wapbaike.baidu.com/item/朱鹿/62200266
+- name: 于禄
+  aliases: []
+  actors: []
+  importance: key_supporting
+  needs_review: false
+  notes: 2026-11-13 用户在最终审核页直接纠正0038/0039/0040红框角色为于禄（卢氏王朝前朝太子）；按用户纠正登记，未猜测配音演员和其他别名。详见results/benchmark_20261113/gt_revision_02/revision.json。
