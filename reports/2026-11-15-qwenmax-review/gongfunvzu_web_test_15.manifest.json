@@ -1,0 +1,754 @@
+{
+  "run_id": "multi_v2_20261113_075729_2e4f15",
+  "reference_model_id": "qwen3.8-max",
+  "generated_at": "2026-11-15T05:09:56.660057+00:00",
+  "sample_ids": [
+    "gongfunvzu_0003",
+    "gongfunvzu_0005",
+    "gongfunvzu_0006",
+    "gongfunvzu_0007",
+    "gongfunvzu_0008",
+    "gongfunvzu_0012",
+    "gongfunvzu_0013",
+    "gongfunvzu_0016",
+    "gongfunvzu_0020",
+    "gongfunvzu_0022",
+    "gongfunvzu_0023",
+    "gongfunvzu_0029",
+    "gongfunvzu_0030",
+    "gongfunvzu_0038",
+    "gongfunvzu_0040"
+  ],
+  "sample_count": 15,
+  "embedded_image_count": 45,
+  "person_targets": 19,
+  "person_count_distribution": {
+    "1": 11,
+    "2": 4
+  },
+  "role_counts": {
+    "徐风": 3,
+    "双双": 6,
+    "钰珑": 7,
+    "师太": 1,
+    "丧彪": 2
+  },
+  "dataset_file_sha256": "a5412757fd27b340c07ebbdec5612f1ea22723ff8a97231bb6c6ce7f7c3fdfa9",
+  "new_api_calls": 0,
+  "rows": [
+    {
+      "sample_id": "gongfunvzu_0003",
+      "persons": [
+        {
+          "person_id": 1,
+          "character": "徐风",
+          "bbox": [
+            0.455,
+            0.12,
+            0.75,
+            1
+          ],
+          "annotation_id": "gongfunvzu_0003_inherited",
+          "face_orientation": "front",
+          "visibility": "clear"
+        }
+      ],
+      "inputs": {
+        "A": {
+          "sha256": "df5e8643006018a6723c902883ce1c92903eb78df21ed72e98b0d8a03c79fc0b",
+          "size": [
+            1600,
+            670
+          ],
+          "user_prompt": "请识别图片中每个红色编号方框对应人物的影视角色姓名。按照编号逐个回答，不要遗漏或添加编号。\n无法确认时character返回null，不要猜测，不要列出多个候选。每个编号只回答一次。\n只输出JSON：{\"persons\":[{\"person_id\":1,\"character\":null}]}。示意编号不是目标数量，须以图片实际编号为准。"
+        },
+        "B": {
+          "sha256": "df5e8643006018a6723c902883ce1c92903eb78df21ed72e98b0d8a03c79fc0b",
+          "size": [
+            1600,
+            670
+          ],
+          "user_prompt": "这张图片出自电影《功夫女足》。\n请识别图片中每个红色编号方框对应人物的影视角色姓名。按照编号逐个回答，不要遗漏或添加编号。\n无法确认时character返回null，不要猜测，不要列出多个候选。每个编号只回答一次。\n只输出JSON：{\"persons\":[{\"person_id\":1,\"character\":null}]}。示意编号不是目标数量，须以图片实际编号为准。"
+        },
+        "C": {
+          "sha256": "7a3e076baa3d66e111c941f5c81b287e0ff39b0092cf387e02c688966ff33e7b",
+          "size": [
+            1600,
+            670
+          ],
+          "user_prompt": "这张图片出自电影《功夫女足》。\n请自主找出画面中清晰可辨、占据主要位置或参与主要对话的影视角色，并分别给出位置和影视角色姓名。\n本轮只识别主要角色，每张最多返回3人，不凑人数。虚焦背景、远处群众或侍卫、只剩衣物肢体的残缺旁人不属于本轮目标。\n按画面主体、清晰度和剧情重要性选择人物；主要人物身份无法确认时仍返回位置并将character设为null，不因不认识姓名而遗漏明显主体。\n每个实际人物只返回一次，不按角色名合并不同位置的人物；不要列出多个身份候选。\nbbox必须是归一化[x1,y1,x2,y2]，左上角为原点，x向右、y向下，满足0<=x1<x2<=1、0<=y1<y2<=1；框住完整可见人物范围。\n只输出JSON：{\"persons\":[{\"bbox\":[0.1,0.1,0.4,0.9],\"character\":null}]}。\n示意坐标和条目仅说明格式，不代表画面位置或人物数量；若没有符合范围的人物，返回{\"persons\":[]}。"
+        }
+      }
+    },
+    {
+      "sample_id": "gongfunvzu_0005",
+      "persons": [
+        {
+          "person_id": 1,
+          "character": "双双",
+          "bbox": [
+            0.185,
+            0.17,
+            0.423,
+            1
+          ],
+          "annotation_id": "gongfunvzu_0005_assistant_multi_03",
+          "face_orientation": "three_quarter",
+          "visibility": "clear"
+        },
+        {
+          "person_id": 2,
+          "character": "钰珑",
+          "bbox": [
+            0.4,
+            0.235,
+            0.64,
+            1
+          ],
+          "annotation_id": "gongfunvzu_0005_assistant_multi_05",
+          "face_orientation": "front",
+          "visibility": "clear"
+        }
+      ],
+      "inputs": {
+        "A": {
+          "sha256": "219806fe8f6e700a1edeac50a80a63cade6c3624f28cd34d02984857f1ece962",
+          "size": [
+            1600,
+            670
+          ],
+          "user_prompt": "请识别图片中每个红色编号方框对应人物的影视角色姓名。按照编号逐个回答，不要遗漏或添加编号。\n无法确认时character返回null，不要猜测，不要列出多个候选。每个编号只回答一次。\n只输出JSON：{\"persons\":[{\"person_id\":1,\"character\":null}]}。示意编号不是目标数量，须以图片实际编号为准。"
+        },
+        "B": {
+          "sha256": "219806fe8f6e700a1edeac50a80a63cade6c3624f28cd34d02984857f1ece962",
+          "size": [
+            1600,
+            670
+          ],
+          "user_prompt": "这张图片出自电影《功夫女足》。\n请识别图片中每个红色编号方框对应人物的影视角色姓名。按照编号逐个回答，不要遗漏或添加编号。\n无法确认时character返回null，不要猜测，不要列出多个候选。每个编号只回答一次。\n只输出JSON：{\"persons\":[{\"person_id\":1,\"character\":null}]}。示意编号不是目标数量，须以图片实际编号为准。"
+        },
+        "C": {
+          "sha256": "78a0397b64b3460a01df9b3ff6e2c1b0a565900119e6228beeb5b80d2ce2c2c5",
+          "size": [
+            1600,
+            670
+          ],
+          "user_prompt": "这张图片出自电影《功夫女足》。\n请自主找出画面中清晰可辨、占据主要位置或参与主要对话的影视角色，并分别给出位置和影视角色姓名。\n本轮只识别主要角色，每张最多返回3人，不凑人数。虚焦背景、远处群众或侍卫、只剩衣物肢体的残缺旁人不属于本轮目标。\n按画面主体、清晰度和剧情重要性选择人物；主要人物身份无法确认时仍返回位置并将character设为null，不因不认识姓名而遗漏明显主体。\n每个实际人物只返回一次，不按角色名合并不同位置的人物；不要列出多个身份候选。\nbbox必须是归一化[x1,y1,x2,y2]，左上角为原点，x向右、y向下，满足0<=x1<x2<=1、0<=y1<y2<=1；框住完整可见人物范围。\n只输出JSON：{\"persons\":[{\"bbox\":[0.1,0.1,0.4,0.9],\"character\":null}]}。\n示意坐标和条目仅说明格式，不代表画面位置或人物数量；若没有符合范围的人物，返回{\"persons\":[]}。"
+        }
+      }
+    },
+    {
+      "sample_id": "gongfunvzu_0006",
+      "persons": [
+        {
+          "person_id": 1,
+          "character": "双双",
+          "bbox": [
+            0.008,
+            0.005,
+            0.415,
+            1
+          ],
+          "annotation_id": "gongfunvzu_0006_assistant_multi_02",
+          "face_orientation": "front",
+          "visibility": "clear"
+        },
+        {
+          "person_id": 2,
+          "character": "钰珑",
+          "bbox": [
+            0.67,
+            0.07,
+            1,
+            1
+          ],
+          "annotation_id": "gongfunvzu_0006_inherited",
+          "face_orientation": "three_quarter",
+          "visibility": "clear"
+        }
+      ],
+      "inputs": {
+        "A": {
+          "sha256": "f479293d415fa29d39595f4a59e27dfbc9315944681fb6d284ff10882aa18837",
+          "size": [
+            1600,
+            670
+          ],
+          "user_prompt": "请识别图片中每个红色编号方框对应人物的影视角色姓名。按照编号逐个回答，不要遗漏或添加编号。\n无法确认时character返回null，不要猜测，不要列出多个候选。每个编号只回答一次。\n只输出JSON：{\"persons\":[{\"person_id\":1,\"character\":null}]}。示意编号不是目标数量，须以图片实际编号为准。"
+        },
+        "B": {
+          "sha256": "f479293d415fa29d39595f4a59e27dfbc9315944681fb6d284ff10882aa18837",
+          "size": [
+            1600,
+            670
+          ],
+          "user_prompt": "这张图片出自电影《功夫女足》。\n请识别图片中每个红色编号方框对应人物的影视角色姓名。按照编号逐个回答，不要遗漏或添加编号。\n无法确认时character返回null，不要猜测，不要列出多个候选。每个编号只回答一次。\n只输出JSON：{\"persons\":[{\"person_id\":1,\"character\":null}]}。示意编号不是目标数量，须以图片实际编号为准。"
+        },
+        "C": {
+          "sha256": "0429b0963a058c68a86ac6a7f038824eedeaab2bb2a3a3ad9991db55cf78479b",
+          "size": [
+            1600,
+            670
+          ],
+          "user_prompt": "这张图片出自电影《功夫女足》。\n请自主找出画面中清晰可辨、占据主要位置或参与主要对话的影视角色，并分别给出位置和影视角色姓名。\n本轮只识别主要角色，每张最多返回3人，不凑人数。虚焦背景、远处群众或侍卫、只剩衣物肢体的残缺旁人不属于本轮目标。\n按画面主体、清晰度和剧情重要性选择人物；主要人物身份无法确认时仍返回位置并将character设为null，不因不认识姓名而遗漏明显主体。\n每个实际人物只返回一次，不按角色名合并不同位置的人物；不要列出多个身份候选。\nbbox必须是归一化[x1,y1,x2,y2]，左上角为原点，x向右、y向下，满足0<=x1<x2<=1、0<=y1<y2<=1；框住完整可见人物范围。\n只输出JSON：{\"persons\":[{\"bbox\":[0.1,0.1,0.4,0.9],\"character\":null}]}。\n示意坐标和条目仅说明格式，不代表画面位置或人物数量；若没有符合范围的人物，返回{\"persons\":[]}。"
+        }
+      }
+    },
+    {
+      "sample_id": "gongfunvzu_0007",
+      "persons": [
+        {
+          "person_id": 1,
+          "character": "徐风",
+          "bbox": [
+            0.365,
+            0.065,
+            0.64,
+            1
+          ],
+          "annotation_id": "gongfunvzu_0007_inherited",
+          "face_orientation": "front",
+          "visibility": "clear"
+        }
+      ],
+      "inputs": {
+        "A": {
+          "sha256": "f440e7c8a113298ea92ce8ab3cca916465c93bd5b82e140a4c7eb881fef9c3bd",
+          "size": [
+            1600,
+            670
+          ],
+          "user_prompt": "请识别图片中每个红色编号方框对应人物的影视角色姓名。按照编号逐个回答，不要遗漏或添加编号。\n无法确认时character返回null，不要猜测，不要列出多个候选。每个编号只回答一次。\n只输出JSON：{\"persons\":[{\"person_id\":1,\"character\":null}]}。示意编号不是目标数量，须以图片实际编号为准。"
+        },
+        "B": {
+          "sha256": "f440e7c8a113298ea92ce8ab3cca916465c93bd5b82e140a4c7eb881fef9c3bd",
+          "size": [
+            1600,
+            670
+          ],
+          "user_prompt": "这张图片出自电影《功夫女足》。\n请识别图片中每个红色编号方框对应人物的影视角色姓名。按照编号逐个回答，不要遗漏或添加编号。\n无法确认时character返回null，不要猜测，不要列出多个候选。每个编号只回答一次。\n只输出JSON：{\"persons\":[{\"person_id\":1,\"character\":null}]}。示意编号不是目标数量，须以图片实际编号为准。"
+        },
+        "C": {
+          "sha256": "d9d011c041923d4fd85f38a3565928869ec956b781cc2ccd1ee9ba77db105192",
+          "size": [
+            1600,
+            670
+          ],
+          "user_prompt": "这张图片出自电影《功夫女足》。\n请自主找出画面中清晰可辨、占据主要位置或参与主要对话的影视角色，并分别给出位置和影视角色姓名。\n本轮只识别主要角色，每张最多返回3人，不凑人数。虚焦背景、远处群众或侍卫、只剩衣物肢体的残缺旁人不属于本轮目标。\n按画面主体、清晰度和剧情重要性选择人物；主要人物身份无法确认时仍返回位置并将character设为null，不因不认识姓名而遗漏明显主体。\n每个实际人物只返回一次，不按角色名合并不同位置的人物；不要列出多个身份候选。\nbbox必须是归一化[x1,y1,x2,y2]，左上角为原点，x向右、y向下，满足0<=x1<x2<=1、0<=y1<y2<=1；框住完整可见人物范围。\n只输出JSON：{\"persons\":[{\"bbox\":[0.1,0.1,0.4,0.9],\"character\":null}]}。\n示意坐标和条目仅说明格式，不代表画面位置或人物数量；若没有符合范围的人物，返回{\"persons\":[]}。"
+        }
+      }
+    },
+    {
+      "sample_id": "gongfunvzu_0008",
+      "persons": [
+        {
+          "person_id": 1,
+          "character": "双双",
+          "bbox": [
+            0.25,
+            0.015,
+            0.755,
+            1
+          ],
+          "annotation_id": "gongfunvzu_0008_inherited",
+          "face_orientation": "front",
+          "visibility": "clear"
+        }
+      ],
+      "inputs": {
+        "A": {
+          "sha256": "542b3196afef3c6146a3a69419c46f01948696e8eb9bddb1ab0ae9c46a990ff6",
+          "size": [
+            1600,
+            670
+          ],
+          "user_prompt": "请识别图片中每个红色编号方框对应人物的影视角色姓名。按照编号逐个回答，不要遗漏或添加编号。\n无法确认时character返回null，不要猜测，不要列出多个候选。每个编号只回答一次。\n只输出JSON：{\"persons\":[{\"person_id\":1,\"character\":null}]}。示意编号不是目标数量，须以图片实际编号为准。"
+        },
+        "B": {
+          "sha256": "542b3196afef3c6146a3a69419c46f01948696e8eb9bddb1ab0ae9c46a990ff6",
+          "size": [
+            1600,
+            670
+          ],
+          "user_prompt": "这张图片出自电影《功夫女足》。\n请识别图片中每个红色编号方框对应人物的影视角色姓名。按照编号逐个回答，不要遗漏或添加编号。\n无法确认时character返回null，不要猜测，不要列出多个候选。每个编号只回答一次。\n只输出JSON：{\"persons\":[{\"person_id\":1,\"character\":null}]}。示意编号不是目标数量，须以图片实际编号为准。"
+        },
+        "C": {
+          "sha256": "7c82ac3533b3cb91c6a3d8c73244b4e0d99d6fec4545d3b1b23e004e8aefa807",
+          "size": [
+            1600,
+            670
+          ],
+          "user_prompt": "这张图片出自电影《功夫女足》。\n请自主找出画面中清晰可辨、占据主要位置或参与主要对话的影视角色，并分别给出位置和影视角色姓名。\n本轮只识别主要角色，每张最多返回3人，不凑人数。虚焦背景、远处群众或侍卫、只剩衣物肢体的残缺旁人不属于本轮目标。\n按画面主体、清晰度和剧情重要性选择人物；主要人物身份无法确认时仍返回位置并将character设为null，不因不认识姓名而遗漏明显主体。\n每个实际人物只返回一次，不按角色名合并不同位置的人物；不要列出多个身份候选。\nbbox必须是归一化[x1,y1,x2,y2]，左上角为原点，x向右、y向下，满足0<=x1<x2<=1、0<=y1<y2<=1；框住完整可见人物范围。\n只输出JSON：{\"persons\":[{\"bbox\":[0.1,0.1,0.4,0.9],\"character\":null}]}。\n示意坐标和条目仅说明格式，不代表画面位置或人物数量；若没有符合范围的人物，返回{\"persons\":[]}。"
+        }
+      }
+    },
+    {
+      "sample_id": "gongfunvzu_0012",
+      "persons": [
+        {
+          "person_id": 1,
+          "character": "钰珑",
+          "bbox": [
+            0.09,
+            0.03,
+            0.33,
+            1
+          ],
+          "annotation_id": "gongfunvzu_0012_replacement_1",
+          "face_orientation": "front",
+          "visibility": "clear"
+        },
+        {
+          "person_id": 2,
+          "character": "双双",
+          "bbox": [
+            0.645,
+            0.12,
+            0.845,
+            1
+          ],
+          "annotation_id": "gongfunvzu_0012_replacement_2",
+          "face_orientation": "three_quarter",
+          "visibility": "clear"
+        }
+      ],
+      "inputs": {
+        "A": {
+          "sha256": "1e1f439096164ce38cc5394d3ae39e40b776aeeb0ff9304ef587c75d48fc99a8",
+          "size": [
+            1600,
+            670
+          ],
+          "user_prompt": "请识别图片中每个红色编号方框对应人物的影视角色姓名。按照编号逐个回答，不要遗漏或添加编号。\n无法确认时character返回null，不要猜测，不要列出多个候选。每个编号只回答一次。\n只输出JSON：{\"persons\":[{\"person_id\":1,\"character\":null}]}。示意编号不是目标数量，须以图片实际编号为准。"
+        },
+        "B": {
+          "sha256": "1e1f439096164ce38cc5394d3ae39e40b776aeeb0ff9304ef587c75d48fc99a8",
+          "size": [
+            1600,
+            670
+          ],
+          "user_prompt": "这张图片出自电影《功夫女足》。\n请识别图片中每个红色编号方框对应人物的影视角色姓名。按照编号逐个回答，不要遗漏或添加编号。\n无法确认时character返回null，不要猜测，不要列出多个候选。每个编号只回答一次。\n只输出JSON：{\"persons\":[{\"person_id\":1,\"character\":null}]}。示意编号不是目标数量，须以图片实际编号为准。"
+        },
+        "C": {
+          "sha256": "5bb987e9915690e65615de3eba36e6c773bb9b405572274eeddb4139575ffb12",
+          "size": [
+            1600,
+            670
+          ],
+          "user_prompt": "这张图片出自电影《功夫女足》。\n请自主找出画面中清晰可辨、占据主要位置或参与主要对话的影视角色，并分别给出位置和影视角色姓名。\n本轮只识别主要角色，每张最多返回3人，不凑人数。虚焦背景、远处群众或侍卫、只剩衣物肢体的残缺旁人不属于本轮目标。\n按画面主体、清晰度和剧情重要性选择人物；主要人物身份无法确认时仍返回位置并将character设为null，不因不认识姓名而遗漏明显主体。\n每个实际人物只返回一次，不按角色名合并不同位置的人物；不要列出多个身份候选。\nbbox必须是归一化[x1,y1,x2,y2]，左上角为原点，x向右、y向下，满足0<=x1<x2<=1、0<=y1<y2<=1；框住完整可见人物范围。\n只输出JSON：{\"persons\":[{\"bbox\":[0.1,0.1,0.4,0.9],\"character\":null}]}。\n示意坐标和条目仅说明格式，不代表画面位置或人物数量；若没有符合范围的人物，返回{\"persons\":[]}。"
+        }
+      }
+    },
+    {
+      "sample_id": "gongfunvzu_0013",
+      "persons": [
+        {
+          "person_id": 1,
+          "character": "双双",
+          "bbox": [
+            0.339,
+            0,
+            0.817,
+            1
+          ],
+          "annotation_id": "gongfunvzu_0013_inherited",
+          "face_orientation": "three_quarter",
+          "visibility": "clear"
+        }
+      ],
+      "inputs": {
+        "A": {
+          "sha256": "dad92e4a5188d4045b235cdd6882450dd4a9cd1e02abcd52026973ba4ebeb9ec",
+          "size": [
+            1600,
+            670
+          ],
+          "user_prompt": "请识别图片中每个红色编号方框对应人物的影视角色姓名。按照编号逐个回答，不要遗漏或添加编号。\n无法确认时character返回null，不要猜测，不要列出多个候选。每个编号只回答一次。\n只输出JSON：{\"persons\":[{\"person_id\":1,\"character\":null}]}。示意编号不是目标数量，须以图片实际编号为准。"
+        },
+        "B": {
+          "sha256": "dad92e4a5188d4045b235cdd6882450dd4a9cd1e02abcd52026973ba4ebeb9ec",
+          "size": [
+            1600,
+            670
+          ],
+          "user_prompt": "这张图片出自电影《功夫女足》。\n请识别图片中每个红色编号方框对应人物的影视角色姓名。按照编号逐个回答，不要遗漏或添加编号。\n无法确认时character返回null，不要猜测，不要列出多个候选。每个编号只回答一次。\n只输出JSON：{\"persons\":[{\"person_id\":1,\"character\":null}]}。示意编号不是目标数量，须以图片实际编号为准。"
+        },
+        "C": {
+          "sha256": "a85517da3eaf8e162ace16ca73141a507c7c23e7a05428d84563ca03ba49d36e",
+          "size": [
+            1600,
+            670
+          ],
+          "user_prompt": "这张图片出自电影《功夫女足》。\n请自主找出画面中清晰可辨、占据主要位置或参与主要对话的影视角色，并分别给出位置和影视角色姓名。\n本轮只识别主要角色，每张最多返回3人，不凑人数。虚焦背景、远处群众或侍卫、只剩衣物肢体的残缺旁人不属于本轮目标。\n按画面主体、清晰度和剧情重要性选择人物；主要人物身份无法确认时仍返回位置并将character设为null，不因不认识姓名而遗漏明显主体。\n每个实际人物只返回一次，不按角色名合并不同位置的人物；不要列出多个身份候选。\nbbox必须是归一化[x1,y1,x2,y2]，左上角为原点，x向右、y向下，满足0<=x1<x2<=1、0<=y1<y2<=1；框住完整可见人物范围。\n只输出JSON：{\"persons\":[{\"bbox\":[0.1,0.1,0.4,0.9],\"character\":null}]}。\n示意坐标和条目仅说明格式，不代表画面位置或人物数量；若没有符合范围的人物，返回{\"persons\":[]}。"
+        }
+      }
+    },
+    {
+      "sample_id": "gongfunvzu_0016",
+      "persons": [
+        {
+          "person_id": 1,
+          "character": "徐风",
+          "bbox": [
+            0.33,
+            0.06,
+            0.83,
+            1
+          ],
+          "annotation_id": "gongfunvzu_0016_inherited",
+          "face_orientation": "three_quarter",
+          "visibility": "clear"
+        }
+      ],
+      "inputs": {
+        "A": {
+          "sha256": "481d1c28ce1937c4d252a7fa3d0d59707cae5f137f948ddfafb601e34de38731",
+          "size": [
+            1600,
+            670
+          ],
+          "user_prompt": "请识别图片中每个红色编号方框对应人物的影视角色姓名。按照编号逐个回答，不要遗漏或添加编号。\n无法确认时character返回null，不要猜测，不要列出多个候选。每个编号只回答一次。\n只输出JSON：{\"persons\":[{\"person_id\":1,\"character\":null}]}。示意编号不是目标数量，须以图片实际编号为准。"
+        },
+        "B": {
+          "sha256": "481d1c28ce1937c4d252a7fa3d0d59707cae5f137f948ddfafb601e34de38731",
+          "size": [
+            1600,
+            670
+          ],
+          "user_prompt": "这张图片出自电影《功夫女足》。\n请识别图片中每个红色编号方框对应人物的影视角色姓名。按照编号逐个回答，不要遗漏或添加编号。\n无法确认时character返回null，不要猜测，不要列出多个候选。每个编号只回答一次。\n只输出JSON：{\"persons\":[{\"person_id\":1,\"character\":null}]}。示意编号不是目标数量，须以图片实际编号为准。"
+        },
+        "C": {
+          "sha256": "80be4f53b193c28eb4f381ec49b9cac9c87975429cf0ccfba14c5d3dd367a7fa",
+          "size": [
+            1600,
+            670
+          ],
+          "user_prompt": "这张图片出自电影《功夫女足》。\n请自主找出画面中清晰可辨、占据主要位置或参与主要对话的影视角色，并分别给出位置和影视角色姓名。\n本轮只识别主要角色，每张最多返回3人，不凑人数。虚焦背景、远处群众或侍卫、只剩衣物肢体的残缺旁人不属于本轮目标。\n按画面主体、清晰度和剧情重要性选择人物；主要人物身份无法确认时仍返回位置并将character设为null，不因不认识姓名而遗漏明显主体。\n每个实际人物只返回一次，不按角色名合并不同位置的人物；不要列出多个身份候选。\nbbox必须是归一化[x1,y1,x2,y2]，左上角为原点，x向右、y向下，满足0<=x1<x2<=1、0<=y1<y2<=1；框住完整可见人物范围。\n只输出JSON：{\"persons\":[{\"bbox\":[0.1,0.1,0.4,0.9],\"character\":null}]}。\n示意坐标和条目仅说明格式，不代表画面位置或人物数量；若没有符合范围的人物，返回{\"persons\":[]}。"
+        }
+      }
+    },
+    {
+      "sample_id": "gongfunvzu_0020",
+      "persons": [
+        {
+          "person_id": 1,
+          "character": "钰珑",
+          "bbox": [
+            0.19,
+            0,
+            0.665,
+            1
+          ],
+          "annotation_id": "gongfunvzu_0020_inherited",
+          "face_orientation": "front",
+          "visibility": "clear"
+        }
+      ],
+      "inputs": {
+        "A": {
+          "sha256": "77278debed03c26f17d4807921cca42c3d9241467092fdcae86781d0527184f5",
+          "size": [
+            1600,
+            670
+          ],
+          "user_prompt": "请识别图片中每个红色编号方框对应人物的影视角色姓名。按照编号逐个回答，不要遗漏或添加编号。\n无法确认时character返回null，不要猜测，不要列出多个候选。每个编号只回答一次。\n只输出JSON：{\"persons\":[{\"person_id\":1,\"character\":null}]}。示意编号不是目标数量，须以图片实际编号为准。"
+        },
+        "B": {
+          "sha256": "77278debed03c26f17d4807921cca42c3d9241467092fdcae86781d0527184f5",
+          "size": [
+            1600,
+            670
+          ],
+          "user_prompt": "这张图片出自电影《功夫女足》。\n请识别图片中每个红色编号方框对应人物的影视角色姓名。按照编号逐个回答，不要遗漏或添加编号。\n无法确认时character返回null，不要猜测，不要列出多个候选。每个编号只回答一次。\n只输出JSON：{\"persons\":[{\"person_id\":1,\"character\":null}]}。示意编号不是目标数量，须以图片实际编号为准。"
+        },
+        "C": {
+          "sha256": "1209e0996eea3e61885540864fde52993b8f284847c60605e4b5dff243e29707",
+          "size": [
+            1600,
+            670
+          ],
+          "user_prompt": "这张图片出自电影《功夫女足》。\n请自主找出画面中清晰可辨、占据主要位置或参与主要对话的影视角色，并分别给出位置和影视角色姓名。\n本轮只识别主要角色，每张最多返回3人，不凑人数。虚焦背景、远处群众或侍卫、只剩衣物肢体的残缺旁人不属于本轮目标。\n按画面主体、清晰度和剧情重要性选择人物；主要人物身份无法确认时仍返回位置并将character设为null，不因不认识姓名而遗漏明显主体。\n每个实际人物只返回一次，不按角色名合并不同位置的人物；不要列出多个身份候选。\nbbox必须是归一化[x1,y1,x2,y2]，左上角为原点，x向右、y向下，满足0<=x1<x2<=1、0<=y1<y2<=1；框住完整可见人物范围。\n只输出JSON：{\"persons\":[{\"bbox\":[0.1,0.1,0.4,0.9],\"character\":null}]}。\n示意坐标和条目仅说明格式，不代表画面位置或人物数量；若没有符合范围的人物，返回{\"persons\":[]}。"
+        }
+      }
+    },
+    {
+      "sample_id": "gongfunvzu_0022",
+      "persons": [
+        {
+          "person_id": 1,
+          "character": "师太",
+          "bbox": [
+            0.08,
+            0.035,
+            0.91,
+            1
+          ],
+          "annotation_id": "gongfunvzu_0022_inherited",
+          "face_orientation": "three_quarter",
+          "visibility": "clear"
+        }
+      ],
+      "inputs": {
+        "A": {
+          "sha256": "078342fd376bc15afd1b8879f5e63881d65ac5895f87ed647fee18f3de426f22",
+          "size": [
+            1600,
+            670
+          ],
+          "user_prompt": "请识别图片中每个红色编号方框对应人物的影视角色姓名。按照编号逐个回答，不要遗漏或添加编号。\n无法确认时character返回null，不要猜测，不要列出多个候选。每个编号只回答一次。\n只输出JSON：{\"persons\":[{\"person_id\":1,\"character\":null}]}。示意编号不是目标数量，须以图片实际编号为准。"
+        },
+        "B": {
+          "sha256": "078342fd376bc15afd1b8879f5e63881d65ac5895f87ed647fee18f3de426f22",
+          "size": [
+            1600,
+            670
+          ],
+          "user_prompt": "这张图片出自电影《功夫女足》。\n请识别图片中每个红色编号方框对应人物的影视角色姓名。按照编号逐个回答，不要遗漏或添加编号。\n无法确认时character返回null，不要猜测，不要列出多个候选。每个编号只回答一次。\n只输出JSON：{\"persons\":[{\"person_id\":1,\"character\":null}]}。示意编号不是目标数量，须以图片实际编号为准。"
+        },
+        "C": {
+          "sha256": "021130fb36da34070f68772459e6a78cce4e0d1bd460ff28c3cf6bee76baa437",
+          "size": [
+            1600,
+            670
+          ],
+          "user_prompt": "这张图片出自电影《功夫女足》。\n请自主找出画面中清晰可辨、占据主要位置或参与主要对话的影视角色，并分别给出位置和影视角色姓名。\n本轮只识别主要角色，每张最多返回3人，不凑人数。虚焦背景、远处群众或侍卫、只剩衣物肢体的残缺旁人不属于本轮目标。\n按画面主体、清晰度和剧情重要性选择人物；主要人物身份无法确认时仍返回位置并将character设为null，不因不认识姓名而遗漏明显主体。\n每个实际人物只返回一次，不按角色名合并不同位置的人物；不要列出多个身份候选。\nbbox必须是归一化[x1,y1,x2,y2]，左上角为原点，x向右、y向下，满足0<=x1<x2<=1、0<=y1<y2<=1；框住完整可见人物范围。\n只输出JSON：{\"persons\":[{\"bbox\":[0.1,0.1,0.4,0.9],\"character\":null}]}。\n示意坐标和条目仅说明格式，不代表画面位置或人物数量；若没有符合范围的人物，返回{\"persons\":[]}。"
+        }
+      }
+    },
+    {
+      "sample_id": "gongfunvzu_0023",
+      "persons": [
+        {
+          "person_id": 1,
+          "character": "丧彪",
+          "bbox": [
+            0.08,
+            0.17,
+            0.645,
+            1
+          ],
+          "annotation_id": "gongfunvzu_0023_inherited",
+          "face_orientation": "three_quarter",
+          "visibility": "clear"
+        }
+      ],
+      "inputs": {
+        "A": {
+          "sha256": "2e7f2b86730843497f49286b3dbf7cf3af7465a67806fd5c2ab78382e01ed59f",
+          "size": [
+            1600,
+            670
+          ],
+          "user_prompt": "请识别图片中每个红色编号方框对应人物的影视角色姓名。按照编号逐个回答，不要遗漏或添加编号。\n无法确认时character返回null，不要猜测，不要列出多个候选。每个编号只回答一次。\n只输出JSON：{\"persons\":[{\"person_id\":1,\"character\":null}]}。示意编号不是目标数量，须以图片实际编号为准。"
+        },
+        "B": {
+          "sha256": "2e7f2b86730843497f49286b3dbf7cf3af7465a67806fd5c2ab78382e01ed59f",
+          "size": [
+            1600,
+            670
+          ],
+          "user_prompt": "这张图片出自电影《功夫女足》。\n请识别图片中每个红色编号方框对应人物的影视角色姓名。按照编号逐个回答，不要遗漏或添加编号。\n无法确认时character返回null，不要猜测，不要列出多个候选。每个编号只回答一次。\n只输出JSON：{\"persons\":[{\"person_id\":1,\"character\":null}]}。示意编号不是目标数量，须以图片实际编号为准。"
+        },
+        "C": {
+          "sha256": "6e9aeb98c9f0f59e2ec93089f64e3105e1ad393d56e0577a7ab8af5fd128faf1",
+          "size": [
+            1600,
+            670
+          ],
+          "user_prompt": "这张图片出自电影《功夫女足》。\n请自主找出画面中清晰可辨、占据主要位置或参与主要对话的影视角色，并分别给出位置和影视角色姓名。\n本轮只识别主要角色，每张最多返回3人，不凑人数。虚焦背景、远处群众或侍卫、只剩衣物肢体的残缺旁人不属于本轮目标。\n按画面主体、清晰度和剧情重要性选择人物；主要人物身份无法确认时仍返回位置并将character设为null，不因不认识姓名而遗漏明显主体。\n每个实际人物只返回一次，不按角色名合并不同位置的人物；不要列出多个身份候选。\nbbox必须是归一化[x1,y1,x2,y2]，左上角为原点，x向右、y向下，满足0<=x1<x2<=1、0<=y1<y2<=1；框住完整可见人物范围。\n只输出JSON：{\"persons\":[{\"bbox\":[0.1,0.1,0.4,0.9],\"character\":null}]}。\n示意坐标和条目仅说明格式，不代表画面位置或人物数量；若没有符合范围的人物，返回{\"persons\":[]}。"
+        }
+      }
+    },
+    {
+      "sample_id": "gongfunvzu_0029",
+      "persons": [
+        {
+          "person_id": 1,
+          "character": "钰珑",
+          "bbox": [
+            0.05,
+            0.05,
+            0.755,
+            1
+          ],
+          "annotation_id": "gongfunvzu_0029_inherited",
+          "face_orientation": "front",
+          "visibility": "clear"
+        }
+      ],
+      "inputs": {
+        "A": {
+          "sha256": "3d2447e490f1540949cead70331d6e790867968e20d394e7c75e3fb8266c238d",
+          "size": [
+            1600,
+            670
+          ],
+          "user_prompt": "请识别图片中每个红色编号方框对应人物的影视角色姓名。按照编号逐个回答，不要遗漏或添加编号。\n无法确认时character返回null，不要猜测，不要列出多个候选。每个编号只回答一次。\n只输出JSON：{\"persons\":[{\"person_id\":1,\"character\":null}]}。示意编号不是目标数量，须以图片实际编号为准。"
+        },
+        "B": {
+          "sha256": "3d2447e490f1540949cead70331d6e790867968e20d394e7c75e3fb8266c238d",
+          "size": [
+            1600,
+            670
+          ],
+          "user_prompt": "这张图片出自电影《功夫女足》。\n请识别图片中每个红色编号方框对应人物的影视角色姓名。按照编号逐个回答，不要遗漏或添加编号。\n无法确认时character返回null，不要猜测，不要列出多个候选。每个编号只回答一次。\n只输出JSON：{\"persons\":[{\"person_id\":1,\"character\":null}]}。示意编号不是目标数量，须以图片实际编号为准。"
+        },
+        "C": {
+          "sha256": "48108173a81009d65dd5f9c8279f00e05e526680a838140a0921eb7ebde7a922",
+          "size": [
+            1600,
+            670
+          ],
+          "user_prompt": "这张图片出自电影《功夫女足》。\n请自主找出画面中清晰可辨、占据主要位置或参与主要对话的影视角色，并分别给出位置和影视角色姓名。\n本轮只识别主要角色，每张最多返回3人，不凑人数。虚焦背景、远处群众或侍卫、只剩衣物肢体的残缺旁人不属于本轮目标。\n按画面主体、清晰度和剧情重要性选择人物；主要人物身份无法确认时仍返回位置并将character设为null，不因不认识姓名而遗漏明显主体。\n每个实际人物只返回一次，不按角色名合并不同位置的人物；不要列出多个身份候选。\nbbox必须是归一化[x1,y1,x2,y2]，左上角为原点，x向右、y向下，满足0<=x1<x2<=1、0<=y1<y2<=1；框住完整可见人物范围。\n只输出JSON：{\"persons\":[{\"bbox\":[0.1,0.1,0.4,0.9],\"character\":null}]}。\n示意坐标和条目仅说明格式，不代表画面位置或人物数量；若没有符合范围的人物，返回{\"persons\":[]}。"
+        }
+      }
+    },
+    {
+      "sample_id": "gongfunvzu_0030",
+      "persons": [
+        {
+          "person_id": 1,
+          "character": "钰珑",
+          "bbox": [
+            0.125,
+            0.07,
+            0.599,
+            1
+          ],
+          "annotation_id": "gongfunvzu_0030_inherited",
+          "face_orientation": "front",
+          "visibility": "clear"
+        },
+        {
+          "person_id": 2,
+          "character": "双双",
+          "bbox": [
+            0.54,
+            0,
+            1,
+            1
+          ],
+          "annotation_id": "gongfunvzu_0030_assistant_multi_02",
+          "face_orientation": "front",
+          "visibility": "clear"
+        }
+      ],
+      "inputs": {
+        "A": {
+          "sha256": "bf272f4276a88bbf5aaba7e7c5a7b0ba800e1e4f9a710d9542e6923fed2b53ba",
+          "size": [
+            1600,
+            670
+          ],
+          "user_prompt": "请识别图片中每个红色编号方框对应人物的影视角色姓名。按照编号逐个回答，不要遗漏或添加编号。\n无法确认时character返回null，不要猜测，不要列出多个候选。每个编号只回答一次。\n只输出JSON：{\"persons\":[{\"person_id\":1,\"character\":null}]}。示意编号不是目标数量，须以图片实际编号为准。"
+        },
+        "B": {
+          "sha256": "bf272f4276a88bbf5aaba7e7c5a7b0ba800e1e4f9a710d9542e6923fed2b53ba",
+          "size": [
+            1600,
+            670
+          ],
+          "user_prompt": "这张图片出自电影《功夫女足》。\n请识别图片中每个红色编号方框对应人物的影视角色姓名。按照编号逐个回答，不要遗漏或添加编号。\n无法确认时character返回null，不要猜测，不要列出多个候选。每个编号只回答一次。\n只输出JSON：{\"persons\":[{\"person_id\":1,\"character\":null}]}。示意编号不是目标数量，须以图片实际编号为准。"
+        },
+        "C": {
+          "sha256": "faf66508e6041ac04fe8b9cf81970ee4a538c5c5fe5513a1cc11b9664f0287f6",
+          "size": [
+            1600,
+            670
+          ],
+          "user_prompt": "这张图片出自电影《功夫女足》。\n请自主找出画面中清晰可辨、占据主要位置或参与主要对话的影视角色，并分别给出位置和影视角色姓名。\n本轮只识别主要角色，每张最多返回3人，不凑人数。虚焦背景、远处群众或侍卫、只剩衣物肢体的残缺旁人不属于本轮目标。\n按画面主体、清晰度和剧情重要性选择人物；主要人物身份无法确认时仍返回位置并将character设为null，不因不认识姓名而遗漏明显主体。\n每个实际人物只返回一次，不按角色名合并不同位置的人物；不要列出多个身份候选。\nbbox必须是归一化[x1,y1,x2,y2]，左上角为原点，x向右、y向下，满足0<=x1<x2<=1、0<=y1<y2<=1；框住完整可见人物范围。\n只输出JSON：{\"persons\":[{\"bbox\":[0.1,0.1,0.4,0.9],\"character\":null}]}。\n示意坐标和条目仅说明格式，不代表画面位置或人物数量；若没有符合范围的人物，返回{\"persons\":[]}。"
+        }
+      }
+    },
+    {
+      "sample_id": "gongfunvzu_0038",
+      "persons": [
+        {
+          "person_id": 1,
+          "character": "钰珑",
+          "bbox": [
+            0.17,
+            0,
+            0.67,
+            1
+          ],
+          "annotation_id": "gongfunvzu_0038_inherited",
+          "face_orientation": "three_quarter",
+          "visibility": "clear"
+        }
+      ],
+      "inputs": {
+        "A": {
+          "sha256": "2fe8d8a0f89f614fca1fb32aed975b86df21119d91b5dfaaa5d6a564f251e93c",
+          "size": [
+            1600,
+            670
+          ],
+          "user_prompt": "请识别图片中每个红色编号方框对应人物的影视角色姓名。按照编号逐个回答，不要遗漏或添加编号。\n无法确认时character返回null，不要猜测，不要列出多个候选。每个编号只回答一次。\n只输出JSON：{\"persons\":[{\"person_id\":1,\"character\":null}]}。示意编号不是目标数量，须以图片实际编号为准。"
+        },
+        "B": {
+          "sha256": "2fe8d8a0f89f614fca1fb32aed975b86df21119d91b5dfaaa5d6a564f251e93c",
+          "size": [
+            1600,
+            670
+          ],
+          "user_prompt": "这张图片出自电影《功夫女足》。\n请识别图片中每个红色编号方框对应人物的影视角色姓名。按照编号逐个回答，不要遗漏或添加编号。\n无法确认时character返回null，不要猜测，不要列出多个候选。每个编号只回答一次。\n只输出JSON：{\"persons\":[{\"person_id\":1,\"character\":null}]}。示意编号不是目标数量，须以图片实际编号为准。"
+        },
+        "C": {
+          "sha256": "83b5919d66b435a69ac793fb0b97b68baa7b58c53a7ad00131d69a1512c5ffb6",
+          "size": [
+            1600,
+            670
+          ],
+          "user_prompt": "这张图片出自电影《功夫女足》。\n请自主找出画面中清晰可辨、占据主要位置或参与主要对话的影视角色，并分别给出位置和影视角色姓名。\n本轮只识别主要角色，每张最多返回3人，不凑人数。虚焦背景、远处群众或侍卫、只剩衣物肢体的残缺旁人不属于本轮目标。\n按画面主体、清晰度和剧情重要性选择人物；主要人物身份无法确认时仍返回位置并将character设为null，不因不认识姓名而遗漏明显主体。\n每个实际人物只返回一次，不按角色名合并不同位置的人物；不要列出多个身份候选。\nbbox必须是归一化[x1,y1,x2,y2]，左上角为原点，x向右、y向下，满足0<=x1<x2<=1、0<=y1<y2<=1；框住完整可见人物范围。\n只输出JSON：{\"persons\":[{\"bbox\":[0.1,0.1,0.4,0.9],\"character\":null}]}。\n示意坐标和条目仅说明格式，不代表画面位置或人物数量；若没有符合范围的人物，返回{\"persons\":[]}。"
+        }
+      }
+    },
+    {
+      "sample_id": "gongfunvzu_0040",
+      "persons": [
+        {
+          "person_id": 1,
+          "character": "丧彪",
+          "bbox": [
+            0.294,
+            0.045,
+            0.681,
+            1
+          ],
+          "annotation_id": "gongfunvzu_0040_inherited",
+          "face_orientation": "front",
+          "visibility": "clear"
+        }
+      ],
+      "inputs": {
+        "A": {
+          "sha256": "9dfb0d577057eac1e8159bbd24ba3376b2f88904fc94a9834e4c7b47c09288b4",
+          "size": [
+            1600,
+            670
+          ],
+          "user_prompt": "请识别图片中每个红色编号方框对应人物的影视角色姓名。按照编号逐个回答，不要遗漏或添加编号。\n无法确认时character返回null，不要猜测，不要列出多个候选。每个编号只回答一次。\n只输出JSON：{\"persons\":[{\"person_id\":1,\"character\":null}]}。示意编号不是目标数量，须以图片实际编号为准。"
+        },
+        "B": {
+          "sha256": "9dfb0d577057eac1e8159bbd24ba3376b2f88904fc94a9834e4c7b47c09288b4",
+          "size": [
+            1600,
+            670
+          ],
+          "user_prompt": "这张图片出自电影《功夫女足》。\n请识别图片中每个红色编号方框对应人物的影视角色姓名。按照编号逐个回答，不要遗漏或添加编号。\n无法确认时character返回null，不要猜测，不要列出多个候选。每个编号只回答一次。\n只输出JSON：{\"persons\":[{\"person_id\":1,\"character\":null}]}。示意编号不是目标数量，须以图片实际编号为准。"
+        },
+        "C": {
+          "sha256": "7ee82c81eb3a6f9f0aea2bdc08458040c579ac4792d2fce91d48d082ada7d668",
+          "size": [
+            1600,
+            670
+          ],
+          "user_prompt": "这张图片出自电影《功夫女足》。\n请自主找出画面中清晰可辨、占据主要位置或参与主要对话的影视角色，并分别给出位置和影视角色姓名。\n本轮只识别主要角色，每张最多返回3人，不凑人数。虚焦背景、远处群众或侍卫、只剩衣物肢体的残缺旁人不属于本轮目标。\n按画面主体、清晰度和剧情重要性选择人物；主要人物身份无法确认时仍返回位置并将character设为null，不因不认识姓名而遗漏明显主体。\n每个实际人物只返回一次，不按角色名合并不同位置的人物；不要列出多个身份候选。\nbbox必须是归一化[x1,y1,x2,y2]，左上角为原点，x向右、y向下，满足0<=x1<x2<=1、0<=y1<y2<=1；框住完整可见人物范围。\n只输出JSON：{\"persons\":[{\"bbox\":[0.1,0.1,0.4,0.9],\"character\":null}]}。\n示意坐标和条目仅说明格式，不代表画面位置或人物数量；若没有符合范围的人物，返回{\"persons\":[]}。"
+        }
+      }
+    }
+  ],
+  "html_file": "gongfunvzu_web_test_15.html",
+  "html_sha256": "8328e01286dd04bf0685b042c7b9faecd1a7262992ef0a45c46b2e46ad9c6941"
+}

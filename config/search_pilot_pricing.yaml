@@ -1,0 +1,18 @@
+# Qwen Max search pilot; China Beijing published prices checked 2026-11-15.
+# The request declares max_uses:1, but the pilot observed up to four uses.
+# This nominal one-use allowance is not an enforced upper bound; further pilot
+# execution is held by tool_policy_audit.json, and observed uses are reconciled.
+verified_at: '2026-11-15'
+models:
+  qwen3.8-max:
+    input_cny_per_million: 12.0
+    output_cny_per_million: 36.0
+    input_token_upper_bound: 1048576
+    source_url: https://help.aliyun.com/zh/model-studio/qwen3-8-max
+    includes_visual_input: true
+    currency: CNY
+    verified_on: '2026-11-15'
+    request_fee_upper_cny: 0.004
+    request_fee_source_url: https://help.aliyun.com/zh/model-studio/web-search
+    request_fee_bound_note: 'Nominal one-use allowance for Anthropic-compatible web_search, requested max_uses=1; server exceeded this in the pilot. Further pilot execution is held pending review, and observed fees are reconciled conservatively. Not a vendor bill.'
+    request_fee_bound_source_url: https://help.aliyun.com/zh/model-studio/anthropic-api-messages

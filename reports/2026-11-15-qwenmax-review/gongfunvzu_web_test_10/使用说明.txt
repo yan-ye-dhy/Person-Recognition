@@ -1,0 +1,32 @@
+功夫女足：10张图片的网页版对照测试
+
+本文件夹包含10个底层样本，各有B编号版、C无框版，共20张JPEG。
+选择：8张单人图、2张双人图；标注目标均为清晰正脸或四分之三侧脸，共覆盖5个角色。
+样本：gongfunvzu_0003, gongfunvzu_0008, gongfunvzu_0012, gongfunvzu_0013, gongfunvzu_0016, gongfunvzu_0020, gongfunvzu_0022, gongfunvzu_0023, gongfunvzu_0030, gongfunvzu_0040
+图片与完成运行 multi_v2_20261113_075729_2e4f15 中 qwen3.8-max 实际提交API的JPEG逐字节一致；没有重新压缩或重画框。
+
+怎样开始
+1. 先做B组：打开 B_numbered 文件夹，选择一张图片；网页版新建一个空白对话，只上传这一张图片。
+2. 打开 B_web_copy_prompt.txt，全选复制，粘贴到网页版并发送。该提示词已经包含作品名，请勿再提供角色姓名或答案表。
+3. 如果网页版可选择模型，记录页面实际显示的名称；第一轮关闭联网搜索。思考模式可关闭时先关闭，与原API设置接近；不支持关闭则如实记录。
+4. 将完整原文回答、测试时间、显示模型、联网/思考开关、对话地址记入 web_results_to_fill.csv。不要只记录你概括后的结论。
+5. 下一张图片重新新建空白对话；不要在上一张对话里继续测试，以免前文提示答案。
+6. 做完B组再做C组：每张仍使用新对话，上传 C_unmarked 下同编号图片，粘贴 C_web_copy_prompt.txt。
+7. 所有回答保存好后，再打开 answers_do_not_upload.csv 核对。该表是人工答案，不得上传给模型。
+
+文件说明
+- B_numbered / C_unmarked：仅有待上传图片，不含角色姓名与答案文件。
+- system_prompt_exact.txt、B_user_prompt_exact.txt、C_user_prompt_exact.txt：当时API的原始提示词，原样保存。
+- B_web_copy_prompt.txt、C_web_copy_prompt.txt：将原system与user内容拼在一起，供只有单输入框的网页使用。
+- api_reference_settings.json：原API参数，包含temperature=0.1、max_tokens=4096、enable_thinking=false、tools=null等实际记录。
+- answers_do_not_upload.csv：独立答案表，包含编号对应角色、允许别名与标注框；只供测试后人工核对。
+- web_results_to_fill.csv：20次对照的空白记录模板。重复执行导出脚本不会覆盖此表中的已填结果。
+- manifest.json：图片哈希、原始来源、姿态和清晰度，便于核验输入一致。
+
+怎么理解结果
+网页版可能使用不同后端版本、默认系统提示词、图像处理或工具设置；网页单输入框也无法原样复现API的消息角色分离。
+所以记录网页显示的配置，不预先认定网页与API必为同一模型或同一参数。
+如需观察联网搜索效果，应在第一轮之后另开一轮新对话，并另存记录，不与关闭搜索的结果混合。
+此10张为清晰角色的定向诊断样本；不能替代《功夫女足》全部40张的正式分数，也不能单凭10张判断低分的根本原因。
+这里沿用冻结标注并叠加用户明确确认的身份更正与既有评分规则；不因为网页答复不同就直接更改答案。
+此导出过程不调用任何模型、不产生新的API费用。

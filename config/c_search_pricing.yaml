@@ -1,0 +1,169 @@
+verified_at: '2026-11-15T13:39:58.280544+00:00'
+models:
+  deepseek-flash:
+    input_cny_per_million: 2.0
+    output_cny_per_million: 8.0
+    input_token_upper_bound: 1048576
+    source_url: https://api-docs.deepseek.com/zh-cn/quick_start/pricing/
+    verified_on: '2026-11-15'
+    currency: CNY
+    includes_visual_input: true
+    price_policy: published non-cached upper rates; no free-credit/cache/temporary
+      discount assumptions
+    expected_short_input_cny_per_million: 2.0
+    expected_short_output_cny_per_million: 8.0
+    time_note: Peak2/8,offpeak1/4;reserve peak regardless scheduled time.
+    request_fee_upper_cny: 0
+    tool_unit_cny: 0.006
+    tool_usage_source_url: https://api-docs.deepseek.com/guides/web_tools/
+    tool_allowance_units: 8
+    tool_fee_policy: Nominal admission allowance, not server-enforced cap; actual
+      units retained as uncertain fee estimate, never source-link count.
+    tool_fx_policy: USD0.75/1000 units; budget conversion8CNY/USD is a conservative
+      allowance, not current FX quote.
+  kimi-k3.1-pro:
+    input_cny_per_million: 13.0
+    output_cny_per_million: 68.0
+    input_token_upper_bound: 1048576
+    source_url: https://www.kimi.com/news/kimi-k3-1-pro
+    verified_on: '2026-11-15'
+    currency: CNY
+    includes_visual_input: true
+    price_policy: published non-cached upper rates; no free-credit/cache/temporary
+      discount assumptions
+    expected_short_input_cny_per_million: 13.0
+    expected_short_output_cny_per_million: 68.0
+    cache_note: Default5min cache write split does not increase overall base input
+      price; no 1h cache requested; no cache savings assumed.
+    request_fee_upper_cny: 0
+    tool_unit_cny: 0.03
+    tool_usage_source_url: https://platform.kimi.com/docs/pricing/websearch.md
+    tool_allowance_units: 8
+    tool_fee_policy: Nominal admission allowance, not server-enforced cap; actual
+      units retained as uncertain fee estimate, never source-link count.
+  glm-5.3-flash:
+    input_cny_per_million: 0.8
+    output_cny_per_million: 2.8
+    input_token_upper_bound: 1048576
+    source_url: https://docs.bigmodel.cn/cn/guide/start/pricing
+    verified_on: '2026-11-15'
+    currency: CNY
+    includes_visual_input: true
+    price_policy: published non-cached upper rates; no free-credit/cache/temporary
+      discount assumptions
+    expected_short_input_cny_per_million: 0.8
+    expected_short_output_cny_per_million: 2.8
+    request_fee_upper_cny: 0
+    tool_unit_cny: 0.03
+    tool_usage_source_url: https://docs.bigmodel.cn/cn/guide/tools/web-search
+    tool_allowance_units: 8
+    tool_fee_policy: Nominal admission allowance, not server-enforced cap; actual
+      units retained as uncertain fee estimate, never source-link count.
+  glm-4.6v:
+    input_cny_per_million: 2.0
+    output_cny_per_million: 6.0
+    input_token_upper_bound: 131072
+    source_url: https://docs.bigmodel.cn/cn/guide/start/pricing
+    verified_on: '2026-11-15'
+    currency: CNY
+    includes_visual_input: true
+    price_policy: published non-cached upper rates; no free-credit/cache/temporary
+      discount assumptions
+    expected_short_input_cny_per_million: 1.0
+    expected_short_output_cny_per_million: 3.0
+    input_bound_evidence:
+      kind: provider_context_limit
+      context_tokens: 131072
+      source_url: https://docs.bigmodel.cn/cn/guide/models/vlm/glm-4.6v
+      verified_on: '2026-11-13'
+      note: Official context window 128K; 131072 conservatively covers 128000. Not
+        an empirical image-token estimate.
+    tiers_note: Input <32K:1/3; 32K..128K:2/6. Reservation/settlement uses upper tier.
+    request_fee_upper_cny: 0
+    tool_unit_cny: 0.03
+    tool_usage_source_url: https://docs.bigmodel.cn/cn/guide/tools/web-search
+    tool_allowance_units: 8
+    tool_fee_policy: Nominal admission allowance, not server-enforced cap; actual
+      units retained as uncertain fee estimate, never source-link count.
+  qwen3.8-max:
+    input_cny_per_million: 12.0
+    output_cny_per_million: 36.0
+    input_token_upper_bound: 1048576
+    source_url: https://help.aliyun.com/zh/model-studio/model-pricing
+    verified_on: '2026-11-15'
+    currency: CNY
+    includes_visual_input: true
+    price_policy: published non-cached upper rates; no free-credit/cache/temporary
+      discount assumptions
+    expected_short_input_cny_per_million: 12.0
+    expected_short_output_cny_per_million: 36.0
+    request_fee_upper_cny: 0
+    tool_unit_cny: 0.004
+    tool_usage_source_url: https://help.aliyun.com/zh/model-studio/web-search
+    tool_allowance_units: 8
+    tool_fee_policy: Nominal admission allowance, not server-enforced cap; actual
+      units retained as uncertain fee estimate, never source-link count.
+    output_token_upper_bound: 131072
+    output_bound_evidence:
+      kind: provider_output_limit
+      tokens: 131072
+      source_url: https://help.aliyun.com/zh/model-studio/qwen3-8-max
+      verified_on: '2026-11-15'
+      note: Conservative model output allowance for native-tool usage accounting;
+        request remains4096. Not a guarantee that server native aggregate billing
+        cannot exceed provider limits.
+  qwen3.7-plus:
+    input_cny_per_million: 6.0
+    output_cny_per_million: 24.0
+    input_token_upper_bound: 1048576
+    source_url: https://help.aliyun.com/zh/model-studio/model-pricing
+    verified_on: '2026-11-15'
+    currency: CNY
+    includes_visual_input: true
+    price_policy: published non-cached upper rates; no free-credit/cache/temporary
+      discount assumptions
+    expected_short_input_cny_per_million: 2.0
+    expected_short_output_cny_per_million: 8.0
+    tiers_note: Input <=256K:2/8; 256K..1M:6/24. Use highest tier for context-ceiling
+      reservations. Temporary 20% discount not assumed.
+    request_fee_upper_cny: 0
+    tool_unit_cny: 0.004
+    tool_usage_source_url: https://help.aliyun.com/zh/model-studio/web-search
+    tool_allowance_units: 8
+    tool_fee_policy: Nominal admission allowance, not server-enforced cap; actual
+      units retained as uncertain fee estimate, never source-link count.
+  qwen3.8-flash:
+    input_cny_per_million: 0.8
+    output_cny_per_million: 2.7
+    input_token_upper_bound: 1048576
+    source_url: https://help.aliyun.com/zh/model-studio/model-pricing
+    verified_on: '2026-11-15'
+    currency: CNY
+    includes_visual_input: true
+    price_policy: published non-cached upper rates; no free-credit/cache/temporary
+      discount assumptions
+    expected_short_input_cny_per_million: 0.8
+    expected_short_output_cny_per_million: 2.7
+    request_fee_upper_cny: 0
+    tool_unit_cny: 0.004
+    tool_usage_source_url: https://help.aliyun.com/zh/model-studio/web-search
+    tool_allowance_units: 8
+    tool_fee_policy: Nominal admission allowance, not server-enforced cap; actual
+      units retained as uncertain fee estimate, never source-link count.
+    output_token_upper_bound: 131072
+    output_bound_evidence:
+      kind: provider_output_limit
+      tokens: 131072
+      source_url: https://help.aliyun.com/zh/model-studio/qwen3-8-flash
+      verified_on: '2026-11-15'
+      note: Conservative model output allowance for native-tool usage accounting;
+        request remains4096. Not a guarantee that server native aggregate billing
+        cannot exceed provider limits.
+budget_policy:
+  currency: CNY
+  recommended_stop_loss_cny: 500
+  reservation: per-model context-ceiling and configured output/retry bound, rolling
+    per call
+  settlement: reliable final usage at configured upper rates; prior failed attempts
+    remain reserved
+  not_a_bill: true

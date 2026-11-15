@@ -223,12 +223,18 @@ def _provider(client: FakeClient, *, settings=None, sleeper=None) -> OpenAICompa
     )
 
 
+def _baseline_qwen(registry=None):
+    """The non-search adapter contract is independent of the live service profile."""
+    registry = registry or load_registry()
+    return replace(registry.get("qwen3.8-max"), params={"extra_body": {"enable_thinking": False}})
+
+
 def test_openai_compat_ok_response():
     client = FakeClient([_resp('{"character_name": "测试"}')])
     provider = _provider(client)
     registry = load_registry()
     result = provider.recognize(
-        registry.get("qwen3.8-max"), DATA_URL, SYS, USER, GEN
+        _baseline_qwen(registry), DATA_URL, SYS, USER, GEN
     )
     assert result.ok
     assert result.raw_text == '{"character_name": "测试"}'
@@ -243,7 +249,7 @@ def test_openai_compat_plain_response_without_reasoning_field():
     del response.choices[0].message.reasoning_content
     client = FakeClient([response])
     result = _provider(client).recognize(
-        load_registry().get("qwen3.8-max"), DATA_URL, SYS, USER, GEN
+        _baseline_qwen(), DATA_URL, SYS, USER, GEN
     )
     assert result.ok
     assert result.raw_text == '{"character_name": "安欣"}'
@@ -256,7 +262,7 @@ def test_openai_compat_preserves_final_answer_separately_from_reasoning():
     reasoning = '备选而非答案：{"character_name": "高启强"}'
     client = FakeClient([_resp(final, reasoning=reasoning)])
     result = _provider(client).recognize(
-        load_registry().get("qwen3.8-max"), DATA_URL, SYS, USER, GEN
+        _baseline_qwen(), DATA_URL, SYS, USER, GEN
     )
     assert result.raw_text == final
     assert result.reasoning_text == reasoning
@@ -270,7 +276,7 @@ def test_openai_compat_reasoning_json_cannot_become_final_answer(content):
     reasoning = '{"character_name": "安欣", "is_uncertain": false}'
     client = FakeClient([_resp(content, reasoning=reasoning)])
     result = _provider(client).recognize(
-        load_registry().get("qwen3.8-max"), DATA_URL, SYS, USER, GEN
+        _baseline_qwen(), DATA_URL, SYS, USER, GEN
     )
     assert result.ok and result.http_status == 200  # 不将模型输出问题改写成网络失败
     assert result.error_type is None
@@ -288,7 +294,7 @@ def test_openai_compat_truncation_is_audited_without_paid_retry(content):
         _resp("unexpected retry"),
     ])
     result = _provider(client).recognize(
-        load_registry().get("qwen3.8-max"), DATA_URL, SYS, USER, GEN
+        _baseline_qwen(), DATA_URL, SYS, USER, GEN
     )
     assert result.ok and result.http_status == 200
     assert result.error_type is None
@@ -304,7 +310,7 @@ def test_openai_compat_request_shape_and_fairness():
     client = FakeClient([_resp("ok")])
     provider = _provider(client)
     registry = load_registry()
-    provider.recognize(registry.get("qwen3.8-max"), DATA_URL, SYS, USER, GEN)
+    provider.recognize(_baseline_qwen(registry), DATA_URL, SYS, USER, GEN)
     (call,) = client.chat.completions.calls
     # 消息结构：system + user(image_url + text)
     assert call["model"] == "qwen3.8-max"

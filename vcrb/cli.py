@@ -7,6 +7,7 @@
 from __future__ import annotations
 
 import json
+from copy import deepcopy
 import subprocess
 import sys
 from pathlib import Path
@@ -652,7 +653,28 @@ def _resolve_models(
 def _build_provider(model: ModelSpec, registry: ModelRegistry, settings: dict) -> VisionProvider:
     if model.provider == "mock":
         return MockProvider()
+    from .runner.executor import _effective_http_timeout_seconds
+    effective_timeout = _effective_http_timeout_seconds(model, settings)
+    settings = deepcopy(settings)
+    if settings.get('retry') is None:
+        settings['retry'] = {}
+    settings.setdefault('retry', {})['timeout_seconds'] = effective_timeout
     spec = registry.provider_spec(model)
+    if model.params.get("api_mode") == "dashscope_anthropic":
+        from .providers.dashscope_anthropic import DashScopeAnthropicProvider
+        return DashScopeAnthropicProvider(spec,settings=settings,max_search_uses=model.params.get("search_max_uses",1))
+    if model.params.get("api_mode") == "dashscope_multimodal_search":
+        from .providers.dashscope_multimodal_search import DashScopeMultimodalSearchProvider
+        return DashScopeMultimodalSearchProvider(spec, settings=settings)
+    if model.params.get("api_mode") == "deepseek_native_search":
+        from .providers.deepseek_search import DeepSeekSearchProvider
+        return DeepSeekSearchProvider(spec, settings=settings)
+    if model.params.get("api_mode") == "moonshot_responses":
+        from .providers.moonshot_responses import MoonshotResponsesProvider
+        return MoonshotResponsesProvider(spec, settings=settings)
+    if model.params.get("api_mode") in {"zhipu_native_search", "zhipu_function_search"}:
+        from .providers.zhipu_search import ZhipuSearchProvider
+        return ZhipuSearchProvider(spec, settings=settings)
     return OpenAICompatProvider(spec, settings=settings)
 
 

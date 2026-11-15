@@ -302,4 +302,23 @@ tests/           pytest 离线测试
 
 用户随后明确要求累计上限提高到250元，继续完成同一测试；预算修订保留100→150→250的完整记录，旧预留不归零，已完成的请求按任务键跳过。随后完成全部剩余任务，运行状态为done。
 
-最终报告：`http://127.0.0.1:8765/results/multi/multi_v2_20261113_075729_2e4f15/reports/index.html`。严格输出格式错误共288项，与API返回成功和识别正确率分别统计；原始响应保留。分作品、单人/多人、人物朝向和可见性均已输出HTML/JSON/CSV。最终覆盖、分母、源图/标签与CSV一致性验收见`results/multi/stratification_20261113/final_completion_audit.json`。
+2026-11-15新增原厂联网C组重测，累计保护经用户授权由350元提高到500元，继续包含历史费用。入口为`python scripts/run_c_search.py`（默认仅离线计划），显式`--execute --phase preflight`执行前56项，`--execute --phase full`自动续跑同一新run；仅明确传`--new-run`才建立另一套正式任务。GLM接口方式须先经真实小样本验证并冻结。每个模型使用自己厂商的检索，GLM可采用智谱搜索API的工具循环。原生服务的搜索次数声明不是计费硬上限，按返回计量记录，不用URL数量猜费用。模型中间轮、搜索HTTP和重试分别记账；500元是本地保护与预留，不能代替厂商账单。
+
+`python scripts/export_c_search.py --run-id 实际运行ID --output reports/2026-11-15-c-search`生成可分享的独立离线HTML。报告区分姓名命中、坐标/格式及严格位置姓名评分，进行中保留1120项计划分母，并显示实际检索证据。旧无搜索基线及接口探测记录独立保留。
+
+### Flash 联网协议修订（完整重测已完成）
+
+Qwen3.8 Flash 的 Anthropic 兼容搜索出现服务端重复检索循环；改为 AUTO 后，固定四张跨作品预检仍有三张失败，因此没有据单张成功结果直接扩量。原厂多模态 SSE 搜索的同四张预检 `multi_v2_20261115_155421_2bb424` 全部接口成功且返回真实搜索来源，据此选择该协议，**Flash 整个型号的160张已在独立新run `multi_v2_20261115_160357_5cd4d6` 完成重测，160项接口成功**；不逐图选择旧、新协议中更好的回答。业务提示词、图片、角色真值及关闭思考设置不变，接口协议差异单独记录；所有旧响应、诊断及失败费用保留，仍共享累计500元本地保护上限。
+
+最终联网C组采用主run `multi_v2_20261115_135745_d3bd12` 的其余六模型960项，以及上述新Flash run的160项，共1120项记录：1116项接口成功，4项厂商内容过滤失败保留在结果与分母中，未执行0。接口成功不等于角色识别正确。[最终独立离线HTML报告](reports/2026-11-15-c-search/index.html) 可下载后直接用浏览器打开；累计本地保护占用约476元，包含历史未知预留，不是供应商实际账单。
+
+修订入口为 `scripts/run_flash_search_revision.py`，默认仅离线计划。配置副本位于 `results/multi/c_search/flash_revision/profiles/`，全量启动前必须匹配 `results/multi/c_search/flash_revision/profile_selection.json` 的已验证协议哈希、完整数据集哈希及预检run。四张预检只验证接口与来源，不能代表160张的识别准确率。
+
+```bash
+# 计划；显式加 --execute 才调用，已有全量run默认续跑
+python scripts/run_flash_search_revision.py --profile multimodal --phase full
+# 报告按整型号使用新Flash run；其余模型仍取原主run，不回填旧Flash的逐图结果
+python scripts/export_c_search.py --run-id multi_v2_20261115_135745_d3bd12 --model-run qwen3.8-flash=multi_v2_20261115_160357_5cd4d6 --output reports/2026-11-15-c-search
+```
+
+旧无搜索A/B/C最终报告：`http://127.0.0.1:8765/results/multi/multi_v2_20261113_075729_2e4f15/reports/index.html`。严格输出格式错误共288项，与API返回成功和识别正确率分别统计；原始响应保留。分作品、单人/多人、人物朝向和可见性均已输出HTML/JSON/CSV。最终覆盖、分母、源图/标签与CSV一致性验收见`results/multi/stratification_20261113/final_completion_audit.json`。

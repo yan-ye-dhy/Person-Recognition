@@ -6,25 +6,178 @@
   extra_body: {...}       → 厂商私有参数（如 Qwen enable_thinking=false）
 
 公平性约束：
-- 不传 tools / 不启用联网搜索（Qwen compatible-mode 的搜索默认关闭，如显式
-  支持会再传 enable_search=false；本项目不传任何工具参数）；
+- 原无搜索基线不传 tools，不启用联网搜索；明确启用搜索的配置单独记录，
+  不能混入原运行。厂商原生搜索参数仍由 extra_body 透传；
+- 启用原生搜索时使用流式传输，记录实际返回的检索证据，不从开关推断执行；
 - 记录 served_model（response.model）供 run 元数据核对实际服务版本。
 """
 
 from __future__ import annotations
 
 import math
+import re
 import threading
 import time
 from contextlib import contextmanager
 from datetime import timezone
 from email.utils import parsedate_to_datetime
 from typing import Any, Callable, Iterator
+from types import SimpleNamespace
 
 from ..config import require_api_key
 from ..models import ModelSpec, ProviderSpec
 from .base import GenerationParams, ProviderResult, VisionProvider
 from .errors import classify_exception, error_summary
+
+
+_SEARCH_FIELDS = (
+    "search_info", "web_search", "web_search_results", "search_results",
+    "citations", "annotations", "tool_calls",
+)
+_SECRET_KEYS = {"apikey", "authorization", "headers", "requestheaders", "responseheaders", "messages", "request"}
+_KEY_PATTERN = re.compile(r"\bsk-[A-Za-z0-9_-]{8,}")
+_BEARER_PATTERN = re.compile(r"\bBearer\s+[^\s\"']+", re.I)
+_IMAGE_DATA_PATTERN = re.compile(r"data:image/[^\s\"'<>]+", re.I)
+
+
+def _field(value: Any, key: str, default=None):
+    if isinstance(value, dict):
+        return value.get(key, default)
+    try:
+        item = getattr(value, key, default)
+        if item is not default:
+            return item
+        extra = getattr(value, "model_extra", None)
+        if isinstance(extra, dict):
+            return extra.get(key, default)
+    except Exception:
+        pass
+    return default
+
+
+def _dump_mapping(value: Any) -> dict[str, Any]:
+    if isinstance(value, dict):
+        return value
+    method = getattr(value, "model_dump", None)
+    if callable(method):
+        try:
+            result = method(mode="json")
+        except TypeError:
+            try:
+                result = method()
+            except Exception:
+                return {}
+        except Exception:
+            return {}
+        return result if isinstance(result, dict) else {}
+    return {}
+
+
+def _safe_json(value: Any, depth: int = 0) -> Any:
+    """Serialize selected response evidence, excluding secrets and image payloads."""
+    if depth > 16:
+        return None
+    if value is None or isinstance(value, (bool, int)):
+        return value
+    if isinstance(value, float):
+        return value if math.isfinite(value) else None
+    if isinstance(value, str):
+        text = _IMAGE_DATA_PATTERN.sub("[image data omitted]", value)
+        return _BEARER_PATTERN.sub("Bearer [redacted]", _KEY_PATTERN.sub("[api-key]", text))
+    if isinstance(value, (list, tuple)):
+        return [_safe_json(item, depth + 1) for item in value]
+    mapping = value if isinstance(value, dict) else _dump_mapping(value)
+    return {str(key): _safe_json(item, depth + 1) for key, item in mapping.items()
+            if re.sub(r"[^a-z]", "", str(key).lower()) not in _SECRET_KEYS}
+
+
+def _usage_mapping(value: Any) -> dict[str, Any]:
+    """Retain SDK token details and provider usage extensions without guessing."""
+    usage = _safe_json(_dump_mapping(value))
+    for key in ("prompt_tokens", "completion_tokens", "total_tokens", "plugins", "x_tools"):
+        item = _field(value, key)
+        if item is not None:
+            usage[key] = _safe_json(item)
+    return usage
+
+
+def extract_search_metadata(response: Any) -> dict[str, Any]:
+    """Return search evidence only, never an inferred 'search completed' boolean.
+
+    In particular, usage.x_tools.search is provider intent telemetry, not proof
+    of completed/billable retrieval. Stream events may repeat cumulative counts;
+    consumers must not sum them as independent searches.
+    """
+    result = {}
+    top = {key: _safe_json(item) for key in _SEARCH_FIELDS
+           if (item := _field(response, key)) not in (None, [], {})}
+    if top:
+        result["response"] = top
+    messages = []
+    for choice in _field(response, "choices", []) or []:
+        message = _field(choice, "message") or _field(choice, "delta")
+        selected = {key: _safe_json(item) for key in _SEARCH_FIELDS
+                    if (item := _field(message, key)) not in (None, [], {})}
+        if selected:
+            messages.append(selected)
+    if messages:
+        result["messages"] = messages
+    usage = _usage_mapping(_field(response, "usage"))
+    selected_usage = {}
+    for container in ("plugins", "x_tools"):
+        values = usage.get(container)
+        if isinstance(values, dict) and "search" in values:
+            selected_usage[container] = {"search": values["search"]}
+    if selected_usage:
+        result["usage"] = selected_usage
+    if "x_tools" in selected_usage:
+        result["count_semantics"] = {"x_tools.search": "intent_not_completed_retrieval_or_billable_proof"}
+    return result
+
+
+def _merge_mapping(target: dict, source: dict) -> None:
+    for key, value in source.items():
+        if isinstance(value, dict) and isinstance(target.get(key), dict):
+            _merge_mapping(target[key], value)
+        else:
+            target[key] = value
+
+
+def consume_chat_stream(stream: Any) -> Any:
+    """Collect one HTTP stream inside its attempt boundary and always close it."""
+    content, reasoning, usage, events = [], [], {}, []
+    model = finish_reason = None
+    try:
+        for chunk in stream:
+            model = _field(chunk, "model") or model
+            _merge_mapping(usage, _usage_mapping(_field(chunk, "usage")))
+            metadata = extract_search_metadata(chunk)
+            if metadata:
+                events.append(metadata)
+            for choice in _field(chunk, "choices", []) or []:
+                if _field(choice, "index", 0) != 0:
+                    continue
+                delta = _field(choice, "delta") or _field(choice, "message")
+                text, thought = _field(delta, "content"), _field(delta, "reasoning_content")
+                if isinstance(text, str):
+                    content.append(text)
+                if isinstance(thought, str):
+                    reasoning.append(thought)
+                finish_reason = _field(choice, "finish_reason") or finish_reason
+    finally:
+        close = getattr(stream, "close", None)
+        if callable(close):
+            try:
+                close()
+            except Exception:
+                # Cleanup failures must not replace an interrupted attempt or
+                # cause a second paid call after a complete response arrived.
+                pass
+    return SimpleNamespace(
+        choices=[SimpleNamespace(message=SimpleNamespace(content="".join(content), reasoning_content="".join(reasoning)),
+                                 finish_reason=finish_reason)],
+        model=model, usage=usage, _stream_search_events=events,
+    )
 
 
 class OpenAICompatProvider(VisionProvider):
@@ -161,6 +314,9 @@ class OpenAICompatProvider(VisionProvider):
             )
         if extra_body:
             kwargs["extra_body"] = extra_body
+        if model.params.get("stream") is True or extra_body.get("enable_search") is True:
+            kwargs["stream"] = True
+            kwargs["stream_options"] = {"include_usage": True}
         return kwargs
 
     # ---- 主流程 ----
@@ -199,6 +355,8 @@ class OpenAICompatProvider(VisionProvider):
                     self._last_request_started[model.id] = start
                 try:
                     resp = client.chat.completions.create(**kwargs)
+                    if kwargs.get("stream"):
+                        resp = consume_chat_stream(resp)
                 except BaseException as exc:  # interrupt still retains the admitted attempt
                     error = exc
                 total_latency += int((time.monotonic() - start) * 1000)
@@ -261,12 +419,11 @@ class OpenAICompatProvider(VisionProvider):
         elif not final_text.strip():
             output_issue = "empty_final_content"
         usage_obj = getattr(resp, "usage", None)
-        usage: dict[str, Any] = {}
-        if usage_obj is not None:
-            for key in ("prompt_tokens", "completion_tokens", "total_tokens"):
-                value = getattr(usage_obj, key, None)
-                if value is not None:
-                    usage[key] = value
+        usage = _usage_mapping(usage_obj)
+        search_metadata = extract_search_metadata(resp)
+        events = getattr(resp, "_stream_search_events", None)
+        if events:
+            search_metadata["stream_events"] = events
         return ProviderResult(
             ok=True,
             raw_text=final_text,
@@ -278,4 +435,5 @@ class OpenAICompatProvider(VisionProvider):
             http_status=200,
             reasoning_text=reasoning_text,
             output_issue=output_issue,
+            search_metadata=search_metadata,
         )

@@ -47,6 +47,8 @@ models:
       2026-11-13 预检默认思考耗尽4096预算而无正文；正式测试显式关闭思考，
       与其他可关闭型号统一采用直接识别模式；原始预检单独留存。
     params:
+      api_mode: deepseek_native_search
+      search_enabled: true
       extra_body:
         thinking:
           type: disabled
@@ -76,6 +78,8 @@ models:
       2026-11-13 实测接口只接受 temperature=1，故不显式传采样温度；
       K3.1 始终思考，本轮使用官方支持的low力度；与可关闭思考的型号存在模式差异。
     params:
+      api_mode: moonshot_responses
+      search_enabled: true
       pass_temperature: false
       token_limit_parameter: max_completion_tokens
       extra_body:
@@ -127,6 +131,10 @@ models:
     enabled: true
     notes: "思考不能关闭；本轮显式reasoning_effort=low，temperature=0.1；与可关闭思考的型号存在模式差异并如实记录。"
     params:
+      api_mode: zhipu_function_search
+      search_enabled: true
+      max_client_search_calls: 8
+      max_model_rounds: 10
       extra_body:
         thinking:
           type: enabled
@@ -164,6 +172,10 @@ models:
     enabled: true
     notes: "本轮显式关闭思考，采用直接识别模式。"
     params:
+      api_mode: zhipu_function_search
+      search_enabled: true
+      max_client_search_calls: 8
+      max_model_rounds: 10
       extra_body:
         thinking:
           type: disabled
@@ -235,10 +247,17 @@ models:
     tier: flagship
     supports_vision: doc
     enabled: true
-    notes: "混合思考模型，统一关闭 thinking（enable_thinking=false）以保证各模型条件一致。"
+    notes: "C组联网重测：原厂原生搜索，关闭思考；请求声明8次检索仅作建议，服务端可能超出，按实际用量记录。累计500元保护保留历史费用；旧无搜索与15张试跑快照保留。"
     params:
+      api_mode: dashscope_anthropic
+      search_enabled: true
+      search_max_uses: 8
+      native_usage_accounting: provider_output_ceiling
       extra_body:
         enable_thinking: false
+        enable_search: true
+        search_options:
+          forced_search: true
 
   - id: qwen3.7-plus
     provider: dashscope
@@ -248,10 +267,17 @@ models:
     tier: standard
     supports_vision: doc
     enabled: true
-    notes: "混合思考模型，统一关闭 thinking。"
+    notes: "C组联网重测：关闭思考。Anthropic兼容搜索实测未返回来源，改用百炼原生多模态流式max搜索并核验来源。"
     params:
+      api_mode: dashscope_multimodal_search
+      search_enabled: true
       extra_body:
         enable_thinking: false
+        enable_search: true
+        search_options:
+          forced_search: true
+          search_strategy: max
+          enable_source: true
 
   - id: qwen3.8-flash
     provider: dashscope
@@ -263,8 +289,15 @@ models:
     enabled: true
     notes: "连通性检查中实测确认图片输入能力（推荐页与视觉文档均提及）。"
     params:
+      api_mode: dashscope_anthropic
+      search_enabled: true
+      search_max_uses: 8
+      native_usage_accounting: provider_output_ceiling
       extra_body:
         enable_thinking: false
+        enable_search: true
+        search_options:
+          forced_search: true
 
   - id: qwen3.7-flash
     provider: dashscope

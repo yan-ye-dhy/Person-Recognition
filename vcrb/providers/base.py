@@ -41,6 +41,9 @@ class ProviderResult:
     http_status: int | None = None
     reasoning_text: str = ""          # 可见推理字段单独留存，绝不回填 raw_text
     output_issue: str | None = None    # empty_final_content / truncated_output；不触发付费重试
+    search_metadata: dict[str, Any] = field(default_factory=dict)
+    # Only provider-returned evidence. Configuration or an intent count alone
+    # must not be treated as proof that retrieval actually completed.
 
 
 class VisionProvider(ABC):

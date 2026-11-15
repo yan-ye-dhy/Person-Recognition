@@ -1,0 +1,25 @@
+{
+  "run_id": "multi_v2_20261113_075729_2e4f15",
+  "model_id": "qwen3.8-max",
+  "experiments": {
+    "B": {
+      "model": "qwen3.8-max",
+      "max_tokens": 4096,
+      "temperature": 0.1,
+      "extra_body": {
+        "enable_thinking": false
+      },
+      "tools": null
+    },
+    "C": {
+      "model": "qwen3.8-max",
+      "max_tokens": 4096,
+      "temperature": 0.1,
+      "extra_body": {
+        "enable_thinking": false
+      },
+      "tools": null
+    }
+  },
+  "note": "原始 API 的 system/user 分属不同消息；web_copy 文件仅为网页单输入框合并版本，不能保证网页后端模型或参数相同。"
+}

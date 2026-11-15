@@ -7258,37 +7258,26 @@
             0.863,
             1
           ],
-          "character": "范建",
+          "character": "邓子越",
           "identity_status": "verified",
           "review_status": "approved",
           "character_aliases": [],
           "evidence": [
             {
-              "type": "assistant_independent_original_frame_review",
-              "actor": "assistant",
+              "type": "user_explicit_identity_correction",
+              "reviewer": "user",
               "confirmed": true,
-              "reviewed_at": "2026-11-13T04:07:46+00:00",
+              "reviewed_at": "2026-11-15T04:09:20.043530+00:00",
               "image_sha256": "894716850e360d116c795700cca8794ab2b5ff266dd7aae2230ff3269fe3b1c9",
-              "scope": "geometry_and_identity",
-              "observation": "右前银纹黑袍、短髭高冠男子，五官须形对应范建命名海报",
+              "annotation_id": "qingyunian2_0029_inherited",
+              "previous_character": "范建",
+              "corrected_character": "邓子越",
+              "text": "这个就是邓子越，标注错了。",
+              "source": "本次用户消息及所附Qwen Max错误报告截图；截图目标为右前银纹黑袍、短髭高冠男子。",
               "model_predictions_used": false
-            },
-            {
-              "type": "production_named_poster_republished_by_secondary_host",
-              "actor": "assistant",
-              "confirmed": true,
-              "reference_id": "poster_fanjian",
-              "url": "https://www.sohu.com/na/674767546_120192821",
-              "image_url": "https://p4.itc.cn/images01/20230511/21ae83d4fb9e4866b91f450e9942c9ca.jpeg",
-              "supports": "高曙光/范建双季命名海报，核0029；0037宴席角色仍缺直接姓名锚。",
-              "image_sha256": "ebe3cc8ebe69efabbe0eecba62c380e87cd8fb975afc627cdea65916065f2301",
-              "local_reference": "results/multi/annotation_batches/qingyunian2_part2_review/references/poster_fanjian.jpg",
-              "local_reference_sha256": "ebe3cc8ebe69efabbe0eecba62c380e87cd8fb975afc627cdea65916065f2301",
-              "reviewed_this_batch": true,
-              "observation": "右前银纹黑袍、短髭高冠男子，五官须形对应范建命名海报；本次重新看原图及所列独立参考，继承标签不算确认。"
             }
           ],
-          "note": "右前银纹黑袍、短髭高冠男子，五官须形对应范建命名海报",
+          "note": "用户逐图复核明确更正：右前银纹黑袍、短髭高冠男子为邓子越；撤回先前范建标注及相关海报比对证据。人物框与图片保持不变。",
           "annotation_id": "qingyunian2_0029_inherited"
         }
       ],
@@ -7523,9 +7512,22 @@
           "at": "2026-11-13T06:55:53.354834+00:00",
           "policy_id": "clear_named_principals_max3_v1",
           "text": "按用户新口径逐图选本画面清晰且能独立定名的主要角色1–3人；虚化背景、无头躯干、远处侍卫移出红框并仅作ignore，不烧入模型图片。此approved仅表示助手代标完成，真实调用仍等用户确认。"
+        },
+        {
+          "type": "user_explicit_identity_correction",
+          "reviewer": "user",
+          "confirmed": true,
+          "reviewed_at": "2026-11-15T04:09:20.043530+00:00",
+          "image_sha256": "894716850e360d116c795700cca8794ab2b5ff266dd7aae2230ff3269fe3b1c9",
+          "annotation_id": "qingyunian2_0029_inherited",
+          "previous_character": "范建",
+          "corrected_character": "邓子越",
+          "text": "这个就是邓子越，标注错了。",
+          "source": "本次用户消息及所附Qwen Max错误报告截图；截图目标为右前银纹黑袍、短髭高冠男子。",
+          "model_predictions_used": false
         }
       ],
-      "note": "已按用户新口径精简为清晰可识别的主要角色（最多3人）；等待用户检查总览后统一调用。"
+      "note": "已按用户新口径精简为清晰可识别的主要角色（最多3人）；等待用户检查总览后统一调用。 用户于2026-11-15明确更正本图人物1为邓子越，原范建标注已撤回。"
     },
     {
       "sample_id": "qingyunian2_0030",
@@ -12973,51 +12975,26 @@
             0.755,
             1
           ],
-          "character": "师太",
+          "character": "钰珑",
           "identity_status": "verified",
           "review_status": "approved",
-          "character_aliases": [
-            "峨眉师太"
-          ],
+          "character_aliases": [],
           "evidence": [
             {
-              "type": "assistant_independent_visual_review",
-              "actor": "assistant",
+              "type": "user_explicit_identity_correction",
+              "reviewer": "user",
               "confirmed": true,
-              "scope": "geometry_and_identity",
-              "reviewed_at": "2026-11-13T04:00:44+00:00",
-              "sample_id": "gongfunvzu_0029",
+              "reviewed_at": "2026-11-15T05:08:59.981731+00:00",
               "image_sha256": "36e446209fda1ba58f021f028d754bb2148be254045428792d05614a02fbe8c2",
-              "observation": "左前白外套短发女子，五官/短发与师太参考对应，框含双手",
+              "annotation_id": "gongfunvzu_0029_inherited",
+              "previous_character": "师太",
+              "corrected_character": "钰珑",
+              "text": "这两张里面的白衣服都是钰珑",
+              "source": "本次用户消息及所附15张功夫女足HTML截图；0029前排白衣女子、0030左侧白衣女子均为钰珑。",
               "model_predictions_used": false
-            },
-            {
-              "type": "publisher_caption_on_attributed_official_trailer_still",
-              "actor": "assistant",
-              "confirmed": true,
-              "reference_id": "shitai_attributed_trailer_still",
-              "publisher": "Tatler Asia",
-              "url": "https://www.tatlerasia.com/lifestyle/entertainment/kung-fu-soccer-bn",
-              "image_url": "https://cdn.tatlerasia.com/tatlerasia/i/2026/07/11120955-1456-x-970-3_cover_1456x800.jpg",
-              "observation": "左前白外套短发女子，五官/短发与师太参考对应，框含双手。本批重新目视命名图片，不以继承标签作为确认。",
-              "reference_sha256": "976970908debfd9701cc25f6891557ba4c2b0a102cfcc335f37b5901fcc4a558",
-              "local_reference": "results/multi/annotation_batches/gongfunvzu_review/references/shitai_attributed_trailer_still_original.jpg",
-              "local_reference_sha256": "976970908debfd9701cc25f6891557ba4c2b0a102cfcc335f37b5901fcc4a558",
-              "reviewed_this_batch": true
-            },
-            {
-              "type": "assistant_principal_scope_review",
-              "actor": "assistant",
-              "confirmed": true,
-              "reviewed_at": "2026-11-13T06:48:25+00:00",
-              "image_sha256": "36e446209fda1ba58f021f028d754bb2148be254045428792d05614a02fbe8c2",
-              "scope_policy": "仅纳入清晰、能可靠定名的主要角色；不按所有可定位人形计数，不凑unknown。旁人、虚焦、残缺或缺可靠姓名的人物移入具体ignore_regions；ignore仅属评分元数据，不绘入/发送模型图。foreground_complete表示此主要角色范围已逐图核完，并非全体画中人的穷尽标注。",
-              "observation": "保留主要角色师太；重新放大后只保留前排对焦清晰的师太；右后双双虽已有verified姓名，但脸部明显失焦且位于后景，本次按清晰主要角色口径移出红框，登记ignore。",
-              "model_predictions_used": false,
-              "review_sheet": "results/multi/annotation_batches/gongfunvzu_review/sheet_4.jpg"
             }
           ],
-          "note": "左前白外套短发女子，五官/短发与师太参考对应，框含双手",
+          "note": "用户逐图复核明确更正：本图1号白外套女子为钰珑；撤回先前师太标注及相关人物参考比对证据。人物框与图片保持不变。",
           "annotation_id": "gongfunvzu_0029_inherited"
         }
       ],
@@ -13047,7 +13024,7 @@
             0.94,
             1
           ],
-          "reason": "右后双双虽已有独立verified姓名，但相对前排师太明显失焦且在后景，按用户清晰主要角色范围移出红框；本修订不否认其身份。",
+          "reason": "右后双双虽已有独立verified姓名，但相对前排钰珑明显失焦且在后景，按用户清晰主要角色范围移出红框；本修订不否认其身份。",
           "evidence": [
             {
               "type": "assistant_principal_scope_review",
@@ -13056,11 +13033,13 @@
               "reviewed_at": "2026-11-13T06:48:25+00:00",
               "image_sha256": "36e446209fda1ba58f021f028d754bb2148be254045428792d05614a02fbe8c2",
               "scope_policy": "仅纳入清晰、能可靠定名的主要角色；不按所有可定位人形计数，不凑unknown。旁人、虚焦、残缺或缺可靠姓名的人物移入具体ignore_regions；ignore仅属评分元数据，不绘入/发送模型图。foreground_complete表示此主要角色范围已逐图核完，并非全体画中人的穷尽标注。",
-              "observation": "右后双双虽已有独立verified姓名，但相对前排师太明显失焦且在后景，按用户清晰主要角色范围移出红框；本修订不否认其身份。",
+              "observation": "右后双双虽已有独立verified姓名，但相对前排钰珑明显失焦且在后景，按用户清晰主要角色范围移出红框；本修订不否认其身份。",
               "model_predictions_used": false,
               "review_sheet": "results/multi/annotation_batches/gongfunvzu_review/sheet_4.jpg",
               "previous_annotation_id": "gongfunvzu_0029_assistant_multi_02",
-              "previous_person_id": 2
+              "previous_person_id": 2,
+              "identity_text_corrected_at": "2026-11-15T05:08:59.981731+00:00",
+              "identity_text_correction_source": "user_explicit_identity_correction"
             }
           ]
         }
@@ -13093,12 +13072,27 @@
           "reviewed_at": "2026-11-13T06:48:25+00:00",
           "image_sha256": "36e446209fda1ba58f021f028d754bb2148be254045428792d05614a02fbe8c2",
           "scope_policy": "仅纳入清晰、能可靠定名的主要角色；不按所有可定位人形计数，不凑unknown。旁人、虚焦、残缺或缺可靠姓名的人物移入具体ignore_regions；ignore仅属评分元数据，不绘入/发送模型图。foreground_complete表示此主要角色范围已逐图核完，并非全体画中人的穷尽标注。",
-          "observation": "重新放大后只保留前排对焦清晰的师太；右后双双虽已有verified姓名，但脸部明显失焦且位于后景，本次按清晰主要角色口径移出红框，登记ignore。",
+          "observation": "重新放大后只保留前排对焦清晰的钰珑；右后双双虽已有verified姓名，但脸部明显失焦且位于后景，本次按清晰主要角色口径移出红框，登记ignore。",
           "model_predictions_used": false,
-          "review_sheet": "results/multi/annotation_batches/gongfunvzu_review/sheet_4.jpg"
+          "review_sheet": "results/multi/annotation_batches/gongfunvzu_review/sheet_4.jpg",
+          "identity_text_corrected_at": "2026-11-15T05:08:59.981731+00:00",
+          "identity_text_correction_source": "user_explicit_identity_correction"
+        },
+        {
+          "type": "user_explicit_identity_correction",
+          "reviewer": "user",
+          "confirmed": true,
+          "reviewed_at": "2026-11-15T05:08:59.981731+00:00",
+          "image_sha256": "36e446209fda1ba58f021f028d754bb2148be254045428792d05614a02fbe8c2",
+          "annotation_id": "gongfunvzu_0029_inherited",
+          "previous_character": "师太",
+          "corrected_character": "钰珑",
+          "text": "这两张里面的白衣服都是钰珑",
+          "source": "本次用户消息及所附15张功夫女足HTML截图；0029前排白衣女子、0030左侧白衣女子均为钰珑。",
+          "model_predictions_used": false
         }
       ],
-      "note": "主要角色清晰定名范围：重新放大后只保留前排对焦清晰的师太；右后双双虽已有verified姓名，但脸部明显失焦且位于后景，本次按清晰主要角色口径移出红框，登记ignore。 仅纳入清晰、能可靠定名的主要角色；不按所有可定位人形计数，不凑unknown。旁人、虚焦、残缺或缺可靠姓名的人物移入具体ignore_regions；ignore仅属评分元数据，不绘入/发送模型图。foreground_complete表示此主要角色范围已逐图核完，并非全体画中人的穷尽标注。"
+      "note": "主要角色清晰定名范围：重新放大后只保留前排对焦清晰的钰珑；右后双双虽已有verified姓名，但脸部明显失焦且位于后景，本次按清晰主要角色口径移出红框，登记ignore。 仅纳入清晰、能可靠定名的主要角色；不按所有可定位人形计数，不凑unknown。旁人、虚焦、残缺或缺可靠姓名的人物移入具体ignore_regions；ignore仅属评分元数据，不绘入/发送模型图。foreground_complete表示此主要角色范围已逐图核完，并非全体画中人的穷尽标注。 用户于2026-11-15明确更正本图1号白衣女子为钰珑，旧师太标签已撤回。"
     },
     {
       "sample_id": "gongfunvzu_0030",
@@ -13115,51 +13109,26 @@
             0.599,
             1
           ],
-          "character": "师太",
+          "character": "钰珑",
           "identity_status": "verified",
           "review_status": "approved",
-          "character_aliases": [
-            "峨眉师太"
-          ],
+          "character_aliases": [],
           "evidence": [
             {
-              "type": "assistant_independent_visual_review",
-              "actor": "assistant",
+              "type": "user_explicit_identity_correction",
+              "reviewer": "user",
               "confirmed": true,
-              "scope": "geometry_and_identity",
-              "reviewed_at": "2026-11-13T04:00:44+00:00",
-              "sample_id": "gongfunvzu_0030",
+              "reviewed_at": "2026-11-15T05:08:59.981731+00:00",
               "image_sha256": "4e7cffa6b4dc2a87334d292fb685defaafb6da87a2e5780698af9514a9199004",
-              "observation": "左前白外套短发女子，面部与师太参考对应",
+              "annotation_id": "gongfunvzu_0030_inherited",
+              "previous_character": "师太",
+              "corrected_character": "钰珑",
+              "text": "这两张里面的白衣服都是钰珑",
+              "source": "本次用户消息及所附15张功夫女足HTML截图；0029前排白衣女子、0030左侧白衣女子均为钰珑。",
               "model_predictions_used": false
-            },
-            {
-              "type": "publisher_caption_on_attributed_official_trailer_still",
-              "actor": "assistant",
-              "confirmed": true,
-              "reference_id": "shitai_attributed_trailer_still",
-              "publisher": "Tatler Asia",
-              "url": "https://www.tatlerasia.com/lifestyle/entertainment/kung-fu-soccer-bn",
-              "image_url": "https://cdn.tatlerasia.com/tatlerasia/i/2026/07/11120955-1456-x-970-3_cover_1456x800.jpg",
-              "observation": "左前白外套短发女子，面部与师太参考对应。本批重新目视命名图片，不以继承标签作为确认。",
-              "reference_sha256": "976970908debfd9701cc25f6891557ba4c2b0a102cfcc335f37b5901fcc4a558",
-              "local_reference": "results/multi/annotation_batches/gongfunvzu_review/references/shitai_attributed_trailer_still_original.jpg",
-              "local_reference_sha256": "976970908debfd9701cc25f6891557ba4c2b0a102cfcc335f37b5901fcc4a558",
-              "reviewed_this_batch": true
-            },
-            {
-              "type": "assistant_principal_scope_review",
-              "actor": "assistant",
-              "confirmed": true,
-              "reviewed_at": "2026-11-13T06:48:25+00:00",
-              "image_sha256": "4e7cffa6b4dc2a87334d292fb685defaafb6da87a2e5780698af9514a9199004",
-              "scope_policy": "仅纳入清晰、能可靠定名的主要角色；不按所有可定位人形计数，不凑unknown。旁人、虚焦、残缺或缺可靠姓名的人物移入具体ignore_regions；ignore仅属评分元数据，不绘入/发送模型图。foreground_complete表示此主要角色范围已逐图核完，并非全体画中人的穷尽标注。",
-              "observation": "保留主要角色师太；师太与双双均是前排清晰主角，面容足够辨识，保留两人；最左黄背心衣肩残片不计。",
-              "model_predictions_used": false,
-              "review_sheet": "results/multi/annotation_batches/gongfunvzu_review/sheet_4.jpg"
             }
           ],
-          "note": "左前白外套短发女子，面部与师太参考对应",
+          "note": "用户逐图复核明确更正：本图1号白外套女子为钰珑；撤回先前师太标注及相关人物参考比对证据。人物框与图片保持不变。",
           "annotation_id": "gongfunvzu_0030_inherited"
         },
         {
@@ -13209,9 +13178,11 @@
               "reviewed_at": "2026-11-13T06:48:25+00:00",
               "image_sha256": "4e7cffa6b4dc2a87334d292fb685defaafb6da87a2e5780698af9514a9199004",
               "scope_policy": "仅纳入清晰、能可靠定名的主要角色；不按所有可定位人形计数，不凑unknown。旁人、虚焦、残缺或缺可靠姓名的人物移入具体ignore_regions；ignore仅属评分元数据，不绘入/发送模型图。foreground_complete表示此主要角色范围已逐图核完，并非全体画中人的穷尽标注。",
-              "observation": "保留主要角色双双；师太与双双均是前排清晰主角，面容足够辨识，保留两人；最左黄背心衣肩残片不计。",
+              "observation": "保留主要角色双双；钰珑与双双均是前排清晰主角，面容足够辨识，保留两人；最左黄背心衣肩残片不计。",
               "model_predictions_used": false,
-              "review_sheet": "results/multi/annotation_batches/gongfunvzu_review/sheet_4.jpg"
+              "review_sheet": "results/multi/annotation_batches/gongfunvzu_review/sheet_4.jpg",
+              "identity_text_corrected_at": "2026-11-15T05:08:59.981731+00:00",
+              "identity_text_correction_source": "user_explicit_identity_correction"
             }
           ],
           "note": "右侧红衣黄背心女子，面部与双双命名图对应，框含举手",
@@ -13266,12 +13237,27 @@
           "reviewed_at": "2026-11-13T06:48:25+00:00",
           "image_sha256": "4e7cffa6b4dc2a87334d292fb685defaafb6da87a2e5780698af9514a9199004",
           "scope_policy": "仅纳入清晰、能可靠定名的主要角色；不按所有可定位人形计数，不凑unknown。旁人、虚焦、残缺或缺可靠姓名的人物移入具体ignore_regions；ignore仅属评分元数据，不绘入/发送模型图。foreground_complete表示此主要角色范围已逐图核完，并非全体画中人的穷尽标注。",
-          "observation": "师太与双双均是前排清晰主角，面容足够辨识，保留两人；最左黄背心衣肩残片不计。",
+          "observation": "钰珑与双双均是前排清晰主角，面容足够辨识，保留两人；最左黄背心衣肩残片不计。",
           "model_predictions_used": false,
-          "review_sheet": "results/multi/annotation_batches/gongfunvzu_review/sheet_4.jpg"
+          "review_sheet": "results/multi/annotation_batches/gongfunvzu_review/sheet_4.jpg",
+          "identity_text_corrected_at": "2026-11-15T05:08:59.981731+00:00",
+          "identity_text_correction_source": "user_explicit_identity_correction"
+        },
+        {
+          "type": "user_explicit_identity_correction",
+          "reviewer": "user",
+          "confirmed": true,
+          "reviewed_at": "2026-11-15T05:08:59.981731+00:00",
+          "image_sha256": "4e7cffa6b4dc2a87334d292fb685defaafb6da87a2e5780698af9514a9199004",
+          "annotation_id": "gongfunvzu_0030_inherited",
+          "previous_character": "师太",
+          "corrected_character": "钰珑",
+          "text": "这两张里面的白衣服都是钰珑",
+          "source": "本次用户消息及所附15张功夫女足HTML截图；0029前排白衣女子、0030左侧白衣女子均为钰珑。",
+          "model_predictions_used": false
         }
       ],
-      "note": "主要角色清晰定名范围：师太与双双均是前排清晰主角，面容足够辨识，保留两人；最左黄背心衣肩残片不计。 仅纳入清晰、能可靠定名的主要角色；不按所有可定位人形计数，不凑unknown。旁人、虚焦、残缺或缺可靠姓名的人物移入具体ignore_regions；ignore仅属评分元数据，不绘入/发送模型图。foreground_complete表示此主要角色范围已逐图核完，并非全体画中人的穷尽标注。"
+      "note": "主要角色清晰定名范围：钰珑与双双均是前排清晰主角，面容足够辨识，保留两人；最左黄背心衣肩残片不计。 仅纳入清晰、能可靠定名的主要角色；不按所有可定位人形计数，不凑unknown。旁人、虚焦、残缺或缺可靠姓名的人物移入具体ignore_regions；ignore仅属评分元数据，不绘入/发送模型图。foreground_complete表示此主要角色范围已逐图核完，并非全体画中人的穷尽标注。 用户于2026-11-15明确更正本图1号白衣女子为钰珑，旧师太标签已撤回。"
     },
     {
       "sample_id": "gongfunvzu_0031",

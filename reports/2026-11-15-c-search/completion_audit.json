@@ -1,0 +1,213 @@
+{
+  "schema_version": "1.0",
+  "audit_type": "final_c_search_completion_read_only",
+  "recorded_at_utc": "2026-11-15T16:08:40.434083+00:00",
+  "recorded_at_client": "2026-11-16T00:08:40.434083+08:00",
+  "selected_experiment": "C",
+  "selection_policy": "Exactly one complete frozen cohort per model: six non-Flash models from the primary run and all160 Flash images exclusively from the independent multimodal revision. Do not substitute images from earlier Flash phases.",
+  "selected_run_mapping": {
+    "deepseek-flash": "multi_v2_20261115_135745_d3bd12",
+    "kimi-k3.1-pro": "multi_v2_20261115_135745_d3bd12",
+    "glm-5.3-flash": "multi_v2_20261115_135745_d3bd12",
+    "glm-4.6v": "multi_v2_20261115_135745_d3bd12",
+    "qwen3.8-max": "multi_v2_20261115_135745_d3bd12",
+    "qwen3.7-plus": "multi_v2_20261115_135745_d3bd12",
+    "qwen3.8-flash": "multi_v2_20261115_160357_5cd4d6"
+  },
+  "per_model": {
+    "deepseek-flash": {
+      "run_id": "multi_v2_20261115_135745_d3bd12",
+      "expected_images": 160,
+      "records": 160,
+      "api_ok": 160,
+      "api_failures": 0
+    },
+    "kimi-k3.1-pro": {
+      "run_id": "multi_v2_20261115_135745_d3bd12",
+      "expected_images": 160,
+      "records": 160,
+      "api_ok": 160,
+      "api_failures": 0
+    },
+    "glm-5.3-flash": {
+      "run_id": "multi_v2_20261115_135745_d3bd12",
+      "expected_images": 160,
+      "records": 160,
+      "api_ok": 157,
+      "api_failures": 3
+    },
+    "glm-4.6v": {
+      "run_id": "multi_v2_20261115_135745_d3bd12",
+      "expected_images": 160,
+      "records": 160,
+      "api_ok": 160,
+      "api_failures": 0
+    },
+    "qwen3.8-max": {
+      "run_id": "multi_v2_20261115_135745_d3bd12",
+      "expected_images": 160,
+      "records": 160,
+      "api_ok": 159,
+      "api_failures": 1
+    },
+    "qwen3.7-plus": {
+      "run_id": "multi_v2_20261115_135745_d3bd12",
+      "expected_images": 160,
+      "records": 160,
+      "api_ok": 160,
+      "api_failures": 0
+    },
+    "qwen3.8-flash": {
+      "run_id": "multi_v2_20261115_160357_5cd4d6",
+      "expected_images": 160,
+      "records": 160,
+      "api_ok": 160,
+      "api_failures": 0
+    }
+  },
+  "selected_totals": {
+    "planned": 1120,
+    "unique_model_image_keys": 1120,
+    "recorded": 1120,
+    "api_ok": 1116,
+    "api_failures": 4,
+    "pending": 0
+  },
+  "api_failures": [
+    {
+      "model_id": "glm-5.3-flash",
+      "sample_id": "kuangbiao_0010",
+      "run_id": "multi_v2_20261115_135745_d3bd12",
+      "http_status": 400,
+      "local_error_type": "bad_request",
+      "classification": "provider_content_filter",
+      "provider_code": null,
+      "error_message": "BadRequestError: Error code: 400 - 系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入易产生敏感内容的提示语，感谢您的配合。",
+      "retry_recommended": false,
+      "retry_reason": "Provider moderation rejection, not a balance or transport failure; retain as an API failure for this fixed input."
+    },
+    {
+      "model_id": "glm-5.3-flash",
+      "sample_id": "kuangbiao_0015",
+      "run_id": "multi_v2_20261115_135745_d3bd12",
+      "http_status": 400,
+      "local_error_type": "bad_request",
+      "classification": "provider_content_filter",
+      "provider_code": null,
+      "error_message": "BadRequestError: Error code: 400 - 系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入易产生敏感内容的提示语，感谢您的配合。",
+      "retry_recommended": false,
+      "retry_reason": "Provider moderation rejection, not a balance or transport failure; retain as an API failure for this fixed input."
+    },
+    {
+      "model_id": "glm-5.3-flash",
+      "sample_id": "qingyunian2_0034",
+      "run_id": "multi_v2_20261115_135745_d3bd12",
+      "http_status": 400,
+      "local_error_type": "bad_request",
+      "classification": "provider_content_filter",
+      "provider_code": null,
+      "error_message": "BadRequestError: Error code: 400 - 系统检测到输入或生成内容可能包含不安全或敏感内容，请您避免输入易产生敏感内容的提示语，感谢您的配合。",
+      "retry_recommended": false,
+      "retry_reason": "Provider moderation rejection, not a balance or transport failure; retain as an API failure for this fixed input."
+    },
+    {
+      "model_id": "qwen3.8-max",
+      "sample_id": "qingyunian2_0019",
+      "run_id": "multi_v2_20261115_135745_d3bd12",
+      "http_status": 400,
+      "local_error_type": "bad_request",
+      "classification": "provider_content_filter",
+      "provider_code": "DataInspectionFailed",
+      "error_message": "DashScopeHTTPError: HTTP 400: {'request_id': 'a8f04b5a-74cf-96ca-8bb2-c0f8223bd441', 'code': 'DataInspectionFailed', 'message': '<400> InternalError.Algo.DataInspectionFailed: Input text data may contain inappropriate content.'}",
+      "retry_recommended": false,
+      "retry_reason": "Provider moderation rejection, not a balance or transport failure; retain as an API failure for this fixed input."
+    }
+  ],
+  "ground_truth": {
+    "current_confirmed_dataset_hash": "f0fda2d9d420ffd3e07563c2e4e6430e3e14b76af9050d977227eb0afa8c67a7",
+    "selected_cohorts": {
+      "multi_v2_20261115_135745_d3bd12": {
+        "stored_dataset_hash": "f0fda2d9d420ffd3e07563c2e4e6430e3e14b76af9050d977227eb0afa8c67a7",
+        "recomputed_snapshot_hash": "f0fda2d9d420ffd3e07563c2e4e6430e3e14b76af9050d977227eb0afa8c67a7",
+        "matches_current_confirmed": true
+      },
+      "multi_v2_20261115_160357_5cd4d6": {
+        "stored_dataset_hash": "f0fda2d9d420ffd3e07563c2e4e6430e3e14b76af9050d977227eb0afa8c67a7",
+        "recomputed_snapshot_hash": "f0fda2d9d420ffd3e07563c2e4e6430e3e14b76af9050d977227eb0afa8c67a7",
+        "matches_current_confirmed": true
+      }
+    }
+  },
+  "input_audit": {
+    "baseline_run_id": "multi_v2_20261113_075729_2e4f15",
+    "checked_selected_requests": 1120,
+    "counts": {
+      "identical_user_prompt_sha256": 1120,
+      "identical_source_and_encoded_image_hash": 1120,
+      "unmarked_image": 1120,
+      "baseline_system_plus_uniform_search_instruction": 1120,
+      "flash_with_actual_sources": 160,
+      "flash_thinking_disabled": 160,
+      "flash_single_selected_mode": 160,
+      "flash_normal_finish": 160
+    },
+    "business_prompt_note": "User text is byte-identical to the matching baseline C task. System text is baseline plus the same authorized search-verification instruction for every selected request; vendor transport/tool protocol differences remain separately recorded."
+  },
+  "flash_revision": {
+    "run_id": "multi_v2_20261115_160357_5cd4d6",
+    "profile_sha256": "356ad8b2c057e68d53bdcd6dbeb17bffd900552269a3c5b830e774d18c731a3b",
+    "api_mode": "dashscope_multimodal_search",
+    "search_strategy": "max",
+    "thinking_enabled": false,
+    "request_max_tokens": 4096,
+    "sources_verified_images": 160,
+    "source_count_range": [
+      9,
+      10
+    ],
+    "http_attempts": 160,
+    "all160_same_profile": true,
+    "old_flash_per_image_mixing": false,
+    "old_flash_run_id_excluded": "multi_v2_20261115_135745_d3bd12"
+  },
+  "budget": {
+    "currency": "CNY",
+    "cumulative_cap_cny": 500,
+    "committed_estimate_and_reservation_cny": 475.8110789,
+    "known_token_upper_rate_estimate_cny": 120.7901925,
+    "uncertain_reservations_cny": 355.0208864,
+    "inflight_count": 0,
+    "inflight_reserved_cny": 0,
+    "remaining_admission_space_cny": 24.1889211,
+    "current_budget_breached": false,
+    "scope_run_ids": [
+      "multi_v2_20261113_041236_a9925c",
+      "multi_v2_20261113_075729_2e4f15",
+      "multi_v2_20261115_130614_7348e9",
+      "multi_v2_20261115_134315_819bd8",
+      "multi_v2_20261115_134434_7079f1",
+      "multi_v2_20261115_134605_644368",
+      "multi_v2_20261115_135710_af2e17",
+      "multi_v2_20261115_135745_d3bd12",
+      "multi_v2_20261115_154637_4bbc07",
+      "multi_v2_20261115_154801_aa3542",
+      "multi_v2_20261115_155256_8ec0e9",
+      "multi_v2_20261115_155421_2bb424",
+      "multi_v2_20261115_160357_5cd4d6"
+    ],
+    "amounts_are_provider_bill": false,
+    "note": "These are local upper-rate estimates and uncertain reservations, not provider invoices. Historical errors/timeouts and diagnostic cohorts remain included; no fee was silently released.",
+    "pre500_original_rows_prefix_sha256": "ecfe851780412d84844f31e61ed811b63be08d498281d47bbea87b86f782d745",
+    "pre500_original_rows_unchanged": true
+  },
+  "historical_accounting_review": {
+    "archived_run_id": "multi_v2_20261115_134605_644368",
+    "historical_breach_flag_preserved": true,
+    "exact_review_valid": true,
+    "old_records_or_fees_rewritten": false
+  },
+  "active_paid_controllers": [],
+  "controller_check_method": "Read-only ps inspection for Python benchmark entrypoints, corroborated with zero in-flight ledger reservations.",
+  "audit_side_effects": "Wrote this audit JSON only; no budget object constructed, no ledger or source records updated, no model API called.",
+  "passed": true
+}

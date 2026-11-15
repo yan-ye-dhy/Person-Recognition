@@ -1,0 +1,9 @@
+{
+  "profile": "multimodal",
+  "profile_sha256": "356ad8b2c057e68d53bdcd6dbeb17bffd900552269a3c5b830e774d18c731a3b",
+  "confirmed_dataset_hash": "f0fda2d9d420ffd3e07563c2e4e6430e3e14b76af9050d977227eb0afa8c67a7",
+  "state": "verified",
+  "preflight_run_id": "multi_v2_20261115_155421_2bb424",
+  "verification_reason": "Fixed cross-work four-image preflight: four successful responses with real HTTP(S) source lists; default AUTO still exhibited server loops. Entire Flash 160 cohort will use the same multimodal profile, without per-image selection.",
+  "excluded_auto_preflight_run_id": "multi_v2_20261115_154801_aa3542"
+}

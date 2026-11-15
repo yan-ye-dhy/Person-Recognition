@@ -9,8 +9,11 @@ generation:
   max_tokens: 4096         # 思考模型的推理与最终JSON共享预算，预检检查截断
 
 runner:
-  concurrency: 8          # 有界并发；SQLite与原始响应仍由主线程逐条保存
+  concurrency: 8          # 已获累计500元授权，恢复有界并发
+  per_model_http_timeout_seconds:
+    qwen3.8-flash: 300    # 原生多轮搜索经常超过120秒，延长传输超时以减少重复请求
   per_model_concurrency:
+    qwen3.8-flash: 4      # 原生多轮搜索耗时较长，保持总并发8内提高吞吐
     kimi-k3.1-pro: 4       # 用户充值后并发探测通过，提升并发并继续观察服务端限额
     glm-4.6v-flash: 1      # 免费档避免并发限流
   per_model_min_interval_seconds:

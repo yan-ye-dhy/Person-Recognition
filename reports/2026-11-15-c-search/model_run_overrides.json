@@ -1,0 +1,9 @@
+{
+  "primary_run_id": "multi_v2_20261115_135745_d3bd12",
+  "model_runs": {
+    "qwen3.8-flash": "multi_v2_20261115_160357_5cd4d6"
+  },
+  "selection_reason": "按接口稳定性与实际检索来源预检采用原厂多模态SSE max；旧FORCED及AUTO验证保留为诊断，不按识别正确率逐图挑选，也不以旧记录补齐新来源。",
+  "selected_at_utc": "2026-11-15T16:06:37.556079+00:00",
+  "selection_profile_sha256": "356ad8b2c057e68d53bdcd6dbeb17bffd900552269a3c5b830e774d18c731a3b"
+}

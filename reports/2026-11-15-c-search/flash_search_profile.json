@@ -1,0 +1,21 @@
+{
+  "profile": "multimodal",
+  "profile_sha256": "356ad8b2c057e68d53bdcd6dbeb17bffd900552269a3c5b830e774d18c731a3b",
+  "phase": "full",
+  "model_id": "qwen3.8-flash",
+  "config_files": [
+    "models.yaml",
+    "settings.yaml",
+    "works.yaml",
+    "c_search_pricing.yaml"
+  ],
+  "generation": {
+    "temperature": 0.1,
+    "max_tokens": 4096
+  },
+  "http_timeout_seconds": 300,
+  "max_http_attempts_per_task": 4,
+  "budget_parent_run_id": "multi_v2_20261115_135745_d3bd12",
+  "max_cost_cny": 500.0,
+  "limit_note": "Native server max_uses is nominal and has not reliably bounded internal search rounds."
+}

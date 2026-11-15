@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import math
 from collections import Counter, deque
 from concurrent.futures import FIRST_COMPLETED, Future, ThreadPoolExecutor, wait
 from dataclasses import dataclass, field
@@ -74,6 +75,7 @@ def select_pilot_samples(samples: list[Sample], per_work: int = 10) -> list[Samp
 
 def _fairness_meta(models: list[ModelSpec], settings: dict[str, Any]) -> dict[str, Any]:
     gen = settings.get("generation", {})
+    search_enabled=any(m.params.get('search_enabled') is True or m.extra_body.get('enable_search') is True for m in models)
     return {
         "marking": describe_marking(),
         "prompt_version": PROMPT_VERSION,
@@ -89,11 +91,14 @@ def _fairness_meta(models: list[ModelSpec], settings: dict[str, Any]) -> dict[st
                 "token_limit_parameter": m.params.get("token_limit_parameter", "max_tokens"),
                 "official_series": m.official_series,
                 "notes": m.notes,
+                "request_params": m.params,
+                "http_timeout_seconds": _effective_http_timeout_seconds(m, settings),
             }
             for m in models
         },
         "image_encoding": "JPEG data-URL，长边≤1600，质量92（所有模型一致；详见各记录 image_meta）",
-        "tools_disabled": "不传 tools/tool_choice；不启用联网搜索",
+        "tools_disabled": "仅启用模型配置中明确声明的搜索能力；保留实际工具证据" if search_enabled else "不传 tools/tool_choice；不启用联网搜索",
+        "search_policy":{m.id:_request_tool_metadata(m, settings) for m in models},
         "execution": {
             "concurrency": max(1, int(settings.get("runner", {}).get("concurrency", 1))),
             "per_model_concurrency_limit": 2,
@@ -105,6 +110,57 @@ def _fairness_meta(models: list[ModelSpec], settings: dict[str, Any]) -> dict[st
             },
             "persistence": "主线程实时写入 SQLite 与 raw JSONL",
         },
+    }
+
+
+def _effective_http_timeout_seconds(model: ModelSpec, settings: dict[str, Any] | None = None) -> float:
+    """Validate operational per-model HTTP timeouts without changing model inputs."""
+    settings = settings or {}
+    runner = settings.get('runner') or {}
+    overrides = runner.get('per_model_http_timeout_seconds', {})
+    if not isinstance(overrides, dict):
+        raise ValueError('runner.per_model_http_timeout_seconds must be a mapping')
+    for model_id, value in overrides.items():
+        if (not isinstance(model_id, str) or not model_id or type(value) not in (int, float)
+                or not math.isfinite(value) or value <= 0):
+            raise ValueError('Per-model HTTP timeout values must be finite positive numbers keyed by model ID')
+    value = overrides.get(model.id, (settings.get('retry') or {}).get('timeout_seconds', 120))
+    if type(value) not in (int, float) or not math.isfinite(value) or value <= 0:
+        raise ValueError('Effective HTTP timeout must be a finite positive number')
+    return float(value)
+
+
+def _request_tool_metadata(model: ModelSpec, settings: dict[str, Any] | None = None) -> dict[str, Any]:
+    enabled=model.params.get('search_enabled') is True or model.extra_body.get('enable_search') is True
+    mode=model.params.get('api_mode','chat_completions')
+    native=mode=='dashscope_anthropic'
+    maximum=model.params.get('search_max_uses',1)
+    forced=(model.extra_body.get('search_options') or {}).get('forced_search') is True
+    tools = None
+    if enabled:
+        if native:
+            tools = [{'type':'web_search_20250305','name':'web_search','max_uses':maximum}]
+        elif mode == 'deepseek_native_search':
+            tools = [{'type':'deepseek_web_search'}]
+        elif mode == 'moonshot_responses':
+            tools = [{'type':'web_search'}]
+        elif mode == 'dashscope_multimodal_search':
+            tools = [{'type':'native_web_search','search_strategy':'max','enable_source':True}]
+        elif mode == 'zhipu_native_search':
+            tools = [{'type':'web_search','web_search':{'enable':True,'search_engine':'search_pro','search_result':True}}]
+        elif mode == 'zhipu_function_search':
+            tools = [{'type':'function','name':'web_search','vendor':'zhipu','search_engine':'search_pro'}]
+    return {
+        'http_timeout_seconds': _effective_http_timeout_seconds(model, settings),
+        'api_mode':mode,
+        'tools':tools,
+        'tool_choice':{'type':'tool','name':'web_search'} if enabled and native and forced else None,
+        'stream':bool(mode=='dashscope_multimodal_search' or mode=='chat_completions' and (enabled or model.params.get('stream'))),
+        'search_requested':enabled,
+        'search_max_uses':maximum if enabled and native else None,
+        'protocol_system_marker':'x-anthropic-billing-header: cc_entrypoint=cli;' if native else None,
+        'search_instruction_version':'c-search-1' if enabled else None,
+        'search_limit_semantics':'requested_not_enforced' if enabled and native else None,
     }
 
 
@@ -120,6 +176,8 @@ def execute_run(
     marked_dir: Path | None = None,
     raw_dir: Path | None = None,
     retry_failed: bool = False,
+    retry_failed_models: set[str] | None = None,
+    retry_failed_keys: set[tuple[str, str, str]] | None = None,
     progress_cb: Callable[[int, str], None] | None = None,
     input_builder: Callable | None = None,
     system_prompt: str = SYSTEM_PROMPT,
@@ -179,7 +237,9 @@ def execute_run(
                 summary.skipped_existing += 1
                 done += 1
                 continue
-            if not retry_failed and key in failed_keys:
+            if key in failed_keys and (not retry_failed or
+                    retry_failed_models is not None and model.id not in retry_failed_models or
+                    retry_failed_keys is not None and key not in retry_failed_keys):
                 # 已有失败记录且未要求重试：不重复付费调用
                 summary.skipped_existing += 1
                 done += 1
@@ -258,7 +318,7 @@ def execute_run(
                 "temperature": gen.temperature if model.passes_temperature else None,
                 "extra_body": model.extra_body or None,
                 "image_meta": img_meta,
-                "tools": None,
+                **_request_tool_metadata(model, settings),
             },
             "response": {
                 "ok": result.ok,
@@ -268,6 +328,7 @@ def execute_run(
                 "finish_reason": result.finish_reason,
                 "served_model": result.served_model,
                 "usage": result.usage,
+                "search_metadata":getattr(result,'search_metadata',{}),
                 "latency_ms": result.latency_ms,
                 "attempts": result.attempts,
                 "error_type": result.error_type,

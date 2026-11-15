@@ -1,0 +1,13 @@
+﻿sample_id,person_id,character,character_aliases,bbox_normalized,face_orientation,visibility,note,annotation_id
+gongfunvzu_0003,1,徐风,"[""师叔公""]","[0.455, 0.12, 0.75, 1]",front,clear,树下黑西装白衬衫男子，脸型眉眼与徐风命名海报对应,gongfunvzu_0003_inherited
+gongfunvzu_0008,1,双双,"[""队长双双""]","[0.25, 0.015, 0.755, 1]",front,clear,前景白上衣女子，面部与命名剧照双双对应,gongfunvzu_0008_inherited
+gongfunvzu_0012,1,钰珑,[],"[0.09, 0.03, 0.33, 1]",front,clear,已采用的新v2图左侧红8号女子，清晰眉眼鼻口与钰珑命名剧照对应,gongfunvzu_0012_replacement_1
+gongfunvzu_0012,2,双双,"[""队长双双""]","[0.645, 0.12, 0.845, 1]",three_quarter,clear,同一新v2图右侧低马尾红衣女子，五官与双双命名剧照对应；并非把用户替换批准当身份批准,gongfunvzu_0012_replacement_2
+gongfunvzu_0013,1,双双,"[""队长双双""]","[0.339, 0, 0.817, 1]",three_quarter,clear,中前红10号队长女子，五官与双双命名剧照对应,gongfunvzu_0013_inherited
+gongfunvzu_0016,1,徐风,"[""师叔公""]","[0.33, 0.06, 0.83, 1]",three_quarter,clear,看台黑西装白衬衫男子，正面五官对应徐风命名海报,gongfunvzu_0016_inherited
+gongfunvzu_0020,1,钰珑,[],"[0.19, 0, 0.665, 1]",front,clear,红衣女子正面近景，眉眼鼻口与钰珑命名剧照对应,gongfunvzu_0020_inherited
+gongfunvzu_0022,1,师太,"[""峨眉师太""]","[0.08, 0.035, 0.91, 1]",three_quarter,clear,白上衣蓬松短发女子，脸型及发式与注明官方预告来源的师太参考一致；命名映射另由1905演职员资料佐证,gongfunvzu_0022_inherited
+gongfunvzu_0023,1,丧彪,[],"[0.08, 0.17, 0.645, 1]",three_quarter,clear,左侧白红边外套、浅色发梢女子，眉眼鼻口对应丧彪命名剧照；哭泣表情不作为改名依据,gongfunvzu_0023_inherited
+gongfunvzu_0030,1,钰珑,[],"[0.125, 0.07, 0.599, 1]",front,clear,用户逐图复核明确更正：本图1号白外套女子为钰珑；撤回先前师太标注及相关人物参考比对证据。人物框与图片保持不变。,gongfunvzu_0030_inherited
+gongfunvzu_0030,2,双双,"[""队长双双""]","[0.54, 0, 1, 1]",front,clear,右侧红衣黄背心女子，面部与双双命名图对应，框含举手,gongfunvzu_0030_assistant_multi_02
+gongfunvzu_0040,1,丧彪,[],"[0.294, 0.045, 0.681, 1]",front,clear,黄色3号、浅色发梢女子，五官与丧彪命名剧照及官方丧彪访谈封面对应,gongfunvzu_0040_inherited

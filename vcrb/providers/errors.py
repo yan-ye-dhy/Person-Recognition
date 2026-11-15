@@ -10,6 +10,20 @@ _KEY_ID_RE = re.compile(r"<\s*ak-[^<>\r\n]+>", re.IGNORECASE)
 _API_KEY_RE = re.compile(r"(?<![a-z0-9_])sk-[a-z0-9_-]{8,}", re.IGNORECASE)
 
 
+def is_balance_error(body, depth=0):
+    """Recognize explicit provider business codes, including native SSE errors."""
+    if depth > 6:
+        return False
+    if isinstance(body, list):
+        return any(is_balance_error(item, depth + 1) for item in body)
+    if not isinstance(body, dict):
+        return False
+    if str(body.get('code', '')).lower() in {'arrearage', 'insufficientbalance', 'insufficient_balance', '1113'}:
+        return True
+    return any(is_balance_error(body.get(key), depth + 1)
+               for key in ('error', 'errors', 'native_error', 'native_errors'))
+
+
 def _status_of(exc: BaseException) -> int | None:
     for attr in ("status_code", "code", "status"):
         value = getattr(exc, attr, None)
@@ -27,6 +41,10 @@ def classify_exception(exc: BaseException) -> tuple[str, bool]:
     """
     name = type(exc).__name__
     status = _status_of(exc)
+
+    body = getattr(exc, "body", None)
+    if is_balance_error(body):
+        return "insufficient_balance", False
 
     if name == "APITimeoutError" or isinstance(exc, TimeoutError):
         return "timeout", True
