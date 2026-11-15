@@ -1,0 +1,39 @@
+{
+  "models": [
+    "deepseek-flash",
+    "qwen3.8-max"
+  ],
+  "dataset_hash": "234ba8e780b9ffcd6cffd586d31250d80c086aaf41d23368f0c44a3917918a58",
+  "excluded_reviewed_sample_ids": [
+    "gongfunvzu_0013",
+    "gongfunvzu_0024",
+    "gongfunvzu_0029",
+    "gongfunvzu_0031",
+    "jianlai_0029",
+    "jianlai_0032",
+    "jianlai_0036",
+    "kuangbiao_0012",
+    "qingyunian2_0018",
+    "qingyunian2_0022"
+  ],
+  "three_model_count": 0,
+  "two_or_more_model_count": 1,
+  "items": [
+    {
+      "sample_id": "jianlai_0021",
+      "matching_models": [
+        "deepseek-flash",
+        "qwen3.8-max"
+      ],
+      "common_names": [
+        "阿良",
+        "陈平安"
+      ],
+      "current_characters": [
+        "林守一",
+        "阿良"
+      ]
+    }
+  ],
+  "html_sha256": "8e8cec7d61bbcaa96491d33efe0f98b6e445f66e02095d57ff64f58acfdae141"
+}

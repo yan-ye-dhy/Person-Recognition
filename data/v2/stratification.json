@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "dataset_hash": "f0fda2d9d420ffd3e07563c2e4e6430e3e14b76af9050d977227eb0afa8c67a7",
+  "dataset_hash": "234ba8e780b9ffcd6cffd586d31250d80c086aaf41d23368f0c44a3917918a58",
   "created_at": "2026-11-13T07:55:55.846875+00:00",
   "purpose": "statistics_only_never_sent_to_models",
   "policy": {
@@ -155,6 +155,16 @@
       "face_orientation": "three_quarter",
       "visibility": "clear",
       "note": "头部明显斜转，仍能看到双眼或大部分面部。 主要五官未被明显遮挡；普通阴影、眼镜及视线变化不单独算模糊。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "kuangbiao_0012",
+      "annotation_id": "kuangbiao_0012_user_review_20261116_mengyu",
+      "person_id": 2,
+      "image_sha256": "1d4842875f5be55f322f5554814d3b9e57c0f411ddeb6e2304d6c0b52a36f449",
+      "face_orientation": "profile",
+      "visibility": "occluded_or_blurry",
+      "note": "右侧近纯侧脸，画面焦点在左侧人物，右侧五官明显虚焦。 2026-11-16仅按原图标统计类别，与模型回答无关。",
       "reviewer": "assistant"
     },
     {
@@ -748,6 +758,16 @@
       "reviewer": "assistant"
     },
     {
+      "sample_id": "qingyunian2_0022",
+      "annotation_id": "qingyunian2_0022_user_review_20261116_laimingcheng",
+      "person_id": 2,
+      "image_sha256": "a304f39fb3430c22c564050ebea24c873b8565455a6ee77296ecea41c87b52f1",
+      "face_orientation": "front",
+      "visibility": "clear",
+      "note": "右侧人物正面低头，主要面部范围清楚；低头不自动算面部不可见。 2026-11-16仅按原图标统计类别，与模型回答无关。",
+      "reviewer": "assistant"
+    },
+    {
       "sample_id": "qingyunian2_0023",
       "annotation_id": "qingyunian2_0023_inherited",
       "person_id": 1,
@@ -1148,6 +1168,16 @@
       "reviewer": "assistant"
     },
     {
+      "sample_id": "gongfunvzu_0013",
+      "annotation_id": "gongfunvzu_0013_user_review_20261116_yulong",
+      "person_id": 2,
+      "image_sha256": "a201866cb72ab12c9cc29c5c966c2775bf4baea5e3986a7ee29a1095862031db",
+      "face_orientation": "three_quarter",
+      "visibility": "clear",
+      "note": "右侧人物头部斜转，面部大部可见；头发/身体边缘裁切不自动算面部模糊。 2026-11-16仅按原图标统计类别，与模型回答无关。",
+      "reviewer": "assistant"
+    },
+    {
       "sample_id": "gongfunvzu_0014",
       "annotation_id": "gongfunvzu_0014_inherited",
       "person_id": 1,
@@ -1328,6 +1358,16 @@
       "reviewer": "assistant"
     },
     {
+      "sample_id": "gongfunvzu_0029",
+      "annotation_id": "gongfunvzu_0029_user_review_20261116_shuangshuang",
+      "person_id": 2,
+      "image_sha256": "36e446209fda1ba58f021f028d754bb2148be254045428792d05614a02fbe8c2",
+      "face_orientation": "three_quarter",
+      "visibility": "occluded_or_blurry",
+      "note": "右后人物斜侧朝上，五官可见但比左侧主体明显虚焦。 2026-11-16仅按原图标统计类别，与模型回答无关。",
+      "reviewer": "assistant"
+    },
+    {
       "sample_id": "gongfunvzu_0030",
       "annotation_id": "gongfunvzu_0030_inherited",
       "person_id": 1,
@@ -1349,8 +1389,18 @@
     },
     {
       "sample_id": "gongfunvzu_0031",
-      "annotation_id": "gongfunvzu_0031_inherited",
+      "annotation_id": "gongfunvzu_0031_user_review_20261116_lihua_coach",
       "person_id": 1,
+      "image_sha256": "afd5bac146fff95947c744c8900c956eae320055bd6906b9af80e8b6116ec6f7",
+      "face_orientation": "three_quarter",
+      "visibility": "clear",
+      "note": "左侧教练明显斜侧看向右方，面部可辨。 2026-11-16仅按原图标统计类别，与模型回答无关。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "gongfunvzu_0031",
+      "annotation_id": "gongfunvzu_0031_inherited",
+      "person_id": 2,
       "image_sha256": "afd5bac146fff95947c744c8900c956eae320055bd6906b9af80e8b6116ec6f7",
       "face_orientation": "three_quarter",
       "visibility": "clear",
@@ -1898,6 +1948,16 @@
       "reviewer": "assistant"
     },
     {
+      "sample_id": "jianlai_0029",
+      "annotation_id": "jianlai_0029_user_review_20261116_chenpingan_optional",
+      "person_id": 2,
+      "image_sha256": "d7d7d8c43fd4e3c49568fbd0ab09783462573762caae2419b2dd54df7469f82b",
+      "face_orientation": "not_visible",
+      "visibility": "occluded_or_blurry",
+      "note": "右侧背面局部头肩严重虚焦，身份接受仅源于用户明确审阅；朝向不能由服装推成正面。 2026-11-16仅按原图标统计类别，与模型回答无关。",
+      "reviewer": "assistant"
+    },
+    {
       "sample_id": "jianlai_0030",
       "annotation_id": "jianlai_0030_inherited",
       "person_id": 1,
@@ -1929,8 +1989,18 @@
     },
     {
       "sample_id": "jianlai_0032",
-      "annotation_id": "jianlai_0032_multi_review_2",
+      "annotation_id": "jianlai_0032_user_review_20261116_lihuai",
       "person_id": 1,
+      "image_sha256": "4941333f3f65fbd319f21ec14ff9e5a6fc84a387a0e38f4e81237eb4ba07ce22",
+      "face_orientation": "front",
+      "visibility": "clear",
+      "note": "左后戴虎帽人物近正面、头部倾斜；脸部可见，身体被前侧人物遮挡不单独算面部遮挡。 2026-11-16仅按原图标统计类别，与模型回答无关。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "jianlai_0032",
+      "annotation_id": "jianlai_0032_multi_review_2",
+      "person_id": 2,
       "image_sha256": "4941333f3f65fbd319f21ec14ff9e5a6fc84a387a0e38f4e81237eb4ba07ce22",
       "face_orientation": "front",
       "visibility": "clear",
@@ -1940,7 +2010,7 @@
     {
       "sample_id": "jianlai_0032",
       "annotation_id": "jianlai_0032_multi_review_3",
-      "person_id": 2,
+      "person_id": 3,
       "image_sha256": "4941333f3f65fbd319f21ec14ff9e5a6fc84a387a0e38f4e81237eb4ba07ce22",
       "face_orientation": "three_quarter",
       "visibility": "clear",
@@ -1950,7 +2020,7 @@
     {
       "sample_id": "jianlai_0032",
       "annotation_id": "jianlai_0032_inherited",
-      "person_id": 3,
+      "person_id": 4,
       "image_sha256": "4941333f3f65fbd319f21ec14ff9e5a6fc84a387a0e38f4e81237eb4ba07ce22",
       "face_orientation": "three_quarter",
       "visibility": "clear",
@@ -2009,12 +2079,32 @@
     },
     {
       "sample_id": "jianlai_0036",
-      "annotation_id": "jianlai_0036_inherited",
+      "annotation_id": "jianlai_0036_user_review_20261116_chennuanshu",
       "person_id": 1,
+      "image_sha256": "011da6fcaf106d27de84a52a1897b17fd5dd79f8c88c41112ffa1aa39c74852e",
+      "face_orientation": "not_visible",
+      "visibility": "clear",
+      "note": "左侧为背面，头发和轮廓本身清楚；背面与图像模糊分开统计。 2026-11-16仅按原图标统计类别，与模型回答无关。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "jianlai_0036",
+      "annotation_id": "jianlai_0036_inherited",
+      "person_id": 2,
       "image_sha256": "011da6fcaf106d27de84a52a1897b17fd5dd79f8c88c41112ffa1aa39c74852e",
       "face_orientation": "front",
       "visibility": "clear",
       "note": "近正面，双眼与鼻口基本对称；主要面部区域无遮挡。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "jianlai_0036",
+      "annotation_id": "jianlai_0036_user_review_20261116_chenlingjun",
+      "person_id": 3,
+      "image_sha256": "011da6fcaf106d27de84a52a1897b17fd5dd79f8c88c41112ffa1aa39c74852e",
+      "face_orientation": "three_quarter",
+      "visibility": "occluded_or_blurry",
+      "note": "右前方人物斜侧，面部比中间焦点略虚，保守记可见性困难。 2026-11-16仅按原图标统计类别，与模型回答无关。",
       "reviewer": "assistant"
     },
     {
@@ -2087,5 +2177,10 @@
       "note": "仰头的近正面，双眼基本对称，俯仰与左右侧转分开。",
       "reviewer": "assistant"
     }
-  ]
+  ],
+  "updated_at": "2026-11-15T16:49:15.427414+00:00",
+  "review_revision": {
+    "revision_id": "user_identity_scope_review_20261116_v1",
+    "manifest": "reports/2026-11-16-annotation-review/revision.json"
+  }
 }

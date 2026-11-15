@@ -36,6 +36,7 @@ def context(count=2):
                     "bbox": [(pid - 1) / len(names), 0, pid / len(names), 1], "identity_status": "verified", "review_status": "approved", "character_aliases": []}
                    for pid, name in enumerate(names, 1)]
         samples[sid] = {"sample_id": sid, "work_slug": slug, "work_name": works[slug], "image_sha256": "source",
+                        "image_width": 16, "image_height": 9,
                         "foreground_complete": True, "review_status": "approved", "persons": persons, "ignore_regions": []}
         images[sid] = {"bytes": image_bytes, "size": [16, 9], "sha256": hashlib.sha256(image_bytes).hexdigest()}
         tags += [{"sample_id": sid, "person_id": p["person_id"], "face_orientation": "front" if p["person_id"] == 1 else "profile", "visibility": "clear"} for p in persons]
@@ -445,7 +446,7 @@ def test_composite_export_preserves_excluded_diagnostics_separately_and_embeds_o
     assert diagnostics["qwen3.8-flash"]["recorded_images"] == 2
     html = (tmp_path / "index.html").read_text()
     assert html.count('src="data:image/jpeg;base64,') == 0  # In this fixture all ranked Top3 are correct.
-    assert "不从旧run补齐" in html and "旧接口逐图原始回答" in html
+    assert "不从旧run补齐" in html and "历史接口逐图原始回答" in html
     assert summary["model_sources"]["qwen3.8-flash"]["run_id"] == "flash_auto"
 
 
@@ -457,29 +458,76 @@ def test_review_embeds_only_error_union_and_omits_correct_model_panels_and_coord
     data["new"][("qwen3.8-max", "s0002")] = raw(ok=False)
     summary = report.build_summary(data)
     review = summary["review_selection"]
-    assert set(review["top_models"]) == {"deepseek-flash", "qwen3.8-max", "kimi-k3.1-pro"}
-    assert review["selected_image_count"] == 2 and review["error_model_panels"] == 3
+    assert review["top_models"] == ["deepseek-flash", "qwen3.8-max"]
+    assert review["selected_image_count"] == 2 and review["error_model_panels"] == 2
     assert {row["sample_id"] for row in review["selected_images"]} == {"s0000", "s0002"}
     assert review["coordinate_only_image_count"] == 1
     assert review["coordinate_only_images_not_embedded"][0]["sample_id"] == "s0001"
-    assert "5 GT targets" in review["ranking_metric"]
+    assert "5 required names" in review["ranking_metric"]
     html = report.render_report(summary, data["images"])
     assert html.count('src="data:image/jpeg;base64,') == 2
-    assert html.count('class="model-panel"') == 3
+    assert html.count('class="model-panel"') == 2
     assert 'id="s0001" data-work=' not in html and 'id="s0003" data-work=' not in html
-    assert '<option value="top3" selected>' in html
-    assert html.count('class="review-layer prediction-layer"') == 3
+    assert '<option value="both" selected>' in html
+    assert html.count('class="review-layer prediction-layer"') == 2
     prediction_layers = re.findall(r'<div class="review-layer prediction-layer"[^>]*>', html)
-    assert len(prediction_layers) == 3 and all(" hidden" in layer for layer in prediction_layers)
+    assert len(prediction_layers) == 2 and all(" hidden" in layer for layer in prediction_layers)
     assert 'data-model="qwen3.8-max" hidden>' in html
     assert "去掉《功夫女足》" not in html
     assert len(summary["cases"]) == 4 and summary["completed_tasks"] == 28
     assert all(values["new"]["planned_targets"] == 5 for values in summary["all_works"].values())
 
 
-def test_pending_other_top_model_does_not_create_a_coordinate_only_all_models_correct_claim():
+def test_pending_selected_model_does_not_create_a_coordinate_only_all_models_correct_claim():
     data = review_context(4)
     data["new"][("qwen3.8-max", "s0001")] = raw(("安欣",), invalid_box=True)
-    del data["new"][("kimi-k3.1-pro", "s0001")]
+    del data["new"][("deepseek-flash", "s0001")]
     summary = report.build_summary(data)
     assert not summary["review_selection"]["coordinate_only_images_not_embedded"]
+
+
+def test_quota_names_and_full_strict_and_pose_denominators_are_independent():
+    names = ["安欣", "李响", "高启强", "孟钰"]
+    matcher = CharacterMatcher({"kuangbiao": Roster("kuangbiao", "狂飙", [CharacterEntry(name) for name in names])})
+    people = [{"person_id": i + 1, "annotation_id": f"p{i+1}", "character": name, "character_aliases": [],
+               "identity_status": "verified", "review_status": "approved", "bbox": [i / 4, 0, (i + 1) / 4, 1]} for i, name in enumerate(names)]
+    sample = {"sample_id": "quota", "work_slug": "kuangbiao", "persons": people, "foreground_complete": True,
+              "ignore_regions": [], "evaluation_policy": {"required_name_count": 3}}
+    response = raw(names[:3])
+    response["response"]["raw_text"] = json.dumps({"persons": [{"character": person["character"], "bbox": person["bbox"]} for person in people[:3]]}, ensure_ascii=False)
+    tags = {i + 1: {"face_orientation": "front" if i < 2 else "profile", "visibility": "clear"} for i in range(4)}
+    row = report.score_record(sample, response, matcher, tags)
+    whole = report.aggregate([row])
+    assert whole["planned_targets"] == 3 and whole["name_correct"] == 3
+    assert whole["strict_planned_targets"] == 4 and whole["strict_correct"] == 3
+    assert whole["name_accuracy_planned"] == 1 and whole["strict_accuracy_planned"] == .75
+    profile = report.aggregate([row], lambda tag: tag["face_orientation"] == "profile")
+    assert profile["planned_targets"] == 2 and profile["name_correct"] == 1
+    assert profile["name_denominator_policy"] == "full_verified_person_coverage"
+    assert report.coordinate_only_issue(row)
+    sample["evaluation_policy"] = {"optional_person_ids": [4]}
+    allowed = raw(names)
+    optional = report.score_record(sample, allowed, matcher, tags)
+    aggregate = report.aggregate([optional])
+    assert aggregate["planned_targets"] == 3 and aggregate["name_correct"] == 3
+    assert aggregate["extra_names"] == 0 and aggregate["name_precision"] == 1
+    assert "可选名已命中" in report.model_panel("qwen3.8-max", {"old": optional, "new": optional}, compact=True)
+
+
+def test_consensus_only_compares_requested_pair_and_excludes_reviewed_from_audit_not_main_errors(tmp_path, monkeypatch):
+    from scripts import export_consensus_review as consensus
+    data = review_context(4)
+    for model in report.REVIEW_MODELS:
+        data["new"][(model, "s0000")] = raw(("同答错名",))
+        data["new"][(model, "s0001")] = raw(("另一错名",))
+    data["annotation_review"] = {"applied": True, "reviewed_sample_ids": ["s0000"]}
+    monkeypatch.setattr(report, "read_context", lambda *_args: data)
+    summary = report.export_report("new", tmp_path)
+    assert {row["sample_id"] for row in summary["review_selection"]["selected_images"]} == {"s0000", "s0001"}
+    result = consensus.export_consensus(tmp_path)
+    assert result["models"] == ["deepseek-flash", "qwen3.8-max"]
+    assert result["two_or_more_model_count"] == 1 and result["items"][0]["sample_id"] == "s0001"
+    assert result["excluded_reviewed_sample_ids"] == ["s0000"]
+    html = (tmp_path / "consensus_review.html").read_text()
+    assert "Kimi" not in html and "原先仅标" not in html
+    assert html.count('src="data:image/jpeg;base64,') == 1

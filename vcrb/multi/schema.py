@@ -17,6 +17,33 @@ SAMPLE_REVIEW_STATUSES = {"draft", "approved"}
 SCHEMA_VERSION = "2.0"
 
 
+def evaluation_policy_errors(policy: Any, persons: list[Any]) -> list[str]:
+    """Review policies affect offline name coverage, never the visible people."""
+    if not isinstance(policy, dict):
+        return ["evaluation_policy must be an object"]
+    errors = []
+    if set(policy) - {"optional_person_ids", "required_name_count"}:
+        errors.append("unknown evaluation_policy field")
+    optional = policy.get("optional_person_ids", [])
+    if (not isinstance(optional, list)
+            or any(type(pid) is not int or pid < 1 for pid in optional)):
+        return errors + ["optional_person_ids must be a list of positive person IDs"]
+    if len(set(optional)) != len(optional):
+        errors.append("optional_person_ids cannot contain duplicates")
+    def get(person, key, default=None):
+        return person.get(key, default) if isinstance(person, dict) else getattr(person, key, default)
+    verified = {get(p, "person_id") for p in persons
+                if get(p, "identity_status") == "verified" and get(p, "review_status") == "approved"
+                and get(p, "character")}
+    if set(optional) - verified:
+        errors.append("optional_person_ids must reference approved verified people")
+    if "required_name_count" in policy:
+        count = policy["required_name_count"]
+        if type(count) is not int or not 1 <= count <= len(verified - set(optional)):
+            errors.append("required_name_count must be within the verified required candidate count")
+    return errors
+
+
 def bbox_errors(box: Any) -> list[str]:
     if not isinstance(box, (list, tuple)) or len(box) != 4:
         return ["bbox must contain four normalized coordinates"]
@@ -111,6 +138,7 @@ class MultiSample:
     foreground_complete: bool = False
     evidence: list[dict[str, Any]] = field(default_factory=list)
     note: str = ""
+    evaluation_policy: dict[str, Any] = field(default_factory=dict)
 
     def validate(self, for_run: bool = False) -> list[str]:
         errors = []
@@ -132,6 +160,7 @@ class MultiSample:
             errors.append("person_id must be consecutive starting at 1")
         for person in self.persons:
             errors.extend(f"person {person.person_id}: {e}" for e in person.validate(for_run))
+        errors.extend(evaluation_policy_errors(self.evaluation_policy, self.persons))
         for i, region in enumerate(self.ignore_regions):
             errors.extend(f"ignore {i + 1}: {e}" for e in bbox_errors(region.bbox))
             if not region.reason.strip():
@@ -146,7 +175,12 @@ class MultiSample:
         return errors
 
     def to_dict(self) -> dict[str, Any]:
-        return asdict(self)
+        value = asdict(self)
+        # Historical frozen snapshots did not have this field. An absent policy
+        # must retain their exact canonical serialization and dataset hashes.
+        if value["evaluation_policy"] == {}:
+            value.pop("evaluation_policy")
+        return value
 
     @classmethod
     def from_dict(cls, value: dict[str, Any]) -> "MultiSample":

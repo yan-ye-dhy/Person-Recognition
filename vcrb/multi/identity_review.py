@@ -19,7 +19,7 @@ from ..config import Work
 from ..evaluation.matcher import CharacterMatcher
 from ..evaluation.parser import extract_json_text
 from .parsing import parse_response
-from .schema import MultiSample, dataset_hash
+from .schema import MultiSample, dataset_hash, evaluation_policy_errors
 from .scoring import identity_category, score_sample
 
 RUN_ID = "multi_v2_20261113_075729_2e4f15"
@@ -68,8 +68,21 @@ def read_name_predictions(raw_text: str) -> tuple[list[dict], str | None]:
 
 def score_name_only(sample: dict, experiment: str, raw_text: str,
                     matcher: CharacterMatcher) -> dict[str, Any]:
-    """Maximum-cardinality matching of names; deliberately ignores IDs and boxes."""
+    """Reviewed name coverage, with required-first matching and explicit quotas.
+
+    Full visible-person coverage remains separate. Optional identities and a
+    correctly named surplus quota candidate are accepted, never extra names.
+    This policy contains no model-specific exceptions.
+    """
     people = [p for p in sample["persons"] if identity_category(p) == "verified"]
+    policy = sample.get("evaluation_policy", {})
+    errors = evaluation_policy_errors(policy, sample["persons"])
+    if errors:
+        raise ValueError("Invalid name evaluation policy: " + "; ".join(errors))
+    optional_ids = set(policy.get("optional_person_ids", []))
+    required_indices = [i for i, p in enumerate(people) if p["person_id"] not in optional_ids]
+    optional_indices = [i for i, p in enumerate(people) if p["person_id"] in optional_ids]
+    quota = policy.get("required_name_count", len(required_indices))
     predictions, extraction_error = read_name_predictions(raw_text)
     edges: dict[int, list[int]] = {}
     matches = {}
@@ -95,43 +108,69 @@ def score_name_only(sample: dict, experiment: str, raw_text: str,
                 return True
         return False
 
-    for i in range(len(people)):
+    # Optional matching may reroute an augmenting path but cannot unmatch a
+    # previously covered required person: required coverage has first priority.
+    for i in required_indices + optional_indices:
         augment(i, set())
     by_person = {i: j for j, i in by_prediction.items()}
+    required_matched = [i for i in required_indices if i in by_person]
+    scored_indices = set(required_matched[:quota])
+    for i in required_indices:
+        if len(scored_indices) >= quota:
+            break
+        if i not in by_person:
+            scored_indices.add(i)
     for j, i in by_prediction.items():
-        predictions[j].update(matched_person_id=people[i]["person_id"], outcome="matched")
+        predictions[j].update(matched_person_id=people[i]["person_id"], outcome="matched",
+                              optional=i in optional_indices, counts_toward_required=i in scored_indices)
     remaining = iter(j for j in range(len(predictions)) if j not in by_prediction)
     details = []
     for i, person in enumerate(people):
+        optional, scored = i in optional_indices, i in scored_indices
         if i in by_person:
             j = by_person[i]
-            outcome, kind = "correct", matches[(i, j)]
+            full_outcome, kind = "correct", matches[(i, j)]
+        elif not scored:
+            j, full_outcome, kind = None, "missing_name", "missing"
         else:
             # Display an unmatched response beside a missed GT only as a
             # deterministic audit aid; this does not infer a physical association.
             j = next(remaining, None)
             if j is None:
-                outcome, kind = "missing_name", "missing"
+                full_outcome, kind = "missing_name", "missing"
             elif predictions[j]["outcome"] == "null":
-                outcome, kind = "uncertain", "empty"
+                full_outcome, kind = "uncertain", "empty"
             elif not predictions[j]["valid_name"]:
-                outcome, kind = "wrong_name", "invalid_name"
+                full_outcome, kind = "wrong_name", "invalid_name"
             else:
                 result = matcher.match(predictions[j]["character"], sample["work_slug"], person["character"],
                                        person.get("character_aliases", []))
-                outcome, kind = "wrong_name", result.kind
+                full_outcome, kind = "wrong_name", result.kind
+        outcome = ("optional_correct" if full_outcome == "correct" else "optional_missing") if optional else (
+            full_outcome if scored else "not_required")
         details.append({
             "person_id": person["person_id"], "gt_character": person["character"],
             "predicted": predictions[j]["character"] if j is not None else None,
             "prediction_index": j, "outcome": outcome, "match_kind": kind,
             "assignment_is_name_only": True,
+            "required": not optional, "optional": optional, "scored": scored,
+            "counts_toward_required": scored, "required_credit": scored and full_outcome == "correct",
+            "full_correct": full_outcome == "correct", "full_outcome": full_outcome, "full_scored": True,
         })
     named = sum(p["valid_name"] for p in predictions)
-    correct = len(by_prediction)
+    correct = min(len(required_matched), quota)
+    optional_correct = sum(i in by_person for i in optional_indices)
+    full_correct = len(by_prediction)
     return {
         "sample_id": sample["sample_id"], "work_slug": sample["work_slug"], "experiment": experiment,
-        "target_count": len(people), "correct": correct, "named_predictions": named,
-        "extra_names": named - correct, "image_names_complete": correct == len(people),
+        "target_count": quota, "correct": correct, "named_predictions": named,
+        "extra_names": named - full_correct, "image_names_complete": correct == quota,
+        "required_candidate_count": len(required_indices), "required_matched_count": len(required_matched),
+        "optional_target_count": len(optional_indices), "optional_correct": optional_correct,
+        "optional_missing": len(optional_indices) - optional_correct,
+        "full_target_count": len(people), "full_correct": full_correct,
+        "full_names_complete": full_correct == len(people), "accepted_named_predictions": full_correct,
+        "evaluation_policy": deepcopy(policy),
         "person_details": details, "predictions": predictions, "extraction_error": extraction_error,
         "null_predictions": sum(p["outcome"] == "null" for p in predictions),
         "invalid_name_predictions": sum(p["outcome"] == "invalid_name" for p in predictions),
@@ -142,11 +181,17 @@ def summarize_name_rows(rows: list[dict]) -> dict:
     targets = sum(r["target_count"] for r in rows)
     correct = sum(r["correct"] for r in rows)
     named = sum(r["named_predictions"] for r in rows)
+    accepted = sum(r.get("accepted_named_predictions", r["correct"]) for r in rows)
     return {
         "images": len(rows), "target_count": targets, "correct": correct,
         "accuracy": correct / targets if targets else None,
-        "named_predictions": named, "extra_names": named - correct,
-        "precision": correct / named if named else None,
+        "named_predictions": named, "extra_names": sum(r["extra_names"] for r in rows),
+        "precision": accepted / named if named else None,
+        "accepted_named_predictions": accepted,
+        "full_target_count": sum(r.get("full_target_count", r["target_count"]) for r in rows),
+        "full_correct": sum(r.get("full_correct", r["correct"]) for r in rows),
+        "optional_target_count": sum(r.get("optional_target_count", 0) for r in rows),
+        "optional_correct": sum(r.get("optional_correct", 0) for r in rows),
         "image_names_complete": sum(r["image_names_complete"] for r in rows),
         "images_with_extra_names": sum(r["extra_names"] > 0 for r in rows),
         "additional_correct_vs_strict": sum(r.get("additional_correct_vs_strict", 0) for r in rows),

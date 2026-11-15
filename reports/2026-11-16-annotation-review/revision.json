@@ -1,0 +1,4347 @@
+{
+  "schema_version": "1.0",
+  "revision_id": "user_identity_scope_review_20261116_v1",
+  "before_dataset_hash": "f0fda2d9d420ffd3e07563c2e4e6430e3e14b76af9050d977227eb0afa8c67a7",
+  "after_dataset_hash": "234ba8e780b9ffcd6cffd586d31250d80c086aaf41d23368f0c44a3917918a58",
+  "created_at": "2026-11-15T16:49:15.427414+00:00",
+  "revisions": [
+    {
+      "sample_id": "kuangbiao_0012",
+      "image_sha256": "1d4842875f5be55f322f5554814d3b9e57c0f411ddeb6e2304d6c0b52a36f449",
+      "before_sample_hash": "c252adf9d24a283420b0c3c1e092c6bd38df4ffcd1ce008278e58774836d414c",
+      "after_sample_hash": "11836d5bc73438dd88922c02e341fc6acfdac9fb84b2e1a5331b2cec7901826e",
+      "before": {
+        "sample_id": "kuangbiao_0012",
+        "work_slug": "kuangbiao",
+        "work_name": "狂飙",
+        "work_category": "modern_drama",
+        "image_path": "images/kuangbiao_mp4/kb_mp4_e35_04.jpg",
+        "persons": [
+          {
+            "person_id": 1,
+            "bbox": [
+              0.197,
+              0.042,
+              0.643,
+              1
+            ],
+            "character": "杨健",
+            "identity_status": "verified",
+            "review_status": "approved",
+            "character_aliases": [],
+            "evidence": [
+              {
+                "type": "named_production_poster_secondary_host",
+                "role": "杨健",
+                "source_url": "https://www.tvmao.com/character/cSBcaWJl",
+                "path": "results/multi/kuangbiao_mp4_refresh/evidence/tvmao_yangjian.jpg",
+                "sha256": "1e1584c7cdd678bda9110abb2d2ca0a2f51861c1c838ef43afbc2096d31b7efd",
+                "confirmed": true,
+                "reviewer": "assistant",
+                "text": "电视猫二级角色页所附海报自身印有王骁饰杨健，已实际查看原图及放大副本；该网页不是剧方官方。"
+              },
+              {
+                "type": "original_episode_cast_credit",
+                "role": "杨健",
+                "source_url": "local-source:15.mp4",
+                "path": "results/multi/kuangbiao_mp4_refresh/references/狂飙15_片尾演职员表_2602s.jpg",
+                "sha256": "2f021b9e11493c2b859079e7b26fb55abcf07e5f6ac0a2b11339677b1c8ee652",
+                "confirmed": true,
+                "reviewer": "assistant",
+                "text": "右侧杨健—王骁；只验证角色—演员映射，左侧蒙太奇与右侧演员表不逐行配对，不以其单独绑定人像。",
+                "timestamp_seconds": 2602,
+                "source_sha256": "21a217c218db52990cf94005b28c5445e5a014fdff35f91fe344bca79fb5a41a"
+              },
+              {
+                "type": "assistant_full_resolution_visual_comparison",
+                "reviewer": "assistant",
+                "confirmed": true,
+                "episode": 35,
+                "timestamp_seconds": 744.119,
+                "candidate_id": "kb_e35_c024",
+                "text": "实际打开本帧1920×1080原图，逐一核对具名参考脸部与完整可见人物范围；不使用模型输出、共识或继承标签定名。"
+              }
+            ],
+            "note": "按用户最新口径仅保留清晰、可靠定名的主要角色；助手代标，待用户抽查确认后再调用。",
+            "annotation_id": "kuangbiao_0012_mp4_20261113_1"
+          }
+        ],
+        "ignore_regions": [
+          {
+            "bbox": [
+              0.667,
+              0.177,
+              1,
+              1
+            ],
+            "reason": "右侧孟钰处于明显焦外，五官细节不可靠；即使身份可由连续画面推知，也不画本轮红框。",
+            "evidence": [
+              {
+                "type": "principal_scope_exclusion",
+                "reviewer": "assistant",
+                "confirmed": true,
+                "text": "右侧孟钰处于明显焦外，五官细节不可靠；即使身份可由连续画面推知，也不画本轮红框。"
+              }
+            ]
+          }
+        ],
+        "image_width": 1920,
+        "image_height": 1080,
+        "image_sha256": "1d4842875f5be55f322f5554814d3b9e57c0f411ddeb6e2304d6c0b52a36f449",
+        "review_status": "approved",
+        "foreground_complete": true,
+        "evidence": [
+          {
+            "type": "local_mp4_frame_source",
+            "episode": 35,
+            "timestamp_seconds": 744.119,
+            "candidate_id": "kb_e35_c024",
+            "source_basename": "35.mp4",
+            "source_sha256": "9b6d9dd05a2e52b15680db62abdd863526d611621923419a938569e3d36f7495",
+            "image_sha256": "1d4842875f5be55f322f5554814d3b9e57c0f411ddeb6e2304d6c0b52a36f449"
+          },
+          {
+            "type": "assistant_principal_scope_review",
+            "reviewer": "assistant",
+            "confirmed": true,
+            "at": "2026-11-13T07:09:41.325957+00:00",
+            "text": "杨健庭院正面中景；右侧孟钰明显失焦，严格只保留焦点内的一名清晰主体。 完整性仅指本轮1–3名清晰主要角色范围，具体旁人已逐项列ignore，ignore与姓名均不画入模型图片。"
+          },
+          {
+            "type": "user_authorized_source_replacement",
+            "confirmed": true,
+            "reviewer": "assistant",
+            "reviewed_at": "2026-11-13T07:12:54.886618+00:00",
+            "source": "35.mp4",
+            "source_sha256": "9b6d9dd05a2e52b15680db62abdd863526d611621923419a938569e3d36f7495",
+            "episode": 35,
+            "timestamp_seconds": 744.119,
+            "selection_batch_id": "kb_mp4_e35_04",
+            "policy": "clear_named_principals_max3_v1",
+            "user_confirmation": "pending",
+            "text": "用户提供三集MP4并要求重抽更多样的图片；助手已离线选图标注，待用户确认后再统一调用。"
+          }
+        ],
+        "note": "assistant代标复核；原MP4正常抽帧，图像保留候选JPEG原字节。用户已要求确认标注后再统一调用，本批没有API调用。"
+      },
+      "after": {
+        "sample_id": "kuangbiao_0012",
+        "work_slug": "kuangbiao",
+        "work_name": "狂飙",
+        "work_category": "modern_drama",
+        "image_path": "images/kuangbiao_mp4/kb_mp4_e35_04.jpg",
+        "persons": [
+          {
+            "person_id": 1,
+            "bbox": [
+              0.197,
+              0.042,
+              0.643,
+              1
+            ],
+            "character": "杨健",
+            "identity_status": "verified",
+            "review_status": "approved",
+            "character_aliases": [],
+            "evidence": [
+              {
+                "type": "named_production_poster_secondary_host",
+                "role": "杨健",
+                "source_url": "https://www.tvmao.com/character/cSBcaWJl",
+                "path": "results/multi/kuangbiao_mp4_refresh/evidence/tvmao_yangjian.jpg",
+                "sha256": "1e1584c7cdd678bda9110abb2d2ca0a2f51861c1c838ef43afbc2096d31b7efd",
+                "confirmed": true,
+                "reviewer": "assistant",
+                "text": "电视猫二级角色页所附海报自身印有王骁饰杨健，已实际查看原图及放大副本；该网页不是剧方官方。"
+              },
+              {
+                "type": "original_episode_cast_credit",
+                "role": "杨健",
+                "source_url": "local-source:15.mp4",
+                "path": "results/multi/kuangbiao_mp4_refresh/references/狂飙15_片尾演职员表_2602s.jpg",
+                "sha256": "2f021b9e11493c2b859079e7b26fb55abcf07e5f6ac0a2b11339677b1c8ee652",
+                "confirmed": true,
+                "reviewer": "assistant",
+                "text": "右侧杨健—王骁；只验证角色—演员映射，左侧蒙太奇与右侧演员表不逐行配对，不以其单独绑定人像。",
+                "timestamp_seconds": 2602,
+                "source_sha256": "21a217c218db52990cf94005b28c5445e5a014fdff35f91fe344bca79fb5a41a"
+              },
+              {
+                "type": "assistant_full_resolution_visual_comparison",
+                "reviewer": "assistant",
+                "confirmed": true,
+                "episode": 35,
+                "timestamp_seconds": 744.119,
+                "candidate_id": "kb_e35_c024",
+                "text": "实际打开本帧1920×1080原图，逐一核对具名参考脸部与完整可见人物范围；不使用模型输出、共识或继承标签定名。"
+              }
+            ],
+            "note": "按用户最新口径仅保留清晰、可靠定名的主要角色；助手代标，待用户抽查确认后再调用。",
+            "annotation_id": "kuangbiao_0012_mp4_20261113_1"
+          },
+          {
+            "person_id": 2,
+            "bbox": [
+              0.667,
+              0.177,
+              1,
+              1
+            ],
+            "character": "孟钰",
+            "identity_status": "verified",
+            "review_status": "approved",
+            "character_aliases": [],
+            "evidence": [
+              {
+                "type": "user_explicit_identity_confirmation",
+                "actor": "user",
+                "confirmed": true,
+                "review_revision": "user_identity_scope_review_20261116_v1",
+                "text": "用户明确补充：右侧为孟钰，原图漏标。",
+                "source_image_sha256": "1d4842875f5be55f322f5554814d3b9e57c0f411ddeb6e2304d6c0b52a36f449",
+                "confirmation_scope": "identity_only",
+                "user_confirmed_model_coordinates": false,
+                "at": "2026-11-15T16:49:15.427414+00:00"
+              },
+              {
+                "type": "assistant_geometry_review",
+                "actor": "assistant",
+                "reviewed_original": true,
+                "review_revision": "user_identity_scope_review_20261116_v1",
+                "source_image_sha256": "1d4842875f5be55f322f5554814d3b9e57c0f411ddeb6e2304d6c0b52a36f449",
+                "geometry_source": "previous manually drawn ignore-region bbox, re-opened original",
+                "text": "本轮已打开完整原图，复用原人工框/忽略区可见范围；未使用模型预测坐标作真值。用户确认姓名，不等同确认模型定位。",
+                "user_confirmed_coordinates": false,
+                "at": "2026-11-15T16:49:15.427414+00:00"
+              },
+              {
+                "type": "scope_reinstatement",
+                "review_revision": "user_identity_scope_review_20261116_v1",
+                "previous_ignore_region": {
+                  "bbox": [
+                    0.667,
+                    0.177,
+                    1,
+                    1
+                  ],
+                  "reason": "右侧孟钰处于明显焦外，五官细节不可靠；即使身份可由连续画面推知，也不画本轮红框。",
+                  "evidence": [
+                    {
+                      "type": "principal_scope_exclusion",
+                      "reviewer": "assistant",
+                      "confirmed": true,
+                      "text": "右侧孟钰处于明显焦外，五官细节不可靠；即使身份可由连续画面推知，也不画本轮红框。"
+                    }
+                  ]
+                }
+              }
+            ],
+            "note": "用户明确补充：右侧为孟钰，原图漏标。 已从旧忽略区恢复；姓名由用户确认，框为助手复核的原可见范围，不代表模型框已正确。",
+            "annotation_id": "kuangbiao_0012_user_review_20261116_mengyu"
+          }
+        ],
+        "ignore_regions": [],
+        "image_width": 1920,
+        "image_height": 1080,
+        "image_sha256": "1d4842875f5be55f322f5554814d3b9e57c0f411ddeb6e2304d6c0b52a36f449",
+        "review_status": "approved",
+        "foreground_complete": true,
+        "evidence": [
+          {
+            "type": "local_mp4_frame_source",
+            "episode": 35,
+            "timestamp_seconds": 744.119,
+            "candidate_id": "kb_e35_c024",
+            "source_basename": "35.mp4",
+            "source_sha256": "9b6d9dd05a2e52b15680db62abdd863526d611621923419a938569e3d36f7495",
+            "image_sha256": "1d4842875f5be55f322f5554814d3b9e57c0f411ddeb6e2304d6c0b52a36f449"
+          },
+          {
+            "type": "assistant_principal_scope_review",
+            "reviewer": "assistant",
+            "confirmed": true,
+            "at": "2026-11-13T07:09:41.325957+00:00",
+            "text": "杨健庭院正面中景；右侧孟钰明显失焦，严格只保留焦点内的一名清晰主体。 完整性仅指本轮1–3名清晰主要角色范围，具体旁人已逐项列ignore，ignore与姓名均不画入模型图片。"
+          },
+          {
+            "type": "user_authorized_source_replacement",
+            "confirmed": true,
+            "reviewer": "assistant",
+            "reviewed_at": "2026-11-13T07:12:54.886618+00:00",
+            "source": "35.mp4",
+            "source_sha256": "9b6d9dd05a2e52b15680db62abdd863526d611621923419a938569e3d36f7495",
+            "episode": 35,
+            "timestamp_seconds": 744.119,
+            "selection_batch_id": "kb_mp4_e35_04",
+            "policy": "clear_named_principals_max3_v1",
+            "user_confirmation": "pending",
+            "text": "用户提供三集MP4并要求重抽更多样的图片；助手已离线选图标注，待用户确认后再统一调用。"
+          },
+          {
+            "type": "user_explicit_identity_confirmation",
+            "actor": "user",
+            "confirmed": true,
+            "review_revision": "user_identity_scope_review_20261116_v1",
+            "text": "用户明确补充：右侧为孟钰，原图漏标。",
+            "source_image_sha256": "1d4842875f5be55f322f5554814d3b9e57c0f411ddeb6e2304d6c0b52a36f449",
+            "confirmation_scope": "identity_and_target_scope_only",
+            "user_confirmed_model_coordinates": false,
+            "at": "2026-11-15T16:49:15.427414+00:00"
+          }
+        ],
+        "note": "2026-11-16 用户逐图复核更正：用户明确补充：右侧为孟钰，原图漏标。 仅重评既有响应，不调用API；不将姓名命中推断为模型坐标正确。"
+      },
+      "reason": "用户明确补充：右侧为孟钰，原图漏标。",
+      "user_text": "用户审阅结论转述：用户明确补充：右侧为孟钰，原图漏标。",
+      "user_evidence": {
+        "type": "explicit_user_review",
+        "recorded_by": "assistant",
+        "is_verbatim_quote": false,
+        "identity_confirmed": true,
+        "model_coordinates_confirmed": false
+      },
+      "reviewed_at": "2026-11-15T16:49:15.427414+00:00",
+      "coordinate_review": {
+        "reviewer": "assistant",
+        "original_image_reopened": true,
+        "source": "unchanged person box or restored historical ignore-region box",
+        "model_boxes_used_as_ground_truth": false,
+        "strict_position_metrics_must_be_recomputed_independently": true
+      },
+      "before_stratification": [
+        {
+          "sample_id": "kuangbiao_0012",
+          "annotation_id": "kuangbiao_0012_mp4_20261113_1",
+          "person_id": 1,
+          "image_sha256": "1d4842875f5be55f322f5554814d3b9e57c0f411ddeb6e2304d6c0b52a36f449",
+          "face_orientation": "three_quarter",
+          "visibility": "clear",
+          "note": "头部明显斜转，仍能看到双眼或大部分面部。 主要五官未被明显遮挡；普通阴影、眼镜及视线变化不单独算模糊。",
+          "reviewer": "assistant"
+        }
+      ],
+      "after_stratification": [
+        {
+          "sample_id": "kuangbiao_0012",
+          "annotation_id": "kuangbiao_0012_mp4_20261113_1",
+          "person_id": 1,
+          "image_sha256": "1d4842875f5be55f322f5554814d3b9e57c0f411ddeb6e2304d6c0b52a36f449",
+          "face_orientation": "three_quarter",
+          "visibility": "clear",
+          "note": "头部明显斜转，仍能看到双眼或大部分面部。 主要五官未被明显遮挡；普通阴影、眼镜及视线变化不单独算模糊。",
+          "reviewer": "assistant"
+        },
+        {
+          "sample_id": "kuangbiao_0012",
+          "annotation_id": "kuangbiao_0012_user_review_20261116_mengyu",
+          "person_id": 2,
+          "image_sha256": "1d4842875f5be55f322f5554814d3b9e57c0f411ddeb6e2304d6c0b52a36f449",
+          "face_orientation": "profile",
+          "visibility": "occluded_or_blurry",
+          "note": "右侧近纯侧脸，画面焦点在左侧人物，右侧五官明显虚焦。 2026-11-16仅按原图标统计类别，与模型回答无关。",
+          "reviewer": "assistant"
+        }
+      ],
+      "reference_image": {
+        "path": "reports/2026-11-16-annotation-review/images/kuangbiao_0012.jpg",
+        "sha256": "fc5d264076c9632909b4d571e79bd65b934e56ce0a64b834e1d54977c3690c46",
+        "usage": "review_only_not_model_input"
+      },
+      "scoring_policy": {
+        "evaluation_policy": {},
+        "identity_and_geometry_are_separate": true
+      }
+    },
+    {
+      "sample_id": "qingyunian2_0018",
+      "image_sha256": "8c4e084520d646615a804fb5436f2fc92b851071e2a5fea7a00671a3113b59a2",
+      "before_sample_hash": "7463831a57b312ddaeeceb5b821700233e70fb9b17b4e6a19c4edec20b4e774b",
+      "after_sample_hash": "c7eda9490215e4c6a5d12ad3b6868c188dcd587cdc1fef60d261c9dc5a6f664f",
+      "before": {
+        "sample_id": "qingyunian2_0018",
+        "work_slug": "qingyunian2",
+        "work_name": "庆余年第二季",
+        "work_category": "costume_drama",
+        "image_path": "../final/qingyunian2/qingyunian2_0018.jpg",
+        "persons": [
+          {
+            "person_id": 1,
+            "bbox": [
+              0.2,
+              0.22,
+              0.53,
+              1
+            ],
+            "character": "侯公公",
+            "identity_status": "verified",
+            "review_status": "approved",
+            "character_aliases": [],
+            "evidence": [
+              {
+                "type": "unknown_identity_review",
+                "text": "逐原图复核继承目标并根据完整可见范围校框。",
+                "confirmed": true,
+                "reviewer": "assistant"
+              },
+              {
+                "type": "identity_withdrawal",
+                "prior_candidate": "侯公公",
+                "text": "既有材料仅有演员文字采访，无直接同帧姓名锚；本轮不将中置信继承标签升为真值。",
+                "confirmed": false
+              },
+              {
+                "type": "secondary_named_character_reference",
+                "confirmed": true,
+                "path": "results/multi/principal_revision/evidence/hou_named_character_reference.jpg",
+                "source_url": "https://www.tvmao.com/character/ZWBrIl9k",
+                "sha256": "80e930eee29adb12e46d8db45759eceea5f8b93f1bad8fb4e4e2f6c01b7b8b34",
+                "text": "角色页标题/图片alt明确侯公公；命名参照帽饰、眉眼口鼻与本帧一致。二级角色资料，非官方同帧字幕。",
+                "reviewed_at": "2026-11-13T06:55:53.352106+00:00"
+              },
+              {
+                "type": "secondary_scene_reference",
+                "confirmed": true,
+                "path": "results/multi/principal_revision/evidence/hou_s2_secondary_1.jpg",
+                "source_url": "https://yule.360.com/detail/3730205",
+                "sha256": "feb92aa42ef7170188536fd1e9daf138afb6a950f05babe9fb9d491f0a9b8b87",
+                "text": "明确讨论侯公公段落配第二季剧照，可交叉比对面部及内侍造型。二级图文材料，不冒称片方。",
+                "reviewed_at": "2026-11-13T06:55:53.353014+00:00"
+              },
+              {
+                "type": "first_person_interview_reference",
+                "confirmed": true,
+                "source_url": "https://cq.people.com.cn/n2/2020/0102/c365409-33682929.html",
+                "text": "生活报专访转载确认侯公公角色归属；本轮用命名角色图及第二季图像补足此前缺失的画面对应。"
+              }
+            ],
+            "note": "左侧侯公公；本轮补查角色命名页与第二季同角色图，对照帽型、面部和本场造型，恢复具体姓名。",
+            "annotation_id": "qingyunian2_0018_v2_review_1"
+          },
+          {
+            "person_id": 2,
+            "bbox": [
+              0.47,
+              0.21,
+              0.84,
+              0.9
+            ],
+            "character": "范闲",
+            "identity_status": "verified",
+            "review_status": "approved",
+            "character_aliases": [],
+            "evidence": [
+              {
+                "type": "named_press_still",
+                "path": "results/benchmark_20261113/gt_revision_01/evidence/qyn3_primary.webp",
+                "source_url": "https://www.zaobao.com.sg/entertainment/story20240522-3678873",
+                "text": "主源报道图注指明右范闲，匹配同作品造型与面貌。",
+                "role": "范闲",
+                "confirmed": true,
+                "reviewer": "assistant",
+                "sha256": "e5e478c5c9b4de458ad20c07b4d1721f4551c3403b2ee7d1a79aa5dca25ea730"
+              }
+            ],
+            "note": "右侧白绣袍人物，与主源范闲图及0016连续书架场景对应。",
+            "annotation_id": "qingyunian2_0018_v2_review_2"
+          }
+        ],
+        "ignore_regions": [
+          {
+            "bbox": [
+              0.39,
+              0.28,
+              0.57,
+              0.78
+            ],
+            "reason": "书架后方官员重度虚焦",
+            "evidence": [
+              {
+                "type": "assistant_visual_review",
+                "text": "书架后方官员重度虚焦"
+              }
+            ]
+          },
+          {
+            "bbox": [
+              0.58,
+              0.29,
+              0.65,
+              0.66
+            ],
+            "reason": "范闲后方只露虚焦头部碎片",
+            "evidence": [
+              {
+                "type": "assistant_visual_review",
+                "text": "范闲后方只露虚焦头部碎片"
+              }
+            ]
+          },
+          {
+            "bbox": [
+              0.94,
+              0.29,
+              1,
+              0.53
+            ],
+            "reason": "最右远处只露严重模糊帽脸片段",
+            "evidence": [
+              {
+                "type": "assistant_visual_review",
+                "text": "最右远处只露严重模糊帽脸片段"
+              }
+            ]
+          }
+        ],
+        "image_width": 1920,
+        "image_height": 1080,
+        "image_sha256": "8c4e084520d646615a804fb5436f2fc92b851071e2a5fea7a00671a3113b59a2",
+        "review_status": "approved",
+        "foreground_complete": true,
+        "evidence": [
+          {
+            "type": "v1_inheritance",
+            "source_sample_id": "qingyunian2_0018",
+            "source_dataset_sha256": "eb4a8b4177f77765db939e6723b67711d5619588bfce6f646a3396cc3b9fd8c7",
+            "image_sha256": "8c4e084520d646615a804fb5436f2fc92b851071e2a5fea7a00671a3113b59a2",
+            "note": "Inherited single-target label; not independent identity verification. Remaining foreground people have not been checked.",
+            "time_seconds": 468.2
+          },
+          {
+            "type": "assistant_full_frame_review",
+            "reviewer": "assistant",
+            "at": "2026-11-13T04:06:48.603988+00:00",
+            "text": "查看全部40图联系图和本批复杂原尺寸图，并查看原片对白/命名海报；修正旧单框截掉肩臂的问题，补齐能独立定位的同伴。"
+          },
+          {
+            "type": "principal_scope_review",
+            "actor": "assistant",
+            "at": "2026-11-13T06:55:53.353032+00:00",
+            "policy_id": "clear_named_principals_max3_v1",
+            "text": "按用户新口径逐图选本画面清晰且能独立定名的主要角色1–3人；虚化背景、无头躯干、远处侍卫移出红框并仅作ignore，不烧入模型图片。此approved仅表示助手代标完成，真实调用仍等用户确认。"
+          }
+        ],
+        "note": "已按用户新口径精简为清晰可识别的主要角色（最多3人）；等待用户检查总览后统一调用。"
+      },
+      "after": {
+        "sample_id": "qingyunian2_0018",
+        "work_slug": "qingyunian2",
+        "work_name": "庆余年第二季",
+        "work_category": "costume_drama",
+        "image_path": "../final/qingyunian2/qingyunian2_0018.jpg",
+        "persons": [
+          {
+            "person_id": 1,
+            "bbox": [
+              0.2,
+              0.22,
+              0.53,
+              1
+            ],
+            "character": "辛其物",
+            "identity_status": "verified",
+            "review_status": "approved",
+            "character_aliases": [],
+            "evidence": [
+              {
+                "type": "user_explicit_identity_confirmation",
+                "actor": "user",
+                "confirmed": true,
+                "review_revision": "user_identity_scope_review_20261116_v1",
+                "text": "用户明确更正：左侧人物为辛其物，并非侯公公；右侧仍为范闲。",
+                "source_image_sha256": "8c4e084520d646615a804fb5436f2fc92b851071e2a5fea7a00671a3113b59a2",
+                "confirmation_scope": "identity_only",
+                "user_confirmed_model_coordinates": false,
+                "at": "2026-11-15T16:49:15.427414+00:00"
+              },
+              {
+                "type": "assistant_geometry_review",
+                "actor": "assistant",
+                "reviewed_original": true,
+                "review_revision": "user_identity_scope_review_20261116_v1",
+                "source_image_sha256": "8c4e084520d646615a804fb5436f2fc92b851071e2a5fea7a00671a3113b59a2",
+                "geometry_source": "existing reviewed person bbox, unchanged",
+                "text": "本轮已打开完整原图，复用原人工框/忽略区可见范围；未使用模型预测坐标作真值。用户确认姓名，不等同确认模型定位。",
+                "user_confirmed_coordinates": false,
+                "at": "2026-11-15T16:49:15.427414+00:00"
+              }
+            ],
+            "note": "用户明确更正：左侧人物为辛其物，并非侯公公；右侧仍为范闲。 姓名更正，人物框未移动；原姓名及证据在revision.before中保留。",
+            "annotation_id": "qingyunian2_0018_v2_review_1"
+          },
+          {
+            "person_id": 2,
+            "bbox": [
+              0.47,
+              0.21,
+              0.84,
+              0.9
+            ],
+            "character": "范闲",
+            "identity_status": "verified",
+            "review_status": "approved",
+            "character_aliases": [],
+            "evidence": [
+              {
+                "type": "named_press_still",
+                "path": "results/benchmark_20261113/gt_revision_01/evidence/qyn3_primary.webp",
+                "source_url": "https://www.zaobao.com.sg/entertainment/story20240522-3678873",
+                "text": "主源报道图注指明右范闲，匹配同作品造型与面貌。",
+                "role": "范闲",
+                "confirmed": true,
+                "reviewer": "assistant",
+                "sha256": "e5e478c5c9b4de458ad20c07b4d1721f4551c3403b2ee7d1a79aa5dca25ea730"
+              }
+            ],
+            "note": "右侧白绣袍人物，与主源范闲图及0016连续书架场景对应。",
+            "annotation_id": "qingyunian2_0018_v2_review_2"
+          }
+        ],
+        "ignore_regions": [
+          {
+            "bbox": [
+              0.39,
+              0.28,
+              0.57,
+              0.78
+            ],
+            "reason": "书架后方官员重度虚焦",
+            "evidence": [
+              {
+                "type": "assistant_visual_review",
+                "text": "书架后方官员重度虚焦"
+              }
+            ]
+          },
+          {
+            "bbox": [
+              0.58,
+              0.29,
+              0.65,
+              0.66
+            ],
+            "reason": "范闲后方只露虚焦头部碎片",
+            "evidence": [
+              {
+                "type": "assistant_visual_review",
+                "text": "范闲后方只露虚焦头部碎片"
+              }
+            ]
+          },
+          {
+            "bbox": [
+              0.94,
+              0.29,
+              1,
+              0.53
+            ],
+            "reason": "最右远处只露严重模糊帽脸片段",
+            "evidence": [
+              {
+                "type": "assistant_visual_review",
+                "text": "最右远处只露严重模糊帽脸片段"
+              }
+            ]
+          }
+        ],
+        "image_width": 1920,
+        "image_height": 1080,
+        "image_sha256": "8c4e084520d646615a804fb5436f2fc92b851071e2a5fea7a00671a3113b59a2",
+        "review_status": "approved",
+        "foreground_complete": true,
+        "evidence": [
+          {
+            "type": "v1_inheritance",
+            "source_sample_id": "qingyunian2_0018",
+            "source_dataset_sha256": "eb4a8b4177f77765db939e6723b67711d5619588bfce6f646a3396cc3b9fd8c7",
+            "image_sha256": "8c4e084520d646615a804fb5436f2fc92b851071e2a5fea7a00671a3113b59a2",
+            "note": "Inherited single-target label; not independent identity verification. Remaining foreground people have not been checked.",
+            "time_seconds": 468.2
+          },
+          {
+            "type": "assistant_full_frame_review",
+            "reviewer": "assistant",
+            "at": "2026-11-13T04:06:48.603988+00:00",
+            "text": "查看全部40图联系图和本批复杂原尺寸图，并查看原片对白/命名海报；修正旧单框截掉肩臂的问题，补齐能独立定位的同伴。"
+          },
+          {
+            "type": "principal_scope_review",
+            "actor": "assistant",
+            "at": "2026-11-13T06:55:53.353032+00:00",
+            "policy_id": "clear_named_principals_max3_v1",
+            "text": "按用户新口径逐图选本画面清晰且能独立定名的主要角色1–3人；虚化背景、无头躯干、远处侍卫移出红框并仅作ignore，不烧入模型图片。此approved仅表示助手代标完成，真实调用仍等用户确认。"
+          },
+          {
+            "type": "user_explicit_identity_confirmation",
+            "actor": "user",
+            "confirmed": true,
+            "review_revision": "user_identity_scope_review_20261116_v1",
+            "text": "用户明确更正：左侧人物为辛其物，并非侯公公；右侧仍为范闲。",
+            "source_image_sha256": "8c4e084520d646615a804fb5436f2fc92b851071e2a5fea7a00671a3113b59a2",
+            "confirmation_scope": "identity_and_target_scope_only",
+            "user_confirmed_model_coordinates": false,
+            "at": "2026-11-15T16:49:15.427414+00:00"
+          }
+        ],
+        "note": "2026-11-16 用户逐图复核更正：用户明确更正：左侧人物为辛其物，并非侯公公；右侧仍为范闲。 仅重评既有响应，不调用API；不将姓名命中推断为模型坐标正确。"
+      },
+      "reason": "用户明确更正：左侧人物为辛其物，并非侯公公；右侧仍为范闲。",
+      "user_text": "用户审阅结论转述：用户明确更正：左侧人物为辛其物，并非侯公公；右侧仍为范闲。",
+      "user_evidence": {
+        "type": "explicit_user_review",
+        "recorded_by": "assistant",
+        "is_verbatim_quote": false,
+        "identity_confirmed": true,
+        "model_coordinates_confirmed": false
+      },
+      "reviewed_at": "2026-11-15T16:49:15.427414+00:00",
+      "coordinate_review": {
+        "reviewer": "assistant",
+        "original_image_reopened": true,
+        "source": "unchanged person box or restored historical ignore-region box",
+        "model_boxes_used_as_ground_truth": false,
+        "strict_position_metrics_must_be_recomputed_independently": true
+      },
+      "before_stratification": [
+        {
+          "sample_id": "qingyunian2_0018",
+          "annotation_id": "qingyunian2_0018_v2_review_1",
+          "person_id": 1,
+          "image_sha256": "8c4e084520d646615a804fb5436f2fc92b851071e2a5fea7a00671a3113b59a2",
+          "face_orientation": "front",
+          "visibility": "clear",
+          "note": "头部接近正面，双眼位置大致对称；视线方向不等于头部朝向。 主要五官未被明显遮挡；普通阴影、眼镜及视线变化不单独算模糊。",
+          "reviewer": "assistant"
+        },
+        {
+          "sample_id": "qingyunian2_0018",
+          "annotation_id": "qingyunian2_0018_v2_review_2",
+          "person_id": 2,
+          "image_sha256": "8c4e084520d646615a804fb5436f2fc92b851071e2a5fea7a00671a3113b59a2",
+          "face_orientation": "front",
+          "visibility": "clear",
+          "note": "头部接近正面，双眼位置大致对称；视线方向不等于头部朝向。 主要五官未被明显遮挡；普通阴影、眼镜及视线变化不单独算模糊。",
+          "reviewer": "assistant"
+        }
+      ],
+      "after_stratification": [
+        {
+          "sample_id": "qingyunian2_0018",
+          "annotation_id": "qingyunian2_0018_v2_review_1",
+          "person_id": 1,
+          "image_sha256": "8c4e084520d646615a804fb5436f2fc92b851071e2a5fea7a00671a3113b59a2",
+          "face_orientation": "front",
+          "visibility": "clear",
+          "note": "头部接近正面，双眼位置大致对称；视线方向不等于头部朝向。 主要五官未被明显遮挡；普通阴影、眼镜及视线变化不单独算模糊。",
+          "reviewer": "assistant"
+        },
+        {
+          "sample_id": "qingyunian2_0018",
+          "annotation_id": "qingyunian2_0018_v2_review_2",
+          "person_id": 2,
+          "image_sha256": "8c4e084520d646615a804fb5436f2fc92b851071e2a5fea7a00671a3113b59a2",
+          "face_orientation": "front",
+          "visibility": "clear",
+          "note": "头部接近正面，双眼位置大致对称；视线方向不等于头部朝向。 主要五官未被明显遮挡；普通阴影、眼镜及视线变化不单独算模糊。",
+          "reviewer": "assistant"
+        }
+      ],
+      "reference_image": {
+        "path": "reports/2026-11-16-annotation-review/images/qingyunian2_0018.jpg",
+        "sha256": "bbcd97387eb09b0a39b9a65311dc06fb5501b37f12d5cbcb73cebd101fae4df7",
+        "usage": "review_only_not_model_input"
+      },
+      "scoring_policy": {
+        "evaluation_policy": {},
+        "identity_and_geometry_are_separate": true
+      }
+    },
+    {
+      "sample_id": "gongfunvzu_0024",
+      "image_sha256": "d1ef38c70629a80bfa4f24e7e1fbea8f587ef61a6bf124db4e683e1a9f92537a",
+      "before_sample_hash": "e6edbcf74853cf5509048253946f3580afa167fa62491ac2e7b7a919dc4338c9",
+      "after_sample_hash": "d9e1f78318fa5e79f5010846ccedc2f9c46e17bbfb87d928bb70877ba4450c40",
+      "before": {
+        "sample_id": "gongfunvzu_0024",
+        "work_slug": "gongfunvzu",
+        "work_name": "功夫女足",
+        "work_category": "recent_movie",
+        "image_path": "../final/gongfunvzu/gongfunvzu_0024.jpg",
+        "persons": [
+          {
+            "person_id": 1,
+            "bbox": [
+              0.19,
+              0.05,
+              0.84,
+              1
+            ],
+            "character": "双双",
+            "identity_status": "verified",
+            "review_status": "approved",
+            "character_aliases": [
+              "队长双双"
+            ],
+            "evidence": [
+              {
+                "type": "assistant_independent_visual_review",
+                "actor": "assistant",
+                "confirmed": true,
+                "scope": "geometry_and_identity",
+                "reviewed_at": "2026-11-13T04:00:44+00:00",
+                "sample_id": "gongfunvzu_0024",
+                "image_sha256": "d1ef38c70629a80bfa4f24e7e1fbea8f587ef61a6bf124db4e683e1a9f92537a",
+                "observation": "夜场白红边外套女子侧前脸，与双双命名参考对应",
+                "model_predictions_used": false
+              },
+              {
+                "type": "named_character_still",
+                "actor": "assistant",
+                "confirmed": true,
+                "reference_id": "shuangshuang_named_still",
+                "publisher": "1905电影网",
+                "url": "https://www.1905.com/newgallery/hdpic/1762800.shtml#p7",
+                "image_url": "https://image11.m1905.cn/uploadfile/2026/0711/20260711112914616660.jpg",
+                "observation": "夜场白红边外套女子侧前脸，与双双命名参考对应。本批重新目视命名图片，不以继承标签作为确认。",
+                "reference_sha256": "e4be4d72072425011f3d2d7f0475298d3213c4bb69fc83a9a11131c5383f1552",
+                "local_reference": "results/multi/annotation_batches/gongfunvzu_review/references/shuangshuang_named_still_original.jpg",
+                "local_reference_sha256": "e4be4d72072425011f3d2d7f0475298d3213c4bb69fc83a9a11131c5383f1552",
+                "reviewed_this_batch": true
+              },
+              {
+                "type": "assistant_principal_scope_review",
+                "actor": "assistant",
+                "confirmed": true,
+                "reviewed_at": "2026-11-13T06:48:25+00:00",
+                "image_sha256": "d1ef38c70629a80bfa4f24e7e1fbea8f587ef61a6bf124db4e683e1a9f92537a",
+                "scope_policy": "仅纳入清晰、能可靠定名的主要角色；不按所有可定位人形计数，不凑unknown。旁人、虚焦、残缺或缺可靠姓名的人物移入具体ignore_regions；ignore仅属评分元数据，不绘入/发送模型图。foreground_complete表示此主要角色范围已逐图核完，并非全体画中人的穷尽标注。",
+                "observation": "保留主要角色双双；双双为清晰近景主体，保留一人。",
+                "model_predictions_used": false,
+                "review_sheet": "results/multi/annotation_batches/gongfunvzu_review/sheet_3.jpg"
+              }
+            ],
+            "note": "夜场白红边外套女子侧前脸，与双双命名参考对应",
+            "annotation_id": "gongfunvzu_0024_inherited"
+          }
+        ],
+        "ignore_regions": [],
+        "image_width": 1920,
+        "image_height": 804,
+        "image_sha256": "d1ef38c70629a80bfa4f24e7e1fbea8f587ef61a6bf124db4e683e1a9f92537a",
+        "review_status": "approved",
+        "foreground_complete": true,
+        "evidence": [
+          {
+            "type": "v1_inheritance",
+            "source_sample_id": "gongfunvzu_0024",
+            "source_dataset_sha256": "eb4a8b4177f77765db939e6723b67711d5619588bfce6f646a3396cc3b9fd8c7",
+            "image_sha256": "d1ef38c70629a80bfa4f24e7e1fbea8f587ef61a6bf124db4e683e1a9f92537a",
+            "note": "Inherited single-target label; not independent identity verification. Remaining foreground people have not been checked.",
+            "time_seconds": 3063.958
+          },
+          {
+            "type": "assistant_numbered_preview_review",
+            "actor": "assistant",
+            "confirmed": true,
+            "observation": "已检查编号预览与原画面：编号左到右，清晰背身保留unknown；7张近景补足可见肩臂范围。",
+            "preview_sheet": "results/multi/annotation_batches/gongfunvzu_review/boxed_sheet_3.jpg"
+          },
+          {
+            "type": "assistant_principal_scope_review",
+            "actor": "assistant",
+            "confirmed": true,
+            "reviewed_at": "2026-11-13T06:48:25+00:00",
+            "image_sha256": "d1ef38c70629a80bfa4f24e7e1fbea8f587ef61a6bf124db4e683e1a9f92537a",
+            "scope_policy": "仅纳入清晰、能可靠定名的主要角色；不按所有可定位人形计数，不凑unknown。旁人、虚焦、残缺或缺可靠姓名的人物移入具体ignore_regions；ignore仅属评分元数据，不绘入/发送模型图。foreground_complete表示此主要角色范围已逐图核完，并非全体画中人的穷尽标注。",
+            "observation": "双双为清晰近景主体，保留一人。",
+            "model_predictions_used": false,
+            "review_sheet": "results/multi/annotation_batches/gongfunvzu_review/sheet_3.jpg"
+          }
+        ],
+        "note": "主要角色清晰定名范围：双双为清晰近景主体，保留一人。 仅纳入清晰、能可靠定名的主要角色；不按所有可定位人形计数，不凑unknown。旁人、虚焦、残缺或缺可靠姓名的人物移入具体ignore_regions；ignore仅属评分元数据，不绘入/发送模型图。foreground_complete表示此主要角色范围已逐图核完，并非全体画中人的穷尽标注。"
+      },
+      "after": {
+        "sample_id": "gongfunvzu_0024",
+        "work_slug": "gongfunvzu",
+        "work_name": "功夫女足",
+        "work_category": "recent_movie",
+        "image_path": "../final/gongfunvzu/gongfunvzu_0024.jpg",
+        "persons": [
+          {
+            "person_id": 1,
+            "bbox": [
+              0.19,
+              0.05,
+              0.84,
+              1
+            ],
+            "character": "钰珑",
+            "identity_status": "verified",
+            "review_status": "approved",
+            "character_aliases": [],
+            "evidence": [
+              {
+                "type": "user_explicit_identity_confirmation",
+                "actor": "user",
+                "confirmed": true,
+                "review_revision": "user_identity_scope_review_20261116_v1",
+                "text": "用户明确更正：白衣女子为钰珑，并非双双。",
+                "source_image_sha256": "d1ef38c70629a80bfa4f24e7e1fbea8f587ef61a6bf124db4e683e1a9f92537a",
+                "confirmation_scope": "identity_only",
+                "user_confirmed_model_coordinates": false,
+                "at": "2026-11-15T16:49:15.427414+00:00"
+              },
+              {
+                "type": "assistant_geometry_review",
+                "actor": "assistant",
+                "reviewed_original": true,
+                "review_revision": "user_identity_scope_review_20261116_v1",
+                "source_image_sha256": "d1ef38c70629a80bfa4f24e7e1fbea8f587ef61a6bf124db4e683e1a9f92537a",
+                "geometry_source": "existing reviewed person bbox, unchanged",
+                "text": "本轮已打开完整原图，复用原人工框/忽略区可见范围；未使用模型预测坐标作真值。用户确认姓名，不等同确认模型定位。",
+                "user_confirmed_coordinates": false,
+                "at": "2026-11-15T16:49:15.427414+00:00"
+              }
+            ],
+            "note": "用户明确更正：白衣女子为钰珑，并非双双。 姓名更正，人物框未移动；原姓名及证据在revision.before中保留。",
+            "annotation_id": "gongfunvzu_0024_inherited"
+          }
+        ],
+        "ignore_regions": [],
+        "image_width": 1920,
+        "image_height": 804,
+        "image_sha256": "d1ef38c70629a80bfa4f24e7e1fbea8f587ef61a6bf124db4e683e1a9f92537a",
+        "review_status": "approved",
+        "foreground_complete": true,
+        "evidence": [
+          {
+            "type": "v1_inheritance",
+            "source_sample_id": "gongfunvzu_0024",
+            "source_dataset_sha256": "eb4a8b4177f77765db939e6723b67711d5619588bfce6f646a3396cc3b9fd8c7",
+            "image_sha256": "d1ef38c70629a80bfa4f24e7e1fbea8f587ef61a6bf124db4e683e1a9f92537a",
+            "note": "Inherited single-target label; not independent identity verification. Remaining foreground people have not been checked.",
+            "time_seconds": 3063.958
+          },
+          {
+            "type": "assistant_numbered_preview_review",
+            "actor": "assistant",
+            "confirmed": true,
+            "observation": "已检查编号预览与原画面：编号左到右，清晰背身保留unknown；7张近景补足可见肩臂范围。",
+            "preview_sheet": "results/multi/annotation_batches/gongfunvzu_review/boxed_sheet_3.jpg"
+          },
+          {
+            "type": "assistant_principal_scope_review",
+            "actor": "assistant",
+            "confirmed": true,
+            "reviewed_at": "2026-11-13T06:48:25+00:00",
+            "image_sha256": "d1ef38c70629a80bfa4f24e7e1fbea8f587ef61a6bf124db4e683e1a9f92537a",
+            "scope_policy": "仅纳入清晰、能可靠定名的主要角色；不按所有可定位人形计数，不凑unknown。旁人、虚焦、残缺或缺可靠姓名的人物移入具体ignore_regions；ignore仅属评分元数据，不绘入/发送模型图。foreground_complete表示此主要角色范围已逐图核完，并非全体画中人的穷尽标注。",
+            "observation": "双双为清晰近景主体，保留一人。",
+            "model_predictions_used": false,
+            "review_sheet": "results/multi/annotation_batches/gongfunvzu_review/sheet_3.jpg"
+          },
+          {
+            "type": "user_explicit_identity_confirmation",
+            "actor": "user",
+            "confirmed": true,
+            "review_revision": "user_identity_scope_review_20261116_v1",
+            "text": "用户明确更正：白衣女子为钰珑，并非双双。",
+            "source_image_sha256": "d1ef38c70629a80bfa4f24e7e1fbea8f587ef61a6bf124db4e683e1a9f92537a",
+            "confirmation_scope": "identity_and_target_scope_only",
+            "user_confirmed_model_coordinates": false,
+            "at": "2026-11-15T16:49:15.427414+00:00"
+          }
+        ],
+        "note": "2026-11-16 用户逐图复核更正：用户明确更正：白衣女子为钰珑，并非双双。 仅重评既有响应，不调用API；不将姓名命中推断为模型坐标正确。"
+      },
+      "reason": "用户明确更正：白衣女子为钰珑，并非双双。",
+      "user_text": "用户审阅结论转述：用户明确更正：白衣女子为钰珑，并非双双。",
+      "user_evidence": {
+        "type": "explicit_user_review",
+        "recorded_by": "assistant",
+        "is_verbatim_quote": false,
+        "identity_confirmed": true,
+        "model_coordinates_confirmed": false
+      },
+      "reviewed_at": "2026-11-15T16:49:15.427414+00:00",
+      "coordinate_review": {
+        "reviewer": "assistant",
+        "original_image_reopened": true,
+        "source": "unchanged person box or restored historical ignore-region box",
+        "model_boxes_used_as_ground_truth": false,
+        "strict_position_metrics_must_be_recomputed_independently": true
+      },
+      "before_stratification": [
+        {
+          "sample_id": "gongfunvzu_0024",
+          "annotation_id": "gongfunvzu_0024_inherited",
+          "person_id": 1,
+          "image_sha256": "d1ef38c70629a80bfa4f24e7e1fbea8f587ef61a6bf124db4e683e1a9f92537a",
+          "face_orientation": "three_quarter",
+          "visibility": "clear",
+          "note": "明显斜侧，仍可见两眼或大部分五官；主要面部区域可辨。",
+          "reviewer": "assistant"
+        }
+      ],
+      "after_stratification": [
+        {
+          "sample_id": "gongfunvzu_0024",
+          "annotation_id": "gongfunvzu_0024_inherited",
+          "person_id": 1,
+          "image_sha256": "d1ef38c70629a80bfa4f24e7e1fbea8f587ef61a6bf124db4e683e1a9f92537a",
+          "face_orientation": "three_quarter",
+          "visibility": "clear",
+          "note": "明显斜侧，仍可见两眼或大部分五官；主要面部区域可辨。",
+          "reviewer": "assistant"
+        }
+      ],
+      "reference_image": {
+        "path": "reports/2026-11-16-annotation-review/images/gongfunvzu_0024.jpg",
+        "sha256": "3eada4ea16244b66586ccec30bc02bc9e44383ae85a4dd5c0b83f2bfd4a501be",
+        "usage": "review_only_not_model_input"
+      },
+      "scoring_policy": {
+        "evaluation_policy": {},
+        "identity_and_geometry_are_separate": true
+      }
+    },
+    {
+      "sample_id": "gongfunvzu_0029",
+      "image_sha256": "36e446209fda1ba58f021f028d754bb2148be254045428792d05614a02fbe8c2",
+      "before_sample_hash": "969c8abe9533e51f865d914cec8a5da45d3c9d6379e7cadfbf32105321c27039",
+      "after_sample_hash": "396ecd0a5612a7daede2a1f1ba99fd7c20f2b63d8640f36a11d0f590dd0ce942",
+      "before": {
+        "sample_id": "gongfunvzu_0029",
+        "work_slug": "gongfunvzu",
+        "work_name": "功夫女足",
+        "work_category": "recent_movie",
+        "image_path": "../final/gongfunvzu/gongfunvzu_0029.jpg",
+        "persons": [
+          {
+            "person_id": 1,
+            "bbox": [
+              0.05,
+              0.05,
+              0.755,
+              1
+            ],
+            "character": "钰珑",
+            "identity_status": "verified",
+            "review_status": "approved",
+            "character_aliases": [],
+            "evidence": [
+              {
+                "type": "user_explicit_identity_correction",
+                "reviewer": "user",
+                "confirmed": true,
+                "reviewed_at": "2026-11-15T05:08:59.981731+00:00",
+                "image_sha256": "36e446209fda1ba58f021f028d754bb2148be254045428792d05614a02fbe8c2",
+                "annotation_id": "gongfunvzu_0029_inherited",
+                "previous_character": "师太",
+                "corrected_character": "钰珑",
+                "text": "这两张里面的白衣服都是钰珑",
+                "source": "本次用户消息及所附15张功夫女足HTML截图；0029前排白衣女子、0030左侧白衣女子均为钰珑。",
+                "model_predictions_used": false
+              }
+            ],
+            "note": "用户逐图复核明确更正：本图1号白外套女子为钰珑；撤回先前师太标注及相关人物参考比对证据。人物框与图片保持不变。",
+            "annotation_id": "gongfunvzu_0029_inherited"
+          }
+        ],
+        "ignore_regions": [
+          {
+            "bbox": [
+              0.82,
+              0,
+              0.99,
+              0.7
+            ],
+            "reason": "右后工作人员严重失焦且被前排遮挡，人物细节不可可靠区分",
+            "evidence": [
+              {
+                "type": "assistant_visual_scope_review",
+                "actor": "assistant",
+                "confirmed": true,
+                "image_sha256": "36e446209fda1ba58f021f028d754bb2148be254045428792d05614a02fbe8c2",
+                "observation": "右后工作人员严重失焦且被前排遮挡，人物细节不可可靠区分"
+              }
+            ]
+          },
+          {
+            "bbox": [
+              0.64,
+              0.02,
+              0.94,
+              1
+            ],
+            "reason": "右后双双虽已有独立verified姓名，但相对前排钰珑明显失焦且在后景，按用户清晰主要角色范围移出红框；本修订不否认其身份。",
+            "evidence": [
+              {
+                "type": "assistant_principal_scope_review",
+                "actor": "assistant",
+                "confirmed": true,
+                "reviewed_at": "2026-11-13T06:48:25+00:00",
+                "image_sha256": "36e446209fda1ba58f021f028d754bb2148be254045428792d05614a02fbe8c2",
+                "scope_policy": "仅纳入清晰、能可靠定名的主要角色；不按所有可定位人形计数，不凑unknown。旁人、虚焦、残缺或缺可靠姓名的人物移入具体ignore_regions；ignore仅属评分元数据，不绘入/发送模型图。foreground_complete表示此主要角色范围已逐图核完，并非全体画中人的穷尽标注。",
+                "observation": "右后双双虽已有独立verified姓名，但相对前排钰珑明显失焦且在后景，按用户清晰主要角色范围移出红框；本修订不否认其身份。",
+                "model_predictions_used": false,
+                "review_sheet": "results/multi/annotation_batches/gongfunvzu_review/sheet_4.jpg",
+                "previous_annotation_id": "gongfunvzu_0029_assistant_multi_02",
+                "previous_person_id": 2,
+                "identity_text_corrected_at": "2026-11-15T05:08:59.981731+00:00",
+                "identity_text_correction_source": "user_explicit_identity_correction"
+              }
+            ]
+          }
+        ],
+        "image_width": 1920,
+        "image_height": 804,
+        "image_sha256": "36e446209fda1ba58f021f028d754bb2148be254045428792d05614a02fbe8c2",
+        "review_status": "approved",
+        "foreground_complete": true,
+        "evidence": [
+          {
+            "type": "v1_inheritance",
+            "source_sample_id": "gongfunvzu_0029",
+            "source_dataset_sha256": "eb4a8b4177f77765db939e6723b67711d5619588bfce6f646a3396cc3b9fd8c7",
+            "image_sha256": "36e446209fda1ba58f021f028d754bb2148be254045428792d05614a02fbe8c2",
+            "note": "Inherited single-target label; not independent identity verification. Remaining foreground people have not been checked.",
+            "time_seconds": 3863.624
+          },
+          {
+            "type": "assistant_numbered_preview_review",
+            "actor": "assistant",
+            "confirmed": true,
+            "observation": "已检查编号预览与原画面：编号左到右，清晰背身保留unknown；7张近景补足可见肩臂范围。",
+            "preview_sheet": "results/multi/annotation_batches/gongfunvzu_review/boxed_sheet_4.jpg"
+          },
+          {
+            "type": "assistant_principal_scope_review",
+            "actor": "assistant",
+            "confirmed": true,
+            "reviewed_at": "2026-11-13T06:48:25+00:00",
+            "image_sha256": "36e446209fda1ba58f021f028d754bb2148be254045428792d05614a02fbe8c2",
+            "scope_policy": "仅纳入清晰、能可靠定名的主要角色；不按所有可定位人形计数，不凑unknown。旁人、虚焦、残缺或缺可靠姓名的人物移入具体ignore_regions；ignore仅属评分元数据，不绘入/发送模型图。foreground_complete表示此主要角色范围已逐图核完，并非全体画中人的穷尽标注。",
+            "observation": "重新放大后只保留前排对焦清晰的钰珑；右后双双虽已有verified姓名，但脸部明显失焦且位于后景，本次按清晰主要角色口径移出红框，登记ignore。",
+            "model_predictions_used": false,
+            "review_sheet": "results/multi/annotation_batches/gongfunvzu_review/sheet_4.jpg",
+            "identity_text_corrected_at": "2026-11-15T05:08:59.981731+00:00",
+            "identity_text_correction_source": "user_explicit_identity_correction"
+          },
+          {
+            "type": "user_explicit_identity_correction",
+            "reviewer": "user",
+            "confirmed": true,
+            "reviewed_at": "2026-11-15T05:08:59.981731+00:00",
+            "image_sha256": "36e446209fda1ba58f021f028d754bb2148be254045428792d05614a02fbe8c2",
+            "annotation_id": "gongfunvzu_0029_inherited",
+            "previous_character": "师太",
+            "corrected_character": "钰珑",
+            "text": "这两张里面的白衣服都是钰珑",
+            "source": "本次用户消息及所附15张功夫女足HTML截图；0029前排白衣女子、0030左侧白衣女子均为钰珑。",
+            "model_predictions_used": false
+          }
+        ],
+        "note": "主要角色清晰定名范围：重新放大后只保留前排对焦清晰的钰珑；右后双双虽已有verified姓名，但脸部明显失焦且位于后景，本次按清晰主要角色口径移出红框，登记ignore。 仅纳入清晰、能可靠定名的主要角色；不按所有可定位人形计数，不凑unknown。旁人、虚焦、残缺或缺可靠姓名的人物移入具体ignore_regions；ignore仅属评分元数据，不绘入/发送模型图。foreground_complete表示此主要角色范围已逐图核完，并非全体画中人的穷尽标注。 用户于2026-11-15明确更正本图1号白衣女子为钰珑，旧师太标签已撤回。"
+      },
+      "after": {
+        "sample_id": "gongfunvzu_0029",
+        "work_slug": "gongfunvzu",
+        "work_name": "功夫女足",
+        "work_category": "recent_movie",
+        "image_path": "../final/gongfunvzu/gongfunvzu_0029.jpg",
+        "persons": [
+          {
+            "person_id": 1,
+            "bbox": [
+              0.05,
+              0.05,
+              0.755,
+              1
+            ],
+            "character": "钰珑",
+            "identity_status": "verified",
+            "review_status": "approved",
+            "character_aliases": [],
+            "evidence": [
+              {
+                "type": "user_explicit_identity_correction",
+                "reviewer": "user",
+                "confirmed": true,
+                "reviewed_at": "2026-11-15T05:08:59.981731+00:00",
+                "image_sha256": "36e446209fda1ba58f021f028d754bb2148be254045428792d05614a02fbe8c2",
+                "annotation_id": "gongfunvzu_0029_inherited",
+                "previous_character": "师太",
+                "corrected_character": "钰珑",
+                "text": "这两张里面的白衣服都是钰珑",
+                "source": "本次用户消息及所附15张功夫女足HTML截图；0029前排白衣女子、0030左侧白衣女子均为钰珑。",
+                "model_predictions_used": false
+              }
+            ],
+            "note": "用户逐图复核明确更正：本图1号白外套女子为钰珑；撤回先前师太标注及相关人物参考比对证据。人物框与图片保持不变。",
+            "annotation_id": "gongfunvzu_0029_inherited"
+          },
+          {
+            "person_id": 2,
+            "bbox": [
+              0.64,
+              0.02,
+              0.94,
+              1
+            ],
+            "character": "双双",
+            "identity_status": "verified",
+            "review_status": "approved",
+            "character_aliases": [
+              "队长双双"
+            ],
+            "evidence": [
+              {
+                "type": "user_explicit_identity_confirmation",
+                "actor": "user",
+                "confirmed": true,
+                "review_revision": "user_identity_scope_review_20261116_v1",
+                "text": "用户明确补充：左侧白衣为钰珑，右侧红衣黄背心为双双。",
+                "source_image_sha256": "36e446209fda1ba58f021f028d754bb2148be254045428792d05614a02fbe8c2",
+                "confirmation_scope": "identity_only",
+                "user_confirmed_model_coordinates": false,
+                "at": "2026-11-15T16:49:15.427414+00:00"
+              },
+              {
+                "type": "assistant_geometry_review",
+                "actor": "assistant",
+                "reviewed_original": true,
+                "review_revision": "user_identity_scope_review_20261116_v1",
+                "source_image_sha256": "36e446209fda1ba58f021f028d754bb2148be254045428792d05614a02fbe8c2",
+                "geometry_source": "previous manually drawn ignore-region bbox, re-opened original",
+                "text": "本轮已打开完整原图，复用原人工框/忽略区可见范围；未使用模型预测坐标作真值。用户确认姓名，不等同确认模型定位。",
+                "user_confirmed_coordinates": false,
+                "at": "2026-11-15T16:49:15.427414+00:00"
+              },
+              {
+                "type": "scope_reinstatement",
+                "review_revision": "user_identity_scope_review_20261116_v1",
+                "previous_ignore_region": {
+                  "bbox": [
+                    0.64,
+                    0.02,
+                    0.94,
+                    1
+                  ],
+                  "reason": "右后双双虽已有独立verified姓名，但相对前排钰珑明显失焦且在后景，按用户清晰主要角色范围移出红框；本修订不否认其身份。",
+                  "evidence": [
+                    {
+                      "type": "assistant_principal_scope_review",
+                      "actor": "assistant",
+                      "confirmed": true,
+                      "reviewed_at": "2026-11-13T06:48:25+00:00",
+                      "image_sha256": "36e446209fda1ba58f021f028d754bb2148be254045428792d05614a02fbe8c2",
+                      "scope_policy": "仅纳入清晰、能可靠定名的主要角色；不按所有可定位人形计数，不凑unknown。旁人、虚焦、残缺或缺可靠姓名的人物移入具体ignore_regions；ignore仅属评分元数据，不绘入/发送模型图。foreground_complete表示此主要角色范围已逐图核完，并非全体画中人的穷尽标注。",
+                      "observation": "右后双双虽已有独立verified姓名，但相对前排钰珑明显失焦且在后景，按用户清晰主要角色范围移出红框；本修订不否认其身份。",
+                      "model_predictions_used": false,
+                      "review_sheet": "results/multi/annotation_batches/gongfunvzu_review/sheet_4.jpg",
+                      "previous_annotation_id": "gongfunvzu_0029_assistant_multi_02",
+                      "previous_person_id": 2,
+                      "identity_text_corrected_at": "2026-11-15T05:08:59.981731+00:00",
+                      "identity_text_correction_source": "user_explicit_identity_correction"
+                    }
+                  ]
+                }
+              }
+            ],
+            "note": "用户明确补充：左侧白衣为钰珑，右侧红衣黄背心为双双。 已从旧忽略区恢复；姓名由用户确认，框为助手复核的原可见范围，不代表模型框已正确。",
+            "annotation_id": "gongfunvzu_0029_user_review_20261116_shuangshuang"
+          }
+        ],
+        "ignore_regions": [
+          {
+            "bbox": [
+              0.82,
+              0,
+              0.99,
+              0.7
+            ],
+            "reason": "右后工作人员严重失焦且被前排遮挡，人物细节不可可靠区分",
+            "evidence": [
+              {
+                "type": "assistant_visual_scope_review",
+                "actor": "assistant",
+                "confirmed": true,
+                "image_sha256": "36e446209fda1ba58f021f028d754bb2148be254045428792d05614a02fbe8c2",
+                "observation": "右后工作人员严重失焦且被前排遮挡，人物细节不可可靠区分"
+              }
+            ]
+          }
+        ],
+        "image_width": 1920,
+        "image_height": 804,
+        "image_sha256": "36e446209fda1ba58f021f028d754bb2148be254045428792d05614a02fbe8c2",
+        "review_status": "approved",
+        "foreground_complete": true,
+        "evidence": [
+          {
+            "type": "v1_inheritance",
+            "source_sample_id": "gongfunvzu_0029",
+            "source_dataset_sha256": "eb4a8b4177f77765db939e6723b67711d5619588bfce6f646a3396cc3b9fd8c7",
+            "image_sha256": "36e446209fda1ba58f021f028d754bb2148be254045428792d05614a02fbe8c2",
+            "note": "Inherited single-target label; not independent identity verification. Remaining foreground people have not been checked.",
+            "time_seconds": 3863.624
+          },
+          {
+            "type": "assistant_numbered_preview_review",
+            "actor": "assistant",
+            "confirmed": true,
+            "observation": "已检查编号预览与原画面：编号左到右，清晰背身保留unknown；7张近景补足可见肩臂范围。",
+            "preview_sheet": "results/multi/annotation_batches/gongfunvzu_review/boxed_sheet_4.jpg"
+          },
+          {
+            "type": "assistant_principal_scope_review",
+            "actor": "assistant",
+            "confirmed": true,
+            "reviewed_at": "2026-11-13T06:48:25+00:00",
+            "image_sha256": "36e446209fda1ba58f021f028d754bb2148be254045428792d05614a02fbe8c2",
+            "scope_policy": "仅纳入清晰、能可靠定名的主要角色；不按所有可定位人形计数，不凑unknown。旁人、虚焦、残缺或缺可靠姓名的人物移入具体ignore_regions；ignore仅属评分元数据，不绘入/发送模型图。foreground_complete表示此主要角色范围已逐图核完，并非全体画中人的穷尽标注。",
+            "observation": "重新放大后只保留前排对焦清晰的钰珑；右后双双虽已有verified姓名，但脸部明显失焦且位于后景，本次按清晰主要角色口径移出红框，登记ignore。",
+            "model_predictions_used": false,
+            "review_sheet": "results/multi/annotation_batches/gongfunvzu_review/sheet_4.jpg",
+            "identity_text_corrected_at": "2026-11-15T05:08:59.981731+00:00",
+            "identity_text_correction_source": "user_explicit_identity_correction"
+          },
+          {
+            "type": "user_explicit_identity_correction",
+            "reviewer": "user",
+            "confirmed": true,
+            "reviewed_at": "2026-11-15T05:08:59.981731+00:00",
+            "image_sha256": "36e446209fda1ba58f021f028d754bb2148be254045428792d05614a02fbe8c2",
+            "annotation_id": "gongfunvzu_0029_inherited",
+            "previous_character": "师太",
+            "corrected_character": "钰珑",
+            "text": "这两张里面的白衣服都是钰珑",
+            "source": "本次用户消息及所附15张功夫女足HTML截图；0029前排白衣女子、0030左侧白衣女子均为钰珑。",
+            "model_predictions_used": false
+          },
+          {
+            "type": "user_explicit_identity_confirmation",
+            "actor": "user",
+            "confirmed": true,
+            "review_revision": "user_identity_scope_review_20261116_v1",
+            "text": "用户明确补充：左侧白衣为钰珑，右侧红衣黄背心为双双。",
+            "source_image_sha256": "36e446209fda1ba58f021f028d754bb2148be254045428792d05614a02fbe8c2",
+            "confirmation_scope": "identity_and_target_scope_only",
+            "user_confirmed_model_coordinates": false,
+            "at": "2026-11-15T16:49:15.427414+00:00"
+          }
+        ],
+        "note": "2026-11-16 用户逐图复核更正：用户明确补充：左侧白衣为钰珑，右侧红衣黄背心为双双。 仅重评既有响应，不调用API；不将姓名命中推断为模型坐标正确。"
+      },
+      "reason": "用户明确补充：左侧白衣为钰珑，右侧红衣黄背心为双双。",
+      "user_text": "用户审阅结论转述：用户明确补充：左侧白衣为钰珑，右侧红衣黄背心为双双。",
+      "user_evidence": {
+        "type": "explicit_user_review",
+        "recorded_by": "assistant",
+        "is_verbatim_quote": false,
+        "identity_confirmed": true,
+        "model_coordinates_confirmed": false
+      },
+      "reviewed_at": "2026-11-15T16:49:15.427414+00:00",
+      "coordinate_review": {
+        "reviewer": "assistant",
+        "original_image_reopened": true,
+        "source": "unchanged person box or restored historical ignore-region box",
+        "model_boxes_used_as_ground_truth": false,
+        "strict_position_metrics_must_be_recomputed_independently": true
+      },
+      "before_stratification": [
+        {
+          "sample_id": "gongfunvzu_0029",
+          "annotation_id": "gongfunvzu_0029_inherited",
+          "person_id": 1,
+          "image_sha256": "36e446209fda1ba58f021f028d754bb2148be254045428792d05614a02fbe8c2",
+          "face_orientation": "front",
+          "visibility": "clear",
+          "note": "双手放在头上，没有明显覆盖双眼、鼻口，面部可辨。",
+          "reviewer": "assistant"
+        }
+      ],
+      "after_stratification": [
+        {
+          "sample_id": "gongfunvzu_0029",
+          "annotation_id": "gongfunvzu_0029_inherited",
+          "person_id": 1,
+          "image_sha256": "36e446209fda1ba58f021f028d754bb2148be254045428792d05614a02fbe8c2",
+          "face_orientation": "front",
+          "visibility": "clear",
+          "note": "双手放在头上，没有明显覆盖双眼、鼻口，面部可辨。",
+          "reviewer": "assistant"
+        },
+        {
+          "sample_id": "gongfunvzu_0029",
+          "annotation_id": "gongfunvzu_0029_user_review_20261116_shuangshuang",
+          "person_id": 2,
+          "image_sha256": "36e446209fda1ba58f021f028d754bb2148be254045428792d05614a02fbe8c2",
+          "face_orientation": "three_quarter",
+          "visibility": "occluded_or_blurry",
+          "note": "右后人物斜侧朝上，五官可见但比左侧主体明显虚焦。 2026-11-16仅按原图标统计类别，与模型回答无关。",
+          "reviewer": "assistant"
+        }
+      ],
+      "reference_image": {
+        "path": "reports/2026-11-16-annotation-review/images/gongfunvzu_0029.jpg",
+        "sha256": "c177e93654e761c4febee928de167e04de6113c601d9a698ab18ca7f00818178",
+        "usage": "review_only_not_model_input"
+      },
+      "scoring_policy": {
+        "evaluation_policy": {},
+        "identity_and_geometry_are_separate": true
+      }
+    },
+    {
+      "sample_id": "gongfunvzu_0013",
+      "image_sha256": "a201866cb72ab12c9cc29c5c966c2775bf4baea5e3986a7ee29a1095862031db",
+      "before_sample_hash": "3d7fdfc17ec063332dbcb56494f581663826cdfd510b090f909532715983282e",
+      "after_sample_hash": "5a05535c760d9ca8aacad4fe942db218a2a2cc635b6182b95dc2c08b8b7e2bfa",
+      "before": {
+        "sample_id": "gongfunvzu_0013",
+        "work_slug": "gongfunvzu",
+        "work_name": "功夫女足",
+        "work_category": "recent_movie",
+        "image_path": "../final/gongfunvzu/gongfunvzu_0013.jpg",
+        "persons": [
+          {
+            "person_id": 1,
+            "bbox": [
+              0.339,
+              0,
+              0.817,
+              1
+            ],
+            "character": "双双",
+            "identity_status": "verified",
+            "review_status": "approved",
+            "character_aliases": [
+              "队长双双"
+            ],
+            "evidence": [
+              {
+                "type": "assistant_independent_visual_review",
+                "actor": "assistant",
+                "confirmed": true,
+                "scope": "geometry_and_identity",
+                "reviewed_at": "2026-11-13T04:00:44+00:00",
+                "sample_id": "gongfunvzu_0013",
+                "image_sha256": "a201866cb72ab12c9cc29c5c966c2775bf4baea5e3986a7ee29a1095862031db",
+                "observation": "中前红10号队长女子，五官与双双命名剧照对应",
+                "model_predictions_used": false
+              },
+              {
+                "type": "named_character_still",
+                "actor": "assistant",
+                "confirmed": true,
+                "reference_id": "shuangshuang_named_still",
+                "publisher": "1905电影网",
+                "url": "https://www.1905.com/newgallery/hdpic/1762800.shtml#p7",
+                "image_url": "https://image11.m1905.cn/uploadfile/2026/0711/20260711112914616660.jpg",
+                "observation": "中前红10号队长女子，五官与双双命名剧照对应。本批重新目视命名图片，不以继承标签作为确认。",
+                "reference_sha256": "e4be4d72072425011f3d2d7f0475298d3213c4bb69fc83a9a11131c5383f1552",
+                "local_reference": "results/multi/annotation_batches/gongfunvzu_review/references/shuangshuang_named_still_original.jpg",
+                "local_reference_sha256": "e4be4d72072425011f3d2d7f0475298d3213c4bb69fc83a9a11131c5383f1552",
+                "reviewed_this_batch": true
+              },
+              {
+                "type": "assistant_principal_scope_review",
+                "actor": "assistant",
+                "confirmed": true,
+                "reviewed_at": "2026-11-13T06:48:25+00:00",
+                "image_sha256": "a201866cb72ab12c9cc29c5c966c2775bf4baea5e3986a7ee29a1095862031db",
+                "scope_policy": "仅纳入清晰、能可靠定名的主要角色；不按所有可定位人形计数，不凑unknown。旁人、虚焦、残缺或缺可靠姓名的人物移入具体ignore_regions；ignore仅属评分元数据，不绘入/发送模型图。foreground_complete表示此主要角色范围已逐图核完，并非全体画中人的穷尽标注。",
+                "observation": "保留主要角色双双；保留中心正面双双；左前背头、右侧被裁切哭泣队员和其后小脸无足够可靠姓名证据，不猜身份，改为ignore。",
+                "model_predictions_used": false,
+                "review_sheet": "results/multi/annotation_batches/gongfunvzu_review/sheet_2.jpg"
+              }
+            ],
+            "note": "中前红10号队长女子，五官与双双命名剧照对应",
+            "annotation_id": "gongfunvzu_0013_inherited"
+          }
+        ],
+        "ignore_regions": [
+          {
+            "bbox": [
+              0.337,
+              0.39,
+              0.477,
+              1
+            ],
+            "reason": "中心人物身后仅有红6号球衣与手臂碎片，头部完全被挡，无法可靠分出完整独立人物",
+            "evidence": [
+              {
+                "type": "assistant_visual_scope_review",
+                "actor": "assistant",
+                "confirmed": true,
+                "image_sha256": "a201866cb72ab12c9cc29c5c966c2775bf4baea5e3986a7ee29a1095862031db",
+                "observation": "中心人物身后仅有红6号球衣与手臂碎片，头部完全被挡，无法可靠分出完整独立人物"
+              }
+            ]
+          },
+          {
+            "bbox": [
+              0,
+              0,
+              0.415,
+              1
+            ],
+            "reason": "左前红球衣背身人物，清晰可分离但面部不可核实，保留unknown；按用户新主要角色范围移出红框，不作为unknown目标或C的普通误检。",
+            "evidence": [
+              {
+                "type": "assistant_principal_scope_review",
+                "actor": "assistant",
+                "confirmed": true,
+                "reviewed_at": "2026-11-13T06:48:25+00:00",
+                "image_sha256": "a201866cb72ab12c9cc29c5c966c2775bf4baea5e3986a7ee29a1095862031db",
+                "scope_policy": "仅纳入清晰、能可靠定名的主要角色；不按所有可定位人形计数，不凑unknown。旁人、虚焦、残缺或缺可靠姓名的人物移入具体ignore_regions；ignore仅属评分元数据，不绘入/发送模型图。foreground_complete表示此主要角色范围已逐图核完，并非全体画中人的穷尽标注。",
+                "observation": "左前红球衣背身人物，清晰可分离但面部不可核实，保留unknown；按用户新主要角色范围移出红框，不作为unknown目标或C的普通误检。",
+                "model_predictions_used": false,
+                "review_sheet": "results/multi/annotation_batches/gongfunvzu_review/sheet_2.jpg",
+                "previous_annotation_id": "gongfunvzu_0013_assistant_multi_01",
+                "previous_person_id": 1
+              }
+            ]
+          },
+          {
+            "bbox": [
+              0.755,
+              0,
+              1,
+              1
+            ],
+            "reason": "右侧哭泣红衣女子，可见脸及上身，未据服装猜姓名；按用户新主要角色范围移出红框，不作为unknown目标或C的普通误检。",
+            "evidence": [
+              {
+                "type": "assistant_principal_scope_review",
+                "actor": "assistant",
+                "confirmed": true,
+                "reviewed_at": "2026-11-13T06:48:25+00:00",
+                "image_sha256": "a201866cb72ab12c9cc29c5c966c2775bf4baea5e3986a7ee29a1095862031db",
+                "scope_policy": "仅纳入清晰、能可靠定名的主要角色；不按所有可定位人形计数，不凑unknown。旁人、虚焦、残缺或缺可靠姓名的人物移入具体ignore_regions；ignore仅属评分元数据，不绘入/发送模型图。foreground_complete表示此主要角色范围已逐图核完，并非全体画中人的穷尽标注。",
+                "observation": "右侧哭泣红衣女子，可见脸及上身，未据服装猜姓名；按用户新主要角色范围移出红框，不作为unknown目标或C的普通误检。",
+                "model_predictions_used": false,
+                "review_sheet": "results/multi/annotation_batches/gongfunvzu_review/sheet_2.jpg",
+                "previous_annotation_id": "gongfunvzu_0013_assistant_multi_03",
+                "previous_person_id": 3
+              }
+            ]
+          },
+          {
+            "bbox": [
+              0.79,
+              0,
+              0.889,
+              0.44
+            ],
+            "reason": "右后露出头脸的女子，与前方哭泣者是分离头部，姓名未知；按用户新主要角色范围移出红框，不作为unknown目标或C的普通误检。",
+            "evidence": [
+              {
+                "type": "assistant_principal_scope_review",
+                "actor": "assistant",
+                "confirmed": true,
+                "reviewed_at": "2026-11-13T06:48:25+00:00",
+                "image_sha256": "a201866cb72ab12c9cc29c5c966c2775bf4baea5e3986a7ee29a1095862031db",
+                "scope_policy": "仅纳入清晰、能可靠定名的主要角色；不按所有可定位人形计数，不凑unknown。旁人、虚焦、残缺或缺可靠姓名的人物移入具体ignore_regions；ignore仅属评分元数据，不绘入/发送模型图。foreground_complete表示此主要角色范围已逐图核完，并非全体画中人的穷尽标注。",
+                "observation": "右后露出头脸的女子，与前方哭泣者是分离头部，姓名未知；按用户新主要角色范围移出红框，不作为unknown目标或C的普通误检。",
+                "model_predictions_used": false,
+                "review_sheet": "results/multi/annotation_batches/gongfunvzu_review/sheet_2.jpg",
+                "previous_annotation_id": "gongfunvzu_0013_assistant_multi_04",
+                "previous_person_id": 4
+              }
+            ]
+          }
+        ],
+        "image_width": 1920,
+        "image_height": 804,
+        "image_sha256": "a201866cb72ab12c9cc29c5c966c2775bf4baea5e3986a7ee29a1095862031db",
+        "review_status": "approved",
+        "foreground_complete": true,
+        "evidence": [
+          {
+            "type": "v1_inheritance",
+            "source_sample_id": "gongfunvzu_0013",
+            "source_dataset_sha256": "eb4a8b4177f77765db939e6723b67711d5619588bfce6f646a3396cc3b9fd8c7",
+            "image_sha256": "a201866cb72ab12c9cc29c5c966c2775bf4baea5e3986a7ee29a1095862031db",
+            "note": "Inherited single-target label; not independent identity verification. Remaining foreground people have not been checked.",
+            "time_seconds": 1499.291
+          },
+          {
+            "type": "assistant_numbered_preview_review",
+            "actor": "assistant",
+            "confirmed": true,
+            "observation": "已检查编号预览与原画面：编号左到右，清晰背身保留unknown；7张近景补足可见肩臂范围。",
+            "preview_sheet": "results/multi/annotation_batches/gongfunvzu_review/boxed_sheet_2.jpg"
+          },
+          {
+            "type": "assistant_principal_scope_review",
+            "actor": "assistant",
+            "confirmed": true,
+            "reviewed_at": "2026-11-13T06:48:25+00:00",
+            "image_sha256": "a201866cb72ab12c9cc29c5c966c2775bf4baea5e3986a7ee29a1095862031db",
+            "scope_policy": "仅纳入清晰、能可靠定名的主要角色；不按所有可定位人形计数，不凑unknown。旁人、虚焦、残缺或缺可靠姓名的人物移入具体ignore_regions；ignore仅属评分元数据，不绘入/发送模型图。foreground_complete表示此主要角色范围已逐图核完，并非全体画中人的穷尽标注。",
+            "observation": "保留中心正面双双；左前背头、右侧被裁切哭泣队员和其后小脸无足够可靠姓名证据，不猜身份，改为ignore。",
+            "model_predictions_used": false,
+            "review_sheet": "results/multi/annotation_batches/gongfunvzu_review/sheet_2.jpg"
+          }
+        ],
+        "note": "主要角色清晰定名范围：保留中心正面双双；左前背头、右侧被裁切哭泣队员和其后小脸无足够可靠姓名证据，不猜身份，改为ignore。 仅纳入清晰、能可靠定名的主要角色；不按所有可定位人形计数，不凑unknown。旁人、虚焦、残缺或缺可靠姓名的人物移入具体ignore_regions；ignore仅属评分元数据，不绘入/发送模型图。foreground_complete表示此主要角色范围已逐图核完，并非全体画中人的穷尽标注。"
+      },
+      "after": {
+        "sample_id": "gongfunvzu_0013",
+        "work_slug": "gongfunvzu",
+        "work_name": "功夫女足",
+        "work_category": "recent_movie",
+        "image_path": "../final/gongfunvzu/gongfunvzu_0013.jpg",
+        "persons": [
+          {
+            "person_id": 1,
+            "bbox": [
+              0.339,
+              0,
+              0.817,
+              1
+            ],
+            "character": "双双",
+            "identity_status": "verified",
+            "review_status": "approved",
+            "character_aliases": [
+              "队长双双"
+            ],
+            "evidence": [
+              {
+                "type": "assistant_independent_visual_review",
+                "actor": "assistant",
+                "confirmed": true,
+                "scope": "geometry_and_identity",
+                "reviewed_at": "2026-11-13T04:00:44+00:00",
+                "sample_id": "gongfunvzu_0013",
+                "image_sha256": "a201866cb72ab12c9cc29c5c966c2775bf4baea5e3986a7ee29a1095862031db",
+                "observation": "中前红10号队长女子，五官与双双命名剧照对应",
+                "model_predictions_used": false
+              },
+              {
+                "type": "named_character_still",
+                "actor": "assistant",
+                "confirmed": true,
+                "reference_id": "shuangshuang_named_still",
+                "publisher": "1905电影网",
+                "url": "https://www.1905.com/newgallery/hdpic/1762800.shtml#p7",
+                "image_url": "https://image11.m1905.cn/uploadfile/2026/0711/20260711112914616660.jpg",
+                "observation": "中前红10号队长女子，五官与双双命名剧照对应。本批重新目视命名图片，不以继承标签作为确认。",
+                "reference_sha256": "e4be4d72072425011f3d2d7f0475298d3213c4bb69fc83a9a11131c5383f1552",
+                "local_reference": "results/multi/annotation_batches/gongfunvzu_review/references/shuangshuang_named_still_original.jpg",
+                "local_reference_sha256": "e4be4d72072425011f3d2d7f0475298d3213c4bb69fc83a9a11131c5383f1552",
+                "reviewed_this_batch": true
+              },
+              {
+                "type": "assistant_principal_scope_review",
+                "actor": "assistant",
+                "confirmed": true,
+                "reviewed_at": "2026-11-13T06:48:25+00:00",
+                "image_sha256": "a201866cb72ab12c9cc29c5c966c2775bf4baea5e3986a7ee29a1095862031db",
+                "scope_policy": "仅纳入清晰、能可靠定名的主要角色；不按所有可定位人形计数，不凑unknown。旁人、虚焦、残缺或缺可靠姓名的人物移入具体ignore_regions；ignore仅属评分元数据，不绘入/发送模型图。foreground_complete表示此主要角色范围已逐图核完，并非全体画中人的穷尽标注。",
+                "observation": "保留主要角色双双；保留中心正面双双；左前背头、右侧被裁切哭泣队员和其后小脸无足够可靠姓名证据，不猜身份，改为ignore。",
+                "model_predictions_used": false,
+                "review_sheet": "results/multi/annotation_batches/gongfunvzu_review/sheet_2.jpg"
+              }
+            ],
+            "note": "中前红10号队长女子，五官与双双命名剧照对应",
+            "annotation_id": "gongfunvzu_0013_inherited"
+          },
+          {
+            "person_id": 2,
+            "bbox": [
+              0.755,
+              0,
+              1,
+              1
+            ],
+            "character": "钰珑",
+            "identity_status": "verified",
+            "review_status": "approved",
+            "character_aliases": [],
+            "evidence": [
+              {
+                "type": "user_explicit_identity_confirmation",
+                "actor": "user",
+                "confirmed": true,
+                "review_revision": "user_identity_scope_review_20261116_v1",
+                "text": "用户明确确认：中间双双、右侧钰珑，其他旁人可为null。",
+                "source_image_sha256": "a201866cb72ab12c9cc29c5c966c2775bf4baea5e3986a7ee29a1095862031db",
+                "confirmation_scope": "identity_only",
+                "user_confirmed_model_coordinates": false,
+                "at": "2026-11-15T16:49:15.427414+00:00"
+              },
+              {
+                "type": "assistant_geometry_review",
+                "actor": "assistant",
+                "reviewed_original": true,
+                "review_revision": "user_identity_scope_review_20261116_v1",
+                "source_image_sha256": "a201866cb72ab12c9cc29c5c966c2775bf4baea5e3986a7ee29a1095862031db",
+                "geometry_source": "previous manually drawn ignore-region bbox, re-opened original",
+                "text": "本轮已打开完整原图，复用原人工框/忽略区可见范围；未使用模型预测坐标作真值。用户确认姓名，不等同确认模型定位。",
+                "user_confirmed_coordinates": false,
+                "at": "2026-11-15T16:49:15.427414+00:00"
+              },
+              {
+                "type": "scope_reinstatement",
+                "review_revision": "user_identity_scope_review_20261116_v1",
+                "previous_ignore_region": {
+                  "bbox": [
+                    0.755,
+                    0,
+                    1,
+                    1
+                  ],
+                  "reason": "右侧哭泣红衣女子，可见脸及上身，未据服装猜姓名；按用户新主要角色范围移出红框，不作为unknown目标或C的普通误检。",
+                  "evidence": [
+                    {
+                      "type": "assistant_principal_scope_review",
+                      "actor": "assistant",
+                      "confirmed": true,
+                      "reviewed_at": "2026-11-13T06:48:25+00:00",
+                      "image_sha256": "a201866cb72ab12c9cc29c5c966c2775bf4baea5e3986a7ee29a1095862031db",
+                      "scope_policy": "仅纳入清晰、能可靠定名的主要角色；不按所有可定位人形计数，不凑unknown。旁人、虚焦、残缺或缺可靠姓名的人物移入具体ignore_regions；ignore仅属评分元数据，不绘入/发送模型图。foreground_complete表示此主要角色范围已逐图核完，并非全体画中人的穷尽标注。",
+                      "observation": "右侧哭泣红衣女子，可见脸及上身，未据服装猜姓名；按用户新主要角色范围移出红框，不作为unknown目标或C的普通误检。",
+                      "model_predictions_used": false,
+                      "review_sheet": "results/multi/annotation_batches/gongfunvzu_review/sheet_2.jpg",
+                      "previous_annotation_id": "gongfunvzu_0013_assistant_multi_03",
+                      "previous_person_id": 3
+                    }
+                  ]
+                }
+              }
+            ],
+            "note": "用户明确确认：中间双双、右侧钰珑，其他旁人可为null。 已从旧忽略区恢复；姓名由用户确认，框为助手复核的原可见范围，不代表模型框已正确。",
+            "annotation_id": "gongfunvzu_0013_user_review_20261116_yulong"
+          }
+        ],
+        "ignore_regions": [
+          {
+            "bbox": [
+              0.337,
+              0.39,
+              0.477,
+              1
+            ],
+            "reason": "中心人物身后仅有红6号球衣与手臂碎片，头部完全被挡，无法可靠分出完整独立人物 2026-11-16用户接受这些旁人未定名或返回null，不要求额外身份。",
+            "evidence": [
+              {
+                "type": "assistant_visual_scope_review",
+                "actor": "assistant",
+                "confirmed": true,
+                "image_sha256": "a201866cb72ab12c9cc29c5c966c2775bf4baea5e3986a7ee29a1095862031db",
+                "observation": "中心人物身后仅有红6号球衣与手臂碎片，头部完全被挡，无法可靠分出完整独立人物"
+              }
+            ]
+          },
+          {
+            "bbox": [
+              0,
+              0,
+              0.415,
+              1
+            ],
+            "reason": "左前红球衣背身人物，清晰可分离但面部不可核实，保留unknown；按用户新主要角色范围移出红框，不作为unknown目标或C的普通误检。 2026-11-16用户接受这些旁人未定名或返回null，不要求额外身份。",
+            "evidence": [
+              {
+                "type": "assistant_principal_scope_review",
+                "actor": "assistant",
+                "confirmed": true,
+                "reviewed_at": "2026-11-13T06:48:25+00:00",
+                "image_sha256": "a201866cb72ab12c9cc29c5c966c2775bf4baea5e3986a7ee29a1095862031db",
+                "scope_policy": "仅纳入清晰、能可靠定名的主要角色；不按所有可定位人形计数，不凑unknown。旁人、虚焦、残缺或缺可靠姓名的人物移入具体ignore_regions；ignore仅属评分元数据，不绘入/发送模型图。foreground_complete表示此主要角色范围已逐图核完，并非全体画中人的穷尽标注。",
+                "observation": "左前红球衣背身人物，清晰可分离但面部不可核实，保留unknown；按用户新主要角色范围移出红框，不作为unknown目标或C的普通误检。",
+                "model_predictions_used": false,
+                "review_sheet": "results/multi/annotation_batches/gongfunvzu_review/sheet_2.jpg",
+                "previous_annotation_id": "gongfunvzu_0013_assistant_multi_01",
+                "previous_person_id": 1
+              }
+            ]
+          },
+          {
+            "bbox": [
+              0.79,
+              0,
+              0.889,
+              0.44
+            ],
+            "reason": "右后露出头脸的女子，与前方哭泣者是分离头部，姓名未知；按用户新主要角色范围移出红框，不作为unknown目标或C的普通误检。 2026-11-16用户接受这些旁人未定名或返回null，不要求额外身份。",
+            "evidence": [
+              {
+                "type": "assistant_principal_scope_review",
+                "actor": "assistant",
+                "confirmed": true,
+                "reviewed_at": "2026-11-13T06:48:25+00:00",
+                "image_sha256": "a201866cb72ab12c9cc29c5c966c2775bf4baea5e3986a7ee29a1095862031db",
+                "scope_policy": "仅纳入清晰、能可靠定名的主要角色；不按所有可定位人形计数，不凑unknown。旁人、虚焦、残缺或缺可靠姓名的人物移入具体ignore_regions；ignore仅属评分元数据，不绘入/发送模型图。foreground_complete表示此主要角色范围已逐图核完，并非全体画中人的穷尽标注。",
+                "observation": "右后露出头脸的女子，与前方哭泣者是分离头部，姓名未知；按用户新主要角色范围移出红框，不作为unknown目标或C的普通误检。",
+                "model_predictions_used": false,
+                "review_sheet": "results/multi/annotation_batches/gongfunvzu_review/sheet_2.jpg",
+                "previous_annotation_id": "gongfunvzu_0013_assistant_multi_04",
+                "previous_person_id": 4
+              }
+            ]
+          }
+        ],
+        "image_width": 1920,
+        "image_height": 804,
+        "image_sha256": "a201866cb72ab12c9cc29c5c966c2775bf4baea5e3986a7ee29a1095862031db",
+        "review_status": "approved",
+        "foreground_complete": true,
+        "evidence": [
+          {
+            "type": "v1_inheritance",
+            "source_sample_id": "gongfunvzu_0013",
+            "source_dataset_sha256": "eb4a8b4177f77765db939e6723b67711d5619588bfce6f646a3396cc3b9fd8c7",
+            "image_sha256": "a201866cb72ab12c9cc29c5c966c2775bf4baea5e3986a7ee29a1095862031db",
+            "note": "Inherited single-target label; not independent identity verification. Remaining foreground people have not been checked.",
+            "time_seconds": 1499.291
+          },
+          {
+            "type": "assistant_numbered_preview_review",
+            "actor": "assistant",
+            "confirmed": true,
+            "observation": "已检查编号预览与原画面：编号左到右，清晰背身保留unknown；7张近景补足可见肩臂范围。",
+            "preview_sheet": "results/multi/annotation_batches/gongfunvzu_review/boxed_sheet_2.jpg"
+          },
+          {
+            "type": "assistant_principal_scope_review",
+            "actor": "assistant",
+            "confirmed": true,
+            "reviewed_at": "2026-11-13T06:48:25+00:00",
+            "image_sha256": "a201866cb72ab12c9cc29c5c966c2775bf4baea5e3986a7ee29a1095862031db",
+            "scope_policy": "仅纳入清晰、能可靠定名的主要角色；不按所有可定位人形计数，不凑unknown。旁人、虚焦、残缺或缺可靠姓名的人物移入具体ignore_regions；ignore仅属评分元数据，不绘入/发送模型图。foreground_complete表示此主要角色范围已逐图核完，并非全体画中人的穷尽标注。",
+            "observation": "保留中心正面双双；左前背头、右侧被裁切哭泣队员和其后小脸无足够可靠姓名证据，不猜身份，改为ignore。",
+            "model_predictions_used": false,
+            "review_sheet": "results/multi/annotation_batches/gongfunvzu_review/sheet_2.jpg"
+          },
+          {
+            "type": "user_explicit_identity_confirmation",
+            "actor": "user",
+            "confirmed": true,
+            "review_revision": "user_identity_scope_review_20261116_v1",
+            "text": "用户明确确认：中间双双、右侧钰珑，其他旁人可为null。",
+            "source_image_sha256": "a201866cb72ab12c9cc29c5c966c2775bf4baea5e3986a7ee29a1095862031db",
+            "confirmation_scope": "identity_and_target_scope_only",
+            "user_confirmed_model_coordinates": false,
+            "at": "2026-11-15T16:49:15.427414+00:00"
+          }
+        ],
+        "note": "2026-11-16 用户逐图复核更正：用户明确确认：中间双双、右侧钰珑，其他旁人可为null。 仅重评既有响应，不调用API；不将姓名命中推断为模型坐标正确。"
+      },
+      "reason": "用户明确确认：中间双双、右侧钰珑，其他旁人可为null。",
+      "user_text": "用户审阅结论转述：用户明确确认：中间双双、右侧钰珑，其他旁人可为null。",
+      "user_evidence": {
+        "type": "explicit_user_review",
+        "recorded_by": "assistant",
+        "is_verbatim_quote": false,
+        "identity_confirmed": true,
+        "model_coordinates_confirmed": false
+      },
+      "reviewed_at": "2026-11-15T16:49:15.427414+00:00",
+      "coordinate_review": {
+        "reviewer": "assistant",
+        "original_image_reopened": true,
+        "source": "unchanged person box or restored historical ignore-region box",
+        "model_boxes_used_as_ground_truth": false,
+        "strict_position_metrics_must_be_recomputed_independently": true
+      },
+      "before_stratification": [
+        {
+          "sample_id": "gongfunvzu_0013",
+          "annotation_id": "gongfunvzu_0013_inherited",
+          "person_id": 1,
+          "image_sha256": "a201866cb72ab12c9cc29c5c966c2775bf4baea5e3986a7ee29a1095862031db",
+          "face_orientation": "three_quarter",
+          "visibility": "clear",
+          "note": "明显斜侧，仍可见两眼或大部分五官；主要面部区域可辨。",
+          "reviewer": "assistant"
+        }
+      ],
+      "after_stratification": [
+        {
+          "sample_id": "gongfunvzu_0013",
+          "annotation_id": "gongfunvzu_0013_inherited",
+          "person_id": 1,
+          "image_sha256": "a201866cb72ab12c9cc29c5c966c2775bf4baea5e3986a7ee29a1095862031db",
+          "face_orientation": "three_quarter",
+          "visibility": "clear",
+          "note": "明显斜侧，仍可见两眼或大部分五官；主要面部区域可辨。",
+          "reviewer": "assistant"
+        },
+        {
+          "sample_id": "gongfunvzu_0013",
+          "annotation_id": "gongfunvzu_0013_user_review_20261116_yulong",
+          "person_id": 2,
+          "image_sha256": "a201866cb72ab12c9cc29c5c966c2775bf4baea5e3986a7ee29a1095862031db",
+          "face_orientation": "three_quarter",
+          "visibility": "clear",
+          "note": "右侧人物头部斜转，面部大部可见；头发/身体边缘裁切不自动算面部模糊。 2026-11-16仅按原图标统计类别，与模型回答无关。",
+          "reviewer": "assistant"
+        }
+      ],
+      "reference_image": {
+        "path": "reports/2026-11-16-annotation-review/images/gongfunvzu_0013.jpg",
+        "sha256": "adb44525b0bff0cccb4e2ddcd0a1832d7584a339a4647d07fc10507ac86660fe",
+        "usage": "review_only_not_model_input"
+      },
+      "scoring_policy": {
+        "evaluation_policy": {},
+        "identity_and_geometry_are_separate": true
+      }
+    },
+    {
+      "sample_id": "gongfunvzu_0031",
+      "image_sha256": "afd5bac146fff95947c744c8900c956eae320055bd6906b9af80e8b6116ec6f7",
+      "before_sample_hash": "903fd4f0ec54531d5f2128e78e21e2f9bdcde3ffa83627a0abaf0b9cd82d9164",
+      "after_sample_hash": "793052c7df3fcee43faf202d1ebf68b700b18f8d62e7f634d8febdb781b2393f",
+      "before": {
+        "sample_id": "gongfunvzu_0031",
+        "work_slug": "gongfunvzu",
+        "work_name": "功夫女足",
+        "work_category": "recent_movie",
+        "image_path": "../final/gongfunvzu/gongfunvzu_0031.jpg",
+        "persons": [
+          {
+            "person_id": 1,
+            "bbox": [
+              0.36,
+              0.17,
+              0.628,
+              1
+            ],
+            "character": "徐风",
+            "identity_status": "verified",
+            "review_status": "approved",
+            "character_aliases": [
+              "师叔公"
+            ],
+            "evidence": [
+              {
+                "type": "assistant_independent_visual_review",
+                "actor": "assistant",
+                "confirmed": true,
+                "scope": "geometry_and_identity",
+                "reviewed_at": "2026-11-13T04:00:44+00:00",
+                "sample_id": "gongfunvzu_0031",
+                "image_sha256": "afd5bac146fff95947c744c8900c956eae320055bd6906b9af80e8b6116ec6f7",
+                "observation": "黑西装白衬衫男子，五官对应徐风命名海报",
+                "model_predictions_used": false
+              },
+              {
+                "type": "named_character_poster",
+                "actor": "assistant",
+                "confirmed": true,
+                "reference_id": "xufeng_named_poster",
+                "publisher": "1905电影网官博",
+                "url": "https://weibo.com/2/detail/5339018637869858",
+                "image_url": "https://wx2.sinaimg.cn/cmw960/61783df4ly1igq9syiq6oj20u01t0k9g.jpg",
+                "observation": "黑西装白衬衫男子，五官对应徐风命名海报。本批重新目视命名图片，不以继承标签作为确认。",
+                "reference_sha256": "635070b262d1444a1fbd3a2f6e3c344adb0391cb6fae9ca491b79d27e2dda529",
+                "local_reference": "results/multi/annotation_batches/gongfunvzu_review/references/xufeng_named_poster_original.jpg",
+                "local_reference_sha256": "635070b262d1444a1fbd3a2f6e3c344adb0391cb6fae9ca491b79d27e2dda529",
+                "reviewed_this_batch": true
+              },
+              {
+                "type": "assistant_principal_scope_review",
+                "actor": "assistant",
+                "confirmed": true,
+                "reviewed_at": "2026-11-13T06:48:25+00:00",
+                "image_sha256": "afd5bac146fff95947c744c8900c956eae320055bd6906b9af80e8b6116ec6f7",
+                "scope_policy": "仅纳入清晰、能可靠定名的主要角色；不按所有可定位人形计数，不凑unknown。旁人、虚焦、残缺或缺可靠姓名的人物移入具体ignore_regions；ignore仅属评分元数据，不绘入/发送模型图。foreground_complete表示此主要角色范围已逐图核完，并非全体画中人的穷尽标注。",
+                "observation": "保留主要角色徐风；保留清晰正面徐风；其他三名看台旁人虽可见面容，但未有可靠角色姓名锚，不为了人数设unknown目标，登记ignore。",
+                "model_predictions_used": false,
+                "review_sheet": "results/multi/annotation_batches/gongfunvzu_review/sheet_4.jpg"
+              }
+            ],
+            "note": "黑西装白衬衫男子，五官对应徐风命名海报",
+            "annotation_id": "gongfunvzu_0031_inherited"
+          }
+        ],
+        "ignore_regions": [
+          {
+            "bbox": [
+              0.14,
+              0.18,
+              0.438,
+              1
+            ],
+            "reason": "左侧浅棕西装胖男子，清晰但角色姓名未证实；按用户新主要角色范围移出红框，不作为unknown目标或C的普通误检。",
+            "evidence": [
+              {
+                "type": "assistant_principal_scope_review",
+                "actor": "assistant",
+                "confirmed": true,
+                "reviewed_at": "2026-11-13T06:48:25+00:00",
+                "image_sha256": "afd5bac146fff95947c744c8900c956eae320055bd6906b9af80e8b6116ec6f7",
+                "scope_policy": "仅纳入清晰、能可靠定名的主要角色；不按所有可定位人形计数，不凑unknown。旁人、虚焦、残缺或缺可靠姓名的人物移入具体ignore_regions；ignore仅属评分元数据，不绘入/发送模型图。foreground_complete表示此主要角色范围已逐图核完，并非全体画中人的穷尽标注。",
+                "observation": "左侧浅棕西装胖男子，清晰但角色姓名未证实；按用户新主要角色范围移出红框，不作为unknown目标或C的普通误检。",
+                "model_predictions_used": false,
+                "review_sheet": "results/multi/annotation_batches/gongfunvzu_review/sheet_4.jpg",
+                "previous_annotation_id": "gongfunvzu_0031_assistant_multi_01",
+                "previous_person_id": 1
+              }
+            ]
+          },
+          {
+            "bbox": [
+              0.65,
+              0.21,
+              0.833,
+              1
+            ],
+            "reason": "中右粉衣蓝训练背心长发女子，清晰人物，姓名未知；按用户新主要角色范围移出红框，不作为unknown目标或C的普通误检。",
+            "evidence": [
+              {
+                "type": "assistant_principal_scope_review",
+                "actor": "assistant",
+                "confirmed": true,
+                "reviewed_at": "2026-11-13T06:48:25+00:00",
+                "image_sha256": "afd5bac146fff95947c744c8900c956eae320055bd6906b9af80e8b6116ec6f7",
+                "scope_policy": "仅纳入清晰、能可靠定名的主要角色；不按所有可定位人形计数，不凑unknown。旁人、虚焦、残缺或缺可靠姓名的人物移入具体ignore_regions；ignore仅属评分元数据，不绘入/发送模型图。foreground_complete表示此主要角色范围已逐图核完，并非全体画中人的穷尽标注。",
+                "observation": "中右粉衣蓝训练背心长发女子，清晰人物，姓名未知；按用户新主要角色范围移出红框，不作为unknown目标或C的普通误检。",
+                "model_predictions_used": false,
+                "review_sheet": "results/multi/annotation_batches/gongfunvzu_review/sheet_4.jpg",
+                "previous_annotation_id": "gongfunvzu_0031_assistant_multi_03",
+                "previous_person_id": 3
+              }
+            ]
+          },
+          {
+            "bbox": [
+              0.875,
+              0.17,
+              1,
+              1
+            ],
+            "reason": "最右粉衣蓝训练背心女子，面部可辨，姓名未知；按用户新主要角色范围移出红框，不作为unknown目标或C的普通误检。",
+            "evidence": [
+              {
+                "type": "assistant_principal_scope_review",
+                "actor": "assistant",
+                "confirmed": true,
+                "reviewed_at": "2026-11-13T06:48:25+00:00",
+                "image_sha256": "afd5bac146fff95947c744c8900c956eae320055bd6906b9af80e8b6116ec6f7",
+                "scope_policy": "仅纳入清晰、能可靠定名的主要角色；不按所有可定位人形计数，不凑unknown。旁人、虚焦、残缺或缺可靠姓名的人物移入具体ignore_regions；ignore仅属评分元数据，不绘入/发送模型图。foreground_complete表示此主要角色范围已逐图核完，并非全体画中人的穷尽标注。",
+                "observation": "最右粉衣蓝训练背心女子，面部可辨，姓名未知；按用户新主要角色范围移出红框，不作为unknown目标或C的普通误检。",
+                "model_predictions_used": false,
+                "review_sheet": "results/multi/annotation_batches/gongfunvzu_review/sheet_4.jpg",
+                "previous_annotation_id": "gongfunvzu_0031_assistant_multi_04",
+                "previous_person_id": 4
+              }
+            ]
+          }
+        ],
+        "image_width": 1920,
+        "image_height": 804,
+        "image_sha256": "afd5bac146fff95947c744c8900c956eae320055bd6906b9af80e8b6116ec6f7",
+        "review_status": "approved",
+        "foreground_complete": true,
+        "evidence": [
+          {
+            "type": "v1_inheritance",
+            "source_sample_id": "gongfunvzu_0031",
+            "source_dataset_sha256": "eb4a8b4177f77765db939e6723b67711d5619588bfce6f646a3396cc3b9fd8c7",
+            "image_sha256": "afd5bac146fff95947c744c8900c956eae320055bd6906b9af80e8b6116ec6f7",
+            "note": "Inherited single-target label; not independent identity verification. Remaining foreground people have not been checked.",
+            "time_seconds": 4053.75
+          },
+          {
+            "type": "assistant_numbered_preview_review",
+            "actor": "assistant",
+            "confirmed": true,
+            "observation": "已检查编号预览与原画面：编号左到右，清晰背身保留unknown；7张近景补足可见肩臂范围。",
+            "preview_sheet": "results/multi/annotation_batches/gongfunvzu_review/boxed_sheet_4.jpg"
+          },
+          {
+            "type": "assistant_principal_scope_review",
+            "actor": "assistant",
+            "confirmed": true,
+            "reviewed_at": "2026-11-13T06:48:25+00:00",
+            "image_sha256": "afd5bac146fff95947c744c8900c956eae320055bd6906b9af80e8b6116ec6f7",
+            "scope_policy": "仅纳入清晰、能可靠定名的主要角色；不按所有可定位人形计数，不凑unknown。旁人、虚焦、残缺或缺可靠姓名的人物移入具体ignore_regions；ignore仅属评分元数据，不绘入/发送模型图。foreground_complete表示此主要角色范围已逐图核完，并非全体画中人的穷尽标注。",
+            "observation": "保留清晰正面徐风；其他三名看台旁人虽可见面容，但未有可靠角色姓名锚，不为了人数设unknown目标，登记ignore。",
+            "model_predictions_used": false,
+            "review_sheet": "results/multi/annotation_batches/gongfunvzu_review/sheet_4.jpg"
+          }
+        ],
+        "note": "主要角色清晰定名范围：保留清晰正面徐风；其他三名看台旁人虽可见面容，但未有可靠角色姓名锚，不为了人数设unknown目标，登记ignore。 仅纳入清晰、能可靠定名的主要角色；不按所有可定位人形计数，不凑unknown。旁人、虚焦、残缺或缺可靠姓名的人物移入具体ignore_regions；ignore仅属评分元数据，不绘入/发送模型图。foreground_complete表示此主要角色范围已逐图核完，并非全体画中人的穷尽标注。"
+      },
+      "after": {
+        "sample_id": "gongfunvzu_0031",
+        "work_slug": "gongfunvzu",
+        "work_name": "功夫女足",
+        "work_category": "recent_movie",
+        "image_path": "../final/gongfunvzu/gongfunvzu_0031.jpg",
+        "persons": [
+          {
+            "person_id": 1,
+            "bbox": [
+              0.14,
+              0.18,
+              0.438,
+              1
+            ],
+            "character": "梨花队教练",
+            "identity_status": "verified",
+            "review_status": "approved",
+            "character_aliases": [],
+            "evidence": [
+              {
+                "type": "user_explicit_identity_confirmation",
+                "actor": "user",
+                "confirmed": true,
+                "review_revision": "user_identity_scope_review_20261116_v1",
+                "text": "用户明确补充：左侧为梨花队教练，中间为徐风；右侧两位未定名旁人可为null，不要求凑四人。",
+                "source_image_sha256": "afd5bac146fff95947c744c8900c956eae320055bd6906b9af80e8b6116ec6f7",
+                "confirmation_scope": "identity_only",
+                "user_confirmed_model_coordinates": false,
+                "at": "2026-11-15T16:49:15.427414+00:00"
+              },
+              {
+                "type": "assistant_geometry_review",
+                "actor": "assistant",
+                "reviewed_original": true,
+                "review_revision": "user_identity_scope_review_20261116_v1",
+                "source_image_sha256": "afd5bac146fff95947c744c8900c956eae320055bd6906b9af80e8b6116ec6f7",
+                "geometry_source": "previous manually drawn ignore-region bbox, re-opened original",
+                "text": "本轮已打开完整原图，复用原人工框/忽略区可见范围；未使用模型预测坐标作真值。用户确认姓名，不等同确认模型定位。",
+                "user_confirmed_coordinates": false,
+                "at": "2026-11-15T16:49:15.427414+00:00"
+              },
+              {
+                "type": "scope_reinstatement",
+                "review_revision": "user_identity_scope_review_20261116_v1",
+                "previous_ignore_region": {
+                  "bbox": [
+                    0.14,
+                    0.18,
+                    0.438,
+                    1
+                  ],
+                  "reason": "左侧浅棕西装胖男子，清晰但角色姓名未证实；按用户新主要角色范围移出红框，不作为unknown目标或C的普通误检。",
+                  "evidence": [
+                    {
+                      "type": "assistant_principal_scope_review",
+                      "actor": "assistant",
+                      "confirmed": true,
+                      "reviewed_at": "2026-11-13T06:48:25+00:00",
+                      "image_sha256": "afd5bac146fff95947c744c8900c956eae320055bd6906b9af80e8b6116ec6f7",
+                      "scope_policy": "仅纳入清晰、能可靠定名的主要角色；不按所有可定位人形计数，不凑unknown。旁人、虚焦、残缺或缺可靠姓名的人物移入具体ignore_regions；ignore仅属评分元数据，不绘入/发送模型图。foreground_complete表示此主要角色范围已逐图核完，并非全体画中人的穷尽标注。",
+                      "observation": "左侧浅棕西装胖男子，清晰但角色姓名未证实；按用户新主要角色范围移出红框，不作为unknown目标或C的普通误检。",
+                      "model_predictions_used": false,
+                      "review_sheet": "results/multi/annotation_batches/gongfunvzu_review/sheet_4.jpg",
+                      "previous_annotation_id": "gongfunvzu_0031_assistant_multi_01",
+                      "previous_person_id": 1
+                    }
+                  ]
+                }
+              }
+            ],
+            "note": "用户明确补充：左侧为梨花队教练，中间为徐风；右侧两位未定名旁人可为null，不要求凑四人。 已从旧忽略区恢复；姓名由用户确认，框为助手复核的原可见范围，不代表模型框已正确。",
+            "annotation_id": "gongfunvzu_0031_user_review_20261116_lihua_coach"
+          },
+          {
+            "person_id": 2,
+            "bbox": [
+              0.36,
+              0.17,
+              0.628,
+              1
+            ],
+            "character": "徐风",
+            "identity_status": "verified",
+            "review_status": "approved",
+            "character_aliases": [
+              "师叔公"
+            ],
+            "evidence": [
+              {
+                "type": "assistant_independent_visual_review",
+                "actor": "assistant",
+                "confirmed": true,
+                "scope": "geometry_and_identity",
+                "reviewed_at": "2026-11-13T04:00:44+00:00",
+                "sample_id": "gongfunvzu_0031",
+                "image_sha256": "afd5bac146fff95947c744c8900c956eae320055bd6906b9af80e8b6116ec6f7",
+                "observation": "黑西装白衬衫男子，五官对应徐风命名海报",
+                "model_predictions_used": false
+              },
+              {
+                "type": "named_character_poster",
+                "actor": "assistant",
+                "confirmed": true,
+                "reference_id": "xufeng_named_poster",
+                "publisher": "1905电影网官博",
+                "url": "https://weibo.com/2/detail/5339018637869858",
+                "image_url": "https://wx2.sinaimg.cn/cmw960/61783df4ly1igq9syiq6oj20u01t0k9g.jpg",
+                "observation": "黑西装白衬衫男子，五官对应徐风命名海报。本批重新目视命名图片，不以继承标签作为确认。",
+                "reference_sha256": "635070b262d1444a1fbd3a2f6e3c344adb0391cb6fae9ca491b79d27e2dda529",
+                "local_reference": "results/multi/annotation_batches/gongfunvzu_review/references/xufeng_named_poster_original.jpg",
+                "local_reference_sha256": "635070b262d1444a1fbd3a2f6e3c344adb0391cb6fae9ca491b79d27e2dda529",
+                "reviewed_this_batch": true
+              },
+              {
+                "type": "assistant_principal_scope_review",
+                "actor": "assistant",
+                "confirmed": true,
+                "reviewed_at": "2026-11-13T06:48:25+00:00",
+                "image_sha256": "afd5bac146fff95947c744c8900c956eae320055bd6906b9af80e8b6116ec6f7",
+                "scope_policy": "仅纳入清晰、能可靠定名的主要角色；不按所有可定位人形计数，不凑unknown。旁人、虚焦、残缺或缺可靠姓名的人物移入具体ignore_regions；ignore仅属评分元数据，不绘入/发送模型图。foreground_complete表示此主要角色范围已逐图核完，并非全体画中人的穷尽标注。",
+                "observation": "保留主要角色徐风；保留清晰正面徐风；其他三名看台旁人虽可见面容，但未有可靠角色姓名锚，不为了人数设unknown目标，登记ignore。",
+                "model_predictions_used": false,
+                "review_sheet": "results/multi/annotation_batches/gongfunvzu_review/sheet_4.jpg"
+              }
+            ],
+            "note": "黑西装白衬衫男子，五官对应徐风命名海报",
+            "annotation_id": "gongfunvzu_0031_inherited"
+          }
+        ],
+        "ignore_regions": [
+          {
+            "bbox": [
+              0.65,
+              0.21,
+              0.833,
+              1
+            ],
+            "reason": "中右粉衣蓝训练背心长发女子，清晰人物，姓名未知；按用户新主要角色范围移出红框，不作为unknown目标或C的普通误检。 2026-11-16用户接受这些旁人未定名或返回null，不要求额外身份。",
+            "evidence": [
+              {
+                "type": "assistant_principal_scope_review",
+                "actor": "assistant",
+                "confirmed": true,
+                "reviewed_at": "2026-11-13T06:48:25+00:00",
+                "image_sha256": "afd5bac146fff95947c744c8900c956eae320055bd6906b9af80e8b6116ec6f7",
+                "scope_policy": "仅纳入清晰、能可靠定名的主要角色；不按所有可定位人形计数，不凑unknown。旁人、虚焦、残缺或缺可靠姓名的人物移入具体ignore_regions；ignore仅属评分元数据，不绘入/发送模型图。foreground_complete表示此主要角色范围已逐图核完，并非全体画中人的穷尽标注。",
+                "observation": "中右粉衣蓝训练背心长发女子，清晰人物，姓名未知；按用户新主要角色范围移出红框，不作为unknown目标或C的普通误检。",
+                "model_predictions_used": false,
+                "review_sheet": "results/multi/annotation_batches/gongfunvzu_review/sheet_4.jpg",
+                "previous_annotation_id": "gongfunvzu_0031_assistant_multi_03",
+                "previous_person_id": 3
+              }
+            ]
+          },
+          {
+            "bbox": [
+              0.875,
+              0.17,
+              1,
+              1
+            ],
+            "reason": "最右粉衣蓝训练背心女子，面部可辨，姓名未知；按用户新主要角色范围移出红框，不作为unknown目标或C的普通误检。 2026-11-16用户接受这些旁人未定名或返回null，不要求额外身份。",
+            "evidence": [
+              {
+                "type": "assistant_principal_scope_review",
+                "actor": "assistant",
+                "confirmed": true,
+                "reviewed_at": "2026-11-13T06:48:25+00:00",
+                "image_sha256": "afd5bac146fff95947c744c8900c956eae320055bd6906b9af80e8b6116ec6f7",
+                "scope_policy": "仅纳入清晰、能可靠定名的主要角色；不按所有可定位人形计数，不凑unknown。旁人、虚焦、残缺或缺可靠姓名的人物移入具体ignore_regions；ignore仅属评分元数据，不绘入/发送模型图。foreground_complete表示此主要角色范围已逐图核完，并非全体画中人的穷尽标注。",
+                "observation": "最右粉衣蓝训练背心女子，面部可辨，姓名未知；按用户新主要角色范围移出红框，不作为unknown目标或C的普通误检。",
+                "model_predictions_used": false,
+                "review_sheet": "results/multi/annotation_batches/gongfunvzu_review/sheet_4.jpg",
+                "previous_annotation_id": "gongfunvzu_0031_assistant_multi_04",
+                "previous_person_id": 4
+              }
+            ]
+          }
+        ],
+        "image_width": 1920,
+        "image_height": 804,
+        "image_sha256": "afd5bac146fff95947c744c8900c956eae320055bd6906b9af80e8b6116ec6f7",
+        "review_status": "approved",
+        "foreground_complete": true,
+        "evidence": [
+          {
+            "type": "v1_inheritance",
+            "source_sample_id": "gongfunvzu_0031",
+            "source_dataset_sha256": "eb4a8b4177f77765db939e6723b67711d5619588bfce6f646a3396cc3b9fd8c7",
+            "image_sha256": "afd5bac146fff95947c744c8900c956eae320055bd6906b9af80e8b6116ec6f7",
+            "note": "Inherited single-target label; not independent identity verification. Remaining foreground people have not been checked.",
+            "time_seconds": 4053.75
+          },
+          {
+            "type": "assistant_numbered_preview_review",
+            "actor": "assistant",
+            "confirmed": true,
+            "observation": "已检查编号预览与原画面：编号左到右，清晰背身保留unknown；7张近景补足可见肩臂范围。",
+            "preview_sheet": "results/multi/annotation_batches/gongfunvzu_review/boxed_sheet_4.jpg"
+          },
+          {
+            "type": "assistant_principal_scope_review",
+            "actor": "assistant",
+            "confirmed": true,
+            "reviewed_at": "2026-11-13T06:48:25+00:00",
+            "image_sha256": "afd5bac146fff95947c744c8900c956eae320055bd6906b9af80e8b6116ec6f7",
+            "scope_policy": "仅纳入清晰、能可靠定名的主要角色；不按所有可定位人形计数，不凑unknown。旁人、虚焦、残缺或缺可靠姓名的人物移入具体ignore_regions；ignore仅属评分元数据，不绘入/发送模型图。foreground_complete表示此主要角色范围已逐图核完，并非全体画中人的穷尽标注。",
+            "observation": "保留清晰正面徐风；其他三名看台旁人虽可见面容，但未有可靠角色姓名锚，不为了人数设unknown目标，登记ignore。",
+            "model_predictions_used": false,
+            "review_sheet": "results/multi/annotation_batches/gongfunvzu_review/sheet_4.jpg"
+          },
+          {
+            "type": "user_explicit_identity_confirmation",
+            "actor": "user",
+            "confirmed": true,
+            "review_revision": "user_identity_scope_review_20261116_v1",
+            "text": "用户明确补充：左侧为梨花队教练，中间为徐风；右侧两位未定名旁人可为null，不要求凑四人。",
+            "source_image_sha256": "afd5bac146fff95947c744c8900c956eae320055bd6906b9af80e8b6116ec6f7",
+            "confirmation_scope": "identity_and_target_scope_only",
+            "user_confirmed_model_coordinates": false,
+            "at": "2026-11-15T16:49:15.427414+00:00"
+          }
+        ],
+        "note": "2026-11-16 用户逐图复核更正：用户明确补充：左侧为梨花队教练，中间为徐风；右侧两位未定名旁人可为null，不要求凑四人。 仅重评既有响应，不调用API；不将姓名命中推断为模型坐标正确。"
+      },
+      "reason": "用户明确补充：左侧为梨花队教练，中间为徐风；右侧两位未定名旁人可为null，不要求凑四人。",
+      "user_text": "用户审阅结论转述：用户明确补充：左侧为梨花队教练，中间为徐风；右侧两位未定名旁人可为null，不要求凑四人。",
+      "user_evidence": {
+        "type": "explicit_user_review",
+        "recorded_by": "assistant",
+        "is_verbatim_quote": false,
+        "identity_confirmed": true,
+        "model_coordinates_confirmed": false
+      },
+      "reviewed_at": "2026-11-15T16:49:15.427414+00:00",
+      "coordinate_review": {
+        "reviewer": "assistant",
+        "original_image_reopened": true,
+        "source": "unchanged person box or restored historical ignore-region box",
+        "model_boxes_used_as_ground_truth": false,
+        "strict_position_metrics_must_be_recomputed_independently": true
+      },
+      "before_stratification": [
+        {
+          "sample_id": "gongfunvzu_0031",
+          "annotation_id": "gongfunvzu_0031_inherited",
+          "person_id": 1,
+          "image_sha256": "afd5bac146fff95947c744c8900c956eae320055bd6906b9af80e8b6116ec6f7",
+          "face_orientation": "three_quarter",
+          "visibility": "clear",
+          "note": "明显斜侧，仍可见两眼或大部分五官；主要面部区域可辨。",
+          "reviewer": "assistant"
+        }
+      ],
+      "after_stratification": [
+        {
+          "sample_id": "gongfunvzu_0031",
+          "annotation_id": "gongfunvzu_0031_user_review_20261116_lihua_coach",
+          "person_id": 1,
+          "image_sha256": "afd5bac146fff95947c744c8900c956eae320055bd6906b9af80e8b6116ec6f7",
+          "face_orientation": "three_quarter",
+          "visibility": "clear",
+          "note": "左侧教练明显斜侧看向右方，面部可辨。 2026-11-16仅按原图标统计类别，与模型回答无关。",
+          "reviewer": "assistant"
+        },
+        {
+          "sample_id": "gongfunvzu_0031",
+          "annotation_id": "gongfunvzu_0031_inherited",
+          "person_id": 2,
+          "image_sha256": "afd5bac146fff95947c744c8900c956eae320055bd6906b9af80e8b6116ec6f7",
+          "face_orientation": "three_quarter",
+          "visibility": "clear",
+          "note": "明显斜侧，仍可见两眼或大部分五官；主要面部区域可辨。",
+          "reviewer": "assistant"
+        }
+      ],
+      "reference_image": {
+        "path": "reports/2026-11-16-annotation-review/images/gongfunvzu_0031.jpg",
+        "sha256": "64310e15d337d4db0432aa58ea98884711744ac789f3bcfdf7ea8c72ce415eff",
+        "usage": "review_only_not_model_input"
+      },
+      "scoring_policy": {
+        "evaluation_policy": {},
+        "identity_and_geometry_are_separate": true
+      }
+    },
+    {
+      "sample_id": "jianlai_0029",
+      "image_sha256": "d7d7d8c43fd4e3c49568fbd0ab09783462573762caae2419b2dd54df7469f82b",
+      "before_sample_hash": "709977cbeac78cf88df4bcf877132a80755a1ed4f61b38359e5efb65d8764cad",
+      "after_sample_hash": "f4df467be9b910d9b5f2e64abfb8295b819270ee7085fbe259a5dd1f45bd0bd6",
+      "before": {
+        "sample_id": "jianlai_0029",
+        "work_slug": "jianlai",
+        "work_name": "剑来",
+        "work_category": "animation",
+        "image_path": "../final/jianlai/jianlai_0029.jpg",
+        "persons": [
+          {
+            "person_id": 1,
+            "bbox": [
+              0,
+              0,
+              0.439,
+              1
+            ],
+            "character": "李宝瓶",
+            "identity_status": "verified",
+            "review_status": "approved",
+            "character_aliases": [],
+            "evidence": [
+              {
+                "type": "visual_person_review",
+                "actor": "assistant",
+                "text": "左侧双丸铃饰女孩抬手近景",
+                "source_image_sha256": "d7d7d8c43fd4e3c49568fbd0ab09783462573762caae2419b2dd54df7469f82b"
+              },
+              {
+                "type": "local_name_anchor",
+                "path": "data/selection_reviews/curated_20261113_40/archive/candidates/jianlai/cand_cache_s2e04_0050.jpg",
+                "sha256": "35b56712276893b3dafb54802fea42e4854c523b3a67c44d3e0220e56fa66988",
+                "text": "已实际查看字幕直呼“宝瓶”，红白棉袄、双丸铃饰女孩面容与入选帧一致；官方简介明确李宝瓶全名。",
+                "supporting_url": "https://wetv.vip/zh-cn/play/mlz46dus64wwr4y/z4102grw76e",
+                "confirmed": true
+              },
+              {
+                "type": "principal_scope_visual_review",
+                "actor": "assistant",
+                "policy": "clear_named_principal_1_to_3",
+                "text": "本轮按用户新口径目视本图，确认这是清晰、可靠具名的画面主要角色；不是自动按verified字段筛选。",
+                "source_image_sha256": "d7d7d8c43fd4e3c49568fbd0ab09783462573762caae2419b2dd54df7469f82b"
+              }
+            ],
+            "note": "左侧双丸铃饰女孩抬手近景",
+            "annotation_id": "jianlai_0029_inherited"
+          }
+        ],
+        "ignore_regions": [
+          {
+            "bbox": [
+              0.655,
+              0,
+              1,
+              1
+            ],
+            "reason": "右侧背向、虚焦、局部头肩；不属于清晰可可靠定名的主要目标。",
+            "evidence": [
+              {
+                "type": "principal_scope_exclusion",
+                "actor": "assistant",
+                "policy": "clear_named_principal_1_to_3",
+                "old_person_id": 2,
+                "old_annotation_id": "jianlai_0029_multi_review_2",
+                "former_character": null,
+                "text": "右侧背向、虚焦、局部头肩；不属于清晰可可靠定名的主要目标。",
+                "source_image_sha256": "d7d7d8c43fd4e3c49568fbd0ab09783462573762caae2419b2dd54df7469f82b"
+              }
+            ]
+          }
+        ],
+        "image_width": 1920,
+        "image_height": 804,
+        "image_sha256": "d7d7d8c43fd4e3c49568fbd0ab09783462573762caae2419b2dd54df7469f82b",
+        "review_status": "approved",
+        "foreground_complete": true,
+        "evidence": [
+          {
+            "type": "v1_inheritance",
+            "source_sample_id": "jianlai_0029",
+            "source_dataset_sha256": "eb4a8b4177f77765db939e6723b67711d5619588bfce6f646a3396cc3b9fd8c7",
+            "image_sha256": "d7d7d8c43fd4e3c49568fbd0ab09783462573762caae2419b2dd54df7469f82b",
+            "note": "Inherited single-target label; not independent identity verification. Remaining foreground people have not been checked.",
+            "time_seconds": 687.0
+          },
+          {
+            "type": "visual_foreground_review",
+            "actor": "assistant",
+            "sample_id": "jianlai_0029",
+            "source_image_sha256": "d7d7d8c43fd4e3c49568fbd0ab09783462573762caae2419b2dd54df7469f82b",
+            "scope": "逐张原图查看全部清晰、可分离定位的前景人物；可定位但身份不明/背身/头部出画保留unknown；仅严重虚焦/严重遮挡或仅肢体边缘的小区域ignore。",
+            "checked_full_original": true,
+            "model_predictions_used": false
+          },
+          {
+            "type": "principal_scope_sample_review",
+            "actor": "assistant",
+            "policy": "clear_named_principal_1_to_3",
+            "text": "只保留完整清楚的李宝瓶；右侧背向且虚焦的局部头肩不参与红框识别。",
+            "review_materials": [
+              "results/multi/annotation_batches/jianlai_contact_4.jpg"
+            ],
+            "original_reopened_this_revision": false,
+            "prior_full_original_visual_review": true,
+            "model_predictions_used": false,
+            "source_image_sha256": "d7d7d8c43fd4e3c49568fbd0ab09783462573762caae2419b2dd54df7469f82b"
+          }
+        ],
+        "note": "2026-11-13 用户修订为每图1–3名清晰且可靠具名的主要角色；assistant逐图目视重审。只保留完整清楚的李宝瓶；右侧背向且虚焦的局部头肩不参与红框识别。 忽略区仅为人审/评分元数据，不烧入A/B/C图片。"
+      },
+      "after": {
+        "sample_id": "jianlai_0029",
+        "work_slug": "jianlai",
+        "work_name": "剑来",
+        "work_category": "animation",
+        "image_path": "../final/jianlai/jianlai_0029.jpg",
+        "persons": [
+          {
+            "person_id": 1,
+            "bbox": [
+              0,
+              0,
+              0.439,
+              1
+            ],
+            "character": "李宝瓶",
+            "identity_status": "verified",
+            "review_status": "approved",
+            "character_aliases": [],
+            "evidence": [
+              {
+                "type": "visual_person_review",
+                "actor": "assistant",
+                "text": "左侧双丸铃饰女孩抬手近景",
+                "source_image_sha256": "d7d7d8c43fd4e3c49568fbd0ab09783462573762caae2419b2dd54df7469f82b"
+              },
+              {
+                "type": "local_name_anchor",
+                "path": "data/selection_reviews/curated_20261113_40/archive/candidates/jianlai/cand_cache_s2e04_0050.jpg",
+                "sha256": "35b56712276893b3dafb54802fea42e4854c523b3a67c44d3e0220e56fa66988",
+                "text": "已实际查看字幕直呼“宝瓶”，红白棉袄、双丸铃饰女孩面容与入选帧一致；官方简介明确李宝瓶全名。",
+                "supporting_url": "https://wetv.vip/zh-cn/play/mlz46dus64wwr4y/z4102grw76e",
+                "confirmed": true
+              },
+              {
+                "type": "principal_scope_visual_review",
+                "actor": "assistant",
+                "policy": "clear_named_principal_1_to_3",
+                "text": "本轮按用户新口径目视本图，确认这是清晰、可靠具名的画面主要角色；不是自动按verified字段筛选。",
+                "source_image_sha256": "d7d7d8c43fd4e3c49568fbd0ab09783462573762caae2419b2dd54df7469f82b"
+              }
+            ],
+            "note": "左侧双丸铃饰女孩抬手近景",
+            "annotation_id": "jianlai_0029_inherited"
+          },
+          {
+            "person_id": 2,
+            "bbox": [
+              0.655,
+              0,
+              1,
+              1
+            ],
+            "character": "陈平安",
+            "identity_status": "verified",
+            "review_status": "approved",
+            "character_aliases": [
+              "平安"
+            ],
+            "evidence": [
+              {
+                "type": "user_explicit_identity_confirmation",
+                "actor": "user",
+                "confirmed": true,
+                "review_revision": "user_identity_scope_review_20261116_v1",
+                "text": "用户明确确认：右侧陈平安可提供或不提供，均接受；左侧李宝瓶必须识别。",
+                "source_image_sha256": "d7d7d8c43fd4e3c49568fbd0ab09783462573762caae2419b2dd54df7469f82b",
+                "confirmation_scope": "identity_only",
+                "user_confirmed_model_coordinates": false,
+                "at": "2026-11-15T16:49:15.427414+00:00"
+              },
+              {
+                "type": "assistant_geometry_review",
+                "actor": "assistant",
+                "reviewed_original": true,
+                "review_revision": "user_identity_scope_review_20261116_v1",
+                "source_image_sha256": "d7d7d8c43fd4e3c49568fbd0ab09783462573762caae2419b2dd54df7469f82b",
+                "geometry_source": "previous manually drawn ignore-region bbox, re-opened original",
+                "text": "本轮已打开完整原图，复用原人工框/忽略区可见范围；未使用模型预测坐标作真值。用户确认姓名，不等同确认模型定位。",
+                "user_confirmed_coordinates": false,
+                "at": "2026-11-15T16:49:15.427414+00:00"
+              },
+              {
+                "type": "scope_reinstatement",
+                "review_revision": "user_identity_scope_review_20261116_v1",
+                "previous_ignore_region": {
+                  "bbox": [
+                    0.655,
+                    0,
+                    1,
+                    1
+                  ],
+                  "reason": "右侧背向、虚焦、局部头肩；不属于清晰可可靠定名的主要目标。",
+                  "evidence": [
+                    {
+                      "type": "principal_scope_exclusion",
+                      "actor": "assistant",
+                      "policy": "clear_named_principal_1_to_3",
+                      "old_person_id": 2,
+                      "old_annotation_id": "jianlai_0029_multi_review_2",
+                      "former_character": null,
+                      "text": "右侧背向、虚焦、局部头肩；不属于清晰可可靠定名的主要目标。",
+                      "source_image_sha256": "d7d7d8c43fd4e3c49568fbd0ab09783462573762caae2419b2dd54df7469f82b"
+                    }
+                  ]
+                }
+              }
+            ],
+            "note": "用户明确确认：右侧陈平安可提供或不提供，均接受；左侧李宝瓶必须识别。 已从旧忽略区恢复；姓名由用户确认，框为助手复核的原可见范围，不代表模型框已正确。",
+            "annotation_id": "jianlai_0029_user_review_20261116_chenpingan_optional"
+          }
+        ],
+        "ignore_regions": [],
+        "image_width": 1920,
+        "image_height": 804,
+        "image_sha256": "d7d7d8c43fd4e3c49568fbd0ab09783462573762caae2419b2dd54df7469f82b",
+        "review_status": "approved",
+        "foreground_complete": true,
+        "evidence": [
+          {
+            "type": "v1_inheritance",
+            "source_sample_id": "jianlai_0029",
+            "source_dataset_sha256": "eb4a8b4177f77765db939e6723b67711d5619588bfce6f646a3396cc3b9fd8c7",
+            "image_sha256": "d7d7d8c43fd4e3c49568fbd0ab09783462573762caae2419b2dd54df7469f82b",
+            "note": "Inherited single-target label; not independent identity verification. Remaining foreground people have not been checked.",
+            "time_seconds": 687.0
+          },
+          {
+            "type": "visual_foreground_review",
+            "actor": "assistant",
+            "sample_id": "jianlai_0029",
+            "source_image_sha256": "d7d7d8c43fd4e3c49568fbd0ab09783462573762caae2419b2dd54df7469f82b",
+            "scope": "逐张原图查看全部清晰、可分离定位的前景人物；可定位但身份不明/背身/头部出画保留unknown；仅严重虚焦/严重遮挡或仅肢体边缘的小区域ignore。",
+            "checked_full_original": true,
+            "model_predictions_used": false
+          },
+          {
+            "type": "principal_scope_sample_review",
+            "actor": "assistant",
+            "policy": "clear_named_principal_1_to_3",
+            "text": "只保留完整清楚的李宝瓶；右侧背向且虚焦的局部头肩不参与红框识别。",
+            "review_materials": [
+              "results/multi/annotation_batches/jianlai_contact_4.jpg"
+            ],
+            "original_reopened_this_revision": false,
+            "prior_full_original_visual_review": true,
+            "model_predictions_used": false,
+            "source_image_sha256": "d7d7d8c43fd4e3c49568fbd0ab09783462573762caae2419b2dd54df7469f82b"
+          },
+          {
+            "type": "user_explicit_identity_confirmation",
+            "actor": "user",
+            "confirmed": true,
+            "review_revision": "user_identity_scope_review_20261116_v1",
+            "text": "用户明确确认：右侧陈平安可提供或不提供，均接受；左侧李宝瓶必须识别。",
+            "source_image_sha256": "d7d7d8c43fd4e3c49568fbd0ab09783462573762caae2419b2dd54df7469f82b",
+            "confirmation_scope": "identity_and_target_scope_only",
+            "user_confirmed_model_coordinates": false,
+            "at": "2026-11-15T16:49:15.427414+00:00"
+          }
+        ],
+        "note": "2026-11-16 用户逐图复核更正：用户明确确认：右侧陈平安可提供或不提供，均接受；左侧李宝瓶必须识别。 仅重评既有响应，不调用API；不将姓名命中推断为模型坐标正确。",
+        "evaluation_policy": {
+          "optional_person_ids": [
+            2
+          ]
+        }
+      },
+      "reason": "用户明确确认：右侧陈平安可提供或不提供，均接受；左侧李宝瓶必须识别。",
+      "user_text": "用户审阅结论转述：用户明确确认：右侧陈平安可提供或不提供，均接受；左侧李宝瓶必须识别。",
+      "user_evidence": {
+        "type": "explicit_user_review",
+        "recorded_by": "assistant",
+        "is_verbatim_quote": false,
+        "identity_confirmed": true,
+        "model_coordinates_confirmed": false
+      },
+      "reviewed_at": "2026-11-15T16:49:15.427414+00:00",
+      "coordinate_review": {
+        "reviewer": "assistant",
+        "original_image_reopened": true,
+        "source": "unchanged person box or restored historical ignore-region box",
+        "model_boxes_used_as_ground_truth": false,
+        "strict_position_metrics_must_be_recomputed_independently": true
+      },
+      "before_stratification": [
+        {
+          "sample_id": "jianlai_0029",
+          "annotation_id": "jianlai_0029_inherited",
+          "person_id": 1,
+          "image_sha256": "d7d7d8c43fd4e3c49568fbd0ab09783462573762caae2419b2dd54df7469f82b",
+          "face_orientation": "front",
+          "visibility": "clear",
+          "note": "手指在眼下脸颊旁，未明显覆盖眼鼻口，面部可见。",
+          "reviewer": "assistant"
+        }
+      ],
+      "after_stratification": [
+        {
+          "sample_id": "jianlai_0029",
+          "annotation_id": "jianlai_0029_inherited",
+          "person_id": 1,
+          "image_sha256": "d7d7d8c43fd4e3c49568fbd0ab09783462573762caae2419b2dd54df7469f82b",
+          "face_orientation": "front",
+          "visibility": "clear",
+          "note": "手指在眼下脸颊旁，未明显覆盖眼鼻口，面部可见。",
+          "reviewer": "assistant"
+        },
+        {
+          "sample_id": "jianlai_0029",
+          "annotation_id": "jianlai_0029_user_review_20261116_chenpingan_optional",
+          "person_id": 2,
+          "image_sha256": "d7d7d8c43fd4e3c49568fbd0ab09783462573762caae2419b2dd54df7469f82b",
+          "face_orientation": "not_visible",
+          "visibility": "occluded_or_blurry",
+          "note": "右侧背面局部头肩严重虚焦，身份接受仅源于用户明确审阅；朝向不能由服装推成正面。 2026-11-16仅按原图标统计类别，与模型回答无关。",
+          "reviewer": "assistant"
+        }
+      ],
+      "reference_image": {
+        "path": "reports/2026-11-16-annotation-review/images/jianlai_0029.jpg",
+        "sha256": "c1b86ad437127a9c84779b4bef07637ed3ccb170b7956a2041402872b9ba5825",
+        "usage": "review_only_not_model_input"
+      },
+      "scoring_policy": {
+        "evaluation_policy": {
+          "optional_person_ids": [
+            2
+          ]
+        },
+        "identity_and_geometry_are_separate": true
+      }
+    },
+    {
+      "sample_id": "jianlai_0032",
+      "image_sha256": "4941333f3f65fbd319f21ec14ff9e5a6fc84a387a0e38f4e81237eb4ba07ce22",
+      "before_sample_hash": "9e4ebf24df20e1d60ea5c8a54a10cb6271079942c0b84b0ce3fd2bf65b506b4f",
+      "after_sample_hash": "92af4be88dd0d5239f7f55bc19ff7229dbd1e33b6739d8bf1fca1f90ce20fac4",
+      "before": {
+        "sample_id": "jianlai_0032",
+        "work_slug": "jianlai",
+        "work_name": "剑来",
+        "work_category": "animation",
+        "image_path": "../final/jianlai/jianlai_0032.jpg",
+        "persons": [
+          {
+            "person_id": 1,
+            "bbox": [
+              0.278,
+              0.415,
+              0.464,
+              1
+            ],
+            "character": "李宝瓶",
+            "identity_status": "verified",
+            "review_status": "approved",
+            "character_aliases": [],
+            "evidence": [
+              {
+                "type": "visual_person_review",
+                "actor": "assistant",
+                "text": "左前红白棉袄女孩",
+                "source_image_sha256": "4941333f3f65fbd319f21ec14ff9e5a6fc84a387a0e38f4e81237eb4ba07ce22"
+              },
+              {
+                "type": "local_name_anchor",
+                "path": "data/selection_reviews/curated_20261113_40/archive/candidates/jianlai/cand_cache_s2e04_0050.jpg",
+                "sha256": "35b56712276893b3dafb54802fea42e4854c523b3a67c44d3e0220e56fa66988",
+                "text": "已实际查看字幕直呼“宝瓶”，红白棉袄、双丸铃饰女孩面容与入选帧一致；官方简介明确李宝瓶全名。",
+                "supporting_url": "https://wetv.vip/zh-cn/play/mlz46dus64wwr4y/z4102grw76e",
+                "confirmed": true
+              },
+              {
+                "type": "principal_scope_visual_review",
+                "actor": "assistant",
+                "policy": "clear_named_principal_1_to_3",
+                "text": "本轮按用户新口径目视本图，确认这是清晰、可靠具名的画面主要角色；不是自动按verified字段筛选。",
+                "source_image_sha256": "4941333f3f65fbd319f21ec14ff9e5a6fc84a387a0e38f4e81237eb4ba07ce22"
+              }
+            ],
+            "note": "左前红白棉袄女孩",
+            "annotation_id": "jianlai_0032_multi_review_2"
+          },
+          {
+            "person_id": 2,
+            "bbox": [
+              0.418,
+              0.064,
+              0.677,
+              1
+            ],
+            "character": "陈平安",
+            "identity_status": "verified",
+            "review_status": "approved",
+            "character_aliases": [
+              "平安"
+            ],
+            "evidence": [
+              {
+                "type": "visual_person_review",
+                "actor": "assistant",
+                "text": "中央布衣少年，含双手可见范围",
+                "source_image_sha256": "4941333f3f65fbd319f21ec14ff9e5a6fc84a387a0e38f4e81237eb4ba07ce22"
+              },
+              {
+                "type": "independent_named_character_reference",
+                "authority": "secondary curated character page; not claimed as an official host",
+                "url": "https://bgm.tv/character/168727",
+                "image_path": "results/multi/annotation_batches/references/jianlai/chenpingan.jpg",
+                "image_sha256": "11adfe86ed8101c000d0f6d07042cc593780f0c7b96643558ceba5b12ad215c0",
+                "page_path": "results/multi/annotation_batches/references/jianlai/chenpingan.html",
+                "page_sha256": "0ec27fa763bd83cba99797e07db40443ed8b7ed49f69f72692c664ecbf604e29",
+                "text": "独立命名角色页中的动画形象：面容、灰蓝波纹交领、青簪束发；辅助官方角色设定发布索引 https://weibo.com/6146649426/OqPCZgTtI （索引文字可检索，官方原帖本轮未能直开，不以该未见图像为依据）",
+                "confirmed": true
+              },
+              {
+                "type": "principal_scope_visual_review",
+                "actor": "assistant",
+                "policy": "clear_named_principal_1_to_3",
+                "text": "本轮按用户新口径目视本图，确认这是清晰、可靠具名的画面主要角色；不是自动按verified字段筛选。",
+                "source_image_sha256": "4941333f3f65fbd319f21ec14ff9e5a6fc84a387a0e38f4e81237eb4ba07ce22"
+              }
+            ],
+            "note": "中央布衣少年，含双手可见范围",
+            "annotation_id": "jianlai_0032_multi_review_3"
+          },
+          {
+            "person_id": 3,
+            "bbox": [
+              0.577,
+              0.14,
+              0.731,
+              1
+            ],
+            "character": "林守一",
+            "identity_status": "verified",
+            "review_status": "approved",
+            "character_aliases": [],
+            "evidence": [
+              {
+                "type": "visual_person_review",
+                "actor": "assistant",
+                "text": "右后白绿衣长发少年，衣袍延伸到画底",
+                "source_image_sha256": "4941333f3f65fbd319f21ec14ff9e5a6fc84a387a0e38f4e81237eb4ba07ce22"
+              },
+              {
+                "type": "independent_named_character_reference",
+                "authority": "secondary curated character page; not claimed as an official host",
+                "url": "https://bgm.tv/character/195900",
+                "image_path": "results/multi/annotation_batches/references/jianlai/linshouyi.jpg",
+                "image_sha256": "999793a08b41bf3497159746efcf503ae6d0030ea79cb80957696e88e9bf0f3e",
+                "page_path": "results/multi/annotation_batches/references/jianlai/linshouyi.html",
+                "page_sha256": "27b351aab5dba3741e1f1a1c18ea64ebd2da2b1a61d6887b4d740615425dcec9",
+                "text": "独立命名角色页图像：白衣深绿滚边、半束长发、发环及面容，和原图逐项比对",
+                "confirmed": true
+              },
+              {
+                "type": "principal_scope_visual_review",
+                "actor": "assistant",
+                "policy": "clear_named_principal_1_to_3",
+                "text": "本轮按用户新口径目视本图，确认这是清晰、可靠具名的画面主要角色；不是自动按verified字段筛选。",
+                "source_image_sha256": "4941333f3f65fbd319f21ec14ff9e5a6fc84a387a0e38f4e81237eb4ba07ce22"
+              }
+            ],
+            "note": "右后白绿衣长发少年，衣袍延伸到画底",
+            "annotation_id": "jianlai_0032_inherited"
+          }
+        ],
+        "ignore_regions": [
+          {
+            "bbox": [
+              0.183,
+              0.37,
+              0.348,
+              1
+            ],
+            "reason": "按用户每图最多三名的范围，左后李槐较小且被前景遮挡，优先另外三名；此为范围排除，非身份撤回。",
+            "evidence": [
+              {
+                "type": "principal_scope_exclusion",
+                "actor": "assistant",
+                "policy": "clear_named_principal_1_to_3",
+                "old_person_id": 1,
+                "old_annotation_id": "jianlai_0032_multi_review_1",
+                "former_character": "李槐",
+                "text": "按用户每图最多三名的范围，左后李槐较小且被前景遮挡，优先另外三名；此为范围排除，非身份撤回。",
+                "source_image_sha256": "4941333f3f65fbd319f21ec14ff9e5a6fc84a387a0e38f4e81237eb4ba07ce22"
+              }
+            ]
+          }
+        ],
+        "image_width": 1920,
+        "image_height": 804,
+        "image_sha256": "4941333f3f65fbd319f21ec14ff9e5a6fc84a387a0e38f4e81237eb4ba07ce22",
+        "review_status": "approved",
+        "foreground_complete": true,
+        "evidence": [
+          {
+            "type": "v1_inheritance",
+            "source_sample_id": "jianlai_0032",
+            "source_dataset_sha256": "eb4a8b4177f77765db939e6723b67711d5619588bfce6f646a3396cc3b9fd8c7",
+            "image_sha256": "4941333f3f65fbd319f21ec14ff9e5a6fc84a387a0e38f4e81237eb4ba07ce22",
+            "note": "Inherited single-target label; not independent identity verification. Remaining foreground people have not been checked.",
+            "time_seconds": 1181.44
+          },
+          {
+            "type": "visual_foreground_review",
+            "actor": "assistant",
+            "sample_id": "jianlai_0032",
+            "source_image_sha256": "4941333f3f65fbd319f21ec14ff9e5a6fc84a387a0e38f4e81237eb4ba07ce22",
+            "scope": "逐张原图查看全部清晰、可分离定位的前景人物；可定位但身份不明/背身/头部出画保留unknown；仅严重虚焦/严重遮挡或仅肢体边缘的小区域ignore。",
+            "checked_full_original": true,
+            "model_predictions_used": false
+          },
+          {
+            "type": "principal_scope_sample_review",
+            "actor": "assistant",
+            "policy": "clear_named_principal_1_to_3",
+            "text": "画面有四名可识别角色，但用户最多三框：优先中心陈平安、前侧李宝瓶和右后面容清楚的林守一；左后李槐更小且被前人遮挡，作为本轮超出上限的旁人忽略，不否认其身份。",
+            "review_materials": [
+              "results/multi/annotation_batches/jianlai_contact_4.jpg"
+            ],
+            "original_reopened_this_revision": true,
+            "prior_full_original_visual_review": true,
+            "model_predictions_used": false,
+            "source_image_sha256": "4941333f3f65fbd319f21ec14ff9e5a6fc84a387a0e38f4e81237eb4ba07ce22"
+          }
+        ],
+        "note": "2026-11-13 用户修订为每图1–3名清晰且可靠具名的主要角色；assistant逐图目视重审。画面有四名可识别角色，但用户最多三框：优先中心陈平安、前侧李宝瓶和右后面容清楚的林守一；左后李槐更小且被前人遮挡，作为本轮超出上限的旁人忽略，不否认其身份。 忽略区仅为人审/评分元数据，不烧入A/B/C图片。"
+      },
+      "after": {
+        "sample_id": "jianlai_0032",
+        "work_slug": "jianlai",
+        "work_name": "剑来",
+        "work_category": "animation",
+        "image_path": "../final/jianlai/jianlai_0032.jpg",
+        "persons": [
+          {
+            "person_id": 1,
+            "bbox": [
+              0.183,
+              0.37,
+              0.348,
+              1
+            ],
+            "character": "李槐",
+            "identity_status": "verified",
+            "review_status": "approved",
+            "character_aliases": [],
+            "evidence": [
+              {
+                "type": "user_explicit_identity_confirmation",
+                "actor": "user",
+                "confirmed": true,
+                "review_revision": "user_identity_scope_review_20261116_v1",
+                "text": "用户明确确认：画面实际为李槐、李宝瓶、陈平安、林守一四人；原请求最多三人，因此任意三名正确均满足姓名要求。",
+                "source_image_sha256": "4941333f3f65fbd319f21ec14ff9e5a6fc84a387a0e38f4e81237eb4ba07ce22",
+                "confirmation_scope": "identity_only",
+                "user_confirmed_model_coordinates": false,
+                "at": "2026-11-15T16:49:15.427414+00:00"
+              },
+              {
+                "type": "assistant_geometry_review",
+                "actor": "assistant",
+                "reviewed_original": true,
+                "review_revision": "user_identity_scope_review_20261116_v1",
+                "source_image_sha256": "4941333f3f65fbd319f21ec14ff9e5a6fc84a387a0e38f4e81237eb4ba07ce22",
+                "geometry_source": "previous manually drawn ignore-region bbox, re-opened original",
+                "text": "本轮已打开完整原图，复用原人工框/忽略区可见范围；未使用模型预测坐标作真值。用户确认姓名，不等同确认模型定位。",
+                "user_confirmed_coordinates": false,
+                "at": "2026-11-15T16:49:15.427414+00:00"
+              },
+              {
+                "type": "scope_reinstatement",
+                "review_revision": "user_identity_scope_review_20261116_v1",
+                "previous_ignore_region": {
+                  "bbox": [
+                    0.183,
+                    0.37,
+                    0.348,
+                    1
+                  ],
+                  "reason": "按用户每图最多三名的范围，左后李槐较小且被前景遮挡，优先另外三名；此为范围排除，非身份撤回。",
+                  "evidence": [
+                    {
+                      "type": "principal_scope_exclusion",
+                      "actor": "assistant",
+                      "policy": "clear_named_principal_1_to_3",
+                      "old_person_id": 1,
+                      "old_annotation_id": "jianlai_0032_multi_review_1",
+                      "former_character": "李槐",
+                      "text": "按用户每图最多三名的范围，左后李槐较小且被前景遮挡，优先另外三名；此为范围排除，非身份撤回。",
+                      "source_image_sha256": "4941333f3f65fbd319f21ec14ff9e5a6fc84a387a0e38f4e81237eb4ba07ce22"
+                    }
+                  ]
+                }
+              }
+            ],
+            "note": "用户明确确认：画面实际为李槐、李宝瓶、陈平安、林守一四人；原请求最多三人，因此任意三名正确均满足姓名要求。 已从旧忽略区恢复；姓名由用户确认，框为助手复核的原可见范围，不代表模型框已正确。",
+            "annotation_id": "jianlai_0032_user_review_20261116_lihuai"
+          },
+          {
+            "person_id": 2,
+            "bbox": [
+              0.278,
+              0.415,
+              0.464,
+              1
+            ],
+            "character": "李宝瓶",
+            "identity_status": "verified",
+            "review_status": "approved",
+            "character_aliases": [],
+            "evidence": [
+              {
+                "type": "visual_person_review",
+                "actor": "assistant",
+                "text": "左前红白棉袄女孩",
+                "source_image_sha256": "4941333f3f65fbd319f21ec14ff9e5a6fc84a387a0e38f4e81237eb4ba07ce22"
+              },
+              {
+                "type": "local_name_anchor",
+                "path": "data/selection_reviews/curated_20261113_40/archive/candidates/jianlai/cand_cache_s2e04_0050.jpg",
+                "sha256": "35b56712276893b3dafb54802fea42e4854c523b3a67c44d3e0220e56fa66988",
+                "text": "已实际查看字幕直呼“宝瓶”，红白棉袄、双丸铃饰女孩面容与入选帧一致；官方简介明确李宝瓶全名。",
+                "supporting_url": "https://wetv.vip/zh-cn/play/mlz46dus64wwr4y/z4102grw76e",
+                "confirmed": true
+              },
+              {
+                "type": "principal_scope_visual_review",
+                "actor": "assistant",
+                "policy": "clear_named_principal_1_to_3",
+                "text": "本轮按用户新口径目视本图，确认这是清晰、可靠具名的画面主要角色；不是自动按verified字段筛选。",
+                "source_image_sha256": "4941333f3f65fbd319f21ec14ff9e5a6fc84a387a0e38f4e81237eb4ba07ce22"
+              }
+            ],
+            "note": "左前红白棉袄女孩",
+            "annotation_id": "jianlai_0032_multi_review_2"
+          },
+          {
+            "person_id": 3,
+            "bbox": [
+              0.418,
+              0.064,
+              0.677,
+              1
+            ],
+            "character": "陈平安",
+            "identity_status": "verified",
+            "review_status": "approved",
+            "character_aliases": [
+              "平安"
+            ],
+            "evidence": [
+              {
+                "type": "visual_person_review",
+                "actor": "assistant",
+                "text": "中央布衣少年，含双手可见范围",
+                "source_image_sha256": "4941333f3f65fbd319f21ec14ff9e5a6fc84a387a0e38f4e81237eb4ba07ce22"
+              },
+              {
+                "type": "independent_named_character_reference",
+                "authority": "secondary curated character page; not claimed as an official host",
+                "url": "https://bgm.tv/character/168727",
+                "image_path": "results/multi/annotation_batches/references/jianlai/chenpingan.jpg",
+                "image_sha256": "11adfe86ed8101c000d0f6d07042cc593780f0c7b96643558ceba5b12ad215c0",
+                "page_path": "results/multi/annotation_batches/references/jianlai/chenpingan.html",
+                "page_sha256": "0ec27fa763bd83cba99797e07db40443ed8b7ed49f69f72692c664ecbf604e29",
+                "text": "独立命名角色页中的动画形象：面容、灰蓝波纹交领、青簪束发；辅助官方角色设定发布索引 https://weibo.com/6146649426/OqPCZgTtI （索引文字可检索，官方原帖本轮未能直开，不以该未见图像为依据）",
+                "confirmed": true
+              },
+              {
+                "type": "principal_scope_visual_review",
+                "actor": "assistant",
+                "policy": "clear_named_principal_1_to_3",
+                "text": "本轮按用户新口径目视本图，确认这是清晰、可靠具名的画面主要角色；不是自动按verified字段筛选。",
+                "source_image_sha256": "4941333f3f65fbd319f21ec14ff9e5a6fc84a387a0e38f4e81237eb4ba07ce22"
+              }
+            ],
+            "note": "中央布衣少年，含双手可见范围",
+            "annotation_id": "jianlai_0032_multi_review_3"
+          },
+          {
+            "person_id": 4,
+            "bbox": [
+              0.577,
+              0.14,
+              0.731,
+              1
+            ],
+            "character": "林守一",
+            "identity_status": "verified",
+            "review_status": "approved",
+            "character_aliases": [],
+            "evidence": [
+              {
+                "type": "visual_person_review",
+                "actor": "assistant",
+                "text": "右后白绿衣长发少年，衣袍延伸到画底",
+                "source_image_sha256": "4941333f3f65fbd319f21ec14ff9e5a6fc84a387a0e38f4e81237eb4ba07ce22"
+              },
+              {
+                "type": "independent_named_character_reference",
+                "authority": "secondary curated character page; not claimed as an official host",
+                "url": "https://bgm.tv/character/195900",
+                "image_path": "results/multi/annotation_batches/references/jianlai/linshouyi.jpg",
+                "image_sha256": "999793a08b41bf3497159746efcf503ae6d0030ea79cb80957696e88e9bf0f3e",
+                "page_path": "results/multi/annotation_batches/references/jianlai/linshouyi.html",
+                "page_sha256": "27b351aab5dba3741e1f1a1c18ea64ebd2da2b1a61d6887b4d740615425dcec9",
+                "text": "独立命名角色页图像：白衣深绿滚边、半束长发、发环及面容，和原图逐项比对",
+                "confirmed": true
+              },
+              {
+                "type": "principal_scope_visual_review",
+                "actor": "assistant",
+                "policy": "clear_named_principal_1_to_3",
+                "text": "本轮按用户新口径目视本图，确认这是清晰、可靠具名的画面主要角色；不是自动按verified字段筛选。",
+                "source_image_sha256": "4941333f3f65fbd319f21ec14ff9e5a6fc84a387a0e38f4e81237eb4ba07ce22"
+              }
+            ],
+            "note": "右后白绿衣长发少年，衣袍延伸到画底",
+            "annotation_id": "jianlai_0032_inherited"
+          }
+        ],
+        "ignore_regions": [],
+        "image_width": 1920,
+        "image_height": 804,
+        "image_sha256": "4941333f3f65fbd319f21ec14ff9e5a6fc84a387a0e38f4e81237eb4ba07ce22",
+        "review_status": "approved",
+        "foreground_complete": true,
+        "evidence": [
+          {
+            "type": "v1_inheritance",
+            "source_sample_id": "jianlai_0032",
+            "source_dataset_sha256": "eb4a8b4177f77765db939e6723b67711d5619588bfce6f646a3396cc3b9fd8c7",
+            "image_sha256": "4941333f3f65fbd319f21ec14ff9e5a6fc84a387a0e38f4e81237eb4ba07ce22",
+            "note": "Inherited single-target label; not independent identity verification. Remaining foreground people have not been checked.",
+            "time_seconds": 1181.44
+          },
+          {
+            "type": "visual_foreground_review",
+            "actor": "assistant",
+            "sample_id": "jianlai_0032",
+            "source_image_sha256": "4941333f3f65fbd319f21ec14ff9e5a6fc84a387a0e38f4e81237eb4ba07ce22",
+            "scope": "逐张原图查看全部清晰、可分离定位的前景人物；可定位但身份不明/背身/头部出画保留unknown；仅严重虚焦/严重遮挡或仅肢体边缘的小区域ignore。",
+            "checked_full_original": true,
+            "model_predictions_used": false
+          },
+          {
+            "type": "principal_scope_sample_review",
+            "actor": "assistant",
+            "policy": "clear_named_principal_1_to_3",
+            "text": "画面有四名可识别角色，但用户最多三框：优先中心陈平安、前侧李宝瓶和右后面容清楚的林守一；左后李槐更小且被前人遮挡，作为本轮超出上限的旁人忽略，不否认其身份。",
+            "review_materials": [
+              "results/multi/annotation_batches/jianlai_contact_4.jpg"
+            ],
+            "original_reopened_this_revision": true,
+            "prior_full_original_visual_review": true,
+            "model_predictions_used": false,
+            "source_image_sha256": "4941333f3f65fbd319f21ec14ff9e5a6fc84a387a0e38f4e81237eb4ba07ce22"
+          },
+          {
+            "type": "user_explicit_identity_confirmation",
+            "actor": "user",
+            "confirmed": true,
+            "review_revision": "user_identity_scope_review_20261116_v1",
+            "text": "用户明确确认：画面实际为李槐、李宝瓶、陈平安、林守一四人；原请求最多三人，因此任意三名正确均满足姓名要求。",
+            "source_image_sha256": "4941333f3f65fbd319f21ec14ff9e5a6fc84a387a0e38f4e81237eb4ba07ce22",
+            "confirmation_scope": "identity_and_target_scope_only",
+            "user_confirmed_model_coordinates": false,
+            "at": "2026-11-15T16:49:15.427414+00:00"
+          }
+        ],
+        "note": "2026-11-16 用户逐图复核更正：用户明确确认：画面实际为李槐、李宝瓶、陈平安、林守一四人；原请求最多三人，因此任意三名正确均满足姓名要求。 仅重评既有响应，不调用API；不将姓名命中推断为模型坐标正确。",
+        "evaluation_policy": {
+          "required_name_count": 3
+        }
+      },
+      "reason": "用户明确确认：画面实际为李槐、李宝瓶、陈平安、林守一四人；原请求最多三人，因此任意三名正确均满足姓名要求。",
+      "user_text": "用户审阅结论转述：用户明确确认：画面实际为李槐、李宝瓶、陈平安、林守一四人；原请求最多三人，因此任意三名正确均满足姓名要求。",
+      "user_evidence": {
+        "type": "explicit_user_review",
+        "recorded_by": "assistant",
+        "is_verbatim_quote": false,
+        "identity_confirmed": true,
+        "model_coordinates_confirmed": false
+      },
+      "reviewed_at": "2026-11-15T16:49:15.427414+00:00",
+      "coordinate_review": {
+        "reviewer": "assistant",
+        "original_image_reopened": true,
+        "source": "unchanged person box or restored historical ignore-region box",
+        "model_boxes_used_as_ground_truth": false,
+        "strict_position_metrics_must_be_recomputed_independently": true
+      },
+      "before_stratification": [
+        {
+          "sample_id": "jianlai_0032",
+          "annotation_id": "jianlai_0032_multi_review_2",
+          "person_id": 1,
+          "image_sha256": "4941333f3f65fbd319f21ec14ff9e5a6fc84a387a0e38f4e81237eb4ba07ce22",
+          "face_orientation": "front",
+          "visibility": "clear",
+          "note": "俯视与歪头状态，左右脸部仍接近正面。",
+          "reviewer": "assistant"
+        },
+        {
+          "sample_id": "jianlai_0032",
+          "annotation_id": "jianlai_0032_multi_review_3",
+          "person_id": 2,
+          "image_sha256": "4941333f3f65fbd319f21ec14ff9e5a6fc84a387a0e38f4e81237eb4ba07ce22",
+          "face_orientation": "three_quarter",
+          "visibility": "clear",
+          "note": "明显斜侧，仍可见两眼或大部分五官；主要面部区域可辨。",
+          "reviewer": "assistant"
+        },
+        {
+          "sample_id": "jianlai_0032",
+          "annotation_id": "jianlai_0032_inherited",
+          "person_id": 3,
+          "image_sha256": "4941333f3f65fbd319f21ec14ff9e5a6fc84a387a0e38f4e81237eb4ba07ce22",
+          "face_orientation": "three_quarter",
+          "visibility": "clear",
+          "note": "明显斜侧，仍可见两眼或大部分五官；主要面部区域可辨。",
+          "reviewer": "assistant"
+        }
+      ],
+      "after_stratification": [
+        {
+          "sample_id": "jianlai_0032",
+          "annotation_id": "jianlai_0032_user_review_20261116_lihuai",
+          "person_id": 1,
+          "image_sha256": "4941333f3f65fbd319f21ec14ff9e5a6fc84a387a0e38f4e81237eb4ba07ce22",
+          "face_orientation": "front",
+          "visibility": "clear",
+          "note": "左后戴虎帽人物近正面、头部倾斜；脸部可见，身体被前侧人物遮挡不单独算面部遮挡。 2026-11-16仅按原图标统计类别，与模型回答无关。",
+          "reviewer": "assistant"
+        },
+        {
+          "sample_id": "jianlai_0032",
+          "annotation_id": "jianlai_0032_multi_review_2",
+          "person_id": 2,
+          "image_sha256": "4941333f3f65fbd319f21ec14ff9e5a6fc84a387a0e38f4e81237eb4ba07ce22",
+          "face_orientation": "front",
+          "visibility": "clear",
+          "note": "俯视与歪头状态，左右脸部仍接近正面。",
+          "reviewer": "assistant"
+        },
+        {
+          "sample_id": "jianlai_0032",
+          "annotation_id": "jianlai_0032_multi_review_3",
+          "person_id": 3,
+          "image_sha256": "4941333f3f65fbd319f21ec14ff9e5a6fc84a387a0e38f4e81237eb4ba07ce22",
+          "face_orientation": "three_quarter",
+          "visibility": "clear",
+          "note": "明显斜侧，仍可见两眼或大部分五官；主要面部区域可辨。",
+          "reviewer": "assistant"
+        },
+        {
+          "sample_id": "jianlai_0032",
+          "annotation_id": "jianlai_0032_inherited",
+          "person_id": 4,
+          "image_sha256": "4941333f3f65fbd319f21ec14ff9e5a6fc84a387a0e38f4e81237eb4ba07ce22",
+          "face_orientation": "three_quarter",
+          "visibility": "clear",
+          "note": "明显斜侧，仍可见两眼或大部分五官；主要面部区域可辨。",
+          "reviewer": "assistant"
+        }
+      ],
+      "reference_image": {
+        "path": "reports/2026-11-16-annotation-review/images/jianlai_0032.jpg",
+        "sha256": "5dfde9c96db3a710bdd34d6a8d3bdfc69afa99686e44b54397e234e873008665",
+        "usage": "review_only_not_model_input"
+      },
+      "scoring_policy": {
+        "evaluation_policy": {
+          "required_name_count": 3
+        },
+        "identity_and_geometry_are_separate": true
+      }
+    },
+    {
+      "sample_id": "jianlai_0036",
+      "image_sha256": "011da6fcaf106d27de84a52a1897b17fd5dd79f8c88c41112ffa1aa39c74852e",
+      "before_sample_hash": "a966d7669b8065b188dc2cce04c81976840dbb21ca793fa1179cbde718b28285",
+      "after_sample_hash": "d3703d77d1987e0f4882a755ca6f00456e351aec771739e7706cb681bb325e92",
+      "before": {
+        "sample_id": "jianlai_0036",
+        "work_slug": "jianlai",
+        "work_name": "剑来",
+        "work_category": "animation",
+        "image_path": "../final/jianlai/jianlai_0036.jpg",
+        "persons": [
+          {
+            "person_id": 1,
+            "bbox": [
+              0.308,
+              0.137,
+              0.693,
+              1
+            ],
+            "character": "陈平安",
+            "identity_status": "verified",
+            "review_status": "approved",
+            "character_aliases": [
+              "平安"
+            ],
+            "evidence": [
+              {
+                "type": "visual_person_review",
+                "actor": "assistant",
+                "text": "中央篝火旁少年，同0035面容、波纹交领和护腕，结合独立命名参照核对",
+                "source_image_sha256": "011da6fcaf106d27de84a52a1897b17fd5dd79f8c88c41112ffa1aa39c74852e"
+              },
+              {
+                "type": "independent_named_character_reference",
+                "authority": "secondary curated character page; not claimed as an official host",
+                "url": "https://bgm.tv/character/168727",
+                "image_path": "results/multi/annotation_batches/references/jianlai/chenpingan.jpg",
+                "image_sha256": "11adfe86ed8101c000d0f6d07042cc593780f0c7b96643558ceba5b12ad215c0",
+                "page_path": "results/multi/annotation_batches/references/jianlai/chenpingan.html",
+                "page_sha256": "0ec27fa763bd83cba99797e07db40443ed8b7ed49f69f72692c664ecbf604e29",
+                "text": "独立命名角色页中的动画形象：面容、灰蓝波纹交领、青簪束发；辅助官方角色设定发布索引 https://weibo.com/6146649426/OqPCZgTtI （索引文字可检索，官方原帖本轮未能直开，不以该未见图像为依据）",
+                "confirmed": true
+              },
+              {
+                "type": "principal_scope_visual_review",
+                "actor": "assistant",
+                "policy": "clear_named_principal_1_to_3",
+                "text": "本轮按用户新口径目视本图，确认这是清晰、可靠具名的画面主要角色；不是自动按verified字段筛选。",
+                "source_image_sha256": "011da6fcaf106d27de84a52a1897b17fd5dd79f8c88c41112ffa1aa39c74852e"
+              }
+            ],
+            "note": "中央篝火旁少年，同0035面容、波纹交领和护腕，结合独立命名参照核对",
+            "annotation_id": "jianlai_0036_inherited"
+          }
+        ],
+        "ignore_regions": [
+          {
+            "bbox": [
+              0.033,
+              0.158,
+              0.325,
+              1
+            ],
+            "reason": "粉衣人物背向镜头，现有二维/后脑服饰参照不足本帧可靠定名，不凑unknown。",
+            "evidence": [
+              {
+                "type": "principal_scope_exclusion",
+                "actor": "assistant",
+                "policy": "clear_named_principal_1_to_3",
+                "old_person_id": 1,
+                "old_annotation_id": "jianlai_0036_multi_review_1",
+                "former_character": null,
+                "text": "粉衣人物背向镜头，现有二维/后脑服饰参照不足本帧可靠定名，不凑unknown。",
+                "source_image_sha256": "011da6fcaf106d27de84a52a1897b17fd5dd79f8c88c41112ffa1aa39c74852e"
+              }
+            ]
+          },
+          {
+            "bbox": [
+              0.69,
+              0.014,
+              0.935,
+              1
+            ],
+            "reason": "绿饰少年有候选但缺少足够独立姓名锚；只保留已可靠定名的中央主要角色。",
+            "evidence": [
+              {
+                "type": "principal_scope_exclusion",
+                "actor": "assistant",
+                "policy": "clear_named_principal_1_to_3",
+                "old_person_id": 3,
+                "old_annotation_id": "jianlai_0036_multi_review_3",
+                "former_character": null,
+                "text": "绿饰少年有候选但缺少足够独立姓名锚；只保留已可靠定名的中央主要角色。",
+                "source_image_sha256": "011da6fcaf106d27de84a52a1897b17fd5dd79f8c88c41112ffa1aa39c74852e"
+              }
+            ]
+          }
+        ],
+        "image_width": 1920,
+        "image_height": 804,
+        "image_sha256": "011da6fcaf106d27de84a52a1897b17fd5dd79f8c88c41112ffa1aa39c74852e",
+        "review_status": "approved",
+        "foreground_complete": true,
+        "evidence": [
+          {
+            "type": "v1_inheritance",
+            "source_sample_id": "jianlai_0036",
+            "source_dataset_sha256": "eb4a8b4177f77765db939e6723b67711d5619588bfce6f646a3396cc3b9fd8c7",
+            "image_sha256": "011da6fcaf106d27de84a52a1897b17fd5dd79f8c88c41112ffa1aa39c74852e",
+            "note": "Inherited single-target label; not independent identity verification. Remaining foreground people have not been checked.",
+            "time_seconds": 677.4
+          },
+          {
+            "type": "visual_foreground_review",
+            "actor": "assistant",
+            "sample_id": "jianlai_0036",
+            "source_image_sha256": "011da6fcaf106d27de84a52a1897b17fd5dd79f8c88c41112ffa1aa39c74852e",
+            "scope": "逐张原图查看全部清晰、可分离定位的前景人物；可定位但身份不明/背身/头部出画保留unknown；仅严重虚焦/严重遮挡或仅肢体边缘的小区域ignore。",
+            "checked_full_original": true,
+            "model_predictions_used": false
+          },
+          {
+            "type": "principal_scope_sample_review",
+            "actor": "assistant",
+            "policy": "clear_named_principal_1_to_3",
+            "text": "只保留中央清楚且已独立核名的陈平安；左侧粉衣背身与右侧绿饰少年虽可定位，但现有参照不足独立确定本帧身份，不为人数凑框。",
+            "review_materials": [
+              "results/multi/annotation_batches/jianlai_contact_5.jpg"
+            ],
+            "original_reopened_this_revision": false,
+            "prior_full_original_visual_review": true,
+            "model_predictions_used": false,
+            "source_image_sha256": "011da6fcaf106d27de84a52a1897b17fd5dd79f8c88c41112ffa1aa39c74852e"
+          }
+        ],
+        "note": "2026-11-13 用户修订为每图1–3名清晰且可靠具名的主要角色；assistant逐图目视重审。只保留中央清楚且已独立核名的陈平安；左侧粉衣背身与右侧绿饰少年虽可定位，但现有参照不足独立确定本帧身份，不为人数凑框。 忽略区仅为人审/评分元数据，不烧入A/B/C图片。"
+      },
+      "after": {
+        "sample_id": "jianlai_0036",
+        "work_slug": "jianlai",
+        "work_name": "剑来",
+        "work_category": "animation",
+        "image_path": "../final/jianlai/jianlai_0036.jpg",
+        "persons": [
+          {
+            "person_id": 1,
+            "bbox": [
+              0.033,
+              0.158,
+              0.325,
+              1
+            ],
+            "character": "陈暖树",
+            "identity_status": "verified",
+            "review_status": "approved",
+            "character_aliases": [],
+            "evidence": [
+              {
+                "type": "user_explicit_identity_confirmation",
+                "actor": "user",
+                "confirmed": true,
+                "review_revision": "user_identity_scope_review_20261116_v1",
+                "text": "用户明确确认：左侧陈暖树、中间陈平安、右侧陈灵均。",
+                "source_image_sha256": "011da6fcaf106d27de84a52a1897b17fd5dd79f8c88c41112ffa1aa39c74852e",
+                "confirmation_scope": "identity_only",
+                "user_confirmed_model_coordinates": false,
+                "at": "2026-11-15T16:49:15.427414+00:00"
+              },
+              {
+                "type": "assistant_geometry_review",
+                "actor": "assistant",
+                "reviewed_original": true,
+                "review_revision": "user_identity_scope_review_20261116_v1",
+                "source_image_sha256": "011da6fcaf106d27de84a52a1897b17fd5dd79f8c88c41112ffa1aa39c74852e",
+                "geometry_source": "previous manually drawn ignore-region bbox, re-opened original",
+                "text": "本轮已打开完整原图，复用原人工框/忽略区可见范围；未使用模型预测坐标作真值。用户确认姓名，不等同确认模型定位。",
+                "user_confirmed_coordinates": false,
+                "at": "2026-11-15T16:49:15.427414+00:00"
+              },
+              {
+                "type": "scope_reinstatement",
+                "review_revision": "user_identity_scope_review_20261116_v1",
+                "previous_ignore_region": {
+                  "bbox": [
+                    0.033,
+                    0.158,
+                    0.325,
+                    1
+                  ],
+                  "reason": "粉衣人物背向镜头，现有二维/后脑服饰参照不足本帧可靠定名，不凑unknown。",
+                  "evidence": [
+                    {
+                      "type": "principal_scope_exclusion",
+                      "actor": "assistant",
+                      "policy": "clear_named_principal_1_to_3",
+                      "old_person_id": 1,
+                      "old_annotation_id": "jianlai_0036_multi_review_1",
+                      "former_character": null,
+                      "text": "粉衣人物背向镜头，现有二维/后脑服饰参照不足本帧可靠定名，不凑unknown。",
+                      "source_image_sha256": "011da6fcaf106d27de84a52a1897b17fd5dd79f8c88c41112ffa1aa39c74852e"
+                    }
+                  ]
+                }
+              }
+            ],
+            "note": "用户明确确认：左侧陈暖树、中间陈平安、右侧陈灵均。 已从旧忽略区恢复；姓名由用户确认，框为助手复核的原可见范围，不代表模型框已正确。",
+            "annotation_id": "jianlai_0036_user_review_20261116_chennuanshu"
+          },
+          {
+            "person_id": 2,
+            "bbox": [
+              0.308,
+              0.137,
+              0.693,
+              1
+            ],
+            "character": "陈平安",
+            "identity_status": "verified",
+            "review_status": "approved",
+            "character_aliases": [
+              "平安"
+            ],
+            "evidence": [
+              {
+                "type": "visual_person_review",
+                "actor": "assistant",
+                "text": "中央篝火旁少年，同0035面容、波纹交领和护腕，结合独立命名参照核对",
+                "source_image_sha256": "011da6fcaf106d27de84a52a1897b17fd5dd79f8c88c41112ffa1aa39c74852e"
+              },
+              {
+                "type": "independent_named_character_reference",
+                "authority": "secondary curated character page; not claimed as an official host",
+                "url": "https://bgm.tv/character/168727",
+                "image_path": "results/multi/annotation_batches/references/jianlai/chenpingan.jpg",
+                "image_sha256": "11adfe86ed8101c000d0f6d07042cc593780f0c7b96643558ceba5b12ad215c0",
+                "page_path": "results/multi/annotation_batches/references/jianlai/chenpingan.html",
+                "page_sha256": "0ec27fa763bd83cba99797e07db40443ed8b7ed49f69f72692c664ecbf604e29",
+                "text": "独立命名角色页中的动画形象：面容、灰蓝波纹交领、青簪束发；辅助官方角色设定发布索引 https://weibo.com/6146649426/OqPCZgTtI （索引文字可检索，官方原帖本轮未能直开，不以该未见图像为依据）",
+                "confirmed": true
+              },
+              {
+                "type": "principal_scope_visual_review",
+                "actor": "assistant",
+                "policy": "clear_named_principal_1_to_3",
+                "text": "本轮按用户新口径目视本图，确认这是清晰、可靠具名的画面主要角色；不是自动按verified字段筛选。",
+                "source_image_sha256": "011da6fcaf106d27de84a52a1897b17fd5dd79f8c88c41112ffa1aa39c74852e"
+              }
+            ],
+            "note": "中央篝火旁少年，同0035面容、波纹交领和护腕，结合独立命名参照核对",
+            "annotation_id": "jianlai_0036_inherited"
+          },
+          {
+            "person_id": 3,
+            "bbox": [
+              0.69,
+              0.014,
+              0.935,
+              1
+            ],
+            "character": "陈灵均",
+            "identity_status": "verified",
+            "review_status": "approved",
+            "character_aliases": [],
+            "evidence": [
+              {
+                "type": "user_explicit_identity_confirmation",
+                "actor": "user",
+                "confirmed": true,
+                "review_revision": "user_identity_scope_review_20261116_v1",
+                "text": "用户明确补充右侧人物为陈灵均。",
+                "source_image_sha256": "011da6fcaf106d27de84a52a1897b17fd5dd79f8c88c41112ffa1aa39c74852e",
+                "confirmation_scope": "identity_only",
+                "user_confirmed_model_coordinates": false,
+                "at": "2026-11-15T16:49:15.427414+00:00"
+              },
+              {
+                "type": "assistant_geometry_review",
+                "actor": "assistant",
+                "reviewed_original": true,
+                "review_revision": "user_identity_scope_review_20261116_v1",
+                "source_image_sha256": "011da6fcaf106d27de84a52a1897b17fd5dd79f8c88c41112ffa1aa39c74852e",
+                "geometry_source": "previous manually drawn ignore-region bbox, re-opened original",
+                "text": "本轮已打开完整原图，复用原人工框/忽略区可见范围；未使用模型预测坐标作真值。用户确认姓名，不等同确认模型定位。",
+                "user_confirmed_coordinates": false,
+                "at": "2026-11-15T16:49:15.427414+00:00"
+              },
+              {
+                "type": "scope_reinstatement",
+                "review_revision": "user_identity_scope_review_20261116_v1",
+                "previous_ignore_region": {
+                  "bbox": [
+                    0.69,
+                    0.014,
+                    0.935,
+                    1
+                  ],
+                  "reason": "绿饰少年有候选但缺少足够独立姓名锚；只保留已可靠定名的中央主要角色。",
+                  "evidence": [
+                    {
+                      "type": "principal_scope_exclusion",
+                      "actor": "assistant",
+                      "policy": "clear_named_principal_1_to_3",
+                      "old_person_id": 3,
+                      "old_annotation_id": "jianlai_0036_multi_review_3",
+                      "former_character": null,
+                      "text": "绿饰少年有候选但缺少足够独立姓名锚；只保留已可靠定名的中央主要角色。",
+                      "source_image_sha256": "011da6fcaf106d27de84a52a1897b17fd5dd79f8c88c41112ffa1aa39c74852e"
+                    }
+                  ]
+                }
+              }
+            ],
+            "note": "用户明确补充右侧人物为陈灵均。 已从旧忽略区恢复；姓名由用户确认，框为助手复核的原可见范围，不代表模型框已正确。",
+            "annotation_id": "jianlai_0036_user_review_20261116_chenlingjun"
+          }
+        ],
+        "ignore_regions": [],
+        "image_width": 1920,
+        "image_height": 804,
+        "image_sha256": "011da6fcaf106d27de84a52a1897b17fd5dd79f8c88c41112ffa1aa39c74852e",
+        "review_status": "approved",
+        "foreground_complete": true,
+        "evidence": [
+          {
+            "type": "v1_inheritance",
+            "source_sample_id": "jianlai_0036",
+            "source_dataset_sha256": "eb4a8b4177f77765db939e6723b67711d5619588bfce6f646a3396cc3b9fd8c7",
+            "image_sha256": "011da6fcaf106d27de84a52a1897b17fd5dd79f8c88c41112ffa1aa39c74852e",
+            "note": "Inherited single-target label; not independent identity verification. Remaining foreground people have not been checked.",
+            "time_seconds": 677.4
+          },
+          {
+            "type": "visual_foreground_review",
+            "actor": "assistant",
+            "sample_id": "jianlai_0036",
+            "source_image_sha256": "011da6fcaf106d27de84a52a1897b17fd5dd79f8c88c41112ffa1aa39c74852e",
+            "scope": "逐张原图查看全部清晰、可分离定位的前景人物；可定位但身份不明/背身/头部出画保留unknown；仅严重虚焦/严重遮挡或仅肢体边缘的小区域ignore。",
+            "checked_full_original": true,
+            "model_predictions_used": false
+          },
+          {
+            "type": "principal_scope_sample_review",
+            "actor": "assistant",
+            "policy": "clear_named_principal_1_to_3",
+            "text": "只保留中央清楚且已独立核名的陈平安；左侧粉衣背身与右侧绿饰少年虽可定位，但现有参照不足独立确定本帧身份，不为人数凑框。",
+            "review_materials": [
+              "results/multi/annotation_batches/jianlai_contact_5.jpg"
+            ],
+            "original_reopened_this_revision": false,
+            "prior_full_original_visual_review": true,
+            "model_predictions_used": false,
+            "source_image_sha256": "011da6fcaf106d27de84a52a1897b17fd5dd79f8c88c41112ffa1aa39c74852e"
+          },
+          {
+            "type": "user_explicit_identity_confirmation",
+            "actor": "user",
+            "confirmed": true,
+            "review_revision": "user_identity_scope_review_20261116_v1",
+            "text": "用户明确确认：左侧陈暖树、中间陈平安、右侧陈灵均。 用户明确补充右侧人物为陈灵均。",
+            "source_image_sha256": "011da6fcaf106d27de84a52a1897b17fd5dd79f8c88c41112ffa1aa39c74852e",
+            "confirmation_scope": "identity_and_target_scope_only",
+            "user_confirmed_model_coordinates": false,
+            "at": "2026-11-15T16:49:15.427414+00:00"
+          }
+        ],
+        "note": "2026-11-16 用户逐图复核更正：用户明确确认：左侧陈暖树、中间陈平安、右侧陈灵均。 用户明确补充右侧人物为陈灵均。 仅重评既有响应，不调用API；不将姓名命中推断为模型坐标正确。"
+      },
+      "reason": "用户明确确认：左侧陈暖树、中间陈平安、右侧陈灵均。 用户明确补充右侧人物为陈灵均。",
+      "user_text": "用户审阅结论转述：用户明确确认：左侧陈暖树、中间陈平安、右侧陈灵均。 用户明确补充右侧人物为陈灵均。",
+      "user_evidence": {
+        "type": "explicit_user_review",
+        "recorded_by": "assistant",
+        "is_verbatim_quote": false,
+        "identity_confirmed": true,
+        "model_coordinates_confirmed": false
+      },
+      "reviewed_at": "2026-11-15T16:49:15.427414+00:00",
+      "coordinate_review": {
+        "reviewer": "assistant",
+        "original_image_reopened": true,
+        "source": "unchanged person box or restored historical ignore-region box",
+        "model_boxes_used_as_ground_truth": false,
+        "strict_position_metrics_must_be_recomputed_independently": true
+      },
+      "before_stratification": [
+        {
+          "sample_id": "jianlai_0036",
+          "annotation_id": "jianlai_0036_inherited",
+          "person_id": 1,
+          "image_sha256": "011da6fcaf106d27de84a52a1897b17fd5dd79f8c88c41112ffa1aa39c74852e",
+          "face_orientation": "front",
+          "visibility": "clear",
+          "note": "近正面，双眼与鼻口基本对称；主要面部区域无遮挡。",
+          "reviewer": "assistant"
+        }
+      ],
+      "after_stratification": [
+        {
+          "sample_id": "jianlai_0036",
+          "annotation_id": "jianlai_0036_user_review_20261116_chennuanshu",
+          "person_id": 1,
+          "image_sha256": "011da6fcaf106d27de84a52a1897b17fd5dd79f8c88c41112ffa1aa39c74852e",
+          "face_orientation": "not_visible",
+          "visibility": "clear",
+          "note": "左侧为背面，头发和轮廓本身清楚；背面与图像模糊分开统计。 2026-11-16仅按原图标统计类别，与模型回答无关。",
+          "reviewer": "assistant"
+        },
+        {
+          "sample_id": "jianlai_0036",
+          "annotation_id": "jianlai_0036_inherited",
+          "person_id": 2,
+          "image_sha256": "011da6fcaf106d27de84a52a1897b17fd5dd79f8c88c41112ffa1aa39c74852e",
+          "face_orientation": "front",
+          "visibility": "clear",
+          "note": "近正面，双眼与鼻口基本对称；主要面部区域无遮挡。",
+          "reviewer": "assistant"
+        },
+        {
+          "sample_id": "jianlai_0036",
+          "annotation_id": "jianlai_0036_user_review_20261116_chenlingjun",
+          "person_id": 3,
+          "image_sha256": "011da6fcaf106d27de84a52a1897b17fd5dd79f8c88c41112ffa1aa39c74852e",
+          "face_orientation": "three_quarter",
+          "visibility": "occluded_or_blurry",
+          "note": "右前方人物斜侧，面部比中间焦点略虚，保守记可见性困难。 2026-11-16仅按原图标统计类别，与模型回答无关。",
+          "reviewer": "assistant"
+        }
+      ],
+      "reference_image": {
+        "path": "reports/2026-11-16-annotation-review/images/jianlai_0036.jpg",
+        "sha256": "36ca4d6c70113f8b8835a5291e80e27a638a8ce1834ff00d79e9503847290866",
+        "usage": "review_only_not_model_input"
+      },
+      "scoring_policy": {
+        "evaluation_policy": {},
+        "identity_and_geometry_are_separate": true
+      }
+    },
+    {
+      "sample_id": "qingyunian2_0022",
+      "image_sha256": "a304f39fb3430c22c564050ebea24c873b8565455a6ee77296ecea41c87b52f1",
+      "before_sample_hash": "31b72dba969f33698bf494639ff0d948ef585bcfb84972b17c70d4a7f8f516a5",
+      "after_sample_hash": "6c570f0fd23874d92b39b43c8edc1253a68729cc589ddc1a8960b98c6577b00c",
+      "before": {
+        "sample_id": "qingyunian2_0022",
+        "work_slug": "qingyunian2",
+        "work_name": "庆余年第二季",
+        "work_category": "costume_drama",
+        "image_path": "../final/qingyunian2/qingyunian2_0022.jpg",
+        "persons": [
+          {
+            "person_id": 1,
+            "bbox": [
+              0.385,
+              0.066,
+              0.695,
+              1
+            ],
+            "character": "赖名成",
+            "identity_status": "verified",
+            "review_status": "approved",
+            "character_aliases": [],
+            "evidence": [
+              {
+                "type": "assistant_independent_original_frame_review",
+                "actor": "assistant",
+                "confirmed": true,
+                "reviewed_at": "2026-11-13T04:07:46+00:00",
+                "image_sha256": "a304f39fb3430c22c564050ebea24c873b8565455a6ee77296ecea41c87b52f1",
+                "scope": "geometry_and_identity",
+                "observation": "中央绿领白袍长须官员；眉眼、须形与赖名成命名海报对应，框包含官帽、衣袖和可见袍服",
+                "model_predictions_used": false
+              },
+              {
+                "type": "production_named_poster_republished_by_secondary_host",
+                "actor": "assistant",
+                "confirmed": true,
+                "reference_id": "poster_laimingcheng",
+                "url": "https://www.sohu.com/a/687400890_120192821",
+                "image_url": "https://p6.itc.cn/images01/20230620/a6b7542845734e26a9502ed21e2bc4f9.jpeg",
+                "supports": "右图毕彦君/赖名成，年长、灰长髯；区别0019黑白短须书旁尸体。",
+                "image_sha256": "27ce0dfc7add8519e4eda9178d3aa2913a6f8b7fd8f44180533f9c5aa8664413",
+                "local_reference": "results/multi/annotation_batches/qingyunian2_part2_review/references/poster_laimingcheng.jpg",
+                "local_reference_sha256": "27ce0dfc7add8519e4eda9178d3aa2913a6f8b7fd8f44180533f9c5aa8664413",
+                "reviewed_this_batch": true,
+                "observation": "中央绿领白袍长须官员；眉眼、须形与赖名成命名海报对应，框包含官帽、衣袖和可见袍服；本次重新看原图及所列独立参考，继承标签不算确认。"
+              }
+            ],
+            "note": "中央绿领白袍长须官员；眉眼、须形与赖名成命名海报对应，框包含官帽、衣袖和可见袍服",
+            "annotation_id": "qingyunian2_0022_inherited"
+          }
+        ],
+        "ignore_regions": [
+          {
+            "bbox": [
+              0.05,
+              0.717,
+              0.256,
+              1
+            ],
+            "reason": "非本轮可可靠定名的主要角色；不凑unknown人数，按用户要求移出红框。",
+            "evidence": [
+              {
+                "type": "user_scope_revision",
+                "text": "一般最多保留2–3个主要的；优先能可靠标记的人物，虚化/残缺旁人不框。",
+                "at": "2026-11-13T06:55:53.353627+00:00"
+              }
+            ]
+          },
+          {
+            "bbox": [
+              0.195,
+              0.474,
+              0.38,
+              0.946
+            ],
+            "reason": "非本轮可可靠定名的主要角色；不凑unknown人数，按用户要求移出红框。",
+            "evidence": [
+              {
+                "type": "user_scope_revision",
+                "text": "一般最多保留2–3个主要的；优先能可靠标记的人物，虚化/残缺旁人不框。",
+                "at": "2026-11-13T06:55:53.353637+00:00"
+              }
+            ]
+          },
+          {
+            "bbox": [
+              0.269,
+              0.323,
+              0.334,
+              0.725
+            ],
+            "reason": "非本轮可可靠定名的主要角色；不凑unknown人数，按用户要求移出红框。",
+            "evidence": [
+              {
+                "type": "user_scope_revision",
+                "text": "一般最多保留2–3个主要的；优先能可靠标记的人物，虚化/残缺旁人不框。",
+                "at": "2026-11-13T06:55:53.353646+00:00"
+              }
+            ]
+          },
+          {
+            "bbox": [
+              0.312,
+              0.321,
+              0.389,
+              0.733
+            ],
+            "reason": "非本轮可可靠定名的主要角色；不凑unknown人数，按用户要求移出红框。",
+            "evidence": [
+              {
+                "type": "user_scope_revision",
+                "text": "一般最多保留2–3个主要的；优先能可靠标记的人物，虚化/残缺旁人不框。",
+                "at": "2026-11-13T06:55:53.353653+00:00"
+              }
+            ]
+          },
+          {
+            "bbox": [
+              0.367,
+              0.304,
+              0.414,
+              0.697
+            ],
+            "reason": "非本轮可可靠定名的主要角色；不凑unknown人数，按用户要求移出红框。",
+            "evidence": [
+              {
+                "type": "user_scope_revision",
+                "text": "一般最多保留2–3个主要的；优先能可靠标记的人物，虚化/残缺旁人不框。",
+                "at": "2026-11-13T06:55:53.353661+00:00"
+              }
+            ]
+          },
+          {
+            "bbox": [
+              0.399,
+              0.313,
+              0.453,
+              0.513
+            ],
+            "reason": "非本轮可可靠定名的主要角色；不凑unknown人数，按用户要求移出红框。",
+            "evidence": [
+              {
+                "type": "user_scope_revision",
+                "text": "一般最多保留2–3个主要的；优先能可靠标记的人物，虚化/残缺旁人不框。",
+                "at": "2026-11-13T06:55:53.353669+00:00"
+              }
+            ]
+          },
+          {
+            "bbox": [
+              0.638,
+              0.47,
+              0.714,
+              0.966
+            ],
+            "reason": "非本轮可可靠定名的主要角色；不凑unknown人数，按用户要求移出红框。",
+            "evidence": [
+              {
+                "type": "user_scope_revision",
+                "text": "一般最多保留2–3个主要的；优先能可靠标记的人物，虚化/残缺旁人不框。",
+                "at": "2026-11-13T06:55:53.353675+00:00"
+              }
+            ]
+          },
+          {
+            "bbox": [
+              0.679,
+              0.148,
+              0.929,
+              1
+            ],
+            "reason": "非本轮可可靠定名的主要角色；不凑unknown人数，按用户要求移出红框。",
+            "evidence": [
+              {
+                "type": "user_scope_revision",
+                "text": "一般最多保留2–3个主要的；优先能可靠标记的人物，虚化/残缺旁人不框。",
+                "at": "2026-11-13T06:55:53.353682+00:00"
+              }
+            ]
+          },
+          {
+            "bbox": [
+              0.886,
+              0.44,
+              1,
+              1
+            ],
+            "reason": "非本轮可可靠定名的主要角色；不凑unknown人数，按用户要求移出红框。",
+            "evidence": [
+              {
+                "type": "user_scope_revision",
+                "text": "一般最多保留2–3个主要的；优先能可靠标记的人物，虚化/残缺旁人不框。",
+                "at": "2026-11-13T06:55:53.353688+00:00"
+              }
+            ]
+          }
+        ],
+        "image_width": 1920,
+        "image_height": 1080,
+        "image_sha256": "a304f39fb3430c22c564050ebea24c873b8565455a6ee77296ecea41c87b52f1",
+        "review_status": "approved",
+        "foreground_complete": true,
+        "evidence": [
+          {
+            "type": "v1_inheritance",
+            "source_sample_id": "qingyunian2_0022",
+            "source_dataset_sha256": "eb4a8b4177f77765db939e6723b67711d5619588bfce6f646a3396cc3b9fd8c7",
+            "image_sha256": "a304f39fb3430c22c564050ebea24c873b8565455a6ee77296ecea41c87b52f1",
+            "note": "Inherited single-target label; not independent identity verification. Remaining foreground people have not been checked.",
+            "time_seconds": 1330.08
+          },
+          {
+            "type": "assistant_complete_original_frame_review",
+            "actor": "assistant",
+            "confirmed": true,
+            "reviewed_at": "2026-11-13T04:07:46+00:00",
+            "image_sha256": "a304f39fb3430c22c564050ebea24c873b8565455a6ee77296ecea41c87b52f1",
+            "observation": "本次逐张查看1920原尺寸完整画面，补全10个可分离人物；姓名有独立证据者verified，其他保留unknown。原单目标只作为待核线索，不批量继承批准。",
+            "scope_policy": "清晰可定位躯干/背身亦保留unknown；严重失焦/远处极小/严重遮挡背景碎片才设置具体ignore。",
+            "model_predictions_used": false
+          },
+          {
+            "type": "assistant_numbered_preview_review",
+            "actor": "assistant",
+            "confirmed": true,
+            "observation": "已逐张复查编号预览，确认朝堂/庭院分离人物、两侧清晰躯干、情侣双人及太子护卫都已入框；unknown不因背身/无姓名而省略。",
+            "preview_sheet": "results/multi/annotation_batches/qingyunian2_part2_review/boxed_sheet_1.jpg"
+          },
+          {
+            "type": "principal_scope_review",
+            "actor": "assistant",
+            "at": "2026-11-13T06:55:53.353691+00:00",
+            "policy_id": "clear_named_principals_max3_v1",
+            "text": "按用户新口径逐图选本画面清晰且能独立定名的主要角色1–3人；虚化背景、无头躯干、远处侍卫移出红框并仅作ignore，不烧入模型图片。此approved仅表示助手代标完成，真实调用仍等用户确认。"
+          }
+        ],
+        "note": "已按用户新口径精简为清晰可识别的主要角色（最多3人）；等待用户检查总览后统一调用。"
+      },
+      "after": {
+        "sample_id": "qingyunian2_0022",
+        "work_slug": "qingyunian2",
+        "work_name": "庆余年第二季",
+        "work_category": "costume_drama",
+        "image_path": "../final/qingyunian2/qingyunian2_0022.jpg",
+        "persons": [
+          {
+            "person_id": 1,
+            "bbox": [
+              0.385,
+              0.066,
+              0.695,
+              1
+            ],
+            "character": "林若甫",
+            "identity_status": "verified",
+            "review_status": "approved",
+            "character_aliases": [],
+            "evidence": [
+              {
+                "type": "user_explicit_identity_confirmation",
+                "actor": "user",
+                "confirmed": true,
+                "review_revision": "user_identity_scope_review_20261116_v1",
+                "text": "用户明确更正：左侧主框为林若甫，原来把赖名成标到了左侧。",
+                "source_image_sha256": "a304f39fb3430c22c564050ebea24c873b8565455a6ee77296ecea41c87b52f1",
+                "confirmation_scope": "identity_only",
+                "user_confirmed_model_coordinates": false,
+                "at": "2026-11-15T16:49:15.427414+00:00"
+              },
+              {
+                "type": "assistant_geometry_review",
+                "actor": "assistant",
+                "reviewed_original": true,
+                "review_revision": "user_identity_scope_review_20261116_v1",
+                "source_image_sha256": "a304f39fb3430c22c564050ebea24c873b8565455a6ee77296ecea41c87b52f1",
+                "geometry_source": "existing reviewed person bbox, unchanged",
+                "text": "本轮已打开完整原图，复用原人工框/忽略区可见范围；未使用模型预测坐标作真值。用户确认姓名，不等同确认模型定位。",
+                "user_confirmed_coordinates": false,
+                "at": "2026-11-15T16:49:15.427414+00:00"
+              }
+            ],
+            "note": "用户明确更正：左侧主框为林若甫，原来把赖名成标到了左侧。 姓名更正，人物框未移动；原姓名及证据在revision.before中保留。",
+            "annotation_id": "qingyunian2_0022_inherited"
+          },
+          {
+            "person_id": 2,
+            "bbox": [
+              0.679,
+              0.148,
+              0.929,
+              1
+            ],
+            "character": "赖名成",
+            "identity_status": "verified",
+            "review_status": "approved",
+            "character_aliases": [],
+            "evidence": [
+              {
+                "type": "user_explicit_identity_confirmation",
+                "actor": "user",
+                "confirmed": true,
+                "review_revision": "user_identity_scope_review_20261116_v1",
+                "text": "用户明确补充：右侧低头行礼者为赖名成。",
+                "source_image_sha256": "a304f39fb3430c22c564050ebea24c873b8565455a6ee77296ecea41c87b52f1",
+                "confirmation_scope": "identity_only",
+                "user_confirmed_model_coordinates": false,
+                "at": "2026-11-15T16:49:15.427414+00:00"
+              },
+              {
+                "type": "assistant_geometry_review",
+                "actor": "assistant",
+                "reviewed_original": true,
+                "review_revision": "user_identity_scope_review_20261116_v1",
+                "source_image_sha256": "a304f39fb3430c22c564050ebea24c873b8565455a6ee77296ecea41c87b52f1",
+                "geometry_source": "previous manually drawn ignore-region bbox, re-opened original",
+                "text": "本轮已打开完整原图，复用原人工框/忽略区可见范围；未使用模型预测坐标作真值。用户确认姓名，不等同确认模型定位。",
+                "user_confirmed_coordinates": false,
+                "at": "2026-11-15T16:49:15.427414+00:00"
+              },
+              {
+                "type": "scope_reinstatement",
+                "review_revision": "user_identity_scope_review_20261116_v1",
+                "previous_ignore_region": {
+                  "bbox": [
+                    0.679,
+                    0.148,
+                    0.929,
+                    1
+                  ],
+                  "reason": "非本轮可可靠定名的主要角色；不凑unknown人数，按用户要求移出红框。",
+                  "evidence": [
+                    {
+                      "type": "user_scope_revision",
+                      "text": "一般最多保留2–3个主要的；优先能可靠标记的人物，虚化/残缺旁人不框。",
+                      "at": "2026-11-13T06:55:53.353682+00:00"
+                    }
+                  ]
+                }
+              }
+            ],
+            "note": "用户明确补充：右侧低头行礼者为赖名成。 已从旧忽略区恢复；姓名由用户确认，框为助手复核的原可见范围，不代表模型框已正确。",
+            "annotation_id": "qingyunian2_0022_user_review_20261116_laimingcheng"
+          }
+        ],
+        "ignore_regions": [
+          {
+            "bbox": [
+              0.05,
+              0.717,
+              0.256,
+              1
+            ],
+            "reason": "非本轮可可靠定名的主要角色；不凑unknown人数，按用户要求移出红框。",
+            "evidence": [
+              {
+                "type": "user_scope_revision",
+                "text": "一般最多保留2–3个主要的；优先能可靠标记的人物，虚化/残缺旁人不框。",
+                "at": "2026-11-13T06:55:53.353627+00:00"
+              }
+            ]
+          },
+          {
+            "bbox": [
+              0.195,
+              0.474,
+              0.38,
+              0.946
+            ],
+            "reason": "非本轮可可靠定名的主要角色；不凑unknown人数，按用户要求移出红框。",
+            "evidence": [
+              {
+                "type": "user_scope_revision",
+                "text": "一般最多保留2–3个主要的；优先能可靠标记的人物，虚化/残缺旁人不框。",
+                "at": "2026-11-13T06:55:53.353637+00:00"
+              }
+            ]
+          },
+          {
+            "bbox": [
+              0.269,
+              0.323,
+              0.334,
+              0.725
+            ],
+            "reason": "非本轮可可靠定名的主要角色；不凑unknown人数，按用户要求移出红框。",
+            "evidence": [
+              {
+                "type": "user_scope_revision",
+                "text": "一般最多保留2–3个主要的；优先能可靠标记的人物，虚化/残缺旁人不框。",
+                "at": "2026-11-13T06:55:53.353646+00:00"
+              }
+            ]
+          },
+          {
+            "bbox": [
+              0.312,
+              0.321,
+              0.389,
+              0.733
+            ],
+            "reason": "非本轮可可靠定名的主要角色；不凑unknown人数，按用户要求移出红框。",
+            "evidence": [
+              {
+                "type": "user_scope_revision",
+                "text": "一般最多保留2–3个主要的；优先能可靠标记的人物，虚化/残缺旁人不框。",
+                "at": "2026-11-13T06:55:53.353653+00:00"
+              }
+            ]
+          },
+          {
+            "bbox": [
+              0.367,
+              0.304,
+              0.414,
+              0.697
+            ],
+            "reason": "非本轮可可靠定名的主要角色；不凑unknown人数，按用户要求移出红框。",
+            "evidence": [
+              {
+                "type": "user_scope_revision",
+                "text": "一般最多保留2–3个主要的；优先能可靠标记的人物，虚化/残缺旁人不框。",
+                "at": "2026-11-13T06:55:53.353661+00:00"
+              }
+            ]
+          },
+          {
+            "bbox": [
+              0.399,
+              0.313,
+              0.453,
+              0.513
+            ],
+            "reason": "非本轮可可靠定名的主要角色；不凑unknown人数，按用户要求移出红框。",
+            "evidence": [
+              {
+                "type": "user_scope_revision",
+                "text": "一般最多保留2–3个主要的；优先能可靠标记的人物，虚化/残缺旁人不框。",
+                "at": "2026-11-13T06:55:53.353669+00:00"
+              }
+            ]
+          },
+          {
+            "bbox": [
+              0.638,
+              0.47,
+              0.714,
+              0.966
+            ],
+            "reason": "非本轮可可靠定名的主要角色；不凑unknown人数，按用户要求移出红框。",
+            "evidence": [
+              {
+                "type": "user_scope_revision",
+                "text": "一般最多保留2–3个主要的；优先能可靠标记的人物，虚化/残缺旁人不框。",
+                "at": "2026-11-13T06:55:53.353675+00:00"
+              }
+            ]
+          },
+          {
+            "bbox": [
+              0.886,
+              0.44,
+              1,
+              1
+            ],
+            "reason": "非本轮可可靠定名的主要角色；不凑unknown人数，按用户要求移出红框。",
+            "evidence": [
+              {
+                "type": "user_scope_revision",
+                "text": "一般最多保留2–3个主要的；优先能可靠标记的人物，虚化/残缺旁人不框。",
+                "at": "2026-11-13T06:55:53.353688+00:00"
+              }
+            ]
+          }
+        ],
+        "image_width": 1920,
+        "image_height": 1080,
+        "image_sha256": "a304f39fb3430c22c564050ebea24c873b8565455a6ee77296ecea41c87b52f1",
+        "review_status": "approved",
+        "foreground_complete": true,
+        "evidence": [
+          {
+            "type": "v1_inheritance",
+            "source_sample_id": "qingyunian2_0022",
+            "source_dataset_sha256": "eb4a8b4177f77765db939e6723b67711d5619588bfce6f646a3396cc3b9fd8c7",
+            "image_sha256": "a304f39fb3430c22c564050ebea24c873b8565455a6ee77296ecea41c87b52f1",
+            "note": "Inherited single-target label; not independent identity verification. Remaining foreground people have not been checked.",
+            "time_seconds": 1330.08
+          },
+          {
+            "type": "assistant_complete_original_frame_review",
+            "actor": "assistant",
+            "confirmed": true,
+            "reviewed_at": "2026-11-13T04:07:46+00:00",
+            "image_sha256": "a304f39fb3430c22c564050ebea24c873b8565455a6ee77296ecea41c87b52f1",
+            "observation": "本次逐张查看1920原尺寸完整画面，补全10个可分离人物；姓名有独立证据者verified，其他保留unknown。原单目标只作为待核线索，不批量继承批准。",
+            "scope_policy": "清晰可定位躯干/背身亦保留unknown；严重失焦/远处极小/严重遮挡背景碎片才设置具体ignore。",
+            "model_predictions_used": false
+          },
+          {
+            "type": "assistant_numbered_preview_review",
+            "actor": "assistant",
+            "confirmed": true,
+            "observation": "已逐张复查编号预览，确认朝堂/庭院分离人物、两侧清晰躯干、情侣双人及太子护卫都已入框；unknown不因背身/无姓名而省略。",
+            "preview_sheet": "results/multi/annotation_batches/qingyunian2_part2_review/boxed_sheet_1.jpg"
+          },
+          {
+            "type": "principal_scope_review",
+            "actor": "assistant",
+            "at": "2026-11-13T06:55:53.353691+00:00",
+            "policy_id": "clear_named_principals_max3_v1",
+            "text": "按用户新口径逐图选本画面清晰且能独立定名的主要角色1–3人；虚化背景、无头躯干、远处侍卫移出红框并仅作ignore，不烧入模型图片。此approved仅表示助手代标完成，真实调用仍等用户确认。"
+          },
+          {
+            "type": "user_explicit_identity_confirmation",
+            "actor": "user",
+            "confirmed": true,
+            "review_revision": "user_identity_scope_review_20261116_v1",
+            "text": "用户明确更正：左侧主框为林若甫，原来把赖名成标到了左侧。 用户明确补充：右侧低头行礼者为赖名成。",
+            "source_image_sha256": "a304f39fb3430c22c564050ebea24c873b8565455a6ee77296ecea41c87b52f1",
+            "confirmation_scope": "identity_and_target_scope_only",
+            "user_confirmed_model_coordinates": false,
+            "at": "2026-11-15T16:49:15.427414+00:00"
+          }
+        ],
+        "note": "2026-11-16 用户逐图复核更正：用户明确更正：左侧主框为林若甫，原来把赖名成标到了左侧。 用户明确补充：右侧低头行礼者为赖名成。 仅重评既有响应，不调用API；不将姓名命中推断为模型坐标正确。"
+      },
+      "reason": "用户明确更正：左侧主框为林若甫，原来把赖名成标到了左侧。 用户明确补充：右侧低头行礼者为赖名成。",
+      "user_text": "用户审阅结论转述：用户明确更正：左侧主框为林若甫，原来把赖名成标到了左侧。 用户明确补充：右侧低头行礼者为赖名成。",
+      "user_evidence": {
+        "type": "explicit_user_review",
+        "recorded_by": "assistant",
+        "is_verbatim_quote": false,
+        "identity_confirmed": true,
+        "model_coordinates_confirmed": false
+      },
+      "reviewed_at": "2026-11-15T16:49:15.427414+00:00",
+      "coordinate_review": {
+        "reviewer": "assistant",
+        "original_image_reopened": true,
+        "source": "unchanged person box or restored historical ignore-region box",
+        "model_boxes_used_as_ground_truth": false,
+        "strict_position_metrics_must_be_recomputed_independently": true
+      },
+      "before_stratification": [
+        {
+          "sample_id": "qingyunian2_0022",
+          "annotation_id": "qingyunian2_0022_inherited",
+          "person_id": 1,
+          "image_sha256": "a304f39fb3430c22c564050ebea24c873b8565455a6ee77296ecea41c87b52f1",
+          "face_orientation": "front",
+          "visibility": "clear",
+          "note": "头部接近正面，双眼位置大致对称；视线方向不等于头部朝向。 主要五官未被明显遮挡；普通阴影、眼镜及视线变化不单独算模糊。",
+          "reviewer": "assistant"
+        }
+      ],
+      "after_stratification": [
+        {
+          "sample_id": "qingyunian2_0022",
+          "annotation_id": "qingyunian2_0022_inherited",
+          "person_id": 1,
+          "image_sha256": "a304f39fb3430c22c564050ebea24c873b8565455a6ee77296ecea41c87b52f1",
+          "face_orientation": "front",
+          "visibility": "clear",
+          "note": "头部接近正面，双眼位置大致对称；视线方向不等于头部朝向。 主要五官未被明显遮挡；普通阴影、眼镜及视线变化不单独算模糊。",
+          "reviewer": "assistant"
+        },
+        {
+          "sample_id": "qingyunian2_0022",
+          "annotation_id": "qingyunian2_0022_user_review_20261116_laimingcheng",
+          "person_id": 2,
+          "image_sha256": "a304f39fb3430c22c564050ebea24c873b8565455a6ee77296ecea41c87b52f1",
+          "face_orientation": "front",
+          "visibility": "clear",
+          "note": "右侧人物正面低头，主要面部范围清楚；低头不自动算面部不可见。 2026-11-16仅按原图标统计类别，与模型回答无关。",
+          "reviewer": "assistant"
+        }
+      ],
+      "reference_image": {
+        "path": "reports/2026-11-16-annotation-review/images/qingyunian2_0022.jpg",
+        "sha256": "89a9ccf0d02e291f3bef61068ad9567e5d4937821b71d938669f6ca97a3d8720",
+        "usage": "review_only_not_model_input"
+      },
+      "scoring_policy": {
+        "evaluation_policy": {},
+        "identity_and_geometry_are_separate": true
+      }
+    }
+  ],
+  "new_model_api_calls": 0,
+  "changed_samples": 10,
+  "counts": {
+    "before_actual_persons": 207,
+    "after_actual_persons": 216,
+    "after_required_name_targets": 214,
+    "strict_geometry_actual_persons": 216
+  },
+  "old_api_raw_and_frozen_snapshots_modified": false,
+  "dataset_files": {
+    "before_file_sha256": "a5412757fd27b340c07ebbdec5612f1ea22723ff8a97231bb6c6ce7f7c3fdfa9",
+    "after_file_sha256": "07825629e90fd24b7dbbe584823ae28339f1144b32756d30e7379c26a70d517f"
+  },
+  "stratification_files": {
+    "before_file_sha256": "feed0f3eed3e24ea4599bd613ff7bdb7bbe71094291bdbd8820b181712b41327",
+    "after_file_sha256": "4aec9279474fd2a131367362f41471042726e4c76cc530f12b327d7208c7b96b",
+    "before_metadata": {
+      "schema_version": "1.0",
+      "dataset_hash": "f0fda2d9d420ffd3e07563c2e4e6430e3e14b76af9050d977227eb0afa8c67a7",
+      "created_at": "2026-11-13T07:55:55.846875+00:00",
+      "purpose": "statistics_only_never_sent_to_models",
+      "policy": {
+        "face_orientation": {
+          "front": "近正面，两眼基本对称",
+          "three_quarter": "明显斜侧，仍可见大部五官",
+          "profile": "近纯侧，一侧轮廓",
+          "not_visible": "背面、斗笠遮脸或面部朝向不可判断"
+        },
+        "visibility": {
+          "clear": "面部范围清楚，普通低光/闭眼不单独算困难",
+          "occluded_or_blurry": "明显遮挡或面部虚焦/运动模糊"
+        },
+        "unit": "each annotated principal person; no tags inferred from model outputs"
+      }
+    },
+    "after_metadata": {
+      "schema_version": "1.0",
+      "dataset_hash": "234ba8e780b9ffcd6cffd586d31250d80c086aaf41d23368f0c44a3917918a58",
+      "created_at": "2026-11-13T07:55:55.846875+00:00",
+      "purpose": "statistics_only_never_sent_to_models",
+      "policy": {
+        "face_orientation": {
+          "front": "近正面，两眼基本对称",
+          "three_quarter": "明显斜侧，仍可见大部五官",
+          "profile": "近纯侧，一侧轮廓",
+          "not_visible": "背面、斗笠遮脸或面部朝向不可判断"
+        },
+        "visibility": {
+          "clear": "面部范围清楚，普通低光/闭眼不单独算困难",
+          "occluded_or_blurry": "明显遮挡或面部虚焦/运动模糊"
+        },
+        "unit": "each annotated principal person; no tags inferred from model outputs"
+      },
+      "updated_at": "2026-11-15T16:49:15.427414+00:00",
+      "review_revision": {
+        "revision_id": "user_identity_scope_review_20261116_v1",
+        "manifest": "reports/2026-11-16-annotation-review/revision.json"
+      }
+    }
+  },
+  "evaluation_note": "姓名与严格定位分别重算。已确认姓名不能证明模型坐标正确；功夫0029始终左钰珑右双双，名字都命中但左右交换仍可能严格失败。"
+}

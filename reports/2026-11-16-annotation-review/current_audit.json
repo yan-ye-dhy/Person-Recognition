@@ -1,0 +1,27 @@
+{
+  "current_dataset_hash": "234ba8e780b9ffcd6cffd586d31250d80c086aaf41d23368f0c44a3917918a58",
+  "review_manifest_sha256": "f651f92e0a3de347f8da5cf32d8ef39d8a45411fa75573c5a0bf9ffab014fcee",
+  "reviewed_images": 10,
+  "samples": 160,
+  "physical_verified_people": 216,
+  "required_name_targets": 214,
+  "completed_model_tasks": 1120,
+  "api_ok": 1116,
+  "api_failures": 4,
+  "gallery_models": [
+    "deepseek-flash",
+    "qwen3.8-max"
+  ],
+  "gallery_images": 49,
+  "gallery_model_panels": 59,
+  "model_error_images": {
+    "deepseek-flash": 27,
+    "qwen3.8-max": 32
+  },
+  "raw_source_records": 4533,
+  "raw_source_sha256": "021d972cd173727a6f81643ead9258aee55065c9c74d9dea74119a148e86d157",
+  "raw_sources_unchanged": true,
+  "new_model_calls": 0,
+  "main_html_sha256": "bcede4682968b26b4a80c81bd0fa89805babd1a5dbf03a66dba2434d7c2fcdd9",
+  "checks_passed": true
+}

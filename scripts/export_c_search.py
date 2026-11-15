@@ -29,7 +29,7 @@ from vcrb.config import Work
 from vcrb.evaluation.matcher import CharacterMatcher
 from vcrb.multi.identity_review import CORRECTIONS_PATH, apply_corrections, score_name_only
 from vcrb.multi.parsing import parse_response
-from vcrb.multi.schema import dataset_hash, load_dataset
+from vcrb.multi.schema import MultiSample, dataset_hash, load_dataset
 from vcrb.multi.scoring import identity_category, score_sample
 from vcrb.multi.stratification import load_frozen_stratification, load_stratification
 
@@ -39,6 +39,7 @@ MODEL_IDS = ("deepseek-flash", "kimi-k3.1-pro", "glm-5.3-flash", "glm-4.6v",
 FAILURES = {"account_arrearage": "厂商返回Arrearage账户拒绝", "content_filter": "厂商内容过滤拦截",
             "other_api_failure": "其他 / 未确认原因的接口失败"}
 MODEL_LABELS = {"deepseek-flash": "DeepSeek Flash", "qwen3.8-max": "Qwen Max", "kimi-k3.1-pro": "Kimi K3.1 Pro"}
+REVIEW_MODELS = ("deepseek-flash", "qwen3.8-max")
 OVERRIDES_MANIFEST = Path("results/multi/c_search/model_run_overrides.json")
 PROTOCOL_MARKER = "x-anthropic-billing-header: cc_entrypoint=cli;"
 
@@ -142,6 +143,28 @@ def ledger_totals(rows):
             "uncertain_cny": sum(row["uncertain_cny"] for row in rows),
             "inflight_reserve_cny": sum(row["committed_cny"] for row in rows if row["status"] == "in_flight"),
             "committed_cny": sum(row["committed_cny"] for row in rows), "http_attempt_rows": len(rows)}
+
+
+def annotation_review_context(root, current):
+    """Validate the audit replay internally; present only the current truth."""
+    from vcrb.multi.review_revision import REVIEW_REVISION_PATH, replay_review_revision
+    path = Path(root) / REVIEW_REVISION_PATH
+    if not path.exists():
+        return current, {"applied": False}
+    manifest = json.loads(path.read_text(encoding="utf-8"))
+    reviewed = {sample.sample_id: sample.to_dict() for sample in current}
+    base = replay_review_revision(reviewed, manifest, reverse=True)
+    base_samples = [MultiSample.from_dict(sample) for sample in base.values()]
+    if dataset_hash(base_samples) != manifest["before_dataset_hash"] or dataset_hash(current) != manifest["after_dataset_hash"]:
+        raise ValueError("Review revision dataset fingerprints differ")
+    if replay_review_revision(base, manifest) != reviewed:
+        raise ValueError("Review revision cannot reproduce current confirmed annotations")
+    return base_samples, {"applied": True, "manifest_path": str(REVIEW_REVISION_PATH),
+                          "manifest_sha256": hashlib.sha256(path.read_bytes()).hexdigest(),
+                          "source_dataset_hash": manifest["before_dataset_hash"], "current_dataset_hash": manifest["after_dataset_hash"],
+                          "reviewed_sample_ids": [row["sample_id"] for row in manifest["revisions"]],
+                          "reviewed_sample_count": len(manifest["revisions"]),
+                          "policy": "Offline rescoring of unchanged saved responses; current annotations only in report; no new model calls."}
 
 
 def select_model_records(per_run_raw, source_ids):
@@ -288,17 +311,20 @@ def aggregate(rows, person_filter=None):
                   if person_filter is None or person_filter(row["tags"].get(person["person_id"], {}))]
         if people:
             selected.append((row, people))
-    targets = sum(len(people) for _row, people in selected)
-    correct = sum(person["outcome"] == "correct" for _row, people in selected for person in people)
-    strict_correct = sum(person["outcome"] == "correct" for row, people in selected
-                         for person in row["strict"]["person_details"]
-                         if person.get("person_id") in {p["person_id"] for p in people})
+    quota = person_filter is None
+    target_of = lambda row, people: row["names"]["target_count"] if quota else len(people)
+    correct_of = lambda row, people: row["names"]["correct"] if quota else sum(person.get("full_correct", person["outcome"] in ("correct", "optional_correct")) for person in people)
+    targets = sum(target_of(row, people) for row, people in selected)
+    correct = sum(correct_of(row, people) for row, people in selected)
+    strict_targets = sum(row["strict"].get("verified_count", len(people)) if quota else len(people) for row, people in selected)
+    strict_correct = sum(row["strict"]["identity_correct"] if quota else sum(person["outcome"] == "correct" for person in row["strict"]["person_details"]
+                         if person.get("person_id") in {p["person_id"] for p in people}) for row, people in selected)
     complete = sum(row["completed"] for row, _people in selected)
     api_ok = sum(row["state"] == "ok" for row, _people in selected)
     legal = sum(row["state"] == "ok" and row["strict"]["parse_ok"] and not row["strict"]["refused"]
                 for row, _people in selected)
-    completed_targets = sum(len(people) for row, people in selected if row["completed"])
-    api_ok_targets = sum(len(people) for row, people in selected if row["state"] == "ok")
+    completed_targets = sum(target_of(row, people) for row, people in selected if row["completed"])
+    api_ok_targets = sum(target_of(row, people) for row, people in selected if row["state"] == "ok")
     result = {"planned_images": len(selected), "planned_targets": targets,
               "completed_images": complete, "completed_targets": completed_targets,
               "api_ok_images": api_ok, "api_failure_images": sum(row["state"] == "api_failure" for row, _ in selected),
@@ -308,7 +334,9 @@ def aggregate(rows, person_filter=None):
               "pending_images": len(selected) - complete,
               "name_correct": correct, "name_accuracy_planned": correct / targets if targets else None,
               "name_accuracy_completed": correct / completed_targets if completed_targets else None,
-              "strict_correct": strict_correct, "strict_accuracy_planned": strict_correct / targets if targets else None,
+              "name_denominator_policy": "required_name_quota" if quota else "full_verified_person_coverage",
+              "strict_correct": strict_correct, "strict_planned_targets": strict_targets,
+              "strict_accuracy_planned": strict_correct / strict_targets if strict_targets else None,
               "legal_format_images": legal, "format_rate_completed": legal / complete if complete else None,
               "format_rate_planned": legal / len(selected) if selected else None,
               "format_error_images": sum(row["strict"]["format_error"] for row, _ in selected),
@@ -320,7 +348,9 @@ def aggregate(rows, person_filter=None):
     if person_filter is None:
         result["named_predictions"] = sum(row["names"]["named_predictions"] for row, _ in selected)
         result["extra_names"] = sum(row["names"]["extra_names"] for row, _ in selected)
-        result["name_precision"] = correct / result["named_predictions"] if result["named_predictions"] else None
+        result["full_name_targets"] = sum(row["names"].get("full_target_count", row["names"]["target_count"]) for row, _ in selected)
+        result["full_name_correct"] = sum(row["names"].get("full_correct", row["names"]["correct"]) for row, _ in selected)
+        result["name_precision"] = result["full_name_correct"] / result["named_predictions"] if result["named_predictions"] else None
     return result
 
 
@@ -338,14 +368,14 @@ def coordinate_only_issue(result):
         return None
     strict = result["strict"]
     if not strict["parse_ok"] or strict["format_error"]:
-        return "姓名全部命中；仅格式 / 坐标不合规"
-    if strict["identity_correct"] < result["names"]["target_count"]:
-        return "姓名全部命中；位置与姓名对应未通过"
+        return "主姓名要求已满足；仅格式 / 坐标不合规"
+    if strict["identity_correct"] < strict.get("verified_count", result["names"].get("full_target_count", result["names"]["target_count"])):
+        return "主姓名要求已满足；实际人物位置与姓名覆盖未通过"
     return None
 
 
 def select_error_review(summary):
-    ranked = sorted(summary["models"], key=lambda model: (-(summary["all_works"][model]["new"]["name_accuracy_planned"] or 0), model))[:3]
+    ranked = [model for model in REVIEW_MODELS if model in summary["models"]]
     counts = {model: 0 for model in ranked}
     selected, auxiliary = [], []
     for case in summary["cases"]:
@@ -359,11 +389,11 @@ def select_error_review(summary):
             coordinates = {model: issue for model in ranked if (issue := coordinate_only_issue(case["results"][model]["new"]))}
             if coordinates:
                 auxiliary.append({"sample_id": case["sample_id"], "work_name": case["sample"]["work_name"], "issues": coordinates})
-    return {"ranking_metric": f'all-four-work name_accuracy_planned ({summary["planned_targets_per_model"]} GT targets per model)', "top_models": ranked,
+    return {"ranking_metric": f'user-selected DeepSeek/Qwen Max; name_accuracy_planned ({summary["planned_targets_per_model"]} required names per model)', "top_models": ranked,
             "model_error_images": counts, "selected_images": selected, "selected_image_count": len(selected),
             "error_model_panels": sum(counts.values()), "coordinate_only_images_not_embedded": auxiliary,
             "coordinate_only_image_count": len(auxiliary), "embedded_image_count": len(selected),
-            "policy": "Only top-three name misses/wrong names, extra names or API failures enter image cards. Pending tasks and coordinate-only issues are not name errors. Full statistics and JSON retain all samples/models."}
+            "policy": "Only user-selected DeepSeek and Qwen Max name misses/wrong names, extra names or API failures enter image cards. Pending tasks and coordinate-only issues are not name errors. Full statistics and JSON retain all samples/models."}
 
 
 def build_summary(context):
@@ -418,13 +448,15 @@ def build_summary(context):
             "run_note": context["run"].get("note", ""),
             "complete": complete, "finalized": complete and not active,
             "models": list(models), "planned_images_per_model": len(samples),
-            "planned_targets_per_model": sum(identity_category(p) == "verified" for sample in samples.values() for p in sample["persons"]),
+            "planned_targets_per_model": sum(case["results"][models[0]]["new"]["names"]["target_count"] for case in cases),
+            "strict_targets_per_model": sum(case["results"][models[0]]["new"]["strict"]["verified_count"] for case in cases),
             "planned_tasks": planned, "completed_tasks": completed, "pending_tasks": planned - completed,
             "dataset_hash": context["dataset_hash"], "baseline_dataset_hash": context["baseline"]["dataset_hash"],
-            "scoring_policy": "Current confirmed GT; name-only one-to-one name matching ignores coordinates; strict matching requires IoU>=0.5. Pending tasks remain in planned denominators.",
+            "scoring_policy": "Current confirmed GT; main names use required quotas and optional identities, independently of coordinates; strict matching uses all annotated verified people and IoU>=0.5. Pose/visibility use full individual name coverage. Pending tasks remain in planned denominators.",
             "all_works": comparison(), "without_gongfunvzu": comparison(lambda case: case["sample"]["work_slug"] != "gongfunvzu"),
             "groups": groups, "work_names": work_names, "costs": context.get("costs", {}),
-            "configuration": context.get("metadata", {}), "operational_control": context.get("operational_control", {}), "cases": cases}
+            "configuration": context.get("metadata", {}), "annotation_review": context.get("annotation_review", {"applied": False}),
+            "operational_control": context.get("operational_control", {}), "cases": cases}
     result["review_selection"] = select_error_review(result)
     return result
 
@@ -444,9 +476,10 @@ def read_context(root, run_id, baseline_id=BASELINE, model_runs=None):
     overrides, selection_reason = resolve_model_runs(root, run_id, model_runs)
     current = load_dataset(root / "data/v2/dataset.json")
     samples = {sample.sample_id: sample.to_dict() for sample in current}
+    source_truth, review_info = annotation_review_context(root, current)
     tags = load_stratification(root / "data/v2/stratification.json", current)["persons"]
-    if len(samples) != 160 or sum(len(s["persons"]) for s in samples.values()) != 207:
-        raise ValueError("Expected the approved 160-image / 207-person dataset")
+    if len(samples) != 160:
+        raise ValueError("Expected the approved 160-image dataset")
     with sqlite3.connect((root / "results/multi/runs.db").as_uri() + "?mode=ro", uri=True) as conn:
         conn.row_factory = sqlite3.Row
         conn.execute("PRAGMA query_only=ON")
@@ -487,17 +520,24 @@ def read_context(root, run_id, baseline_id=BASELINE, model_runs=None):
                      if row["run_id"] == scope_root or (json.loads(row["fairness_meta"]).get("budget_scope") or {}).get("root_run_id") == scope_root]
         scope_ledger = [dict(row) for row in conn.execute("SELECT * FROM multi_budget_calls WHERE run_id IN (" + ",".join("?" for _ in scope_ids) + ")", scope_ids)] if has_ledger and scope_ids else []
     frozen_strata = {}
-    current_hash = dataset_hash(current)
+    source_primary_samples = load_dataset(Path(runs["run"]["dataset_path"]))
+    source_primary_strata = load_frozen_stratification({**runs["run"], "fairness_meta": metadata}, source_primary_samples)
+    if source_primary_strata is None:
+        raise ValueError("Source runs require their original frozen stratification")
     for rid, source in source_runs.items():
-        frozen_strata[rid] = validate_frozen_source(source, source_meta[rid], current, tags, metadata.get("stratification"))
+        frozen_strata[rid] = validate_frozen_source(source, source_meta[rid], source_truth, source_primary_strata["persons"], metadata.get("stratification"))
     old_frozen = load_dataset(Path(runs["baseline"]["dataset_path"]))
     if dataset_hash(old_frozen) != runs["baseline"]["dataset_hash"]:
         raise ValueError("Baseline frozen dataset hash mismatch")
     corrections_path = root / CORRECTIONS_PATH
     corrections = json.loads(corrections_path.read_text())["corrections"] if corrections_path.exists() else []
     corrected = apply_corrections({s.sample_id: s.to_dict() for s in old_frozen}, corrections)
-    if scoring_truth(corrected) != scoring_truth(samples):
+    source_samples = {sample.sample_id: sample.to_dict() for sample in source_truth}
+    if scoring_truth(corrected) != scoring_truth(source_samples):
         raise ValueError("Baseline truth plus explicit corrections differs from current truth")
+    if review_info["applied"]:
+        from vcrb.multi.review_revision import validate_frozen_source as validate_revision_source
+        validate_revision_source(corrected, source_samples)
     rosters = {slug: load_roster(Work(slug, name, "", "", None), root / "config/rosters")
                for slug, name in {sample["work_slug"]: sample["work_name"] for sample in samples.values()}.items()}
     gallery = {row["sample_id"]: row for row in json.loads((root / "results/multi/input_gallery/manifest.json").read_text())["rows"]}
@@ -570,6 +610,7 @@ def read_context(root, run_id, baseline_id=BASELINE, model_runs=None):
                   "local_protection_cap_cny": max((own.get("budget_scope") or {}).get("max_cost_cny", 0) for own in source_meta.values())}
     return {**runs, **raw, "samples": samples, "models": list(MODEL_IDS), "matcher": CharacterMatcher(rosters),
             "tags": tags, "images": images, "dataset_hash": dataset_hash(current),
+            "annotation_review": review_info,
             "model_sources": model_sources, "diagnostics": diagnostics,
             "operational_control": control,
             "old_settings": old_metadata.get("settings_snapshot", {}), "new_settings": metadata.get("settings_snapshot", {}),
@@ -592,10 +633,10 @@ def comparison_table(comparison):
         rows.append([esc(model), f'{new["completed_images"]} / {new["planned_images"]} 张',
                      rate(old["name_correct"], old["planned_targets"]), rate(new["name_correct"], new["planned_targets"]),
                      "待全部完成" if new["pending_images"] else "—" if delta is None else f'{delta:+.2f} 个百分点',
-                     rate(new["strict_correct"], new["planned_targets"]),
+                     rate(new["strict_correct"], new["strict_planned_targets"]),
                      rate(new["legal_format_images"], new["completed_images"], "次已返回"),
                      f'{new["search_requested_images"]} / {new["search_attempted_images"]} / {new["search_retrieved_images"]}<small>触发未知 {new["search_attempt_unknown_images"]} 张；计划{new["planned_images"]}张</small>'])
-    return table(["模型", "新组进度", "旧组仅姓名", "新组仅姓名（计划分母）", "姓名变化", "新组位置与姓名均正确", "新组格式合规 / 已返回", "搜索配置 / 已触发 / 有来源"], rows)
+    return table(["模型", "联网评测进度", "未联网 · 姓名（当前标注）", "联网 · 姓名（当前标注）", "联网后的姓名变化", "联网 · 位置与姓名均正确", "联网 · 格式合规 / 已返回", "搜索配置 / 已触发 / 有来源"], rows)
 
 
 def methods_table(summary):
@@ -653,7 +694,14 @@ def model_panel(model, result, *, compact=False):
         old_hit = old_people[pid]["outcome"] == "correct"
         hit = person["outcome"] == "correct"
         strict = strict_people[pid]
-        verdict = '<span class="good">命中：' + esc(person["predicted"]) + '</span>' if hit else '<span class="bad">' + ("尚未执行" if not new["completed"] else "接口失败，未判定姓名" if new["state"] == "api_failure" else "未命中") + '</span>'
+        if new["state"] == "api_failure":
+            verdict = '<span class="bad">接口失败，未判定姓名</span>'
+        elif person.get("optional"):
+            verdict = '<span class="good">可选名已命中：' + esc(person["predicted"]) + '</span>' if person.get("full_correct") else '<span class="metric-caption">可选旁人，可不回答</span>'
+        elif person.get("scored") is False:
+            verdict = '<span class="good">配额外正确名</span>' if person.get("full_correct") else '<span class="metric-caption">不计必答名额</span>'
+        else:
+            verdict = '<span class="good">命中：' + esc(person["predicted"]) + '</span>' if hit else '<span class="bad">' + ("尚未执行" if not new["completed"] else "未命中") + '</span>'
         if compact:
             rows.append([str(pid), esc(person["gt_character"]), verdict])
         else:
@@ -680,7 +728,7 @@ def model_panel(model, result, *, compact=False):
             parts.append('<div class="notice">格式 / 接口记录：' + esc(dump({"issues": issues, "error_type": new["error_type"], "error_message": new["error_message"], "output_issue": new["output_issue"]})) + '</div>')
         coordinate_rows = [[str(p["prediction_index"] + 1), esc(p["character"]), esc(dump(p["original_bbox"])), esc(bbox_issue(p["original_bbox"]))] for p in predictions]
         parts.append('<details><summary>原始坐标与格式核对</summary>' + table(["预测序号", "实际姓名", "原始bbox", "坐标说明"], coordinate_rows) + '</details>')
-    parts.append('<details class="raw-responses"><summary>新旧原始回答、请求条件及检索计量</summary><h4>新组原始最终回答</h4><pre>' + esc(new["raw_text"] or ("尚未执行" if not new["completed"] else "（空正文）")) + '</pre><h4>旧组原始最终回答</h4><pre>' + esc(old["raw_text"]) + '</pre><h4>新组实际请求条件</h4><pre>' + esc(dump(new["request"])) + '</pre><h4>服务端检索计量（非账单）</h4><pre>' + esc(dump(search["billing"])) + '</pre></details></section>')
+    parts.append('<details class="raw-responses"><summary>联网 / 未联网原始返回、请求条件及检索计量</summary><h4>联网原始最终返回</h4><pre>' + esc(new["raw_text"] or ("尚未执行" if not new["completed"] else "（空正文）")) + '</pre><h4>未联网原始最终返回</h4><pre>' + esc(old["raw_text"]) + '</pre><h4>联网实际请求条件</h4><pre>' + esc(dump(new["request"])) + '</pre><h4>服务端检索计量（非账单）</h4><pre>' + esc(dump(search["billing"])) + '</pre></details></section>')
     return ''.join(parts)
 
 
@@ -690,8 +738,8 @@ main{max-width:1800px}.toolbar{position:static}.model-panel[hidden],.review-laye
 """
 JS = """
 const model=document.getElementById('model'),work=document.getElementById('work'),query=document.getElementById('search'),cards=[...document.querySelectorAll('.case')];
-function update(){let count=0,panelsShown=0;for(const card of cards){const panels=[...card.querySelectorAll('.model-panel')];for(const panel of panels)panel.hidden=model.value!=='top3'&&panel.dataset.model!==model.value;const active=panels.filter(p=>!p.hidden).map(p=>p.dataset.model);const show=active.length>0&&(!work.value||card.dataset.work===work.value)&&(!query.value.trim()||card.dataset.search.includes(query.value.trim().toLowerCase()));card.hidden=!show;count+=Number(show);if(show)panelsShown+=active.length;const select=card.querySelector('.prediction-model');for(const option of select.options)option.disabled=!!option.value&&!active.includes(option.value);if(select.value&&!active.includes(select.value))select.value='';for(const layer of card.querySelectorAll('.prediction-layer'))layer.hidden=!select.value||layer.dataset.model!==select.value;card.querySelector('.prediction-caption').textContent=select.value?`预测框：${select.options[select.selectedIndex].text}（只显示这一套；格式不合法时没有可绘制预测框）`:'默认只显示人工真值；按需一次选择一个模型的预测框。';}document.getElementById('visible-count').textContent=`显示 ${count} / ${cards.length} 张错误图 · ${panelsShown} 个错误模型面板`;}
-for(const input of [model,work,query])input.addEventListener(input===query?'input':'change',update);for(const input of document.querySelectorAll('.prediction-model'))input.addEventListener('change',update);document.getElementById('reset').addEventListener('click',()=>{model.value='top3';work.value='';query.value='';update();});
+function update(){let count=0,panelsShown=0;for(const card of cards){const panels=[...card.querySelectorAll('.model-panel')];for(const panel of panels)panel.hidden=model.value!=='both'&&panel.dataset.model!==model.value;const active=panels.filter(p=>!p.hidden).map(p=>p.dataset.model);const show=active.length>0&&(!work.value||card.dataset.work===work.value)&&(!query.value.trim()||card.dataset.search.includes(query.value.trim().toLowerCase()));card.hidden=!show;count+=Number(show);if(show)panelsShown+=active.length;const select=card.querySelector('.prediction-model');for(const option of select.options)option.disabled=!!option.value&&!active.includes(option.value);if(select.value&&!active.includes(select.value))select.value='';for(const layer of card.querySelectorAll('.prediction-layer'))layer.hidden=!select.value||layer.dataset.model!==select.value;card.querySelector('.prediction-caption').textContent=select.value?`预测框：${select.options[select.selectedIndex].text}（只显示这一套；格式不合法时没有可绘制预测框）`:'默认只显示人工真值；按需一次选择一个模型的预测框。';}document.getElementById('visible-count').textContent=`显示 ${count} / ${cards.length} 张错误图 · ${panelsShown} 个错误模型面板`;}
+for(const input of [model,work,query])input.addEventListener(input===query?'input':'change',update);for(const input of document.querySelectorAll('.prediction-model'))input.addEventListener('change',update);document.getElementById('reset').addEventListener('click',()=>{model.value='both';work.value='';query.value='';update();});
 for(const checkbox of document.querySelectorAll('.show-review'))checkbox.addEventListener('change',()=>checkbox.closest('.case').querySelector('.image-wrap').classList.toggle('hide-review',!checkbox.checked));
 const dialog=document.getElementById('zoom-dialog');for(const button of document.querySelectorAll('.zoom'))button.addEventListener('click',()=>{const card=button.closest('.case');document.getElementById('zoom-title').textContent=card.querySelector('h2').textContent;document.getElementById('zoom-content').replaceChildren(card.querySelector('.image-wrap').cloneNode(true));dialog.showModal();});document.getElementById('close-zoom').addEventListener('click',()=>dialog.close());dialog.addEventListener('click',e=>{if(e.target===dialog)dialog.close();});update();
 """
@@ -701,7 +749,9 @@ def render_report(summary, images):
     complete = summary["complete"]
     review = summary.get("review_selection") or select_error_review(summary)
     status = "全部计划任务均有记录，仍在收尾或重试；结果尚未定稿" if complete and summary["status"] == "running" else "本轮已结束" if complete else "进行中 / 尚未全部执行，以下不是最终结果" if summary["status"] in ("running", "pending") else "已停止 / 尚未全部执行，以下不是全量结果"
-    parts = ['<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>七模型总览 · Top3错误图复核</title><style>' + CSS + STYLE + '</style></head><body><main><header class="intro"><h1>七模型总览 · Top3错误图复核</h1><p><strong>' + status + '</strong> · 已保存 ' + str(summary["completed_tasks"]) + ' / ' + str(summary["planned_tasks"]) + ' 项任务，尚未执行 ' + str(summary["pending_tasks"]) + ' 项；每模型 ' + str(summary["planned_images_per_model"]) + ' 张 / ' + str(summary["planned_targets_per_model"]) + ' 个人物。</p><p>前面的总表和分类统计保留七模型完整样本；逐图部分仅内嵌本轮Top3的' + str(review["selected_image_count"]) + '张姓名/API错误并集，不包含其余正确图。每张同时展示其中有问题的模型，图片和对应原始回答可离线查看。</p><div class="pending-note">主指标为仅姓名一对一命中率：忽略坐标格式，保留所有目标作分母；不凭姓名列表顺序分配人物位置。错误图包括漏答或未命中角色、多报目标外姓名及API失败；仅坐标或格式失败而姓名全部命中，不当作姓名错误。严格指标另要求IoU≥0.5的位置匹配；搜索已启用也不等于实际检索成功。</div><p class="metric-caption">新旧回答均按当前确认标注离线重评，包括邓子越与钰珑的更正。各厂商检索工具、必要协议和检索轮数有差异，因此比较的是各模型完整联网方案。保留原思考设置：可关闭者关闭，不能关闭者沿用最低力度。</p></header>']
+    parts = ['<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>七模型总览 · DeepSeek / Qwen Max错误图</title><style>' + CSS + STYLE + '</style></head><body><main><header class="intro"><h1>七模型总览 · DeepSeek / Qwen Max错误图</h1><p><strong>' + status + '</strong> · 已保存 ' + str(summary["completed_tasks"]) + ' / ' + str(summary["planned_tasks"]) + ' 项任务，尚未执行 ' + str(summary["pending_tasks"]) + ' 项；每模型 ' + str(summary["planned_images_per_model"]) + ' 张，姓名必答名额 ' + str(summary["planned_targets_per_model"]) + '，严格位置覆盖 ' + str(summary["strict_targets_per_model"]) + ' 个实际人物框。</p><p>本页使用当前确认标注。前面的总表和分类统计保留七模型完整样本；逐图部分仅内嵌DeepSeek与Qwen Max的' + str(review["selected_image_count"]) + '张姓名/API错误并集，不包含其余正确图。每张同时展示其中有问题的模型，图片和对应原始回答可离线查看。</p><div class="pending-note">主指标为仅姓名一对一命中率：按必答名额评分，允许已标为可选的旁人或四人任选三人；这些允许回答不算多报。姓名不按返回顺序强行对应位置。严格指标独立要求全部实际标注人物按IoU≥0.5匹配位置和姓名，不能用姓名命中给未匹配框补分。仅位置或格式问题不当作姓名错误；搜索已启用也不等于实际检索成功。</div><p class="metric-caption">未联网和联网两个实验均按当前标注与同一规则离线重评。各厂商工具和协议有差异，因此比较的是完整联网方案。保留原思考设置：可关闭者关闭，不能关闭者沿用最低力度。</p></header>']
+    if (summary.get("annotation_review") or {}).get("applied"):
+        parts.append('<section class="panel"><strong>本次仅离线更新标注和评分，没有新增模型调用。</strong><p>姓名按原请求人数上限及可选旁人口径；严格定位覆盖实际标注全部人物。人物朝向和可见性统计按全部具名候选逐人覆盖，分母与主姓名必答名额不同。</p></section>')
     cap = ((summary.get("configuration") or {}).get("budget_scope") or {}).get("max_cost_cny")
     cap_text = f"累计本地保护上限：{cap:g}元，包含历史费用及预留。" if isinstance(cap, (int, float)) else "累计本地保护上限见冻结配置。"
     if summary.get("stage_label"):
@@ -714,7 +764,7 @@ def render_report(summary, images):
         parts.append('<section class="panel"><details><summary class="summary-toggle">已排除的旧模型接口诊断（费用与原始记录保留）</summary><p>这些整批旧记录不参加本报告的1120项正式统计；其调用费用仍包含在同一累计预算中，不归零、不按单图择优混入。</p>')
         for model, diagnostic in summary["excluded_model_diagnostics"].items():
             parts.append('<h3>' + esc(model) + ' · 旧来源 ' + esc(diagnostic["run_id"]) + '</h3><p>保留已保存的' + str(diagnostic["recorded_images"]) + '张；新来源为' + esc(diagnostic["replaced_by_run_id"]) + '。</p><pre>' + esc(dump({key: value for key, value in diagnostic.items() if key != "records"})) + '</pre>')
-        parts.append('<p class="metric-caption">旧接口逐图原始回答、错误及检索记录保留在excluded_model_diagnostics.json，本页只显示概要；不混入下方Top3错误图。查看本页错误图不依赖外部文件。</p></details></section>')
+        parts.append('<p class="metric-caption">历史接口逐图原始回答、错误及检索记录保留在excluded_model_diagnostics.json，本页只显示按当前标注重评的概要，不混入下方两模型错误图。</p></details></section>')
     if not complete and summary["status"] not in ("running", "pending") and summary.get("run_note"):
         parts.append('<section class="panel"><p>运行记录：' + esc(summary["run_note"]) + '</p><p>运行停止不代表累计保护上限已经实际花完；已保存的回答和计量记录继续保留。</p></section>')
     if not complete and summary["status"] not in ("running", "pending") and summary.get("pause_note"):
@@ -749,17 +799,18 @@ def render_report(summary, images):
     labels = {"works": summary["work_names"], "single_multi": {"single": "单人图片", "multi": "多人图片"}, "orientation": POSE, "visibility": VISIBILITY}
     for axis, groups in summary["groups"].items():
         for value, comparison in groups.items():
-            parts.append('<div class="group-table"><h3>' + esc(labels[axis].get(value, value)) + '</h3>' + comparison_table(comparison) + '</div>')
-    parts.append('</details><p class="metric-caption">朝向和可见性按人工真值人物分类；单人/多人按本轮已标的主要人物数分类。分类标签仅用于统计，未发给模型。</p></section>')
+            heading = labels[axis].get(value, value) + (' · 全具名人物覆盖（含可选，非主配额）' if axis in ("orientation", "visibility") else '')
+            parts.append('<div class="group-table"><h3>' + esc(heading) + '</h3>' + comparison_table(comparison) + '</div>')
+    parts.append('</details><p class="metric-caption">作品和单人/多人按整图必答名额汇总；朝向和可见性按全部实际具名人物逐人覆盖（含可选），不分配模型自行挑中的三人作为固定分母。严格位置始终按实际标注人物。标签仅用于统计，未发给模型。</p></section>')
     parts.append('<section class="panel"><details><summary>本轮费用估算、配置和版本</summary><p>费用为本地账本估算与未知预留，不能等同供应商实际账单。所选模型来源的费用、进行中预留和包含所有历史/探测/旧接口的累计范围分别列出；预留不能当作已扣费。run_note是主run的原始记录，可能保留此前中断说明；当前组合状态以页首status为准。</p><pre>' + esc(dump({key: summary[key] for key in ("run_id", "baseline_run_id", "model_sources", "source_run_states", "primary_run_status", "dataset_hash", "baseline_dataset_hash", "generated_at", "status", "run_note", "costs", "configuration", "operational_control")})) + '</pre></details></section>')
     ranked_rows = [[str(index), esc(MODEL_LABELS.get(model, model)),
                     rate(summary["all_works"][model]["new"]["name_correct"], summary["all_works"][model]["new"]["planned_targets"]),
                     str(review["model_error_images"][model]) + ' 张'] for index, model in enumerate(review["top_models"], 1)]
-    parts.append('<section class="panel"><h2>本轮Top3：只复核它们的错误图</h2>' + table(["排名", "模型", "完整样本纯姓名命中率", "姓名 / 多报 / API错误图"], ranked_rows) + '<p>错误并集' + str(review["selected_image_count"]) + '张，共' + str(review["error_model_panels"]) + '个错误模型面板；同图可有多个模型出错。默认并列展示有问题的模型，正确模型不占逐图分析。原始全部图片和七模型完整JSON记录继续保留。</p></section>')
+    parts.append('<section class="panel"><h2>DeepSeek / Qwen Max：仅显示当前错误图</h2>' + table(["序号", "模型", "完整样本主姓名命中率", "姓名 / 多报 / API错误图"], ranked_rows) + '<p>错误并集' + str(review["selected_image_count"]) + '张，共' + str(review["error_model_panels"]) + '个错误模型面板；同图可有两个模型出错。默认并列展示有问题的模型，正确模型不占逐图分析。</p></section>')
     if review["coordinate_only_images_not_embedded"]:
         coordinate_rows = [[esc(row["sample_id"]), esc(row["work_name"]), '<br>'.join(esc(MODEL_LABELS.get(model, model)) + '：' + esc(issue) for model, issue in row["issues"].items())] for row in review["coordinate_only_images_not_embedded"]]
-        parts.append('<section class="panel"><details><summary class="summary-toggle">另有' + str(review["coordinate_only_image_count"]) + '张仅位置 / 格式问题，姓名没有错（不嵌图）</summary><p>这部分Top3姓名均已命中且没有多报，只是严格位置对应或格式未通过。它们不属于下方姓名错误并集，也没有作为正确图嵌入本HTML；完整坐标和原始回答保留在summary.json和原始证据中。</p>' + table(["样本编号", "作品", "仅位置 / 格式问题"], coordinate_rows) + '</details></section>')
-    model_options = '<option value="top3" selected>Top3有错模型 · 同时对照</option>' + ''.join('<option value="' + esc(model) + '">' + esc(MODEL_LABELS.get(model, model)) + ' · ' + str(review["model_error_images"][model]) + '张错误图</option>' for model in review["top_models"])
+        parts.append('<section class="panel"><details><summary class="summary-toggle">另有' + str(review["coordinate_only_image_count"]) + '张主姓名要求已满足，仅位置 / 格式问题（不嵌图）</summary><p>这部分两模型都满足当前必答名额且没有多报，只是严格实际人物覆盖或格式未通过。它们不属于下方姓名错误并集；完整坐标和原始回答保留在summary.json和原始证据中。</p>' + table(["样本编号", "作品", "仅位置 / 格式问题"], coordinate_rows) + '</details></section>')
+    model_options = '<option value="both" selected>两模型有错面板 · 同时对照</option>' + ''.join('<option value="' + esc(model) + '">' + esc(MODEL_LABELS.get(model, model)) + ' · ' + str(review["model_error_images"][model]) + '张错误图</option>' for model in review["top_models"])
     work_options = ''.join('<option value="' + esc(slug) + '">' + esc(name) + '</option>' for slug, name in summary["work_names"].items())
     parts.append('<div class="toolbar"><label>错误模型对照<select id="model">' + model_options + '</select></label><label>作品<select id="work"><option value="">全部作品</option>' + work_options + '</select></label><label>编号或角色<input id="search" type="search" placeholder="例如 0029 或 钰珑"></label><button id="reset" type="button">重置筛选</button><strong id="visible-count"></strong></div>')
     selected = {row["sample_id"]: row for row in review["selected_images"]}
