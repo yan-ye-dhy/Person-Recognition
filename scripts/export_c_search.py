@@ -38,6 +38,7 @@ MODEL_IDS = ("deepseek-flash", "kimi-k3.1-pro", "glm-5.3-flash", "glm-4.6v",
              "qwen3.8-max", "qwen3.7-plus", "qwen3.8-flash")
 FAILURES = {"account_arrearage": "厂商返回Arrearage账户拒绝", "content_filter": "厂商内容过滤拦截",
             "other_api_failure": "其他 / 未确认原因的接口失败"}
+MODEL_LABELS = {"deepseek-flash": "DeepSeek Flash", "qwen3.8-max": "Qwen Max", "kimi-k3.1-pro": "Kimi K3.1 Pro"}
 OVERRIDES_MANIFEST = Path("results/multi/c_search/model_run_overrides.json")
 PROTOCOL_MARKER = "x-anthropic-billing-header: cc_entrypoint=cli;"
 
@@ -323,6 +324,48 @@ def aggregate(rows, person_filter=None):
     return result
 
 
+def name_error_reasons(result):
+    if not result["completed"]:
+        return []
+    if result["state"] != "ok":
+        return ["api_failure"]
+    names = result["names"]
+    return (["missing_or_wrong_name"] if names["correct"] < names["target_count"] else []) + (["extra_name"] if names["extra_names"] > 0 else [])
+
+
+def coordinate_only_issue(result):
+    if not result["completed"] or result["state"] != "ok" or name_error_reasons(result):
+        return None
+    strict = result["strict"]
+    if not strict["parse_ok"] or strict["format_error"]:
+        return "姓名全部命中；仅格式 / 坐标不合规"
+    if strict["identity_correct"] < result["names"]["target_count"]:
+        return "姓名全部命中；位置与姓名对应未通过"
+    return None
+
+
+def select_error_review(summary):
+    ranked = sorted(summary["models"], key=lambda model: (-(summary["all_works"][model]["new"]["name_accuracy_planned"] or 0), model))[:3]
+    counts = {model: 0 for model in ranked}
+    selected, auxiliary = [], []
+    for case in summary["cases"]:
+        errors = {model: name_error_reasons(case["results"][model]["new"]) for model in ranked}
+        problems = [model for model, reasons in errors.items() if reasons]
+        if problems:
+            selected.append({"sample_id": case["sample_id"], "models": problems, "reasons": {model: errors[model] for model in problems}})
+            for model in problems:
+                counts[model] += 1
+        elif all(case["results"][model]["new"]["completed"] and case["results"][model]["new"]["state"] == "ok" for model in ranked):
+            coordinates = {model: issue for model in ranked if (issue := coordinate_only_issue(case["results"][model]["new"]))}
+            if coordinates:
+                auxiliary.append({"sample_id": case["sample_id"], "work_name": case["sample"]["work_name"], "issues": coordinates})
+    return {"ranking_metric": f'all-four-work name_accuracy_planned ({summary["planned_targets_per_model"]} GT targets per model)', "top_models": ranked,
+            "model_error_images": counts, "selected_images": selected, "selected_image_count": len(selected),
+            "error_model_panels": sum(counts.values()), "coordinate_only_images_not_embedded": auxiliary,
+            "coordinate_only_image_count": len(auxiliary), "embedded_image_count": len(selected),
+            "policy": "Only top-three name misses/wrong names, extra names or API failures enter image cards. Pending tasks and coordinate-only issues are not name errors. Full statistics and JSON retain all samples/models."}
+
+
 def build_summary(context):
     samples, models, matcher = context["samples"], context["models"], context["matcher"]
     sources = context.get("model_sources") or {model: {"run_id": context["run"]["run_id"], "status": context["run"]["status"], "selection": "primary_run"} for model in models}
@@ -367,7 +410,7 @@ def build_summary(context):
         diagnostics[model].update(recorded_images=len(records), original_planned_images=len(samples),
                                   inclusion="Historical whole-model cohort only; excluded from the selected 1120 tasks; costs retained in the shared budget.",
                                   metrics_recorded_subset=aggregate([record["result"] for record in records]), records=records)
-    return {"run_id": context["run"]["run_id"], "baseline_run_id": context["baseline"]["run_id"],
+    result = {"run_id": context["run"]["run_id"], "baseline_run_id": context["baseline"]["run_id"],
             "generated_at": datetime.now(timezone.utc).isoformat(), "status": status,
             "primary_run_status": context["run"]["status"], "source_run_states": source_states,
             "model_sources": sources, "has_model_overrides": any(source["run_id"] != context["run"]["run_id"] for source in sources.values()),
@@ -382,6 +425,8 @@ def build_summary(context):
             "all_works": comparison(), "without_gongfunvzu": comparison(lambda case: case["sample"]["work_slug"] != "gongfunvzu"),
             "groups": groups, "work_names": work_names, "costs": context.get("costs", {}),
             "configuration": context.get("metadata", {}), "operational_control": context.get("operational_control", {}), "cases": cases}
+    result["review_selection"] = select_error_review(result)
+    return result
 
 
 def scoring_truth(samples):
@@ -589,10 +634,14 @@ def failures_table(summary):
     return table(["模型", "API成功图片", "API失败图片", "明确Arrearage账户拒绝", "明确内容拦截", "其他 / 原因未确认", "仅API成功子集的姓名命中", "尚未执行"], rows)
 
 
-def model_panel(model, result):
+def model_panel(model, result, *, compact=False):
     old, new = result["old"], result["new"]
     status = "尚未执行" if not new["completed"] else "接口失败" if new["state"] != "ok" else "已返回"
-    parts = [f'<section class="model-panel" data-model="{esc(model)}"><h3>{esc(model)} · {status}</h3><p class="model-source">全部160张统一来源：{esc(new.get("source_run_id"))}</p>']
+    parts = [f'<section class="model-panel" data-model="{esc(model)}"><h3>{esc(MODEL_LABELS.get(model, model))} · {status}</h3><p class="model-source">本模型测试来源：{esc(new.get("source_run_id"))}</p>']
+    if compact:
+        reasons = name_error_reasons(new)
+        labels = {"api_failure": "接口失败，无法评估姓名", "missing_or_wrong_name": "角色姓名有漏答或未命中", "extra_name": "多报未命中目标的姓名"}
+        parts.append('<p class="error-summary">' + '；'.join(labels[reason] for reason in reasons) + '。姓名命中 ' + str(new["names"]["correct"]) + ' / ' + str(new["names"]["target_count"]) + '；多报姓名 ' + str(new["names"]["extra_names"]) + ' 条。</p>')
     if new["state"] == "api_failure":
         parts.append('<div class="notice"><strong>' + esc(FAILURES[new["failure_category"]]) + '</strong>：接口没有成功返回可评估答案，不能据此判定人物认错。下方保留原始错误类型和原文；没有账单证据时，不将该次费用视为零。</div>')
     old_people = {p["person_id"]: p for p in old["names"]["person_details"]}
@@ -604,14 +653,20 @@ def model_panel(model, result):
         old_hit = old_people[pid]["outcome"] == "correct"
         hit = person["outcome"] == "correct"
         strict = strict_people[pid]
-        rows.append([str(pid), esc(person["gt_character"]), "命中" if old_hit else "未命中",
-                     '<span class="good">命中：' + esc(person["predicted"]) + '</span>' if hit else '<span class="bad">' + ("尚未执行" if not new["completed"] else "接口失败，未判定姓名" if new["state"] == "api_failure" else "未命中") + '</span>',
+        verdict = '<span class="good">命中：' + esc(person["predicted"]) + '</span>' if hit else '<span class="bad">' + ("尚未执行" if not new["completed"] else "接口失败，未判定姓名" if new["state"] == "api_failure" else "未命中") + '</span>'
+        if compact:
+            rows.append([str(pid), esc(person["gt_character"]), verdict])
+        else:
+            rows.append([str(pid), esc(person["gt_character"]), "命中" if old_hit else "未命中", verdict,
                      "位置和姓名均正确" if strict["outcome"] == "correct" else "接口失败，未判定位置与姓名" if new["state"] == "api_failure" else esc(strict["outcome"]),
                      esc(POSE.get(tag.get("face_orientation"), "—")) + " / " + esc(VISIBILITY.get(tag.get("visibility"), "—"))])
-    parts.append(table(["人工真值编号", "当前确认角色", "旧组仅姓名", "新组仅姓名", "新组严格判定", "朝向 / 可见性"], rows))
+    parts.append(table(["真值编号", "人工确认角色", "本次姓名判定"] if compact else ["人工真值编号", "当前确认角色", "旧组仅姓名", "新组仅姓名", "新组严格判定", "朝向 / 可见性"], rows))
     predictions = new["names"]["predictions"]
     names = "、".join("null" if p["character"] is None else str(p["character"]) for p in predictions)
     parts.append('<p class="name-list">模型实际姓名列表：<strong>' + esc(names or "（无姓名条目）") + '</strong></p>')
+    extra = [prediction["character"] for prediction in predictions if prediction["outcome"] == "extra_name"]
+    if extra:
+        parts.append('<p class="bad">多报且未命中目标的姓名：' + esc('、'.join(str(name) for name in extra)) + '</p>')
     search = new["search"]
     attempted = "已触发" if search["attempted"] is True else "未触发" if search["attempted"] is False else "无法核实是否触发"
     parts.append('<p>搜索请求：' + ("已配置" if search["requested"] else "未发出 / 未配置") + '；' + attempted + '；有效来源：' + str(len(search["sources"])) + '条。' + ('已核实检索得到内容。' if search["retrieved"] else '未核实检索得到内容。') + '</p>')
@@ -631,11 +686,12 @@ def model_panel(model, result):
 
 STYLE = """
 main{max-width:1800px}.toolbar{position:static}.model-panel[hidden],.review-layer[hidden],.case[hidden]{display:none}.model-panel{margin-top:18px;border-top:1px solid #d8e4ec;padding-top:8px}.name-list{background:#f0f6fa;padding:12px;border-radius:8px}.review-layer{position:absolute;inset:0;pointer-events:none}.image-wrap{position:relative}.image-wrap>img{display:block;width:100%;height:auto}.image-wrap.hide-review .review-layer{display:none}.source-list,li{overflow-wrap:anywhere}pre{max-height:480px}.pending-note{border-left:5px solid #d18b09;background:#fff4dc;padding:14px}.case{margin-top:22px}.case h2{font-size:22px}.case-head{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}.summary-toggle{font-size:18px;font-weight:700}.metric-caption{color:#526b7b;font-size:14px}.group-table{margin:15px 0}.model-panel .good{color:#087f5b;font-weight:700}.model-panel .bad{color:#ac281e;font-weight:700}.image-controls{display:flex;gap:20px;align-items:center;margin:10px 0}.notice{white-space:pre-wrap;overflow-wrap:anywhere}.group-table h3{font-size:17px}.toolbar select,.toolbar input{max-width:100%}@media(max-width:700px){main{padding:10px}.toolbar{display:grid;grid-template-columns:1fr}.intro,.panel,.case{padding:15px}h1{font-size:24px}.image-controls{flex-wrap:wrap}}
+.model-panels{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:16px;margin-top:18px}.model-panels .model-panel{margin:0;min-width:0;border:1px solid #d8e4ec;border-radius:10px;padding:14px}.model-source{font-size:12px;color:#607788;overflow-wrap:anywhere}.error-summary{font-size:14px;background:#fff1e8;padding:10px;border-radius:8px;color:#883b0c}.prediction-layer .gt-box{display:none}.issue-chip{display:inline-block;padding:6px 10px;border-radius:15px;background:#fff1e8;color:#8d3a10;font-size:13px;margin:3px}.image-controls select{max-width:260px}.model-panel h3{margin-top:0}.model-panel pre{max-height:340px}
 """
 JS = """
-const model=document.getElementById('model'),work=document.getElementById('work'),query=document.getElementById('search'),result=document.getElementById('result'),cards=[...document.querySelectorAll('.case')];
-function update(){let count=0;for(const card of cards){for(const panel of card.querySelectorAll('[data-model]'))panel.hidden=panel.dataset.model!==model.value;const panel=[...card.querySelectorAll('.model-panel')].find(p=>p.dataset.model===model.value);const value=panel.dataset.result;const show=(!work.value||card.dataset.work===work.value)&&(!query.value.trim()||card.dataset.search.includes(query.value.trim().toLowerCase()))&&(!result.value||value===result.value||panel.dataset.failure===result.value);card.hidden=!show;count+=Number(show);}document.getElementById('visible-count').textContent=`显示 ${count} / ${cards.length} 张 · ${model.value}`;}
-for(const input of [model,work,query,result])input.addEventListener(input===query?'input':'change',update);document.getElementById('reset').addEventListener('click',()=>{work.value='';query.value='';result.value='';update();});
+const model=document.getElementById('model'),work=document.getElementById('work'),query=document.getElementById('search'),cards=[...document.querySelectorAll('.case')];
+function update(){let count=0,panelsShown=0;for(const card of cards){const panels=[...card.querySelectorAll('.model-panel')];for(const panel of panels)panel.hidden=model.value!=='top3'&&panel.dataset.model!==model.value;const active=panels.filter(p=>!p.hidden).map(p=>p.dataset.model);const show=active.length>0&&(!work.value||card.dataset.work===work.value)&&(!query.value.trim()||card.dataset.search.includes(query.value.trim().toLowerCase()));card.hidden=!show;count+=Number(show);if(show)panelsShown+=active.length;const select=card.querySelector('.prediction-model');for(const option of select.options)option.disabled=!!option.value&&!active.includes(option.value);if(select.value&&!active.includes(select.value))select.value='';for(const layer of card.querySelectorAll('.prediction-layer'))layer.hidden=!select.value||layer.dataset.model!==select.value;card.querySelector('.prediction-caption').textContent=select.value?`预测框：${select.options[select.selectedIndex].text}（只显示这一套；格式不合法时没有可绘制预测框）`:'默认只显示人工真值；按需一次选择一个模型的预测框。';}document.getElementById('visible-count').textContent=`显示 ${count} / ${cards.length} 张错误图 · ${panelsShown} 个错误模型面板`;}
+for(const input of [model,work,query])input.addEventListener(input===query?'input':'change',update);for(const input of document.querySelectorAll('.prediction-model'))input.addEventListener('change',update);document.getElementById('reset').addEventListener('click',()=>{model.value='top3';work.value='';query.value='';update();});
 for(const checkbox of document.querySelectorAll('.show-review'))checkbox.addEventListener('change',()=>checkbox.closest('.case').querySelector('.image-wrap').classList.toggle('hide-review',!checkbox.checked));
 const dialog=document.getElementById('zoom-dialog');for(const button of document.querySelectorAll('.zoom'))button.addEventListener('click',()=>{const card=button.closest('.case');document.getElementById('zoom-title').textContent=card.querySelector('h2').textContent;document.getElementById('zoom-content').replaceChildren(card.querySelector('.image-wrap').cloneNode(true));dialog.showModal();});document.getElementById('close-zoom').addEventListener('click',()=>dialog.close());dialog.addEventListener('click',e=>{if(e.target===dialog)dialog.close();});update();
 """
@@ -643,8 +699,9 @@ const dialog=document.getElementById('zoom-dialog');for(const button of document
 
 def render_report(summary, images):
     complete = summary["complete"]
+    review = summary.get("review_selection") or select_error_review(summary)
     status = "全部计划任务均有记录，仍在收尾或重试；结果尚未定稿" if complete and summary["status"] == "running" else "本轮已结束" if complete else "进行中 / 尚未全部执行，以下不是最终结果" if summary["status"] in ("running", "pending") else "已停止 / 尚未全部执行，以下不是全量结果"
-    parts = ['<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>七模型 · C组联网重测</title><style>' + CSS + STYLE + '</style></head><body><main><header class="intro"><h1>七模型 · C组联网重测</h1><p><strong>' + status + '</strong> · 已保存 ' + str(summary["completed_tasks"]) + ' / ' + str(summary["planned_tasks"]) + ' 项任务，尚未执行 ' + str(summary["pending_tasks"]) + ' 项；每模型 ' + str(summary["planned_images_per_model"]) + ' 张 / ' + str(summary["planned_targets_per_model"]) + ' 个人物。</p><p>输入均为无框原图，并提供作品名称；不运行A/B组。图片、逐图分析和原始最终回答已内嵌，可直接分享完整HTML并离线打开。</p><div class="pending-note">主指标为仅姓名一对一命中率：忽略坐标格式，保留所有目标作分母；不凭姓名列表顺序分配人物位置。严格指标另要求IoU≥0.5的位置匹配。进行中按计划目标计算的比例会包含尚未执行的目标，请结合进度查看；搜索未返回可用来源不会静默当作已成功联网。</div><p class="metric-caption">新旧回答均按当前确认标注离线重评，包括邓子越与钰珑的更正。各厂商检索工具、必要协议和检索轮数有差异，因此比较的是各模型完整联网方案。保留原思考设置：可关闭者关闭，不能关闭者沿用最低力度。</p></header>']
+    parts = ['<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>七模型总览 · Top3错误图复核</title><style>' + CSS + STYLE + '</style></head><body><main><header class="intro"><h1>七模型总览 · Top3错误图复核</h1><p><strong>' + status + '</strong> · 已保存 ' + str(summary["completed_tasks"]) + ' / ' + str(summary["planned_tasks"]) + ' 项任务，尚未执行 ' + str(summary["pending_tasks"]) + ' 项；每模型 ' + str(summary["planned_images_per_model"]) + ' 张 / ' + str(summary["planned_targets_per_model"]) + ' 个人物。</p><p>前面的总表和分类统计保留七模型完整样本；逐图部分仅内嵌本轮Top3的' + str(review["selected_image_count"]) + '张姓名/API错误并集，不包含其余正确图。每张同时展示其中有问题的模型，图片和对应原始回答可离线查看。</p><div class="pending-note">主指标为仅姓名一对一命中率：忽略坐标格式，保留所有目标作分母；不凭姓名列表顺序分配人物位置。错误图包括漏答或未命中角色、多报目标外姓名及API失败；仅坐标或格式失败而姓名全部命中，不当作姓名错误。严格指标另要求IoU≥0.5的位置匹配；搜索已启用也不等于实际检索成功。</div><p class="metric-caption">新旧回答均按当前确认标注离线重评，包括邓子越与钰珑的更正。各厂商检索工具、必要协议和检索轮数有差异，因此比较的是各模型完整联网方案。保留原思考设置：可关闭者关闭，不能关闭者沿用最低力度。</p></header>']
     cap = ((summary.get("configuration") or {}).get("budget_scope") or {}).get("max_cost_cny")
     cap_text = f"累计本地保护上限：{cap:g}元，包含历史费用及预留。" if isinstance(cap, (int, float)) else "累计本地保护上限见冻结配置。"
     if summary.get("stage_label"):
@@ -656,8 +713,8 @@ def render_report(summary, images):
     if summary.get("excluded_model_diagnostics"):
         parts.append('<section class="panel"><details><summary class="summary-toggle">已排除的旧模型接口诊断（费用与原始记录保留）</summary><p>这些整批旧记录不参加本报告的1120项正式统计；其调用费用仍包含在同一累计预算中，不归零、不按单图择优混入。</p>')
         for model, diagnostic in summary["excluded_model_diagnostics"].items():
-            parts.append('<h3>' + esc(model) + ' · 旧来源 ' + esc(diagnostic["run_id"]) + '</h3><p>保留已保存的' + str(diagnostic["recorded_images"]) + '张；新来源为' + esc(diagnostic["replaced_by_run_id"]) + '。</p><pre>' + esc(dump({key: value for key, value in diagnostic.items() if key != "records"})) + '</pre><details><summary>旧接口逐图原始回答、错误及检索记录（仅诊断）</summary><pre>' + esc(dump(diagnostic["records"])) + '</pre></details>')
-        parts.append('<p class="metric-caption">同样的结构化记录另存excluded_model_diagnostics.json；本HTML已包含诊断文本，离线查看不依赖该JSON文件。</p></details></section>')
+            parts.append('<h3>' + esc(model) + ' · 旧来源 ' + esc(diagnostic["run_id"]) + '</h3><p>保留已保存的' + str(diagnostic["recorded_images"]) + '张；新来源为' + esc(diagnostic["replaced_by_run_id"]) + '。</p><pre>' + esc(dump({key: value for key, value in diagnostic.items() if key != "records"})) + '</pre>')
+        parts.append('<p class="metric-caption">旧接口逐图原始回答、错误及检索记录保留在excluded_model_diagnostics.json，本页只显示概要；不混入下方Top3错误图。查看本页错误图不依赖外部文件。</p></details></section>')
     if not complete and summary["status"] not in ("running", "pending") and summary.get("run_note"):
         parts.append('<section class="panel"><p>运行记录：' + esc(summary["run_note"]) + '</p><p>运行停止不代表累计保护上限已经实际花完；已保存的回答和计量记录继续保留。</p></section>')
     if not complete and summary["status"] not in ("running", "pending") and summary.get("pause_note"):
@@ -675,9 +732,9 @@ def render_report(summary, images):
     configuration = summary.get("configuration") or {}
     wire_limit = (configuration.get("generation_params") or {}).get("max_tokens")
     prices = (configuration.get("pricing") or {}).get("models") or {}
-    allowances = {model: rate["output_token_upper_bound"] for model, rate in prices.items()
-                  if isinstance(rate, dict) and isinstance(rate.get("output_token_upper_bound"), int)
-                  and isinstance(wire_limit, int) and rate["output_token_upper_bound"] > wire_limit}
+    allowances = {model: price_row["output_token_upper_bound"] for model, price_row in prices.items()
+                  if isinstance(price_row, dict) and isinstance(price_row.get("output_token_upper_bound"), int)
+                  and isinstance(wire_limit, int) and price_row["output_token_upper_bound"] > wire_limit}
     if allowances:
         parts.append('<section class="panel"><p>计量说明：原生工具可能返回超过请求输出预算的汇总用量，因此费用预留采用更保守的厂商输出额度；实际请求的输出参数仍为' + str(wire_limit) + '，没有据此增加模型输出长度或开启思考。</p><p>先前接入验证单独保留，不计入此run的正式图片结果；历史费用继续计入累计范围。被截断或坐标不合规的回答仍按原有格式规则判定，不自动修补JSON或坐标。</p><details><summary>查看费用预留所用输出额度（不是请求参数）</summary><pre>' + esc(dump(allowances)) + '</pre></details></section>')
     parts.append('<section class="panel"><p>DeepSeek、Kimi与Qwen使用原厂原生搜索；两款GLM通过智谱自有搜索API接入模型工具循环，不能等同于已验证原生内置搜索。</p><p>' + esc(cap_text) + '本地预留与服务端账单不同，声明的服务端搜索次数也不是保证执行的消费上限。</p><details><summary>查看七模型检索方式与思考设置</summary>' + methods_table(summary) + '</details></section>')
@@ -695,26 +752,40 @@ def render_report(summary, images):
             parts.append('<div class="group-table"><h3>' + esc(labels[axis].get(value, value)) + '</h3>' + comparison_table(comparison) + '</div>')
     parts.append('</details><p class="metric-caption">朝向和可见性按人工真值人物分类；单人/多人按本轮已标的主要人物数分类。分类标签仅用于统计，未发给模型。</p></section>')
     parts.append('<section class="panel"><details><summary>本轮费用估算、配置和版本</summary><p>费用为本地账本估算与未知预留，不能等同供应商实际账单。所选模型来源的费用、进行中预留和包含所有历史/探测/旧接口的累计范围分别列出；预留不能当作已扣费。run_note是主run的原始记录，可能保留此前中断说明；当前组合状态以页首status为准。</p><pre>' + esc(dump({key: summary[key] for key in ("run_id", "baseline_run_id", "model_sources", "source_run_states", "primary_run_status", "dataset_hash", "baseline_dataset_hash", "generated_at", "status", "run_note", "costs", "configuration", "operational_control")})) + '</pre></details></section>')
-    default_model = "qwen3.8-max" if "qwen3.8-max" in summary["models"] else summary["models"][0]
-    model_options = ''.join('<option value="' + esc(model) + '"' + (' selected' if model == default_model else '') + '>' + esc(model) + '</option>' for model in summary["models"])
+    ranked_rows = [[str(index), esc(MODEL_LABELS.get(model, model)),
+                    rate(summary["all_works"][model]["new"]["name_correct"], summary["all_works"][model]["new"]["planned_targets"]),
+                    str(review["model_error_images"][model]) + ' 张'] for index, model in enumerate(review["top_models"], 1)]
+    parts.append('<section class="panel"><h2>本轮Top3：只复核它们的错误图</h2>' + table(["排名", "模型", "完整样本纯姓名命中率", "姓名 / 多报 / API错误图"], ranked_rows) + '<p>错误并集' + str(review["selected_image_count"]) + '张，共' + str(review["error_model_panels"]) + '个错误模型面板；同图可有多个模型出错。默认并列展示有问题的模型，正确模型不占逐图分析。原始全部图片和七模型完整JSON记录继续保留。</p></section>')
+    if review["coordinate_only_images_not_embedded"]:
+        coordinate_rows = [[esc(row["sample_id"]), esc(row["work_name"]), '<br>'.join(esc(MODEL_LABELS.get(model, model)) + '：' + esc(issue) for model, issue in row["issues"].items())] for row in review["coordinate_only_images_not_embedded"]]
+        parts.append('<section class="panel"><details><summary class="summary-toggle">另有' + str(review["coordinate_only_image_count"]) + '张仅位置 / 格式问题，姓名没有错（不嵌图）</summary><p>这部分Top3姓名均已命中且没有多报，只是严格位置对应或格式未通过。它们不属于下方姓名错误并集，也没有作为正确图嵌入本HTML；完整坐标和原始回答保留在summary.json和原始证据中。</p>' + table(["样本编号", "作品", "仅位置 / 格式问题"], coordinate_rows) + '</details></section>')
+    model_options = '<option value="top3" selected>Top3有错模型 · 同时对照</option>' + ''.join('<option value="' + esc(model) + '">' + esc(MODEL_LABELS.get(model, model)) + ' · ' + str(review["model_error_images"][model]) + '张错误图</option>' for model in review["top_models"])
     work_options = ''.join('<option value="' + esc(slug) + '">' + esc(name) + '</option>' for slug, name in summary["work_names"].items())
-    parts.append('<div class="toolbar"><label>逐图查看模型<select id="model">' + model_options + '</select></label><label>作品<select id="work"><option value="">全部作品</option>' + work_options + '</select></label><label>结果<select id="result"><option value="">全部结果</option><option value="correct">目标姓名全部命中</option><option value="wrong">仍有姓名未命中</option><option value="pending">尚未执行</option><option value="failed">全部接口失败</option><option value="account_arrearage">明确Arrearage账户拒绝</option><option value="content_filter">明确内容过滤拦截</option><option value="other_api_failure">其他 / 未确认接口失败</option></select></label><label>编号或角色<input id="search" type="search" placeholder="例如 0029 或 钰珑"></label><button id="reset" type="button">重置筛选</button><strong id="visible-count"></strong></div>')
+    parts.append('<div class="toolbar"><label>错误模型对照<select id="model">' + model_options + '</select></label><label>作品<select id="work"><option value="">全部作品</option>' + work_options + '</select></label><label>编号或角色<input id="search" type="search" placeholder="例如 0029 或 钰珑"></label><button id="reset" type="button">重置筛选</button><strong id="visible-count"></strong></div>')
+    selected = {row["sample_id"]: row for row in review["selected_images"]}
     for case in summary["cases"]:
         sid, sample = case["sample_id"], case["sample"]
+        if sid not in selected:
+            continue
         image = images[sid]
-        search_terms = " ".join([sid, sample["work_name"]] + [p["character"] for p in sample["persons"]] + [str(p["character"] or "") for result in case["results"].values() for p in result["new"]["names"]["predictions"]]).lower()
-        parts.append('<article class="case" id="' + esc(sid) + '" data-work="' + esc(sample["work_slug"]) + '" data-search="' + esc(search_terms) + '"><div class="case-head"><h2>' + esc(sid) + ' · ' + esc(sample["work_name"]) + '</h2><span>' + str(len(sample["persons"])) + '个已标主要人物</span></div><div class="image-controls"><button class="zoom" type="button">放大本次输入图</button><label><input class="show-review" type="checkbox" checked>显示人工审阅框</label></div><div class="image-wrap"><img loading="lazy" width="' + str(image["size"][0]) + '" height="' + str(image["size"][1]) + '" alt="' + esc(sid) + ' · 实际无框输入" src="data:image/jpeg;base64,' + base64.b64encode(image["bytes"]).decode("ascii") + '">')
-        for model, result in case["results"].items():
+        problems = selected[sid]["models"]
+        search_terms = " ".join([sid, sample["work_name"]] + [p["character"] for p in sample["persons"]] + [str(p["character"] or "") for model in problems for p in case["results"][model]["new"]["names"]["predictions"]]).lower()
+        chips = ''.join('<span class="issue-chip">' + esc(MODEL_LABELS.get(model, model)) + '</span>' for model in problems)
+        prediction_options = '<option value="">仅人工真值，不叠预测框</option>' + ''.join('<option value="' + esc(model) + '">' + esc(MODEL_LABELS.get(model, model)) + '</option>' for model in problems)
+        parts.append('<article class="case" id="' + esc(sid) + '" data-work="' + esc(sample["work_slug"]) + '" data-search="' + esc(search_terms) + '"><div class="case-head"><h2>' + esc(sid) + ' · ' + esc(sample["work_name"]) + '</h2><div>' + chips + '</div></div><div class="image-controls"><button class="zoom" type="button">放大本次输入图</button><label><input class="show-review" type="checkbox" checked>显示审阅框</label><label>预测框<select class="prediction-model">' + prediction_options + '</select></label></div><div class="image-wrap"><img loading="lazy" width="' + str(image["size"][0]) + '" height="' + str(image["size"][1]) + '" alt="' + esc(sid) + ' · 实际无框输入" src="data:image/jpeg;base64,' + base64.b64encode(image["bytes"]).decode("ascii") + '"><div class="review-layer gt-layer">' + overlay(sample, {"parse_ok": False}, [], image["size"]) + '</div>')
+        for model in problems:
+            result = case["results"][model]
             new = result["new"]
             predictions = [{"bbox": p["original_bbox"], "character": p["character"]} for p in new["names"]["predictions"]]
-            parts.append('<div class="review-layer" data-model="' + esc(model) + '"' + (' hidden' if model != default_model else '') + '>' + overlay(sample, new["strict"], predictions, image["size"]) + '</div>')
-        parts.append('</div><p class="metric-caption">实际API输入为无框JPEG。绿色框为人工真值；橙色虚线为当前所选模型的合法预测；所有叠加框及姓名仅供此报告审阅。</p>')
-        for model, result in case["results"].items():
+            parts.append('<div class="review-layer prediction-layer" data-model="' + esc(model) + '" hidden>' + overlay(sample, new["strict"], predictions, image["size"]) + '</div>')
+        parts.append('</div><p class="metric-caption prediction-caption">默认只显示人工真值；按需一次选择一个模型的预测框。</p><p class="metric-caption">实际API输入为无框JPEG；绿色框与所选橙色预测框仅供本报告人工复核。姓名按一对一命中评估，不将未命中姓名按返回顺序强行对应位置。</p><div class="model-panels">')
+        for model in problems:
+            result = case["results"][model]
             new = result["new"]
-            state = "pending" if not new["completed"] else "failed" if new["state"] != "ok" else "correct" if new["names"]["image_names_complete"] else "wrong"
-            panel = model_panel(model, result).replace('data-model="' + esc(model) + '"', 'data-model="' + esc(model) + '" data-result="' + state + '" data-failure="' + esc(new["failure_category"] or "") + '"' + (' hidden' if model != default_model else ''), 1)
+            state = "failed" if new["state"] != "ok" else "wrong"
+            panel = model_panel(model, result, compact=True).replace('data-model="' + esc(model) + '"', 'data-model="' + esc(model) + '" data-result="' + state + '" data-failure="' + esc(new["failure_category"] or "") + '"', 1)
             parts.append(panel)
-        parts.append('</article>')
+        parts.append('</div></article>')
     parts.append('<footer><p>仅姓名命中不保证姓名与屏幕人物的位置对应；多余姓名另记为未命中目标的返回条目。来源链接仅在点击时联网打开，报告自身没有外部资源依赖。</p></footer></main><dialog id="zoom-dialog"><div class="dialog-head"><strong id="zoom-title"></strong><button id="close-zoom" type="button">关闭（Esc）</button></div><div id="zoom-content"></div></dialog><script>' + JS + '</script></body></html>')
     return ''.join(parts)
 

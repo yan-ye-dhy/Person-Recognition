@@ -3,6 +3,7 @@ from copy import deepcopy
 import hashlib
 import io
 import json
+import re
 
 from PIL import Image
 import pytest
@@ -43,6 +44,14 @@ def context(count=2):
     return {"run": {"run_id": "new", "status": "running"}, "baseline": {"run_id": "old", "dataset_hash": "oldhash"},
             "samples": samples, "models": report.MODEL_IDS, "matcher": CharacterMatcher(rosters),
             "tags": tags, "images": images, "old": old, "new": {}, "dataset_hash": "currenthash"}
+
+
+def review_context(count=2):
+    data = context(count)
+    top = {"deepseek-flash", "qwen3.8-max", "kimi-k3.1-pro"}
+    data["new"] = {key: deepcopy(value) if key[0] in top else raw((None,)) for key, value in data["old"].items()}
+    data["run"]["status"] = "done"
+    return data
 
 
 def test_pending_full_run_retains_1120_tasks_and_207_targets_per_model():
@@ -130,18 +139,18 @@ def test_truth_validation_accepts_evidence_prose_but_rejects_geometry_or_names()
 
 
 def test_html_embeds_one_input_per_sample_and_escapes_response_content():
-    data = context()
+    data = review_context()
     dangerous = raw(("</script><script>alert('x')</script>",))
     dangerous["response"]["search_metadata"] = {"requested": True, "attempted": True, "retrieved": True,
         "sources": [{"url": "https://example.com/role", "title": "<img onerror=alert(1)>"}]}
     data["new"][("qwen3.8-max", "s0000")] = dangerous
     html = report.render_report(report.build_summary(data), data["images"])
-    assert html.count('src="data:image/jpeg;base64,') == 2
-    assert html.count('class="model-panel"') == 14
+    assert html.count('src="data:image/jpeg;base64,') == 1  # The other input is correct for all Top3 and is not embedded.
+    assert html.count('class="model-panel"') == 1
     assert html.count('<script>') == 1
     assert "<img onerror=" not in html and "&lt;img onerror=" in html
     assert 'src="http' not in html and 'href="https://example.com/role"' in html
-    assert "以下不是最终结果" in html
+    assert "不包含其余正确图" in html
 
 
 def test_export_writes_matching_html_hash_without_model_calls(tmp_path, monkeypatch):
@@ -213,7 +222,7 @@ def test_accounting_output_allowance_does_not_claim_changed_wire_generation():
 
 
 def test_explicit_error_evidence_separates_account_filter_and_unknown_without_mutation():
-    data = context()
+    data = review_context()
     account = raw(("安欣", "李响"), ok=False)
     account["response"].update(error_type="bad_request", error_message="HTTP400 {'code':'Arrearage'}")
     content = raw(ok=False)
@@ -230,11 +239,11 @@ def test_explicit_error_evidence_separates_account_filter_and_unknown_without_mu
     summary = report.build_summary(data)
     account_stats = summary["all_works"]["qwen3.8-max"]["new"]
     assert account_stats["api_failure_categories"]["account_arrearage"] == 1
-    assert account_stats["api_ok_targets"] == 0 and account_stats["name_accuracy_api_ok"] is None
+    assert account_stats["api_ok_targets"] == 1 and account_stats["name_accuracy_api_ok"] == 1
     assert summary["all_works"]["qwen3.7-plus"]["new"]["api_failure_categories"]["other_api_failure"] == 1
     html = report.render_report(summary, data["images"])
     assert "接口失败，未判定姓名" in html
-    assert "其他 / 未确认原因的接口失败" in html
+    assert "其他 / 原因未确认" in html
     assert (account, content, unknown) == originals
 
 
@@ -435,6 +444,42 @@ def test_composite_export_preserves_excluded_diagnostics_separately_and_embeds_o
     diagnostics = json.loads((tmp_path / "excluded_model_diagnostics.json").read_text())
     assert diagnostics["qwen3.8-flash"]["recorded_images"] == 2
     html = (tmp_path / "index.html").read_text()
-    assert html.count('src="data:image/jpeg;base64,') == 2
+    assert html.count('src="data:image/jpeg;base64,') == 0  # In this fixture all ranked Top3 are correct.
     assert "不从旧run补齐" in html and "旧接口逐图原始回答" in html
     assert summary["model_sources"]["qwen3.8-flash"]["run_id"] == "flash_auto"
+
+
+def test_review_embeds_only_error_union_and_omits_correct_model_panels_and_coordinate_only_images():
+    data = review_context(4)
+    data["new"][("deepseek-flash", "s0000")] = raw(("安欣",))
+    data["new"][("kimi-k3.1-pro", "s0000")] = raw(("安欣", "李响", "额外角色"))
+    data["new"][("qwen3.8-max", "s0001")] = raw(("安欣",), invalid_box=True)
+    data["new"][("qwen3.8-max", "s0002")] = raw(ok=False)
+    summary = report.build_summary(data)
+    review = summary["review_selection"]
+    assert set(review["top_models"]) == {"deepseek-flash", "qwen3.8-max", "kimi-k3.1-pro"}
+    assert review["selected_image_count"] == 2 and review["error_model_panels"] == 3
+    assert {row["sample_id"] for row in review["selected_images"]} == {"s0000", "s0002"}
+    assert review["coordinate_only_image_count"] == 1
+    assert review["coordinate_only_images_not_embedded"][0]["sample_id"] == "s0001"
+    assert "5 GT targets" in review["ranking_metric"]
+    html = report.render_report(summary, data["images"])
+    assert html.count('src="data:image/jpeg;base64,') == 2
+    assert html.count('class="model-panel"') == 3
+    assert 'id="s0001" data-work=' not in html and 'id="s0003" data-work=' not in html
+    assert '<option value="top3" selected>' in html
+    assert html.count('class="review-layer prediction-layer"') == 3
+    prediction_layers = re.findall(r'<div class="review-layer prediction-layer"[^>]*>', html)
+    assert len(prediction_layers) == 3 and all(" hidden" in layer for layer in prediction_layers)
+    assert 'data-model="qwen3.8-max" hidden>' in html
+    assert "去掉《功夫女足》" not in html
+    assert len(summary["cases"]) == 4 and summary["completed_tasks"] == 28
+    assert all(values["new"]["planned_targets"] == 5 for values in summary["all_works"].values())
+
+
+def test_pending_other_top_model_does_not_create_a_coordinate_only_all_models_correct_claim():
+    data = review_context(4)
+    data["new"][("qwen3.8-max", "s0001")] = raw(("安欣",), invalid_box=True)
+    del data["new"][("kimi-k3.1-pro", "s0001")]
+    summary = report.build_summary(data)
+    assert not summary["review_selection"]["coordinate_only_images_not_embedded"]
