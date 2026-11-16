@@ -200,9 +200,40 @@ def validate_manifest(manifest):
         historical_batches.append({"date": day, "model_id": mid, "currency": currency,
             "image_tasks": tasks, "amount": _money(original.get("amount"), "historical batch amount"),
             "inference_and_search_confirmed": True})
+    references, reference_seen = [], set()
+    reference_rows = manifest.get("daily_reference_tasks", [])
+    if not isinstance(reference_rows, list):
+        raise ValueError('Daily reference tasks must be a list')
+    for original in reference_rows:
+        if not isinstance(original, dict):
+            raise ValueError("Invalid daily reference task record")
+        day, mid = original.get('date'), original.get('model_id')
+        if not isinstance(day, str) or not re.fullmatch(r'\d{4}-\d{2}-\d{2}', day):
+            raise ValueError('Invalid daily reference date')
+        datetime.fromisoformat(day)
+        if not isinstance(mid, str) or mid not in LABELS or (day, mid) in reference_seen:
+            raise ValueError('Invalid or duplicate daily reference model')
+        reference_seen.add((day, mid))
+        tasks = _count(original.get('image_tasks'), 'daily reference image tasks')
+        scope = original.get('fee_scope')
+        if not tasks or scope not in ('inference_and_search', 'inference_only'):
+            raise ValueError('Daily reference needs positive image tasks and an explicit fee scope')
+        source_rows = [row for row in history if row['date'] == day and row['model_id'] == mid
+                       and row['currency'] == 'CNY' and row['amount'] is not None
+                       and (scope == 'inference_and_search' or row['kind'] == 'inference')]
+        kinds = {row['kind'] for row in source_rows}
+        if not source_rows or ('combined' in kinds and len(kinds) > 1):
+            raise ValueError('Daily reference needs unambiguous official cost rows')
+        if scope == 'inference_and_search' and kinds not in ({'combined'}, {'inference', 'search'}):
+            raise ValueError('Search-inclusive reference requires official search costs')
+        flags = {key: original.get(key, False) for key in ('contains_debugging', 'cross_midnight')}
+        if any(type(value) is not bool for value in flags.values()):
+            raise ValueError('Daily reference flags must be boolean')
+        references.append({'date': day, 'model_id': mid, 'image_tasks': tasks, 'fee_scope': scope,
+                           'amount': _sum(source_rows, 'amount'), 'currency': 'CNY', **flags})
     return {"probe_id": _identifier(manifest.get("probe_id"), "probe ID"), "dataset_hash": digest,
             "planned_sample_ids": samples, "models": models, "historical_daily_bills": history,
-            "historical_batches": historical_batches}
+            "historical_batches": historical_batches, "daily_reference_tasks": references}
 
 
 def validate_billing(manifest, billing=None):
@@ -317,7 +348,7 @@ def summarize_probe(manifest, billing=None):
                        "imported_entry_count": len(entries), "charges": charges})
     batches = [{**row, "average_per_image_task": _average(row['amount'], row['image_tasks'])}
                for row in public['historical_batches']]
-    return {**{key: public[key] for key in ("probe_id", "dataset_hash", "planned_sample_ids", "historical_daily_bills")},
+    return {**{key: public[key] for key in ("probe_id", "dataset_hash", "planned_sample_ids", "historical_daily_bills", "daily_reference_tasks")},
             "models": models, "historical_batches": batches,
             "generated_at": datetime.now(timezone.utc).astimezone(SHANGHAI).isoformat(timespec="seconds"),
             "money_policy": "Official imported batch amount / submitted images; no token estimates, balance deltas, FX or ambiguous prorating. Unknown is null, never zero.",

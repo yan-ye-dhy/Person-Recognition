@@ -88,6 +88,38 @@ def test_all_seven_models_show_posted_costs_without_allocating_shared_search():
     assert len(view['costs']) == 2  # Only the comparable, complete pair is ranked.
 
 
+def test_official_daily_fees_support_references_without_per_request_meter_matching():
+    data, scores = briefing_data()
+    rows = [('qwen3.8-max', 'inference', '20.01258'), ('qwen3.8-max', 'search', '0.876'),
+            ('qwen3.8-flash', 'inference', '6.3276301'), ('qwen3.8-flash', 'search', '4.432'),
+            ('qwen3.7-plus', 'inference', '1.5006592'), ('glm-4.6v', 'inference', '1.8695358'),
+            ('glm-5.3-flash', 'inference', '0'), ('search-pro', 'search', '8.9782808')]
+    data['historical_daily_bills'] = [{'date': '2026-11-15', 'model_id': mid,
+        'vendor': 'GLM' if mid.startswith('glm') or mid == 'search-pro' else 'Qwen',
+        'kind': kind, 'currency': 'CNY', 'amount': amount,
+        'note_code': 'resource_pack' if mid == 'glm-5.3-flash' else 'posted'} for mid, kind, amount in rows]
+    data['daily_reference_tasks'] = [
+        {'date': '2026-11-15', 'model_id': mid, 'image_tasks': count, 'fee_scope': scope,
+         'contains_debugging': mid == 'qwen3.8-flash', 'cross_midnight': mid == 'qwen3.8-max'}
+        for mid, count, scope in [('qwen3.8-max', 173, 'inference_and_search'),
+            ('qwen3.8-flash', 67, 'inference_and_search'), ('qwen3.7-plus', 169, 'inference_only'),
+            ('glm-4.6v', 170, 'inference_only'), ('glm-5.3-flash', 170, 'inference_only')]]
+    view = build_presentation(summarize_probe(data), scores)
+    costs = {row['model_id']: row for row in view['cost_overview']}
+    assert all(row['unit_cost'] is not None for row in costs.values())
+    assert Decimal(costs['qwen3.8-max']['unit_cost']).quantize(Decimal('.00000001')) == Decimal('0.12074324')
+    assert Decimal(costs['qwen3.8-flash']['unit_cost']).quantize(Decimal('.00000001')) == Decimal('0.16059149')
+    assert Decimal(costs['qwen3.7-plus']['unit_cost']).quantize(Decimal('.00000001')) == Decimal('0.00887964')
+    assert Decimal(costs['glm-4.6v']['unit_cost']).quantize(Decimal('.00000001')) == Decimal('0.01099727')
+    assert costs['glm-5.3-flash']['unit_kind'] == 'inference_only'
+    assert Decimal(costs['glm-5.3-flash']['unit_cost']) == 0
+    assert costs['qwen3.8-max']['unit_kind'] == 'daily_reference'
+    assert len(view['costs']) == 2 and view['shared_glm_search_cost'] == '8.9782808'
+    data['daily_reference_tasks'][2]['fee_scope'] = 'inference_and_search'
+    with pytest.raises(ValueError, match='requires official search'):
+        summarize_probe(data)
+
+
 def test_stale_annotations_or_different_recognition_denominators_are_rejected():
     data, scores = briefing_data()
     bad = deepcopy(scores); bad['dataset_hash'] = 'b' * 64
