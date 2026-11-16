@@ -38,7 +38,9 @@ MODEL_IDS = ("deepseek-flash", "kimi-k3.1-pro", "glm-5.3-flash", "glm-4.6v",
              "qwen3.8-max", "qwen3.7-plus", "qwen3.8-flash")
 FAILURES = {"account_arrearage": "厂商返回Arrearage账户拒绝", "content_filter": "厂商内容过滤拦截",
             "other_api_failure": "其他 / 未确认原因的接口失败"}
-MODEL_LABELS = {"deepseek-flash": "DeepSeek Flash", "qwen3.8-max": "Qwen Max", "kimi-k3.1-pro": "Kimi K3.1 Pro"}
+MODEL_LABELS = {"deepseek-flash": "DeepSeek Flash", "qwen3.8-max": "Qwen Max", "kimi-k3.1-pro": "Kimi K3.1 Pro",
+                "glm-5.3-flash": "GLM 5.3 Flash", "glm-4.6v": "GLM 4.6V",
+                "qwen3.7-plus": "Qwen Plus", "qwen3.8-flash": "Qwen Flash"}
 REVIEW_MODELS = ("deepseek-flash", "qwen3.8-max")
 OVERRIDES_MANIFEST = Path("results/multi/c_search/model_run_overrides.json")
 PROTOCOL_MARKER = "x-anthropic-billing-header: cc_entrypoint=cli;"
@@ -160,6 +162,7 @@ def annotation_review_context(root, current):
     if replay_review_revision(base, manifest) != reviewed:
         raise ValueError("Review revision cannot reproduce current confirmed annotations")
     return base_samples, {"applied": True, "manifest_path": str(REVIEW_REVISION_PATH),
+                          "revision_id": manifest.get("revision_id"),
                           "manifest_sha256": hashlib.sha256(path.read_bytes()).hexdigest(),
                           "source_dataset_hash": manifest["before_dataset_hash"], "current_dataset_hash": manifest["after_dataset_hash"],
                           "reviewed_sample_ids": [row["sample_id"] for row in manifest["revisions"]],
@@ -627,16 +630,26 @@ def rate(numerator, denominator, unit="人"):
 
 def comparison_table(comparison):
     rows = []
-    for model, values in comparison.items():
+    for model, values in sorted(comparison.items(), key=lambda item: item[1]['new']['name_accuracy_planned']
+                                if item[1]['new']['name_accuracy_planned'] is not None else -1, reverse=True):
         old, new = values["old"], values["new"]
         delta = (new["name_accuracy_planned"] - old["name_accuracy_planned"]) * 100 if new["planned_targets"] else None
-        rows.append([esc(model), f'{new["completed_images"]} / {new["planned_images"]} 张',
-                     rate(old["name_correct"], old["planned_targets"]), rate(new["name_correct"], new["planned_targets"]),
-                     "待全部完成" if new["pending_images"] else "—" if delta is None else f'{delta:+.2f} 个百分点',
-                     rate(new["strict_correct"], new["strict_planned_targets"]),
-                     rate(new["legal_format_images"], new["completed_images"], "次已返回"),
-                     f'{new["search_requested_images"]} / {new["search_attempted_images"]} / {new["search_retrieved_images"]}<small>触发未知 {new["search_attempt_unknown_images"]} 张；计划{new["planned_images"]}张</small>'])
-    return table(["模型", "联网评测进度", "未联网 · 姓名（当前标注）", "联网 · 姓名（当前标注）", "联网后的姓名变化", "联网 · 位置与姓名均正确", "联网 · 格式合规 / 已返回", "搜索配置 / 已触发 / 有来源"], rows)
+        rows.append([esc(MODEL_LABELS.get(model, model)), rate(old["name_correct"], old["planned_targets"]),
+                     rate(new["name_correct"], new["planned_targets"]),
+                     "待全部完成" if new["pending_images"] else "—" if delta is None else f'{delta:+.2f} 个百分点'])
+    return table(["模型", "未联网姓名命中率", "联网姓名命中率", "变化"], rows)
+
+
+def brief_results_table(summary):
+    rows = []
+    for model, values in sorted(summary['all_works'].items(),
+                                key=lambda item: item[1]['new']['name_accuracy_planned']
+                                if item[1]['new']['name_accuracy_planned'] is not None else -1, reverse=True):
+        new = values['new']
+        rows.append([esc(MODEL_LABELS.get(model, model)),
+                     rate(new['name_correct'], new['planned_targets']),
+                     rate(new['api_ok_images'], new['planned_images'], '张')])
+    return table(['模型', '姓名命中率', 'API调用成功率'], rows)
 
 
 def methods_table(summary):
@@ -678,7 +691,9 @@ def failures_table(summary):
 def model_panel(model, result, *, compact=False):
     old, new = result["old"], result["new"]
     status = "尚未执行" if not new["completed"] else "接口失败" if new["state"] != "ok" else "已返回"
-    parts = [f'<section class="model-panel" data-model="{esc(model)}"><h3>{esc(MODEL_LABELS.get(model, model))} · {status}</h3><p class="model-source">本模型测试来源：{esc(new.get("source_run_id"))}</p>']
+    parts = [f'<section class="model-panel" data-model="{esc(model)}"><h3>{esc(MODEL_LABELS.get(model, model))} · {status}</h3>']
+    if not compact:
+        parts.append('<p class="model-source">本模型测试来源：' + esc(new.get('source_run_id')) + '</p>')
     if compact:
         reasons = name_error_reasons(new)
         labels = {"api_failure": "接口失败，无法评估姓名", "missing_or_wrong_name": "角色姓名有漏答或未命中", "extra_name": "多报未命中目标的姓名"}
@@ -715,6 +730,8 @@ def model_panel(model, result, *, compact=False):
     extra = [prediction["character"] for prediction in predictions if prediction["outcome"] == "extra_name"]
     if extra:
         parts.append('<p class="bad">多报且未命中目标的姓名：' + esc('、'.join(str(name) for name in extra)) + '</p>')
+    if compact:
+        parts.append('<details class="technical-details"><summary>搜索与格式记录</summary>')
     search = new["search"]
     attempted = "已触发" if search["attempted"] is True else "未触发" if search["attempted"] is False else "无法核实是否触发"
     parts.append('<p>搜索请求：' + ("已配置" if search["requested"] else "未发出 / 未配置") + '；' + attempted + '；有效来源：' + str(len(search["sources"])) + '条。' + ('已核实检索得到内容。' if search["retrieved"] else '未核实检索得到内容。') + '</p>')
@@ -728,88 +745,52 @@ def model_panel(model, result, *, compact=False):
             parts.append('<div class="notice">格式 / 接口记录：' + esc(dump({"issues": issues, "error_type": new["error_type"], "error_message": new["error_message"], "output_issue": new["output_issue"]})) + '</div>')
         coordinate_rows = [[str(p["prediction_index"] + 1), esc(p["character"]), esc(dump(p["original_bbox"])), esc(bbox_issue(p["original_bbox"]))] for p in predictions]
         parts.append('<details><summary>原始坐标与格式核对</summary>' + table(["预测序号", "实际姓名", "原始bbox", "坐标说明"], coordinate_rows) + '</details>')
-    parts.append('<details class="raw-responses"><summary>联网 / 未联网原始返回、请求条件及检索计量</summary><h4>联网原始最终返回</h4><pre>' + esc(new["raw_text"] or ("尚未执行" if not new["completed"] else "（空正文）")) + '</pre><h4>未联网原始最终返回</h4><pre>' + esc(old["raw_text"]) + '</pre><h4>联网实际请求条件</h4><pre>' + esc(dump(new["request"])) + '</pre><h4>服务端检索计量（非账单）</h4><pre>' + esc(dump(search["billing"])) + '</pre></details></section>')
+    if compact:
+        parts.append('</details>')
+    parts.append('<details class="raw-responses"><summary>查看模型原始回答</summary><h4>联网原始最终返回</h4><pre>' + esc(new["raw_text"] or ("尚未执行" if not new["completed"] else "（空正文）")) + '</pre><h4>未联网原始最终返回</h4><pre>' + esc(old["raw_text"]) + '</pre><h4>联网实际请求条件</h4><pre>' + esc(dump(new["request"])) + '</pre><h4>服务端检索计量（非账单）</h4><pre>' + esc(dump(search["billing"])) + '</pre></details></section>')
     return ''.join(parts)
 
 
 STYLE = """
-main{max-width:1800px}.toolbar{position:static}.model-panel[hidden],.review-layer[hidden],.case[hidden]{display:none}.model-panel{margin-top:18px;border-top:1px solid #d8e4ec;padding-top:8px}.name-list{background:#f0f6fa;padding:12px;border-radius:8px}.review-layer{position:absolute;inset:0;pointer-events:none}.image-wrap{position:relative}.image-wrap>img{display:block;width:100%;height:auto}.image-wrap.hide-review .review-layer{display:none}.source-list,li{overflow-wrap:anywhere}pre{max-height:480px}.pending-note{border-left:5px solid #d18b09;background:#fff4dc;padding:14px}.case{margin-top:22px}.case h2{font-size:22px}.case-head{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}.summary-toggle{font-size:18px;font-weight:700}.metric-caption{color:#526b7b;font-size:14px}.group-table{margin:15px 0}.model-panel .good{color:#087f5b;font-weight:700}.model-panel .bad{color:#ac281e;font-weight:700}.image-controls{display:flex;gap:20px;align-items:center;margin:10px 0}.notice{white-space:pre-wrap;overflow-wrap:anywhere}.group-table h3{font-size:17px}.toolbar select,.toolbar input{max-width:100%}@media(max-width:700px){main{padding:10px}.toolbar{display:grid;grid-template-columns:1fr}.intro,.panel,.case{padding:15px}h1{font-size:24px}.image-controls{flex-wrap:wrap}}
-.model-panels{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:16px;margin-top:18px}.model-panels .model-panel{margin:0;min-width:0;border:1px solid #d8e4ec;border-radius:10px;padding:14px}.model-source{font-size:12px;color:#607788;overflow-wrap:anywhere}.error-summary{font-size:14px;background:#fff1e8;padding:10px;border-radius:8px;color:#883b0c}.prediction-layer .gt-box{display:none}.issue-chip{display:inline-block;padding:6px 10px;border-radius:15px;background:#fff1e8;color:#8d3a10;font-size:13px;margin:3px}.image-controls select{max-width:260px}.model-panel h3{margin-top:0}.model-panel pre{max-height:340px}
+body{background:#f3f7f8;font-size:14px;line-height:1.55}main{max-width:1460px;margin:26px auto;padding:0 24px}h1{font-size:28px;margin:0 0 5px}h2{font-size:20px}p{margin:8px 0}.brief-header{display:flex;justify-content:space-between;align-items:center;gap:20px;margin-bottom:18px}.brief-header p{color:#607585;font-size:13px;margin:0}.review-status{background:#e7f5ef;color:#087f5b;padding:7px 12px;border-radius:20px;font-size:12px;white-space:nowrap}.panel,.case{padding:18px;margin-bottom:15px}.overview h2{margin-bottom:12px}.overview table{table-layout:fixed}.overview th:first-child{width:36%}.overview td{padding:9px 12px;vertical-align:middle}.overview td strong{font-size:17px}.overview td small{display:inline-block;margin-left:12px;font-size:12px}.overview .metric-caption{margin-bottom:0}.breakdown{padding:4px 18px}.summary-toggle{font-size:14px}.group-table{margin:10px 0}.group-table summary{font-size:13px}.metric-caption{color:#607585;font-size:12px}.status-note{background:#fff4df;padding:10px;border-radius:8px}.error-heading{margin:23px 0 10px}.error-heading h2{display:inline-block;margin:0 15px 0 0}.error-heading>div{display:inline}.issue-chip{display:inline-block;padding:4px 9px;border-radius:15px;background:#fff1e8;color:#8d3a10;font-size:12px;margin:2px}.error-heading p{margin:6px 0}.toolbar{position:static;display:grid;grid-template-columns:1.1fr .8fr 1fr auto;align-items:end;gap:10px;padding:12px;margin:14px 0}.toolbar label{font-size:12px}.toolbar select,.toolbar input{width:100%;max-width:100%;font-size:13px}input[type=search]{min-width:0}#visible-count{grid-column:1/-1;font-size:12px;color:#526b7b}.case{margin-top:15px}.case-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px}.case h2{font-size:18px;margin:0}.case-body{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,1fr);gap:20px;align-items:start}.case-visual{min-width:0;position:sticky;top:18px;align-self:start}.case-analysis{min-width:0}.image-wrap{position:relative;cursor:zoom-in}.image-wrap>img{display:block;width:100%;height:auto}.review-layer{position:absolute;inset:0;pointer-events:none}.prediction-layer .gt-box{display:none}.image-wrap.hide-review .review-layer{display:none}.model-panel[hidden],.review-layer[hidden],.case[hidden]{display:none}.image-controls{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:9px 0}.image-controls button,.image-controls select{font-size:12px;padding:6px 8px}.image-controls select{max-width:210px}.image-controls label{display:flex;align-items:center;gap:5px;font-size:12px}.image-controls input[type=checkbox]{margin:0}.case-visual .metric-caption{margin:5px 0;line-height:1.4}.prediction-caption{color:#8d5216}.model-panels{display:grid;grid-template-columns:minmax(0,1fr);gap:12px}.model-panel{min-width:0;border:1px solid #d8e4ec;border-radius:9px;padding:12px}.model-panel h3{font-size:16px;margin:0}.model-panel table{font-size:12px}.model-panel th,.model-panel td{padding:6px 8px}.model-panel th{white-space:normal}.model-panel .good{color:#087f5b;font-weight:700}.model-panel .bad{color:#ac281e;font-weight:700}.model-panel p{font-size:13px}.error-summary{font-size:12px!important;background:#fff1e8;padding:8px;border-radius:6px;color:#883b0c}.name-list{background:#f0f6fa;padding:8px;border-radius:6px}.model-panel details{margin-top:5px}.model-panel summary{font-size:12px;padding:5px 0}.model-panel pre{max-height:260px;font-size:12px;padding:10px}.model-source{font-size:11px;color:#607788;overflow-wrap:anywhere}.notice{white-space:pre-wrap;overflow-wrap:anywhere;font-size:12px;padding:9px}.source-list,li{overflow-wrap:anywhere}#zoom-content{max-height:80vh;overflow:auto}#zoom-content .image-wrap{cursor:default}footer{margin:22px 0 35px;font-size:12px}
+@media(max-width:820px){main{padding:0 12px;margin-top:16px}.brief-header{display:block}.review-status{display:inline-block;margin-top:10px}h1{font-size:24px}.case-body{grid-template-columns:minmax(0,1fr)}.case-visual{position:static}.panel,.case{padding:13px}.toolbar{grid-template-columns:1fr 1fr}.toolbar button{font-size:12px}.overview th:first-child{width:34%}.overview th,.overview td{padding:8px}.overview td strong{font-size:15px}.overview td small{display:block;margin-left:0;font-size:10px}.case-head{align-items:start;flex-wrap:wrap}.case h2{font-size:16px}.error-heading h2{font-size:18px}}
+@media print{body{background:white;font-size:11px}main{max-width:none;margin:0;padding:0}.toolbar,.image-controls{display:none}.case{break-inside:avoid;padding:12px}.case-visual{position:static}.case-body{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:15px}.brief-header{display:flex}.model-panel{padding:8px}.model-panel p,.metric-caption{font-size:10px}.model-panel table{font-size:10px}*{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
 """
 JS = """
 const model=document.getElementById('model'),work=document.getElementById('work'),query=document.getElementById('search'),cards=[...document.querySelectorAll('.case')];
-function update(){let count=0,panelsShown=0;for(const card of cards){const panels=[...card.querySelectorAll('.model-panel')];for(const panel of panels)panel.hidden=model.value!=='both'&&panel.dataset.model!==model.value;const active=panels.filter(p=>!p.hidden).map(p=>p.dataset.model);const show=active.length>0&&(!work.value||card.dataset.work===work.value)&&(!query.value.trim()||card.dataset.search.includes(query.value.trim().toLowerCase()));card.hidden=!show;count+=Number(show);if(show)panelsShown+=active.length;const select=card.querySelector('.prediction-model');for(const option of select.options)option.disabled=!!option.value&&!active.includes(option.value);if(select.value&&!active.includes(select.value))select.value='';for(const layer of card.querySelectorAll('.prediction-layer'))layer.hidden=!select.value||layer.dataset.model!==select.value;card.querySelector('.prediction-caption').textContent=select.value?`预测框：${select.options[select.selectedIndex].text}（只显示这一套；格式不合法时没有可绘制预测框）`:'默认只显示人工真值；按需一次选择一个模型的预测框。';}document.getElementById('visible-count').textContent=`显示 ${count} / ${cards.length} 张错误图 · ${panelsShown} 个错误模型面板`;}
+function update(){let count=0,panelsShown=0;for(const card of cards){const panels=[...card.querySelectorAll('.model-panel')];for(const panel of panels)panel.hidden=model.value!=='both'&&panel.dataset.model!==model.value;const active=panels.filter(p=>!p.hidden).map(p=>p.dataset.model);const show=active.length>0&&(!work.value||card.dataset.work===work.value)&&(!query.value.trim()||card.dataset.search.includes(query.value.trim().toLowerCase()));card.hidden=!show;count+=Number(show);if(show)panelsShown+=active.length;const select=card.querySelector('.prediction-model');for(const option of select.options)option.disabled=!!option.value&&!active.includes(option.value);if(select.value&&!active.includes(select.value))select.value='';for(const layer of card.querySelectorAll('.prediction-layer'))layer.hidden=!select.value||layer.dataset.model!==select.value;card.querySelector('.prediction-caption').textContent=select.value?`橙框：${select.options[select.selectedIndex].text}（仅绘制合法坐标）`:'默认只显示人工标注；可选择一款模型叠加预测框。';}document.getElementById('visible-count').textContent=`显示 ${count} / ${cards.length} 张错误图 · ${panelsShown} 个错误模型面板`;}
 for(const input of [model,work,query])input.addEventListener(input===query?'input':'change',update);for(const input of document.querySelectorAll('.prediction-model'))input.addEventListener('change',update);document.getElementById('reset').addEventListener('click',()=>{model.value='both';work.value='';query.value='';update();});
 for(const checkbox of document.querySelectorAll('.show-review'))checkbox.addEventListener('change',()=>checkbox.closest('.case').querySelector('.image-wrap').classList.toggle('hide-review',!checkbox.checked));
-const dialog=document.getElementById('zoom-dialog');for(const button of document.querySelectorAll('.zoom'))button.addEventListener('click',()=>{const card=button.closest('.case');document.getElementById('zoom-title').textContent=card.querySelector('h2').textContent;document.getElementById('zoom-content').replaceChildren(card.querySelector('.image-wrap').cloneNode(true));dialog.showModal();});document.getElementById('close-zoom').addEventListener('click',()=>dialog.close());dialog.addEventListener('click',e=>{if(e.target===dialog)dialog.close();});update();
+const dialog=document.getElementById('zoom-dialog');for(const button of document.querySelectorAll('.zoom')){button.addEventListener('click',()=>{const card=button.closest('.case');document.getElementById('zoom-title').textContent=card.querySelector('h2').textContent;document.getElementById('zoom-content').replaceChildren(card.querySelector('.image-wrap').cloneNode(true));dialog.showModal();});button.closest('.case').querySelector('.image-wrap').addEventListener('click',()=>button.click());}document.getElementById('close-zoom').addEventListener('click',()=>dialog.close());dialog.addEventListener('click',e=>{if(e.target===dialog)dialog.close();});update();
 """
 
 
 def render_report(summary, images):
     complete = summary["complete"]
     review = summary.get("review_selection") or select_error_review(summary)
-    status = "全部计划任务均有记录，仍在收尾或重试；结果尚未定稿" if complete and summary["status"] == "running" else "本轮已结束" if complete else "进行中 / 尚未全部执行，以下不是最终结果" if summary["status"] in ("running", "pending") else "已停止 / 尚未全部执行，以下不是全量结果"
-    parts = ['<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>七模型总览 · DeepSeek / Qwen Max错误图</title><style>' + CSS + STYLE + '</style></head><body><main><header class="intro"><h1>七模型总览 · DeepSeek / Qwen Max错误图</h1><p><strong>' + status + '</strong> · 已保存 ' + str(summary["completed_tasks"]) + ' / ' + str(summary["planned_tasks"]) + ' 项任务，尚未执行 ' + str(summary["pending_tasks"]) + ' 项；每模型 ' + str(summary["planned_images_per_model"]) + ' 张，姓名必答名额 ' + str(summary["planned_targets_per_model"]) + '，严格位置覆盖 ' + str(summary["strict_targets_per_model"]) + ' 个实际人物框。</p><p>本页使用当前确认标注。前面的总表和分类统计保留七模型完整样本；逐图部分仅内嵌DeepSeek与Qwen Max的' + str(review["selected_image_count"]) + '张姓名/API错误并集，不包含其余正确图。每张同时展示其中有问题的模型，图片和对应原始回答可离线查看。</p><div class="pending-note">主指标为仅姓名一对一命中率：按必答名额评分，允许已标为可选的旁人或四人任选三人；这些允许回答不算多报。姓名不按返回顺序强行对应位置。严格指标独立要求全部实际标注人物按IoU≥0.5匹配位置和姓名，不能用姓名命中给未匹配框补分。仅位置或格式问题不当作姓名错误；搜索已启用也不等于实际检索成功。</div><p class="metric-caption">未联网和联网两个实验均按当前标注与同一规则离线重评。各厂商工具和协议有差异，因此比较的是完整联网方案。保留原思考设置：可关闭者关闭，不能关闭者沿用最低力度。</p></header>']
-    if (summary.get("annotation_review") or {}).get("applied"):
-        parts.append('<section class="panel"><strong>本次仅离线更新标注和评分，没有新增模型调用。</strong><p>姓名按原请求人数上限及可选旁人口径；严格定位覆盖实际标注全部人物。人物朝向和可见性统计按全部具名候选逐人覆盖，分母与主姓名必答名额不同。</p></section>')
-    cap = ((summary.get("configuration") or {}).get("budget_scope") or {}).get("max_cost_cny")
-    cap_text = f"累计本地保护上限：{cap:g}元，包含历史费用及预留。" if isinstance(cap, (int, float)) else "累计本地保护上限见冻结配置。"
-    if summary.get("stage_label"):
-        parts.append('<section class="panel"><strong>' + esc(summary["stage_label"]) + '</strong></section>')
-    if summary.get("has_model_overrides"):
-        provenance_rows = [[esc(model), esc(source["run_id"]), esc(source["status"]), esc(source.get("selection_reason", ""))]
-                           for model, source in summary["model_sources"].items()]
-        parts.append('<section class="panel"><h2>按模型整体选择运行来源</h2><p>同一模型的全部160张只来自下表一个run；新来源尚未返回的图片保留为待执行，不从旧run补齐，也不逐图选择较好的回答。接口修订按稳定性和实际检索来源预检选择，不以单张识别正确率筛选。主run的历史状态不代表组合结果的完成状态。</p>' + table(["模型", "全部160张统一来源", "来源run状态", "选择说明"], provenance_rows) + '</section>')
-    if summary.get("excluded_model_diagnostics"):
-        parts.append('<section class="panel"><details><summary class="summary-toggle">已排除的旧模型接口诊断（费用与原始记录保留）</summary><p>这些整批旧记录不参加本报告的1120项正式统计；其调用费用仍包含在同一累计预算中，不归零、不按单图择优混入。</p>')
-        for model, diagnostic in summary["excluded_model_diagnostics"].items():
-            parts.append('<h3>' + esc(model) + ' · 旧来源 ' + esc(diagnostic["run_id"]) + '</h3><p>保留已保存的' + str(diagnostic["recorded_images"]) + '张；新来源为' + esc(diagnostic["replaced_by_run_id"]) + '。</p><pre>' + esc(dump({key: value for key, value in diagnostic.items() if key != "records"})) + '</pre>')
-        parts.append('<p class="metric-caption">历史接口逐图原始回答、错误及检索记录保留在excluded_model_diagnostics.json，本页只显示按当前标注重评的概要，不混入下方两模型错误图。</p></details></section>')
-    if not complete and summary["status"] not in ("running", "pending") and summary.get("run_note"):
-        parts.append('<section class="panel"><p>运行记录：' + esc(summary["run_note"]) + '</p><p>运行停止不代表累计保护上限已经实际花完；已保存的回答和计量记录继续保留。</p></section>')
-    if not complete and summary["status"] not in ("running", "pending") and summary.get("pause_note"):
-        parts.append('<section class="panel"><strong>' + esc(summary["pause_note"]) + '</strong></section>')
-    control = summary.get("operational_control") or {}
-    for provider, hold in (control.get("provider_holds") or {}).items():
-        label = "阿里云Qwen" if provider == "dashscope" else provider
-        if hold.get("kind") == "local_budget_allocation":
-            explanation = "因本地预算分配暂停调用，等待累计保护上限的处理指示；这不是新的账户欠费判定。其他模型是否继续以本页运行状态和现有预算为准。"
-            if provider in control.get("balance_confirmation_providers", []):
-                explanation += "该厂商账户充值已由用户确认。"
-        else:
-            explanation = str(hold.get("reason") or "本地控制记录暂停该厂商，等待处理。")
-        parts.append('<section class="panel"><strong>' + esc(label) + '当前调用控制：</strong>' + esc(explanation) + '</section>')
-    configuration = summary.get("configuration") or {}
-    wire_limit = (configuration.get("generation_params") or {}).get("max_tokens")
-    prices = (configuration.get("pricing") or {}).get("models") or {}
-    allowances = {model: price_row["output_token_upper_bound"] for model, price_row in prices.items()
-                  if isinstance(price_row, dict) and isinstance(price_row.get("output_token_upper_bound"), int)
-                  and isinstance(wire_limit, int) and price_row["output_token_upper_bound"] > wire_limit}
-    if allowances:
-        parts.append('<section class="panel"><p>计量说明：原生工具可能返回超过请求输出预算的汇总用量，因此费用预留采用更保守的厂商输出额度；实际请求的输出参数仍为' + str(wire_limit) + '，没有据此增加模型输出长度或开启思考。</p><p>先前接入验证单独保留，不计入此run的正式图片结果；历史费用继续计入累计范围。被截断或坐标不合规的回答仍按原有格式规则判定，不自动修补JSON或坐标。</p><details><summary>查看费用预留所用输出额度（不是请求参数）</summary><pre>' + esc(dump(allowances)) + '</pre></details></section>')
-    parts.append('<section class="panel"><p>DeepSeek、Kimi与Qwen使用原厂原生搜索；两款GLM通过智谱自有搜索API接入模型工具循环，不能等同于已验证原生内置搜索。</p><p>' + esc(cap_text) + '本地预留与服务端账单不同，声明的服务端搜索次数也不是保证执行的消费上限。</p><details><summary>查看七模型检索方式与思考设置</summary>' + methods_table(summary) + '</details></section>')
-    cumulative = (summary.get("costs") or {}).get("cumulative_scope") or {}
-    if not complete and summary["status"] not in ("running", "pending") and cumulative:
-        values = {key: cumulative.get(key) for key in ("committed_cny", "known_token_estimate_cny", "uncertain_cny", "inflight_reserve_cny")}
-        if all(isinstance(value, (int, float)) for value in values.values()):
-            parts.append('<section class="panel"><p><strong>暂停时累计本地占用：¥' + f'{values["committed_cny"]:.6f}' + '</strong>；其中已知用量估算¥' + f'{values["known_token_estimate_cny"]:.6f}' + '、未知费用预留¥' + f'{values["uncertain_cny"]:.6f}' + '、进行中预留¥' + f'{values["inflight_reserve_cny"]:.6f}' + '。</p><p>以上不是供应商实际账单，也不代表已经花费该金额。历史未知费用保留，充值不会自动抹除本地预留。</p></section>')
-    parts.append('<section class="panel"><h2>调用故障与姓名识别分开查看</h2>' + failures_table(summary) + '<p class="metric-caption">账户拒绝、内容拦截和其他接口错误不称为人物认错；没有错误原文支持时不推断原因。仅API成功子集的命中率排除接口失败，仍保留格式不合法、null和漏答，且不是相同图片的完整对比。下方主表继续保留全部计划目标作端到端分母，失败和未执行的目标不会被悄悄删除。</p></section>')
-    parts.append('<section class="panel"><h2>全部四部</h2>' + comparison_table(summary["all_works"]) + '<p class="metric-caption">搜索三列分别统计已发出的搜索配置、已核实触发和返回实际来源；三者不能互相替代。格式合规的分母为已返回任务，接口失败仍在分母内。</p></section>')
-    parts.append('<section class="panel"><details><summary class="summary-toggle">按作品、单人/多人、朝向和可见性细分</summary>')
+    info = summary.get('annotation_review') or {}
+    current_hash = info.get('current_dataset_hash')
+    if info.get('applied') and current_hash and current_hash != summary['dataset_hash']:
+        raise ValueError('Report annotations do not match the confirmed review version')
+    reviewed = info.get('applied') and current_hash == summary['dataset_hash']
+    revision = str(info.get('revision_id') or '当前确认版本').rsplit('_', 1)[-1]
+    version = ('最终复核标注 · ' + revision if reviewed else '当前标注版本') + ' · ' + summary['dataset_hash'][:12]
+    parts = ['<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>联网角色识别测试 · 错误案例</title><style>' + CSS + STYLE + '</style></head><body><main><header class="brief-header"><div><h1>联网角色识别测试</h1><p>' + str(summary['planned_images_per_model']) + '张图片 · ' + str(summary['planned_targets_per_model']) + '名必答角色 · 七模型</p></div><span class="review-status" data-dataset-hash="' + esc(summary['dataset_hash']) + '" title="标注指纹：' + esc(summary['dataset_hash']) + '">' + esc(version) + '</span></header>']
+    if not summary.get('finalized'):
+        status = '全部计划任务均有记录，仍在收尾或重试；结果尚未定稿' if complete else '进行中 / 尚未全部执行，以下不是最终结果' if summary['status'] in ('running', 'pending') else '已停止 / 尚未全部执行，以下不是全量结果'
+        parts.append('<p class="status-note">' + status + ' · 已保存' + str(summary['completed_tasks']) + '/' + str(summary['planned_tasks']) + '项</p>')
+    if summary.get('stage_label') and not summary.get('finalized'):
+        parts.append('<p class="metric-caption">' + esc(summary['stage_label']) + '</p>')
+    parts.append('<section class="panel overview"><h2>模型结果总览</h2>' + brief_results_table(summary) + '<p class="metric-caption">姓名命中率忽略坐标与格式，接口失败仍计入全部必答角色分母；调用成功率单独统计。</p></section>')
+    parts.append('<section class="panel breakdown"><details><summary class="summary-toggle">联网前后对比与分类统计</summary><h3>全部四部</h3>' + comparison_table(summary['all_works']))
     labels = {"works": summary["work_names"], "single_multi": {"single": "单人图片", "multi": "多人图片"}, "orientation": POSE, "visibility": VISIBILITY}
     for axis, groups in summary["groups"].items():
         for value, comparison in groups.items():
-            heading = labels[axis].get(value, value) + (' · 全具名人物覆盖（含可选，非主配额）' if axis in ("orientation", "visibility") else '')
-            parts.append('<div class="group-table"><h3>' + esc(heading) + '</h3>' + comparison_table(comparison) + '</div>')
-    parts.append('</details><p class="metric-caption">作品和单人/多人按整图必答名额汇总；朝向和可见性按全部实际具名人物逐人覆盖（含可选），不分配模型自行挑中的三人作为固定分母。严格位置始终按实际标注人物。标签仅用于统计，未发给模型。</p></section>')
-    parts.append('<section class="panel"><details><summary>本轮费用估算、配置和版本</summary><p>费用为本地账本估算与未知预留，不能等同供应商实际账单。所选模型来源的费用、进行中预留和包含所有历史/探测/旧接口的累计范围分别列出；预留不能当作已扣费。run_note是主run的原始记录，可能保留此前中断说明；当前组合状态以页首status为准。</p><pre>' + esc(dump({key: summary[key] for key in ("run_id", "baseline_run_id", "model_sources", "source_run_states", "primary_run_status", "dataset_hash", "baseline_dataset_hash", "generated_at", "status", "run_note", "costs", "configuration", "operational_control")})) + '</pre></details></section>')
-    ranked_rows = [[str(index), esc(MODEL_LABELS.get(model, model)),
-                    rate(summary["all_works"][model]["new"]["name_correct"], summary["all_works"][model]["new"]["planned_targets"]),
-                    str(review["model_error_images"][model]) + ' 张'] for index, model in enumerate(review["top_models"], 1)]
-    parts.append('<section class="panel"><h2>DeepSeek / Qwen Max：仅显示当前错误图</h2>' + table(["序号", "模型", "完整样本主姓名命中率", "姓名 / 多报 / API错误图"], ranked_rows) + '<p>错误并集' + str(review["selected_image_count"]) + '张，共' + str(review["error_model_panels"]) + '个错误模型面板；同图可有两个模型出错。默认并列展示有问题的模型，正确模型不占逐图分析。</p></section>')
-    if review["coordinate_only_images_not_embedded"]:
-        coordinate_rows = [[esc(row["sample_id"]), esc(row["work_name"]), '<br>'.join(esc(MODEL_LABELS.get(model, model)) + '：' + esc(issue) for model, issue in row["issues"].items())] for row in review["coordinate_only_images_not_embedded"]]
-        parts.append('<section class="panel"><details><summary class="summary-toggle">另有' + str(review["coordinate_only_image_count"]) + '张主姓名要求已满足，仅位置 / 格式问题（不嵌图）</summary><p>这部分两模型都满足当前必答名额且没有多报，只是严格实际人物覆盖或格式未通过。它们不属于下方姓名错误并集；完整坐标和原始回答保留在summary.json和原始证据中。</p>' + table(["样本编号", "作品", "仅位置 / 格式问题"], coordinate_rows) + '</details></section>')
+            heading = labels[axis].get(value, value)
+            parts.append('<details class="group-table"><summary>' + esc(heading) + '</summary>' + comparison_table(comparison) + '</details>')
+    parts.append('<p class="metric-caption">作品、单人/多人按整图必答名额统计；朝向与可见性按全部具名人物统计，包含可选旁人。</p></details></section>')
+    chips = ''.join('<span class="issue-chip">' + esc(MODEL_LABELS.get(model, model)) + '：' + str(review['model_error_images'][model]) + '张</span>' for model in review['top_models'])
+    parts.append('<section class="error-heading"><h2>错误案例 · ' + str(review['selected_image_count']) + '张</h2><div>' + chips + '</div><p class="metric-caption">仅展示DeepSeek与Qwen Max按最终复核标注判定的姓名/API错误，不包含其余正确图；同一图片可有两个模型出错。</p></section>')
     model_options = '<option value="both" selected>两模型有错面板 · 同时对照</option>' + ''.join('<option value="' + esc(model) + '">' + esc(MODEL_LABELS.get(model, model)) + ' · ' + str(review["model_error_images"][model]) + '张错误图</option>' for model in review["top_models"])
     work_options = ''.join('<option value="' + esc(slug) + '">' + esc(name) + '</option>' for slug, name in summary["work_names"].items())
     parts.append('<div class="toolbar"><label>错误模型对照<select id="model">' + model_options + '</select></label><label>作品<select id="work"><option value="">全部作品</option>' + work_options + '</select></label><label>编号或角色<input id="search" type="search" placeholder="例如 0029 或 钰珑"></label><button id="reset" type="button">重置筛选</button><strong id="visible-count"></strong></div>')
@@ -823,20 +804,20 @@ def render_report(summary, images):
         search_terms = " ".join([sid, sample["work_name"]] + [p["character"] for p in sample["persons"]] + [str(p["character"] or "") for model in problems for p in case["results"][model]["new"]["names"]["predictions"]]).lower()
         chips = ''.join('<span class="issue-chip">' + esc(MODEL_LABELS.get(model, model)) + '</span>' for model in problems)
         prediction_options = '<option value="">仅人工真值，不叠预测框</option>' + ''.join('<option value="' + esc(model) + '">' + esc(MODEL_LABELS.get(model, model)) + '</option>' for model in problems)
-        parts.append('<article class="case" id="' + esc(sid) + '" data-work="' + esc(sample["work_slug"]) + '" data-search="' + esc(search_terms) + '"><div class="case-head"><h2>' + esc(sid) + ' · ' + esc(sample["work_name"]) + '</h2><div>' + chips + '</div></div><div class="image-controls"><button class="zoom" type="button">放大本次输入图</button><label><input class="show-review" type="checkbox" checked>显示审阅框</label><label>预测框<select class="prediction-model">' + prediction_options + '</select></label></div><div class="image-wrap"><img loading="lazy" width="' + str(image["size"][0]) + '" height="' + str(image["size"][1]) + '" alt="' + esc(sid) + ' · 实际无框输入" src="data:image/jpeg;base64,' + base64.b64encode(image["bytes"]).decode("ascii") + '"><div class="review-layer gt-layer">' + overlay(sample, {"parse_ok": False}, [], image["size"]) + '</div>')
+        parts.append('<article class="case case-card" id="' + esc(sid) + '" data-work="' + esc(sample["work_slug"]) + '" data-search="' + esc(search_terms) + '"><div class="case-head"><h2>' + esc(sid) + ' · ' + esc(sample["work_name"]) + '</h2><div>' + chips + '</div></div><div class="case-body"><div class="case-visual"><div class="image-wrap"><img loading="lazy" width="' + str(image["size"][0]) + '" height="' + str(image["size"][1]) + '" alt="' + esc(sid) + ' · 实际无框输入" src="data:image/jpeg;base64,' + base64.b64encode(image["bytes"]).decode("ascii") + '"><div class="review-layer gt-layer">' + overlay(sample, {"parse_ok": False}, [], image["size"]) + '</div>')
         for model in problems:
             result = case["results"][model]
             new = result["new"]
             predictions = [{"bbox": p["original_bbox"], "character": p["character"]} for p in new["names"]["predictions"]]
             parts.append('<div class="review-layer prediction-layer" data-model="' + esc(model) + '" hidden>' + overlay(sample, new["strict"], predictions, image["size"]) + '</div>')
-        parts.append('</div><p class="metric-caption prediction-caption">默认只显示人工真值；按需一次选择一个模型的预测框。</p><p class="metric-caption">实际API输入为无框JPEG；绿色框与所选橙色预测框仅供本报告人工复核。姓名按一对一命中评估，不将未命中姓名按返回顺序强行对应位置。</p><div class="model-panels">')
+        parts.append('</div><div class="image-controls"><button class="zoom" type="button">放大图片</button><label><input class="show-review" type="checkbox" checked>人工标注</label><label>预测框<select class="prediction-model">' + prediction_options + '</select></label></div><p class="metric-caption prediction-caption">默认只显示人工标注。</p><p class="metric-caption image-note">绿框为最终复核标注，原始模型输入无框；点击图片可放大。</p></div><div class="case-analysis"><div class="model-panels">')
         for model in problems:
             result = case["results"][model]
             new = result["new"]
             state = "failed" if new["state"] != "ok" else "wrong"
             panel = model_panel(model, result, compact=True).replace('data-model="' + esc(model) + '"', 'data-model="' + esc(model) + '" data-result="' + state + '" data-failure="' + esc(new["failure_category"] or "") + '"', 1)
             parts.append(panel)
-        parts.append('</div></article>')
+        parts.append('</div></div></div></article>')
     parts.append('<footer><p>仅姓名命中不保证姓名与屏幕人物的位置对应；多余姓名另记为未命中目标的返回条目。来源链接仅在点击时联网打开，报告自身没有外部资源依赖。</p></footer></main><dialog id="zoom-dialog"><div class="dialog-head"><strong id="zoom-title"></strong><button id="close-zoom" type="button">关闭（Esc）</button></div><div id="zoom-content"></div></dialog><script>' + JS + '</script></body></html>')
     return ''.join(parts)
 

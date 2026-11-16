@@ -1,5 +1,6 @@
 """Offline report checks: real denominators, search proof and input separation."""
 from copy import deepcopy
+from html.parser import HTMLParser
 import hashlib
 import io
 import json
@@ -11,6 +12,57 @@ import pytest
 from scripts import export_c_search as report
 from vcrb.annotation.rosters import CharacterEntry, Roster
 from vcrb.evaluation.matcher import CharacterMatcher
+
+
+class HtmlNode:
+    def __init__(self, tag, attrs=()):
+        self.tag, self.attrs, self.children = tag, dict(attrs), []
+
+    def text(self):
+        return ''.join(child.text() if isinstance(child, HtmlNode) else child for child in self.children)
+
+    def find_all(self, tag=None, class_name=None):
+        result = []
+        if (tag is None or self.tag == tag) and (class_name is None or class_name in self.attrs.get('class', '').split()):
+            result.append(self)
+        for child in self.children:
+            if isinstance(child, HtmlNode):
+                result.extend(child.find_all(tag, class_name))
+        return result
+
+
+class HtmlTree(HTMLParser):
+    """Inspect content relationships without depending on layout CSS strings."""
+    VOID = {'area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'param', 'source', 'track', 'wbr'}
+
+    def __init__(self, html):
+        super().__init__()
+        self.root = HtmlNode('document')
+        self.stack = [self.root]
+        self.feed(html)
+
+    def handle_starttag(self, tag, attrs):
+        node = HtmlNode(tag, attrs)
+        self.stack[-1].children.append(node)
+        if tag not in self.VOID:
+            self.stack.append(node)
+
+    def handle_endtag(self, tag):
+        for index in range(len(self.stack) - 1, 0, -1):
+            if self.stack[index].tag == tag:
+                self.stack = self.stack[:index]
+                break
+
+    def handle_data(self, data):
+        self.stack[-1].children.append(data)
+
+
+def table_rows(html):
+    tables = HtmlTree(html).root.find_all('table')
+    assert len(tables) == 1
+    rows = tables[0].find_all('tr')
+    return [[cell for cell in row.children if isinstance(cell, HtmlNode) and cell.tag in ('th', 'td')]
+            for row in rows]
 
 
 def raw(names=("安欣",), *, ok=True, metadata=None, invalid_box=False):
@@ -53,6 +105,125 @@ def review_context(count=2):
     data["new"] = {key: deepcopy(value) if key[0] in top else raw((None,)) for key, value in data["old"].items()}
     data["run"]["status"] = "done"
     return data
+
+
+def final_review_context():
+    """160 images, 213 required identities, 219 physical people, all API-complete."""
+    data = review_context(160)
+    for index in range(47, 59):
+        sid = f's{index:04d}'
+        sample = data['samples'][sid]
+        sample['persons'][0]['bbox'] = [0, 0, .5, 1]
+        sample['persons'].append({'person_id': 2, 'annotation_id': f'{sid}-2', 'character': '李响',
+            'bbox': [.5, 0, 1, 1], 'identity_status': 'verified', 'review_status': 'approved', 'character_aliases': []})
+        data['tags'].append({'sample_id': sid, 'person_id': 2, 'face_orientation': 'profile', 'visibility': 'clear'})
+        if index < 53:
+            for model in report.MODEL_IDS:
+                data['old'][(model, sid)] = raw(('安欣', '李响'))
+                data['new'][(model, sid)] = raw(('安欣', '李响'))
+        else:
+            sample['evaluation_policy'] = {'optional_person_ids': [2]}
+    return data
+
+
+def test_brief_main_table_has_three_columns_and_uses_complete_required_name_and_api_denominators():
+    data = final_review_context()
+    # A failed two-person image must remain in the 213 required-name targets;
+    # otherwise the API-success subset would misleadingly show 100% here.
+    data['new'][('qwen3.8-max', 's0000')] = raw(('安欣', '李响'), ok=False)
+    summary = report.build_summary(data)
+    metric = summary['all_works']['qwen3.8-max']['new']
+    assert summary['planned_targets_per_model'] == 213 and summary['strict_targets_per_model'] == 219
+    assert metric['name_correct'] == 211 and metric['api_ok_targets'] == 211
+    assert metric['name_accuracy_api_ok'] == 1
+    rows = table_rows(report.brief_results_table(summary))
+    assert len(rows) == 8 and all(len(row) == 3 for row in rows)
+    assert rows[0][0].text() == '模型'
+    assert '姓名命中率' in rows[0][1].text() and 'API调用成功率' in rows[0][2].text()
+    by_model = {row[0].text().strip(): row for row in rows[1:]}
+    assert set(by_model) == {report.MODEL_LABELS.get(mid, mid) for mid in report.MODEL_IDS}
+    selected = by_model[report.MODEL_LABELS['qwen3.8-max']]
+    name_text, api_text = selected[1].text(), selected[2].text()
+    assert '99.06%' in name_text and re.search(r'211\s*/\s*213', name_text)
+    assert not re.search(r'211\s*/\s*211', name_text)
+    assert '99.38%' in api_text and re.search(r'159\s*/\s*160', api_text)
+    rendered = HtmlTree(report.render_report(summary, data['images'])).root
+    main_tables = [node for node in rendered.find_all('table')
+                   if len(node.find_all('th')) == 3 and 'API调用成功率' in node.text()]
+    assert len(main_tables) == 1
+
+
+def test_case_uses_one_image_in_left_visual_and_both_model_analyses_on_right():
+    data = review_context()
+    for model in report.REVIEW_MODELS:
+        data['new'][(model, 's0000')] = raw(('安欣',))
+    summary = report.build_summary(data)
+    html = report.render_report(summary, data['images'])
+    dom = HtmlTree(html).root
+    cards = dom.find_all('article', 'case-card')
+    assert len(cards) == 1 and cards[0].attrs['id'] == 's0000'
+    body, = cards[0].find_all(class_name='case-body')
+    children = [child for child in body.children if isinstance(child, HtmlNode)]
+    visual = body.find_all(class_name='case-visual')[0]
+    analysis = body.find_all(class_name='case-analysis')[0]
+    assert visual in children and analysis in children and children.index(visual) < children.index(analysis)
+    assert len(visual.find_all('img')) == 1 and not analysis.find_all('img')
+    assert len(dom.find_all('img')) == 1 and html.count('src="data:image/jpeg;base64,') == 1
+    image = visual.find_all('img')[0]
+    import base64
+    assert hashlib.sha256(base64.b64decode(image.attrs['src'].split(',', 1)[1])).hexdigest() == data['images']['s0000']['sha256']
+    assert visual.find_all('button', 'zoom')
+    selector, = visual.find_all('select', 'prediction-model')
+    assert 'multiple' not in selector.attrs
+    assert {option.attrs.get('value') for option in selector.find_all('option')} == {'', *report.REVIEW_MODELS}
+    layers = visual.find_all(class_name='prediction-layer')
+    assert {node.attrs['data-model'] for node in layers} == set(report.REVIEW_MODELS)
+    assert all('hidden' in node.attrs for node in layers)
+    panels = analysis.find_all(class_name='model-panel')
+    assert {node.attrs['data-model'] for node in panels} == set(report.REVIEW_MODELS)
+    for panel in panels:
+        original, = panel.find_all('details', 'raw-responses')
+        assert 'open' not in original.attrs
+        assert '原始回答' in original.find_all('summary')[0].text()
+        assert data['new'][(panel.attrs['data-model'], 's0000')]['response']['raw_text'] in original.text()
+
+
+def test_classification_is_collapsed_and_current_review_hash_is_visible_without_rescoring_or_raw_mutation():
+    data = review_context()
+    data['new'][('deepseek-flash', 's0000')] = raw(('安欣',))
+    before = deepcopy(data)
+    original = report.build_summary(data)
+    data['dataset_hash'] = 'c' * 64
+    data['annotation_review'] = {'applied': True, 'current_dataset_hash': 'c' * 64,
+        'source_dataset_hash': 'b' * 64, 'reviewed_sample_ids': ['s0000'], 'reviewed_sample_count': 1,
+        'manifest_sha256': 'd' * 64, 'policy': 'Offline rescoring of saved responses; no new model calls.'}
+    summary = report.build_summary(data)
+    assert summary['all_works'] == original['all_works'] and summary['groups'] == original['groups']
+    assert summary['cases'] == original['cases']
+    frozen_summary = deepcopy(summary)
+    dom = HtmlTree(report.render_report(summary, data['images'])).root
+    assert summary == frozen_summary and data['old'] == before['old'] and data['new'] == before['new']
+    assert dom.find_all('h1')[0].text() == '联网角色识别测试'
+    intro, = dom.find_all('header')
+    assert '最终复核' in intro.text()
+    version, = intro.find_all(class_name='review-status')
+    assert version.attrs['data-dataset-hash'] == summary['dataset_hash']
+    assert summary['dataset_hash'] in version.attrs['title']
+    classification = [node for node in dom.find_all('details')
+                      if node.find_all('summary') and '分类统计' in node.find_all('summary')[0].text()]
+    assert len(classification) == 1 and 'open' not in classification[0].attrs
+    assert classification[0].find_all('table')  # Content remains available when expanded.
+
+
+def test_mismatched_applied_review_hash_is_rejected_instead_of_marked_final():
+    data = review_context()
+    summary = report.build_summary(data)
+    summary['annotation_review'] = {'applied': True, 'current_dataset_hash': 'f' * 64}
+    assert summary['annotation_review']['current_dataset_hash'] != summary['dataset_hash']
+    before = deepcopy(summary)
+    with pytest.raises(ValueError, match='review version'):
+        report.render_report(summary, data['images'])
+    assert summary == before
 
 
 def test_pending_full_run_retains_1120_tasks_and_207_targets_per_model():
@@ -126,6 +297,19 @@ def test_grouping_uses_gt_person_pose_and_keeps_excluded_work_separate():
     assert summary["all_works"]["qwen3.8-max"]["new"]["planned_targets"] == 3
 
 
+def test_empty_classification_has_no_ranked_percentage_but_keeps_all_models_available():
+    data = context()
+    summary = report.build_summary(data)
+    empty = summary['groups']['orientation']['not_visible']
+    assert all(row['new']['planned_targets'] == 0 and row['new']['name_accuracy_planned'] is None
+               for row in empty.values())
+    rows = table_rows(report.comparison_table(empty))
+    assert len(rows) == 8
+    assert {row[0].text() for row in rows[1:]} == {report.MODEL_LABELS.get(mid, mid) for mid in report.MODEL_IDS}
+    assert all('%' not in cell.text() for row in rows[1:] for cell in row[1:])
+    assert all(row[1].text() == row[2].text() == '—' for row in rows[1:])
+
+
 def test_truth_validation_accepts_evidence_prose_but_rejects_geometry_or_names():
     samples = context()["samples"]
     changed = deepcopy(samples)
@@ -151,7 +335,8 @@ def test_html_embeds_one_input_per_sample_and_escapes_response_content():
     assert html.count('<script>') == 1
     assert "<img onerror=" not in html and "&lt;img onerror=" in html
     assert 'src="http' not in html and 'href="https://example.com/role"' in html
-    assert "不包含其余正确图" in html
+    cards = HtmlTree(html).root.find_all('article', 'case-card')
+    assert len(cards) == 1 and cards[0].attrs['id'] == 's0000'
 
 
 def test_export_writes_matching_html_hash_without_model_calls(tmp_path, monkeypatch):
@@ -164,18 +349,19 @@ def test_export_writes_matching_html_hash_without_model_calls(tmp_path, monkeypa
     assert summary["planned_tasks"] == 14 and summary["completed_tasks"] == 0
 
 
-def test_methods_and_cumulative_budget_are_labeled_and_partial_delta_is_withheld():
+def test_methods_and_budget_remain_auditable_outside_the_brief_main_interface():
     data = context()
     data["metadata"] = {"budget_scope": {"max_cost_cny": 350}, "per_model_notes": {
         "glm-4.6v": {"request_params": {"api_mode": "zhipu_function_search", "max_client_search_calls": 8, "extra_body": {"thinking": {"type": "disabled"}}}},
         "qwen3.8-max": {"request_params": {"api_mode": "dashscope_anthropic", "search_max_uses": 8, "extra_body": {"enable_thinking": False}}}}}
     summary = report.build_summary(data)
-    html = report.render_report(summary, data["images"])
-    assert "累计本地保护上限：350元" in html
-    assert "智谱自有搜索API＋模型function工具循环" in html
-    assert "声明8次，仅为建议，服务端可能超出" in html
-    assert "客户端每图最多8次搜索" in html
-    assert "待全部完成" in html and "-100.00 个百分点" not in html
+    methods = report.methods_table(summary)
+    assert summary['configuration']['budget_scope']['max_cost_cny'] == 350
+    assert "智谱自有搜索API＋模型function工具循环" in methods
+    assert "声明8次，仅为建议，服务端可能超出" in methods
+    assert "客户端每图最多8次搜索" in methods
+    comparison = report.comparison_table(summary['all_works'])
+    assert "待全部完成" in comparison and "-100.00 个百分点" not in comparison
 
 
 def test_request_image_redaction_preserves_actual_prompts_hashes_and_original_evidence():
@@ -197,29 +383,29 @@ def test_request_image_redaction_preserves_actual_prompts_hashes_and_original_ev
     assert encoded not in json.dumps(projected)
 
 
-def test_native_multimodal_method_and_stopped_validation_label_are_visible():
+def test_native_multimodal_method_and_stopped_run_metadata_remain_available():
     data = context()
     data["run"].update(status="limited", note="Provider violated a token/cost bound")
     data["metadata"] = {"per_model_notes": {"qwen3.7-plus": {"request_params": {
         "api_mode": "dashscope_multimodal_search", "search_max_uses": 8, "extra_body": {"enable_thinking": False}}}}}
     summary = report.build_summary(data)
     summary["stage_label"] = "首轮56项接入验证（已停止）"
-    html = report.render_report(summary, data["images"])
-    assert "Qwen原厂DashScope多模态流式搜索" in html
-    assert "声明8次，仅为建议" not in html
-    assert "首轮56项接入验证（已停止）" in html
-    assert "已停止 / 尚未全部执行，以下不是全量结果" in html
-    assert "运行停止不代表累计保护上限已经实际花完" in html
+    methods = report.methods_table(summary)
+    assert "Qwen原厂DashScope多模态流式搜索" in methods
+    assert "声明8次，仅为建议" not in methods
+    assert summary['stage_label'] == '首轮56项接入验证（已停止）'
+    assert summary['status'] == 'limited' and not summary['complete']
 
 
 def test_accounting_output_allowance_does_not_claim_changed_wire_generation():
     data = context()
     data["metadata"] = {"generation_params": {"max_tokens": 4096}, "pricing": {"models": {
         "qwen3.8-max": {"output_token_upper_bound": 131072}}}}
-    html = report.render_report(report.build_summary(data), data["images"])
-    assert "实际请求的输出参数仍为4096" in html
-    assert "不是请求参数" in html and "131072" in html
-    assert "不自动修补JSON或坐标" in html
+    original = deepcopy(data['metadata'])
+    summary = report.build_summary(data)
+    assert summary['configuration']['generation_params']['max_tokens'] == 4096
+    assert summary['configuration']['pricing']['models']['qwen3.8-max']['output_token_upper_bound'] == 131072
+    assert data['metadata'] == original
 
 
 def test_explicit_error_evidence_separates_account_filter_and_unknown_without_mutation():
@@ -244,24 +430,27 @@ def test_explicit_error_evidence_separates_account_filter_and_unknown_without_mu
     assert summary["all_works"]["qwen3.7-plus"]["new"]["api_failure_categories"]["other_api_failure"] == 1
     html = report.render_report(summary, data["images"])
     assert "接口失败，未判定姓名" in html
-    assert "其他 / 原因未确认" in html
+    assert "其他 / 原因未确认" in report.failures_table(summary)
     assert (account, content, unknown) == originals
 
 
-def test_paused_report_explains_local_reserve_and_awaits_budget_without_running_claim():
+def test_local_reserve_ledger_and_paused_state_are_preserved_without_bloating_the_main_report():
     data = context()
     data["run"].update(status="limited", note="Rolling budget settled")
     data["costs"] = {"cumulative_scope": {"committed_cny": 343.8035597, "known_token_estimate_cny": 72.7983437,
                       "uncertain_cny": 271.005216, "inflight_reserve_cny": 0}}
     summary = report.build_summary(data)
     summary["pause_note"] = "已暂停，等待本地累计预算指示；充值不等于自动提高本地上限。"
-    html = report.render_report(summary, data["images"])
-    assert "等待本地累计预算指示" in html
-    assert "¥343.803560" in html and "¥271.005216" in html
-    assert "以上不是供应商实际账单" in html
-    assert "进行中 / 尚未全部执行" not in html
-    summary["status"] = "running"
-    assert "已暂停，等待本地累计预算指示" not in report.render_report(summary, data["images"])
+    assert summary['status'] == 'limited' and not summary['complete']
+    assert summary['costs'] == data['costs']
+    ledger = report.ledger_totals([
+        {'known_cny': 2, 'uncertain_cny': 3, 'committed_cny': 5, 'status': 'settled'},
+        {'known_cny': 0, 'uncertain_cny': 0, 'committed_cny': 7, 'status': 'in_flight'},
+    ])
+    assert ledger == {'known_token_estimate_cny': 2, 'uncertain_cny': 3,
+                      'inflight_reserve_cny': 7, 'committed_cny': 12, 'http_attempt_rows': 2}
+    html = report.render_report(summary, data['images'])
+    assert '¥343.803560' not in html and '¥271.005216' not in html
 
 
 def test_provider_budget_hold_does_not_claim_entire_running_test_is_paused():
@@ -269,11 +458,11 @@ def test_provider_budget_hold_does_not_claim_entire_running_test_is_paused():
     data["run"].update(status="running", note="此前中断说明")
     data["operational_control"] = {"provider_holds": {"dashscope": {"state": "held", "kind": "local_budget_allocation"}},
                                    "balance_confirmation_providers": ["dashscope"]}
-    html = report.render_report(report.build_summary(data), data["images"])
-    assert "阿里云Qwen当前调用控制" in html
-    assert "因本地预算分配暂停调用" in html
-    assert "该厂商账户充值已由用户确认" in html
-    assert "进行中 / 尚未全部执行" in html
+    summary = report.build_summary(data)
+    html = report.render_report(summary, data["images"])
+    assert summary['operational_control'] == data['operational_control']
+    assert summary['status'] == 'running' and not summary['complete']
+    assert "阿里云Qwen当前调用控制" not in html
     assert "运行记录：此前中断说明" not in html
 
 
@@ -446,7 +635,7 @@ def test_composite_export_preserves_excluded_diagnostics_separately_and_embeds_o
     assert diagnostics["qwen3.8-flash"]["recorded_images"] == 2
     html = (tmp_path / "index.html").read_text()
     assert html.count('src="data:image/jpeg;base64,') == 0  # In this fixture all ranked Top3 are correct.
-    assert "不从旧run补齐" in html and "历史接口逐图原始回答" in html
+    assert '按模型整体选择运行来源' not in html and '历史接口逐图原始回答' not in html
     assert summary["model_sources"]["qwen3.8-flash"]["run_id"] == "flash_auto"
 
 
