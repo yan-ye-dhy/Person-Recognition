@@ -1,12 +1,13 @@
 """Presentation claims must keep comparable costs and scored samples separate."""
 from copy import deepcopy
 from decimal import Decimal
+import re
 
 import pytest
 
 from tests.test_cost_probe_report import manifest
 from vcrb.cost_probe_report import render_report, summarize_probe
-from vcrb.cost_probe_presentation import build_presentation
+from vcrb.cost_probe_presentation import build_presentation, render_presentation
 
 
 def briefing_data():
@@ -57,6 +58,106 @@ def test_same_day_large_cohort_takes_precedence_over_separate_five_image_probe()
     view = build_presentation(summary)
     assert view['cost_cohort']['image_tasks'] == 168
     assert view['costs'][0]['unit_cost'].startswith('0.03450202')
+
+
+def current_official_costs():
+    """Two complete current bills, two partial bills, and older seven-model evidence."""
+    data, scores = briefing_data()
+    data['historical_daily_bills'] = [
+        {'date': day, 'vendor': 'GLM' if mid.startswith('glm-') or mid == 'search-pro' else 'Qwen', 'model_id': mid, 'kind': kind,
+         'currency': 'CNY', 'amount': amount, 'note_code': note}
+        for day, mid, kind, amount, note in [
+            ('2026-11-16', 'qwen3.8-max', 'inference', '0.557256', 'posted'),
+            ('2026-11-15', 'qwen3.8-flash', 'inference', '6.3276301', 'posted'),
+            ('2026-11-15', 'qwen3.8-flash', 'search', '4.432', 'posted'),
+            ('2026-11-15', 'glm-4.6v', 'inference', '1.8695358', 'posted'),
+            ('2026-11-15', 'glm-5.3-flash', 'inference', '0', 'resource_pack'),
+            ('2026-11-15', 'search-pro', 'search', '8.9782808', 'search_unallocated'),
+        ]]
+    data['daily_reference_tasks'] = [
+        {'date': '2026-11-15', 'model_id': mid, 'image_tasks': count,
+         'fee_scope': scope, 'contains_debugging': mid == 'qwen3.8-flash'}
+        for mid, count, scope in [('qwen3.8-flash', 67, 'inference_and_search'),
+                                  ('glm-4.6v', 170, 'inference_only'),
+                                  ('glm-5.3-flash', 170, 'inference_only')]]
+    amounts = [('deepseek-flash', 'inference', '0.11068688'), ('deepseek-flash', 'search', '0.075'),
+               ('qwen3.8-max', 'inference', '0.557256'), ('qwen3.8-max', 'search', '0.024'),
+               ('qwen3.7-plus', 'inference', '0.0452144'), ('qwen3.8-flash', 'inference', '0.0223059')]
+    billing = {'complete_models': ['deepseek-flash', 'qwen3.8-max'], 'entries': [
+        {'bill_id': f'official-{index}', 'model_id': mid, 'currency': 'CNY', 'amount': amount,
+         'kind': kind, 'source': 'official-fixture', 'period_start': '2026-11-16T01:00:00Z',
+         'period_end': '2026-11-16T01:01:00Z'}
+        for index, (mid, kind, amount) in enumerate(amounts)]}
+    return summarize_probe(data, billing), scores
+
+
+def test_complete_current_five_image_pair_overrides_larger_historical_pair_without_mixing_kimi():
+    summary, scores = current_official_costs()
+    before = deepcopy(summary)
+    view = build_presentation(summary, scores)
+    assert view['cost_cohort'] == {'kind': 'current', 'date': None, 'image_tasks': 5}
+    assert [(r['model_id'], r['unit_cost']) for r in view['costs']] == [
+        ('deepseek-flash', '0.037137376'), ('qwen3.8-max', '0.1162512')]
+    assert view['kimi_to_deepseek_cost_ratio'] is None
+    assert summary == before  # Presentation must not overwrite billing or scored facts.
+
+
+def test_current_partial_fees_precede_old_debug_prices_and_each_historical_model_keeps_own_day():
+    summary, scores = current_official_costs()
+    view = build_presentation(summary, scores)
+    rows = {r['model_id']: r for r in view['cost_overview']}
+    assert len(rows) == 7
+    assert rows['kimi-k3.1-pro']['date'] == '2026-11-15'
+    assert rows['kimi-k3.1-pro']['image_tasks'] == 168
+    assert rows['kimi-k3.1-pro']['posted_amount'] == '14.36764'
+    assert rows['kimi-k3.1-pro']['unit_kind'] == 'verified'
+    assert not rows['kimi-k3.1-pro']['in_comparison']
+    for mid, amount, unit in [('qwen3.7-plus', '0.0452144', '0.00904288'),
+                              ('qwen3.8-flash', '0.0223059', '0.00446118')]:
+        assert rows[mid]['source'] == 'current' and rows[mid]['date'] == '2026-11-16'
+        assert rows[mid]['image_tasks'] == 5 and rows[mid]['unit_kind'] == 'inference_only'
+        assert rows[mid]['posted_amount'] == amount and rows[mid]['unit_cost'] == unit
+        assert '搜索待核' in rows[mid]['note'] and not rows[mid]['in_comparison']
+        original = next(r for r in summary['models'] if r['model_id'] == mid)
+        assert not original['billing_complete'] and original['charges'][0]['official_amount'] is None
+    assert rows['glm-4.6v']['date'] == rows['glm-5.3-flash']['date'] == '2026-11-15'
+    assert rows['glm-4.6v']['image_tasks'] == rows['glm-5.3-flash']['image_tasks'] == 170
+    assert view['shared_glm_search_date'] == '2026-11-15'
+    assert view['shared_glm_search_cost'] == '8.9782808'
+    assert view['cost_overview_date'] is None  # A mixed-period table has no global bill date.
+
+
+def test_zero_posted_inference_is_not_a_free_search_or_a_complete_cost():
+    summary, _ = current_official_costs()
+    plus = next(r for r in summary['models'] if r['model_id'] == 'qwen3.7-plus')
+    plus['charges'][0].update(posted_amount='0', posted_average_per_submitted_image='0',
+                              posted_by_kind={'inference': '0'})
+    view = build_presentation(summary)
+    row = next(r for r in view['cost_overview'] if r['model_id'] == 'qwen3.7-plus')
+    assert row['unit_cost'] == '0' and row['unit_kind'] == 'inference_only'
+    assert '搜索待核' in row['note'] and not row['in_comparison']
+    assert 'qwen3.7-plus' not in [r['model_id'] for r in view['costs']]
+    assert plus['charges'][0]['official_amount'] is None
+
+
+def test_render_labels_current_and_historical_rows_and_bounds_all_verified_bars():
+    summary, scores = current_official_costs()
+    # A retained historical model can be more expensive than both current
+    # comparison models; its overview bar must still be bounded to 100%.
+    summary['historical_batches'][1]['amount'] = '1000'
+    view = build_presentation(summary, scores)
+    html = render_presentation(summary, view)
+    assert '本批5任务完整费用比较：Qwen Max约为DeepSeek Flash' in html
+    assert '2026-11-16 · 5任务 · 本批 · 仅推理；搜索待核' in html
+    assert '2026-11-15 · 168任务 · 历史 · 推理+搜索已核' in html
+    assert '2026-11-15官方已出账金额' not in html and '0.1606' not in html
+    assert '未知搜索不按0计算' in html
+    assert all(Decimal(width) <= 100 for width in re.findall(r'width:([0-9.]+)%', html))
+    assert all(f'data-model="{mid}"' in html for mid in LABELS_FOR_TEST)
+
+
+LABELS_FOR_TEST = ['deepseek-flash', 'kimi-k3.1-pro', 'qwen3.8-max', 'qwen3.7-plus',
+                   'qwen3.8-flash', 'glm-5.3-flash', 'glm-4.6v']
 
 
 def test_all_seven_models_show_posted_costs_without_allocating_shared_search():

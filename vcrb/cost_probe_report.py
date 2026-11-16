@@ -338,8 +338,13 @@ def summarize_probe(manifest, billing=None):
         charges = []
         for currency in sorted({entry["currency"] for entry in entries}):
             part = [entry for entry in entries if entry["currency"] == currency]
-            total = _sum(part, "amount") if complete else None
+            posted = _sum(part, "amount")
+            total = posted if complete else None
             charges.append({"currency": currency, "official_amount": total,
+                            "posted_amount": posted,
+                            "posted_average_per_submitted_image": _average(posted, model["submitted_count"]),
+                            "posted_by_kind": {kind: _sum([entry for entry in part if entry['kind'] == kind], 'amount')
+                                               for kind in sorted({entry['kind'] for entry in part})},
                             "cash_amount": _sum(part, "cash_amount") if complete else None,
                             "credit_amount": _sum(part, "credit_amount") if complete else None,
                             "average_per_submitted_image": _average(total, model["submitted_count"]),

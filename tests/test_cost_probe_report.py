@@ -118,6 +118,21 @@ def test_partial_evidence_and_missing_payment_parts_remain_unknown():
     assert row['charges'][0]['cash_amount'] is None and row['charges'][0]['credit_amount'] is None
 
 
+def test_posted_inference_can_be_reported_without_declaring_missing_search_free():
+    official = bill(entry(kind='inference', amount='0.045214400000',
+                          cash_amount=None, credit_amount=None), complete=False)
+    row = next(row for row in summarize_probe(manifest(), official)['models']
+               if row['model_id'] == 'qwen3.8-max')
+    charge = row['charges'][0]
+    assert charge['posted_amount'] == '0.045214400000'
+    assert charge['posted_average_per_submitted_image'] == '0.009042880000'
+    assert charge['posted_by_kind'] == {'inference': '0.045214400000'}
+    assert not row['billing_complete']
+    assert charge['official_amount'] is None
+    assert charge['average_per_submitted_image'] is None
+    assert charge['cash_amount'] is None
+
+
 @pytest.mark.parametrize('amount', [0.1, True, '-1', 'NaN', 'Infinity', '1e3', '', None])
 def test_invalid_or_binary_float_money_is_rejected(amount):
     with pytest.raises(ValueError):
