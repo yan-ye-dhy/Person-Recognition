@@ -30,6 +30,49 @@ def _divide(amount, count):
         return format(Decimal(amount) / count, 'f')
 
 
+def _total(rows):
+    with localcontext() as context:
+        context.prec = 100
+        return format(sum((Decimal(row['amount']) for row in rows), Decimal(0)), 'f')
+
+
+def _cost_overview(summary, costs, cohort):
+    daily = summary['historical_daily_bills']
+    date = cohort['date'] if cohort and cohort['kind'] == 'historical' else max((r['date'] for r in daily), default=None)
+    indexed = {row['model_id']: row for row in costs}
+    overview = []
+    for model in summary['models']:
+        mid = model['model_id']
+        rows = [r for r in daily if r['date'] == date and r['model_id'] == mid and r['currency'] == 'CNY' and r['amount'] is not None]
+        kinds = {r['kind'] for r in rows}
+        if 'combined' in kinds and len(kinds) > 1:
+            raise ValueError('Daily totals and their components cannot be added together')
+        verified = indexed.get(mid)
+        # The overview's day total and per-image amount must describe the same
+        # period; current probes are never silently paired with another day.
+        if verified and date and (not cohort or cohort['kind'] != 'historical' or cohort['date'] != date):
+            verified = None
+        posted = _total(rows) if rows else None
+        note = '费用明细待核'
+        if verified:
+            posted = verified['amount']
+            note = '推理 + 搜索 · 已核单图'
+        elif rows:
+            if any(r['note_code'] == 'resource_pack' for r in rows):
+                note = '推理资源包抵扣；搜索未分摊'
+            elif mid.startswith('glm-') and kinds == {'inference'}:
+                note = '仅推理；共用搜索未分摊'
+            elif kinds == {'inference'}:
+                note = '仅推理；搜索费用待核'
+            else:
+                note = '已出推理 + 搜索；单图待核'
+        overview.append({'model_id': mid, 'label': LABELS.get(mid, mid), 'posted_amount': posted,
+            'unit_cost': verified['unit_cost'] if verified else None, 'note': note})
+    shared = [r for r in daily if r['date'] == date and r['model_id'] == 'search-pro'
+              and r['currency'] == 'CNY' and r['amount'] is not None]
+    return overview, date, _total(shared) if shared else None
+
+
 def build_presentation(summary, recognition=None):
     """Never rank costs from different batches or turn missing costs into zero."""
     groups = defaultdict(list)
@@ -84,8 +127,14 @@ def build_presentation(summary, recognition=None):
         ds = Decimal(cost_map['deepseek-flash']['unit_cost'])
         if ds > 0:
             ratio = _divide(Decimal(cost_map['kimi-k3.1-pro']['unit_cost']), ds)
-    return {'costs': costs, 'cost_cohort': {'kind': key[0], 'date': key[1] if key[0] == 'historical' else None,
-            'image_tasks': key[2]} if key else None, 'recognition': quality,
+    cohort = {'kind': key[0], 'date': key[1] if key[0] == 'historical' else None, 'image_tasks': key[2]} if key else None
+    overview, overview_date, shared_search = _cost_overview(summary, costs, cohort)
+    if quality:
+        ranks = {row['model_id']: index for index, row in enumerate(quality)}
+        overview.sort(key=lambda row: ranks.get(row['model_id'], len(ranks)))
+    return {'costs': costs, 'cost_cohort': cohort, 'recognition': quality,
+            'cost_overview': overview, 'cost_overview_date': overview_date,
+            'shared_glm_search_cost': shared_search,
             'preferred': preferred, 'kimi_to_deepseek_cost_ratio': ratio,
             'pending_cost_models': [row['model_id'] for row in summary['models'] if row['model_id'] not in cost_map],
             'recognition_scope': {'images': quality[0]['images'], 'targets': quality[0]['targets']} if quality else None}
@@ -94,9 +143,11 @@ def build_presentation(summary, recognition=None):
 CSS = r'''
 :root{--ink:#142d3a;--muted:#617580;--green:#078273;--purple:#6a63c7;--line:#dce7e9;--surface:#fff;--back:#f3f7f7}
 *{box-sizing:border-box}body{margin:0;background:var(--back);color:var(--ink);font:15px/1.6 system-ui,-apple-system,"Segoe UI","Microsoft YaHei",sans-serif}main{max-width:1200px;margin:auto;padding:38px 30px 28px}h1,h2,h3,p{margin:0}h1{font-size:38px;line-height:1.25;letter-spacing:-1px;margin:12px 0}h2{font-size:20px;line-height:1.4}h3{font-size:17px;line-height:1.5}.eyebrow{font-size:12px;letter-spacing:2px;font-weight:700;color:var(--green)}.hero{display:flex;align-items:flex-start;justify-content:space-between;gap:24px;margin-bottom:25px}.intro{color:var(--muted);max-width:760px}.stamp{white-space:nowrap;color:var(--muted);font-size:12px;text-align:right;padding-top:6px}.stamp strong{display:block;color:var(--ink);font-size:14px;margin-bottom:5px}.recommend{display:inline-flex;border-radius:30px;padding:5px 12px;color:var(--green);background:#e7f5f0;font-size:12px;font-weight:600;margin-top:14px}.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:22px}.kpi{padding:21px 23px;border:1px solid var(--line);border-radius:14px;background:white}.kpi:first-child{background:var(--green);border-color:var(--green);color:white}.kpi-label{font-size:13px;color:var(--muted);font-weight:600}.kpi:first-child .kpi-label,.kpi:first-child .kpi-note{color:#d7f1eb}.kpi-value{font-size:39px;line-height:1.25;font-weight:750;letter-spacing:-1px;margin:7px 0 6px;font-variant-numeric:tabular-nums}.kpi-value small{font-size:14px;font-weight:500;letter-spacing:0;margin-left:6px}.kpi-note{font-size:12px;color:var(--muted)}.charts{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:stretch}.panel{border:1px solid var(--line);border-radius:16px;background:var(--surface);padding:24px}.sub{font-size:12px;color:var(--muted);margin-top:6px}.cost-bars{margin-top:28px}.cost-item{margin:0 0 25px}.row-top{display:flex;justify-content:space-between;gap:12px;font-size:14px;margin-bottom:9px;align-items:baseline}.row-top strong{font-variant-numeric:tabular-nums;white-space:nowrap;font-size:16px}.track{height:14px;border-radius:4px;background:#edf2f3;overflow:hidden}.fill{height:100%;background:var(--green);border-radius:4px;min-width:0}.fill.purple{background:var(--purple)}.track-small{height:8px}.scale{display:flex;justify-content:space-between;color:var(--muted);font-size:11px;margin-top:-11px}.cost-callout{padding:15px 16px;background:#f1f8f5;border-radius:9px;margin-top:23px;font-size:14px}.cost-callout strong{color:var(--green)}.scenario{margin-top:18px;padding-top:17px;border-top:1px solid var(--line)}.scenario-row{display:flex;justify-content:space-between;font-size:13px;margin-top:6px}.scenario-row strong{font-variant-numeric:tabular-nums}.pending{font-size:12px;color:#8b6b36;background:#fbf6ec;padding:11px 13px;border-radius:8px;margin-top:17px}.accuracy-bars{margin-top:19px}.accuracy-item{margin-bottom:15px}.accuracy-item:last-child{margin-bottom:0}.accuracy-item .row-top{font-size:13px;margin-bottom:6px}.accuracy-item .row-top strong{font-size:14px}.accuracy-item .fill{background:#a9bbc6}.accuracy-item.highlight .fill{background:var(--green)}.accuracy-item.runner .fill{background:#526fa1}.accuracy-item.kimi .fill{background:var(--purple)}.findings{margin-top:26px}.findings-heading{display:flex;justify-content:space-between;align-items:baseline;gap:15px;margin-bottom:12px}.findings-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.finding{background:white;border:1px solid var(--line);border-radius:13px;padding:20px}.finding p{font-size:13px;color:var(--muted);margin-top:8px}.finding-index{font-size:11px;color:var(--green);font-weight:700;letter-spacing:1px;margin-bottom:8px}.foot{font-size:11px;color:var(--muted);border-top:1px solid var(--line);margin-top:23px;padding-top:15px}.foot p+p{margin-top:5px}.empty{color:var(--muted);padding:25px 0}.method{margin-top:10px}summary{cursor:pointer;color:var(--muted)}.method p{margin-top:5px}.no-data{font-size:15px}.kpi-value.no-data{letter-spacing:0}a{color:var(--green)}
-@media(max-width:760px){main{padding:24px 16px}h1{font-size:29px}.hero{gap:14px}.stamp{font-size:10px}.stamp strong{font-size:12px}.kpis{gap:10px}.kpi{padding:16px 13px}.kpi-value{font-size:28px}.kpi-value small{display:block;font-size:11px;margin-left:0}.charts{grid-template-columns:1fr}.findings-grid{grid-template-columns:1fr}.panel{padding:20px}.findings-heading{display:block}.kpi-note{font-size:10px}}
+.cost-overview{margin-top:15px}.overview-head,.overview-row{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(0,.85fr) minmax(0,.85fr);gap:12px;align-items:center}.overview-head{font-size:11px;color:var(--muted);padding-bottom:8px;border-bottom:1px solid var(--line)}.overview-head span:not(:first-child){text-align:right}.overview-row{padding:10px 0;border-bottom:1px solid #eef2f3;font-size:13px}.overview-row:last-child{border-bottom:0}.overview-row strong{font-weight:650}.overview-row small{display:block;font-size:10px;color:var(--muted);line-height:1.45;margin-top:3px}.posted-value,.known-unit,.pending-unit{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}.known-unit{color:var(--green)}.known-unit .track{height:5px;margin-top:5px}.pending-unit{color:#8b6b36}.pending-track{height:5px;margin-top:5px;border-bottom:1px dashed #d2d9db}.compare-note{font-size:11px;color:var(--muted);margin-top:10px}.compare-note strong{color:var(--green)}
+@media(max-width:760px){main{padding:24px 16px}h1{font-size:29px}.hero{gap:14px}.stamp{font-size:10px}.stamp strong{font-size:12px}.kpis{gap:10px}.kpi{padding:16px 13px}.kpi-value{font-size:28px}.kpi-value small{display:block;font-size:11px;margin-left:0}.charts{grid-template-columns:1fr}.findings-grid{grid-template-columns:1fr}.panel{padding:20px}.findings-heading{display:block}.kpi-note{font-size:10px}.overview-head,.overview-row{gap:7px;grid-template-columns:minmax(0,1.55fr) minmax(0,.9fr) minmax(0,.9fr)}.overview-row{font-size:11px}.overview-row small{font-size:9px}}
 @media(max-width:420px){.hero{display:block}.stamp{text-align:left;padding-top:12px}.stamp strong{display:inline;margin-right:10px}.kpis{grid-template-columns:1fr}.kpi-value small{display:inline;margin-left:6px}.kpi-value{font-size:34px}}
 @page{size:A4 landscape;margin:10mm}@media print{body{background:white;font-size:10px;line-height:1.35}main{padding:0;max-width:none;width:100%}h1{font-size:24px;line-height:1.1;margin:6px 0}h2{font-size:16px}.hero{display:flex;margin-bottom:10px}.intro{font-size:10px}.stamp,.stamp strong{font-size:9px}.eyebrow{font-size:9px}.recommend{margin-top:5px;padding:3px 9px;font-size:9px}.kpis{grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:12px}.kpi{padding:10px 13px}.kpi-label{font-size:10px}.kpi-value{font-size:25px;line-height:1.1;margin:4px 0}.kpi-value small{display:inline;font-size:10px;margin-left:5px}.kpi-note{font-size:9px}.charts{grid-template-columns:1fr 1fr;gap:12px}.panel{padding:13px}.sub{font-size:9px;margin-top:3px}.cost-bars{margin-top:13px}.cost-item{margin-bottom:15px}.row-top{font-size:10px;margin-bottom:5px}.row-top strong{font-size:13px}.track{height:10px}.scale{font-size:8px;margin-top:-8px}.cost-callout{padding:8px 10px;margin-top:12px;font-size:10px}.scenario{margin-top:10px;padding-top:8px}.scenario-row{font-size:10px;margin-top:3px}.pending{padding:7px 10px;margin-top:10px;font-size:9px}.accuracy-bars{margin-top:12px}.accuracy-item{margin-bottom:8px}.accuracy-item .row-top{font-size:10px;margin-bottom:3px}.accuracy-item .row-top strong{font-size:11px}.track-small{height:5px}.findings{margin-top:12px}.findings-heading{margin-bottom:7px}.findings-grid{grid-template-columns:repeat(3,1fr);gap:12px}.finding{padding:10px}.finding-index{font-size:8px;margin-bottom:4px}.finding h3{font-size:12px}.finding p{font-size:9px;margin-top:4px}.foot{margin-top:10px;padding-top:8px;font-size:8px}.kpi,.panel,.finding{break-inside:avoid}*{-webkit-print-color-adjust:exact;print-color-adjust:exact}.method{display:none}}
+@media print{.cost-overview{margin-top:6px}.overview-head{font-size:8px;padding-bottom:4px}.overview-row{font-size:10px;padding:3px 0}.overview-row small{font-size:7.5px;line-height:1.15;margin-top:1px}.overview-head,.overview-row{gap:8px}.compare-note{font-size:8px;margin-top:5px}.overview-row .track,.pending-track{height:3px;margin-top:3px}.panel .pending{font-size:8px;line-height:1.25;margin-top:6px;padding:5px 8px}.finding{padding:8px}.finding p{font-size:8.5px}.findings{margin-top:9px}}
 '''
 
 
@@ -120,32 +171,35 @@ def render_presentation(summary, presentation):
     parts.append('<section class="kpis" aria-label="核心指标"><article class="kpi"><p class="kpi-label">' + e(head_name) + ' · 已核均价</p><p class="kpi-value">' + e(kpi_cost) + '<small>元 / 图</small></p><p class="kpi-note">含本批推理与联网搜索费用</p></article>')
     parts.append('<article class="kpi"><p class="kpi-label">' + e(quality_best['label'] if quality_best else '识别表现') + ' · 姓名命中率</p><p class="kpi-value">' + e(kpi_accuracy) + ('<small>%</small>' if quality_best else '') + '</p><p class="kpi-note">' + (e(f"{scope['images']}张正式样本 · {quality_best['correct']}/{scope['targets']}个必需目标") if scope else '尚未接入正式样本结果') + '</p></article>')
     parts.append('<article class="kpi"><p class="kpi-label">' + e(head_name) + ' · 千张成本参考</p><p class="kpi-value">' + e(kpi_budget) + '<small>元 / 千张</small></p><p class="kpi-note">按本批均价线性外推，非实际账单</p></article></section>')
-    parts.append('<div class="charts"><section class="panel"><h2>已核单图成本</h2>')
-    cohort = presentation['cost_cohort']
-    if cohort:
-        source = (cohort['date'] + '官方账单') if cohort['kind'] == 'historical' else '本次小批官方账单'
-        parts.append('<p class="sub">' + e(f"{source} · 每款{cohort['image_tasks']}个图片任务 · 单位：元/图") + '</p>')
-    parts.append('<div class="cost-bars" role="img" aria-label="已核模型单图费用比较">')
+    parts.append('<div class="charts"><section class="panel"><h2>七模型费用总览</h2>')
+    overview_date = presentation['cost_overview_date']
+    period = overview_date + '官方已出账金额' if overview_date else '本批已核账单金额'
+    parts.append('<p class="sub">' + e(period) + ' · 单位：元；完整单图费单独列示</p>')
+    parts.append('<div class="cost-overview" role="table" aria-label="七个模型的已出账金额与单图成本"><div class="overview-head" role="row"><span>模型 / 费用范围</span><span>已出账</span><span>单图费用</span></div>')
     maximum = max((Decimal(row['unit_cost']) for row in costs), default=Decimal(0))
-    for row in costs:
-        width = _divide(Decimal(row['unit_cost']) * 100, maximum) if maximum else '0'
-        color = ' purple' if row['model_id'] == 'kimi-k3.1-pro' else ''
-        parts.append('<div class="cost-item"><div class="row-top"><span>' + e(row['label']) + '</span><strong>' + e(unit_money(row['unit_cost'])) + '</strong></div><div class="track"><div class="fill' + color + '" style="width:' + fixed(width) + '%"></div></div></div>')
-    if costs:
-        parts.append('<div class="scale"><span>0</span><span>' + e(unit_money(maximum)) + ' 元 / 图</span></div>')
-    else:
-        parts.append('<p class="empty">单图成本待官方账单核对</p>')
+    for row in presentation['cost_overview']:
+        posted = unit_money(row['posted_amount']) if row['posted_amount'] is not None else '待核'
+        if row['posted_amount'] is not None and Decimal(row['posted_amount']) == 0 and row['unit_cost'] is None:
+            posted = '推理 ' + posted
+        per_image = unit_money(row['unit_cost']) if row['unit_cost'] is not None else '待核'
+        known_class = 'known-unit' if row['unit_cost'] is not None else 'pending-unit'
+        parts.append('<div class="overview-row" role="row" data-model="' + e(row['model_id']) + '"><div role="cell"><strong>' + e(row['label']) + '</strong><small>' + e(row['note']) + '</small></div><div class="posted-value" role="cell">' + e(posted) + '</div><div class="' + known_class + '" role="cell"><strong>' + e(per_image) + '</strong>')
+        if row['unit_cost'] is not None:
+            width = _divide(Decimal(row['unit_cost']) * 100, maximum) if maximum else '0'
+            color = ' purple' if row['model_id'] == 'kimi-k3.1-pro' else ''
+            parts.append('<div class="track track-small"><div class="fill' + color + '" style="width:' + fixed(width) + '%"></div></div>')
+        else:
+            parts.append('<div class="pending-track" aria-hidden="true"></div>')
+        parts.append('</div></div>')
     parts.append('</div>')
     ratio = presentation['kimi_to_deepseek_cost_ratio']
     if ratio is not None:
-        parts.append('<p class="cost-callout">本批 Kimi 单图成本约为 DeepSeek 的 <strong>' + fixed(ratio) + ' 倍</strong>。</p>')
-    if costs:
-        parts.append('<div class="scenario"><p class="sub">相近使用条件下的千张成本参考（外推）</p>')
-        for row in costs:
-            parts.append('<p class="scenario-row"><span>' + e(row['label']) + '</span><strong>约 ' + fixed(row['per_1000']) + ' 元</strong></p>')
-        parts.append('</div>')
-    if presentation['pending_cost_models']:
-        parts.append('<p class="pending">其余' + str(len(presentation['pending_cost_models'])) + '款模型完整单图费用待核，暂不参与成本排名。</p>')
+        parts.append('<p class="compare-note">已核单图费用中，Kimi约为DeepSeek的 <strong>' + fixed(ratio) + '倍</strong>。</p>')
+    if presentation['shared_glm_search_cost'] is not None:
+        parts.append('<p class="pending">智谱另有共用搜索费 <strong>' + unit_money(presentation['shared_glm_search_cost']) + '元</strong>，尚未分摊到两款GLM；资源包抵扣的0元不代表完整费用为0。</p>')
+    else:
+        parts.append('<p class="pending">七款模型均已列出；完整单图费用待核的模型不参与成本排名。</p>')
+    parts.append('<p class="sub">累计费用对应的任务量不同，不能直接按“已出账”金额比较单图性价比。</p>')
     parts.append('</section><section class="panel"><h2>七模型识别表现</h2><p class="sub">' + (e(f"联网C组 · {scope['images']}张图片 · {scope['targets']}个必需角色目标") if scope else '正式评测结果待补充') + '</p><div class="accuracy-bars" role="img" aria-label="模型姓名命中率比较">')
     for index, row in enumerate(quality):
         style = ' highlight' if index == 0 else ' runner' if index == 1 else ' kimi' if row['model_id'] == 'kimi-k3.1-pro' else ''

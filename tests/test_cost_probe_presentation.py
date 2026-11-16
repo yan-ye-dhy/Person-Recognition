@@ -59,6 +59,35 @@ def test_same_day_large_cohort_takes_precedence_over_separate_five_image_probe()
     assert view['costs'][0]['unit_cost'].startswith('0.03450202')
 
 
+def test_all_seven_models_show_posted_costs_without_allocating_shared_search():
+    data, scores = briefing_data()
+    rows = [
+        ('qwen3.8-max', 'inference', '20.01258', 'posted'),
+        ('qwen3.8-max', 'search', '0.876', 'posted'),
+        ('qwen3.8-flash', 'inference', '6.3276301', 'posted'),
+        ('qwen3.8-flash', 'search', '4.432', 'posted'),
+        ('qwen3.7-plus', 'inference', '1.5006592', 'inference_only'),
+        ('glm-4.6v', 'inference', '1.8695358', 'posted'),
+        ('glm-5.3-flash', 'inference', '0', 'resource_pack'),
+        ('search-pro', 'search', '8.9782808', 'search_unallocated'),
+    ]
+    data['historical_daily_bills'] = [{'date': '2026-11-15', 'vendor': 'GLM' if mid.startswith('glm') or mid == 'search-pro' else 'Qwen',
+        'model_id': mid, 'kind': kind, 'currency': 'CNY', 'amount': amount, 'note_code': note}
+        for mid, kind, amount, note in rows]
+    view = build_presentation(summarize_probe(data), scores)
+    all_models = {row['model_id']: row for row in view['cost_overview']}
+    assert len(all_models) == 7 and view['shared_glm_search_cost'] == '8.9782808'
+    assert all_models['deepseek-flash']['posted_amount'] == '5.79634'
+    assert all_models['qwen3.8-max']['posted_amount'] == '20.88858'
+    assert all_models['qwen3.8-flash']['posted_amount'] == '10.7596301'
+    assert all_models['glm-4.6v']['posted_amount'] == '1.8695358'
+    assert all_models['glm-5.3-flash']['posted_amount'] == '0'
+    for mid in ['qwen3.8-max', 'qwen3.8-flash', 'qwen3.7-plus', 'glm-4.6v', 'glm-5.3-flash']:
+        assert all_models[mid]['unit_cost'] is None
+    assert '资源包' in all_models['glm-5.3-flash']['note']
+    assert len(view['costs']) == 2  # Only the comparable, complete pair is ranked.
+
+
 def test_stale_annotations_or_different_recognition_denominators_are_rejected():
     data, scores = briefing_data()
     bad = deepcopy(scores); bad['dataset_hash'] = 'b' * 64
@@ -87,7 +116,7 @@ def test_report_removes_execution_and_daily_tables_but_labels_extrapolation(tmp_
     html = (tmp_path / 'index.html').read_text()
     assert '99999.123456' not in html and '<table' not in html
     assert '推理HTTP' not in html and '历史项目费用：官方已出日账' not in html
-    assert '非实际账单' in html and '其余5款' in html and '0.0345' in html
+    assert '非实际账单' in html and '七款模型均已列出' in html and '0.0345' in html
     assert '88.73%' in html and '80.75%' in html and '优先试用 DeepSeek Flash' in html
     assert '<script' not in html and '<img' not in html and 'https://' not in html
     assert result['historical_daily_bills'][0]['amount'] == '99999.123456'
