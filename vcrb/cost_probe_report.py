@@ -7,8 +7,7 @@ from __future__ import annotations
 
 import csv
 from datetime import datetime, timezone
-from decimal import Decimal, InvalidOperation, ROUND_HALF_UP, localcontext
-from html import escape
+from decimal import Decimal, InvalidOperation, localcontext
 import json
 from pathlib import Path
 import re
@@ -39,12 +38,6 @@ HISTORY_NOTES = {
     "day_mixed": "同日包含凌晨旧批次和今晚小批",
     "no_amount": "调用记录已核对，文件没有费用金额",
 }
-SOURCE_LOOKUP_HTML = '''<section><h2>平台入口与待补资料</h2><ul>
-<li><a href="https://platform.deepseek.com/usage" target="_blank" rel="noopener noreferrer">DeepSeek用量与费用</a>：下载用量明细和费用明细，核对请求、Token和搜索费用。</li>
-<li><a href="https://platform.kimi.com/console" target="_blank" rel="noopener noreferrer">Kimi控制台</a>：进入费用明细，查询本批推理和搜索费用。请求日志只有Token用量，不能代替费用金额。<a href="https://www.kimi.com/help/kimi-api/api-balance-and-usage" target="_blank" rel="noopener noreferrer">官方说明</a>称当日账单次日07:00更新。</li>
-<li><a href="https://open.bigmodel.cn/finance/expensebill/list?active=detail" target="_blank" rel="noopener noreferrer">智谱费用账单</a>：确认账单覆盖测试日期，可从<a href="https://open.bigmodel.cn/finance/exportrecord" target="_blank" rel="noopener noreferrer">导出记录</a>下载更新后的费用明细。</li>
-<li><a href="https://bailian.console.aliyun.com/cn-beijing/costing-balance/overview" target="_blank" rel="noopener noreferrer">百炼费用概览</a>：按分钟筛选上表对应模型的北京时间窗口，并查看明细。还需核对单独出账的联网搜索费用。若此处导出仍按天汇总，可在<a href="https://billing-cost.console.aliyun.com/" target="_blank" rel="noopener noreferrer">阿里云费用与成本</a>查看更细的账单。</li>
-</ul><p>平台下载的原始文件直接交给核对者即可，无需手工改列名；也可以提供费用明细截图。</p><p class="note">若费用只有混合其他调用的全天合计，或跨模型的工具合计，各模型本批费用继续待核。只有推理和搜索费用都核齐后，才计算本批实际均价。</p></section>'''
 
 
 def _load(value):
@@ -331,78 +324,16 @@ def summarize_probe(manifest, billing=None):
             "has_private_billing_evidence": bool(official["entries"])}
 
 
-def render_report(manifest, output_path, billing=None):
-    """Write one standalone HTML and return its safe summary (no model calls)."""
+def render_report(manifest, output_path, billing=None, recognition=None):
+    """Write a compact, standalone briefing; retain full facts in the summary."""
+    from .cost_probe_presentation import build_presentation, render_presentation
+
     summary = summarize_probe(manifest, billing)
-    esc = lambda value: escape(str(value), quote=True)
-    history_html = ""
-    if summary["historical_daily_bills"]:
-        history_parts = ['<section id="historical-billing"><h2>历史项目费用：官方已出日账</h2><p>以下按北京时间自然日展示导出文件中的已出账金额，供核对昨晚项目费用。跨过零点的记录记在次日；11月16日日账可能同时包含凌晨旧批次和今晚小批。这些金额不用于上方5张实测均价，搜索费用缺行时也不视为0元。</p><div class="scroll"><table><tr><th>账单日期</th><th>平台</th><th>模型 / 项目</th><th>计费项</th><th>官方日账金额</th><th>说明</th></tr>']
-        kind_labels = {"inference": "推理", "search": "搜索", "combined": "合计"}
-        for row in summary["historical_daily_bills"]:
-            exact = row['amount']
-            if exact is not None and '.' in exact:
-                exact = exact.rstrip('0').rstrip('.')
-            amount = '<span class="pending">缺金额明细</span>' if exact is None else esc(row['currency'] + ' ' + exact)
-            note = HISTORY_NOTES[row['note_code']]
-            if row['request_count'] is not None:
-                note += "；调用记录" + str(row['request_count']) + "次"
-            history_parts.append('<tr><td>' + esc(row['date']) + '</td><td>' + esc(row['vendor']) + '</td><td>' + esc(HISTORY_ITEMS[row['model_id']]) + '</td><td>' + kind_labels[row['kind']] + '</td><td>' + amount + '</td><td>' + esc(note) + '</td></tr>')
-        history_parts.append('</table></div><p class="muted">“官方日账金额”保留各平台消费或应付口径，不统一称作现金实扣；资源包抵扣和未出账金额另行说明。</p></section>')
-        if summary['historical_batches']:
-            history_parts.append('<section><h2>已核完整历史批次的单图均价</h2><p>只对推理、搜索费用与图片任务数量均已核齐的批次计算；多轮推理和重试计入费用，每个图片任务在分母中只计一次。</p><table><tr><th>北京时间日期</th><th>模型</th><th>官方费用合计</th><th>图片任务数</th><th>平均每图片任务</th></tr>')
-            for row in summary['historical_batches']:
-                with localcontext() as context:
-                    context.prec = 100
-                    average = format(Decimal(row['average_per_image_task']).quantize(Decimal('0.00000001'), rounding=ROUND_HALF_UP), 'f')
-                history_parts.append('<tr><td>' + esc(row['date']) + '</td><td>' + esc(LABELS[row['model_id']]) + '</td><td>' + esc(row['currency'] + ' ' + row['amount']) + '</td><td>' + str(row['image_tasks']) + '</td><td>' + esc(row['currency'] + ' ' + average) + '</td></tr>')
-            history_parts.append('</table><p class="muted">历史批次可能包含接口调试和失败重试，均价只描述该批实际消耗，不是未来固定单价；同一原图在不同批次再次测试属于不同图片任务。</p></section>')
-        history_html = ''.join(history_parts)
-    def money(charges, field):
-        if not charges:
-            return '<span class="pending">待官方账单核对</span>'
-        def display(value):
-            if value is None:
-                return '<span class="pending">待核</span>'
-            if field != "average_per_submitted_image":
-                return esc(value)
-            with localcontext() as context:
-                context.prec = 100
-                number = Decimal(value)
-                rounded = number.quantize(Decimal("0.00000001"), rounding=ROUND_HALF_UP)
-            if number and not rounded:
-                return '&lt;0.00000001'
-            return esc(format(rounded, "f").rstrip("0").rstrip(".") if rounded else "0")
-        return "<br>".join(esc(row["currency"]) + " " + display(row[field]) for row in charges)
-    parts = ['''<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>真实小批调用与官方账单核对</title><style>
-*{box-sizing:border-box}body{margin:0;background:#f2f5f8;color:#20344a;font:16px/1.6 system-ui,"Microsoft YaHei",sans-serif}main{max-width:1550px;margin:auto;padding:24px}section,header{background:white;border:1px solid #d4dfe9;border-radius:12px;padding:20px;margin-bottom:20px}h1{margin:0;font-size:27px}h2{font-size:21px}.scroll{overflow:auto}table{border-collapse:collapse;width:100%;font-size:14px}th,td{padding:12px;border:1px solid #d9e3ec;text-align:left;vertical-align:top}th{background:#edf4f9;white-space:nowrap}.pending{color:#8a5100}.muted{color:#65758a;font-size:14px}code{overflow-wrap:anywhere}a{color:#075d87}.note{background:#fff4df;border-left:4px solid #d3932c;padding:12px}td.cost{overflow-wrap:anywhere;max-width:230px}@media(max-width:650px){main{padding:10px}header,section{padding:14px}h1{font-size:23px}}
-</style><main><header><h1>真实小批调用与官方账单核对</h1>''']
-    planned = sum(row["planned_count"] for row in summary["models"])
-    submitted = sum(row["submitted_count"] for row in summary["models"])
-    parts.append(f'<p>计划{len(summary["models"])}个模型 × {len(summary["planned_sample_ids"])}张图片＝{planned}项；已提交{submitted}项。时间均为北京时间（Asia/Shanghai）。</p><p class="note">金额只采用已导入并确认完整的官方账单，不用Token单价估算或账户余额相减。未取得账单显示“待核”，不当成0元；接口成功也不代表费用已结算。</p>')
-    parts.append(f'<p class="muted">批次：<code>{esc(summary["probe_id"])}</code> · 报告生成：{esc(summary["generated_at"])}</p></header><section><h2>调用结果与批次实际费用</h2><div class="scroll"><table><tr><th>模型</th><th>提交 / 计划</th><th>成功 / 失败 / 未终结</th><th>开始 / 结束（北京时间）</th><th>推理HTTP / 独立搜索HTTP</th><th>厂商回报的原生工具用量</th><th>官方批次金额</th><th>现金支付</th><th>抵扣金额</th><th>批次金额 ÷ 已提交图片</th><th>账单状态</th></tr>')
-    for row in summary["models"]:
-        unknown = row["submitted_count"] - row["success_count"] - row["failure_count"]
-        attempts = lambda value: "未知" if value is None else str(value)
-        state = f'已核完整官方账单 · {row["imported_entry_count"]}条' if row["billing_complete"] else f'待核 · 已导入{row["imported_entry_count"]}条'
-        evidence_status = "matched_complete" if row["billing_complete"] else row["billing_evidence_status"]
-        evidence_note = EVIDENCE_STATUS[evidence_status]
-        if evidence_status == "date_not_covered" and row.get("billing_latest_date"):
-            evidence_note += "（目前仅到" + row["billing_latest_date"] + "）"
-        state_html = esc(state) + '<br><span class="muted">' + esc(evidence_note) + '</span>'
-        units = '<br>'.join(esc(key) + '：' + str(value) for key, value in row["native_tool_units"].items())
-        known = row["native_tool_usage_known_attempts"]
-        coverage = '已知用量来自' + str(known) + '次推理回包' if known else '未取得可核的原生工具用量'
-        native = (units + '<br>' if units else '') + '<span class="muted">' + coverage + '</span>'
-        parts.append('<tr><td><b>' + esc(LABELS.get(row["model_id"], row["model_id"])) + '</b><br><span class="muted">' + esc(row["vendor"]) + ' · ' + esc(row["status"]) + '</span></td><td>' + f'{row["submitted_count"]} / {row["planned_count"]}' + '</td><td>' + f'{row["success_count"]} / {row["failure_count"]} / {unknown}' + '</td><td>' + esc(row["started_at"] or "尚未开始") + '<br>' + esc(row["finished_at"] or "尚未结束") + '</td><td>' + esc(attempts(row["api_attempts"])) + ' / ' + esc(attempts(row["search_attempts"])) + '</td><td>' + native + '</td>' + ''.join('<td class="cost">' + money(row["charges"], field) + '</td>' for field in ("official_amount", "cash_amount", "credit_amount", "average_per_submitted_image")) + '<td>' + state_html + '</td></tr>')
-    parts.append('''</table></div><p class="muted">“独立搜索HTTP”仅统计本地另行发出的搜索接口请求；DeepSeek/Qwen等在推理请求内部执行的原生搜索不计入该列，所以0次独立搜索HTTP不代表未联网。原生工具用量仅展示厂商明确回报的计量单位，未回报为未知；它不是网址数量，也不是实际账单金额。</p><p class="muted">均价分母为已提交图片，包括失败；额外API重试另列。这是本次小批实际平均费用，不是每一张图片各自的账单。不同币种分别展示，未换汇。现金、抵扣和账单金额保留导入时的官方口径，不把充值当消费，也不将三列重复相加。</p></section><section><h2>如何取得和导入官方费用</h2><ol><li>在各厂商账单页面按本批模型、专用Key/业务空间及调用时间筛选，核对调用数量和所有计费项。联网搜索可能单独计费，须一并核入。</li><li>保留原官方导出文件，核对每项费用的模型、币种、金额和计费时段。共同账单不能确定归属时先留待核。</li><li>确认本模型推理和工具费用都已出齐后，再确认完整费用。汇总金额与其分项金额只计一次，同一条账单也只计一次。</li><li>免费额度、优惠券、订阅Credits、缓存折扣和现金支付分别核对；抵扣或现金未知仍显示待核，账单0元必须有明确证据。</li></ol><p>百炼官方说明推理账单通常延迟2–10分钟，繁忙时可能更久；账户余额存在预占。账单查询API还有独立更新周期，当月账单可调整，因此未确认的费用不能提前填为实际扣款。</p><p><a href="https://help.aliyun.com/zh/model-studio/bill-query-and-cost-management" target="_blank" rel="noopener noreferrer">百炼账单查询与费用字段</a> · <a href="https://help.aliyun.com/zh/model-studio/model-usage-statistics" target="_blank" rel="noopener noreferrer">百炼模型及工具用量</a> · <a href="https://help.aliyun.com/zh/model-studio/web-search" target="_blank" rel="noopener noreferrer">百炼联网搜索计费</a> · <a href="https://help.aliyun.com/zh/user-center/developer-reference/api-bssopenapi-2017-12-14-describeinstancebill" target="_blank" rel="noopener noreferrer">百炼账单API更新周期</a></p><p class="muted">报告为单文件离线HTML，无外部脚本、图片或自动请求。账户余额、账号、API Key、原始账单ID和证据路径不写入此页面。</p></section></main></html>''')
-    parts[-1] = parts[-1].replace('不同币种分别展示，未换汇。', '均价展示四舍五入至最多8位小数，精确计算值保留在结构化结果中；官方账单原金额不改动。不同币种分别展示，未换汇。').replace('</main></html>', SOURCE_LOOKUP_HTML + '</main></html>')
-    if history_html:
-        parts[-1] = parts[-1].replace('<section><h2>如何取得和导入官方费用</h2>', history_html + '<section><h2>如何取得和导入官方费用</h2>')
+    presentation = build_presentation(summary, _load(recognition) if recognition is not None else None)
     output = Path(output_path)
     output.parent.mkdir(parents=True, exist_ok=True)
     with tempfile.NamedTemporaryFile("w", encoding="utf-8", dir=output.parent, prefix="." + output.name, delete=False) as stream:
         temporary = Path(stream.name)
-        stream.write("".join(parts))
+        stream.write(render_presentation(summary, presentation))
     temporary.replace(output)
-    return summary
+    return {**summary, "presentation": presentation}

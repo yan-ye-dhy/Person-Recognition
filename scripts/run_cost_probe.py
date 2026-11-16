@@ -173,7 +173,7 @@ def export(manifest, directory):
     billing_path = Path(directory) / 'billing.json'
     billing = json.loads(billing_path.read_text()) if billing_path.exists() else None
     write_json(Path(directory) / 'manifest.json', manifest)
-    render_report(manifest, REPORT, billing=billing)
+    render_report(manifest, REPORT, billing=billing, recognition=SOURCE if SOURCE.is_file() else None)
 
 
 def execute(manifest, directory):

@@ -22,6 +22,7 @@ def main():
     parser.add_argument("--template", type=Path, help="Write an empty mapping template only")
     parser.add_argument("--save-billing", type=Path, help="Private validated billing JSON output")
     parser.add_argument("--output", type=Path, help="Sanitized standalone HTML")
+    parser.add_argument("--recognition", type=Path, help="Reviewed C benchmark summary for the briefing")
     args = parser.parse_args()
     if args.template:
         if any((args.csv, args.billing_json, args.save_billing, args.output)):
@@ -40,7 +41,13 @@ def main():
             os.fchmod(stream.fileno(), 0o600)
             stream.write(json.dumps(billing, ensure_ascii=False, indent=2) + "\n")
         temporary.replace(args.save_billing)
-    summary = render_report(args.manifest, args.output, billing)
+    recognition = args.recognition
+    default_scores = ROOT / 'reports/2026-11-15-c-search/summary.json'
+    if recognition is None and default_scores.is_file():
+        candidate = json.loads(default_scores.read_text())
+        if candidate.get('dataset_hash') == json.loads(args.manifest.read_text()).get('dataset_hash'):
+            recognition = candidate
+    summary = render_report(args.manifest, args.output, billing, recognition=recognition)
     print(json.dumps({"models": len(summary["models"]), "officially_confirmed": sum(row["billing_complete"] for row in summary["models"]), "report": str(args.output)}, ensure_ascii=False))
 
 

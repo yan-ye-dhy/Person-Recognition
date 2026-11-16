@@ -38,8 +38,10 @@ def test_pending_is_never_zero_and_all_seven_planned_counts_are_preserved(tmp_pa
     summary = render_report(data, path)
     html = path.read_text()
     assert len(summary['models']) == 7
-    assert '＝35项' in html and '待官方账单核对' in html
+    assert sum(row['planned_count'] for row in summary['models']) == 35
+    assert sum(row['submitted_count'] for row in summary['models']) == 0
     assert all(row['charges'] == [] and not row['billing_complete'] for row in summary['models'])
+    assert all(row['billing_status'] == 'pending_official_billing' for row in summary['models'])
     assert '<script' not in html and '<img' not in html and '<iframe' not in html
 
 
@@ -49,9 +51,10 @@ def test_incomplete_official_exports_explain_pending_without_creating_fees(tmp_p
     data['models'][2].update(billing_evidence_status='date_not_covered', billing_latest_date='2026-11-15')
     data['models'][4]['billing_evidence_status'] = 'daily_aggregate_not_attributed'
     summary = render_report(data, tmp_path / 'index.html')
-    html = (tmp_path / 'index.html').read_text()
-    assert '文件不含费用金额' in html and '目前仅到2026-11-15' in html
-    assert '需本批时间段明细及搜索费用' in html
+    assert summary['models'][1]['billing_evidence_status'] == 'request_log_only'
+    assert summary['models'][2]['billing_evidence_status'] == 'date_not_covered'
+    assert summary['models'][2]['billing_latest_date'] == '2026-11-15'
+    assert summary['models'][4]['billing_evidence_status'] == 'daily_aggregate_not_attributed'
     assert all(not row['billing_complete'] and row['charges'] == [] for row in summary['models'])
     data['models'][1]['billing_evidence_status'] = 'unexpected raw account data'
     with pytest.raises(ValueError, match='billing evidence status'):
@@ -69,10 +72,13 @@ def test_historical_daily_bills_do_not_enter_five_image_probe_cost(tmp_path):
     ]
     result = render_report(data, tmp_path / 'index.html')
     html = (tmp_path / 'index.html').read_text()
-    assert '20.01258' in html and '调用记录168次' in html and '缺金额明细' in html
     assert 'must-not-render-account' not in html
     assert all(row['charges'] == [] and not row['billing_complete'] for row in result['models'])
     assert result['historical_daily_bills'][0]['amount'] == '20.012580000000'
+    assert result['historical_daily_bills'][1]['amount'] is None
+    assert result['historical_daily_bills'][1]['request_count'] == 168
+    assert result['historical_daily_bills'][1]['note_code'] == 'no_amount'
+    assert 'private_account_id' not in json.dumps(result)
     data['historical_daily_bills'].append(deepcopy(data['historical_daily_bills'][0]))
     with pytest.raises(ValueError, match='Duplicate historical'):
         validate_manifest(data)
@@ -148,7 +154,9 @@ def test_private_fields_bill_ids_sources_account_and_keys_do_not_leave_report(tm
     emitted = path.read_text() + json.dumps(summary)
     for text in [private, 'ACCOUNT_PRIVATE', 'BALANCE_PRIVATE', 'BILL_PRIVATE', '/private/official-export.csv']:
         assert text not in emitted
-    assert '现金支付' in emitted and '联网搜索' in emitted
+    charge = next(row for row in summary['models'] if row['model_id'] == 'qwen3.8-max')['charges'][0]
+    assert charge['cash_amount'] == '0.100000000'
+    assert charge['credit_amount'] == '0.023456789'
 
 
 def test_manifest_counts_timestamps_and_unfinished_bill_validation():
@@ -191,17 +199,19 @@ def test_independent_search_http_zero_never_implies_native_search_zero(tmp_path)
     data['models'][4].update(search_attempts=0, native_tool_units={'search': 12, 'fetch': 3}, native_tool_usage_known_attempts=5)
     path = tmp_path / 'index.html'
     summary = render_report(data, path)
-    html = path.read_text()
-    assert '推理HTTP / 独立搜索HTTP' in html and '0次独立搜索HTTP不代表未联网' in html
-    assert 'search：12' in html and 'fetch：3' in html and '已知用量来自5次推理回包' in html
-    assert summary['models'][4]['native_tool_units']['search'] == 12
-    assert '未取得可核的原生工具用量' in html
+    row = summary['models'][4]
+    assert row['search_attempts'] == 0
+    assert row['native_tool_units'] == {'search': 12, 'fetch': 3}
+    assert row['native_tool_usage_known_attempts'] == 5
+    assert summary['models'][0]['native_tool_units'] == {}
+    assert summary['models'][0]['native_tool_usage_known_attempts'] is None
+    assert all(not model['billing_complete'] and model['charges'] == [] for model in summary['models'])
     bad = deepcopy(data); bad['models'][4]['native_tool_units']['search'] = 1.5
     with pytest.raises(ValueError):
         validate_manifest(bad)
 
 
-def test_average_html_has_eight_decimals_but_exact_summary_and_bill_stay_unchanged(tmp_path):
+def test_concise_render_preserves_exact_summary_and_excludes_admin_links(tmp_path):
     data = manifest()
     data['models'][4].update(submitted_count=3, success_count=2, failure_count=1, status='stopped')
     path = tmp_path / 'index.html'
@@ -210,11 +220,12 @@ def test_average_html_has_eight_decimals_but_exact_summary_and_bill_stay_unchang
     assert row['official_amount'] == '1'
     assert row['average_per_submitted_image'].startswith('0.' + '3' * 50)
     html = path.read_text()
-    assert 'CNY 0.33333333</td>' in html and row['average_per_submitted_image'] not in html
-    assert 'open.bigmodel.cn/finance/expensebill/list?active=detail' in html
-    assert 'platform.kimi.com/console' in html
-    assert 'platform.deepseek.com/usage' in html
-    assert '各模型本批费用继续待核' in html
+    assert row['average_per_submitted_image'] not in html
+    for admin_url in ('open.bigmodel.cn/finance/expensebill/list?active=detail',
+                      'platform.kimi.com/console', 'platform.deepseek.com/usage'):
+        assert admin_url not in html
     summary = render_report(data, path, bill(entry(amount='0.00000000001')))
-    assert summary['models'][4]['charges'][0]['official_amount'] == '0.00000000001'
-    assert 'CNY &lt;0.00000001</td>' in path.read_text()
+    tiny_charge = summary['models'][4]['charges'][0]
+    assert tiny_charge['official_amount'] == '0.00000000001'
+    assert Decimal(tiny_charge['average_per_submitted_image']) > 0
+    assert tiny_charge['average_per_submitted_image'].startswith('0.000000000003333333')
