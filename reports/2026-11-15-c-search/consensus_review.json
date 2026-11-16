@@ -3,16 +3,20 @@
     "deepseek-flash",
     "qwen3.8-max"
   ],
-  "dataset_hash": "234ba8e780b9ffcd6cffd586d31250d80c086aaf41d23368f0c44a3917918a58",
+  "dataset_hash": "aa67135a722270b3035b0ad666dd1e099b307098cd6773d053709e18d7386981",
   "excluded_reviewed_sample_ids": [
+    "gongfunvzu_0007",
     "gongfunvzu_0013",
+    "gongfunvzu_0021",
     "gongfunvzu_0024",
     "gongfunvzu_0029",
     "gongfunvzu_0031",
+    "gongfunvzu_0039",
     "jianlai_0029",
     "jianlai_0032",
     "jianlai_0036",
     "kuangbiao_0012",
+    "kuangbiao_0036",
     "qingyunian2_0018",
     "qingyunian2_0022"
   ],
@@ -35,5 +39,5 @@
       ]
     }
   ],
-  "html_sha256": "8e8cec7d61bbcaa96491d33efe0f98b6e445f66e02095d57ff64f58acfdae141"
+  "html_sha256": "2ebb797834502c5d6f548d4ed1fb49baa4f69a410e51b59b886b18c0d9d1bd35"
 }

@@ -1,10 +1,10 @@
 {
-  "current_dataset_hash": "234ba8e780b9ffcd6cffd586d31250d80c086aaf41d23368f0c44a3917918a58",
-  "review_manifest_sha256": "f651f92e0a3de347f8da5cf32d8ef39d8a45411fa75573c5a0bf9ffab014fcee",
-  "reviewed_images": 10,
+  "current_dataset_hash": "aa67135a722270b3035b0ad666dd1e099b307098cd6773d053709e18d7386981",
+  "review_manifest_sha256": "8018c4c0793df00d0a5e7612087ba28e10f636105b62eca25c2cfc32bc54fbe2",
+  "reviewed_images": 14,
   "samples": 160,
-  "physical_verified_people": 216,
-  "required_name_targets": 214,
+  "physical_verified_people": 219,
+  "required_name_targets": 213,
   "completed_model_tasks": 1120,
   "api_ok": 1116,
   "api_failures": 4,
@@ -12,16 +12,16 @@
     "deepseek-flash",
     "qwen3.8-max"
   ],
-  "gallery_images": 49,
-  "gallery_model_panels": 59,
+  "gallery_images": 47,
+  "gallery_model_panels": 58,
   "model_error_images": {
     "deepseek-flash": 27,
-    "qwen3.8-max": 32
+    "qwen3.8-max": 31
   },
   "raw_source_records": 4533,
   "raw_source_sha256": "021d972cd173727a6f81643ead9258aee55065c9c74d9dea74119a148e86d157",
   "raw_sources_unchanged": true,
   "new_model_calls": 0,
-  "main_html_sha256": "bcede4682968b26b4a80c81bd0fa89805babd1a5dbf03a66dba2434d7c2fcdd9",
+  "main_html_sha256": "ba7982e6d3444f35dde4003c0a98262a9ce5a3d6f6d966279df515a136f08b64",
   "checks_passed": true
 }

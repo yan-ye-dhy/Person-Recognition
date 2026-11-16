@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "dataset_hash": "234ba8e780b9ffcd6cffd586d31250d80c086aaf41d23368f0c44a3917918a58",
+  "dataset_hash": "aa67135a722270b3035b0ad666dd1e099b307098cd6773d053709e18d7386981",
   "created_at": "2026-11-13T07:55:55.846875+00:00",
   "purpose": "statistics_only_never_sent_to_models",
   "policy": {
@@ -479,8 +479,18 @@
     },
     {
       "sample_id": "kuangbiao_0036",
-      "annotation_id": "kuangbiao_0036_mp4_20261113_1",
+      "annotation_id": "kuangbiao_0036_independent_review_20261116_jize_optional",
       "person_id": 1,
+      "image_sha256": "bd642fb06eb56d0f3e30d63ca29c83fdd948937e2cf58cebc07bf7845b566261",
+      "face_orientation": "not_visible",
+      "visibility": "occluded_or_blurry",
+      "note": "当前评测图只有背面后脑/肩部且明显焦外；反打用于身份依据，不用于把当前图的统计标签改为正脸/清楚。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "kuangbiao_0036",
+      "annotation_id": "kuangbiao_0036_mp4_20261113_1",
+      "person_id": 2,
       "image_sha256": "bd642fb06eb56d0f3e30d63ca29c83fdd948937e2cf58cebc07bf7845b566261",
       "face_orientation": "three_quarter",
       "visibility": "clear",
@@ -1079,8 +1089,18 @@
     },
     {
       "sample_id": "gongfunvzu_0007",
-      "annotation_id": "gongfunvzu_0007_inherited",
+      "annotation_id": "gongfunvzu_0007_user_review_20261116_jinlong_coach",
       "person_id": 1,
+      "image_sha256": "ba126f88a6c251fe6b0dd2eb756f1745cf082ba52f054a6728d8f73d89777e33",
+      "face_orientation": "three_quarter",
+      "visibility": "clear",
+      "note": "按本次重新打开的原图标记；面部可辨，统计标签不取自模型回答。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "gongfunvzu_0007",
+      "annotation_id": "gongfunvzu_0007_inherited",
+      "person_id": 2,
       "image_sha256": "ba126f88a6c251fe6b0dd2eb756f1745cf082ba52f054a6728d8f73d89777e33",
       "face_orientation": "front",
       "visibility": "clear",
@@ -1259,8 +1279,18 @@
     },
     {
       "sample_id": "gongfunvzu_0021",
-      "annotation_id": "gongfunvzu_0021_inherited",
+      "annotation_id": "gongfunvzu_0021_user_review_20261116_guanghui_coach",
       "person_id": 1,
+      "image_sha256": "8c72fefa7c815664e8f22e04f23bae2bd67dc5c86e089566d417ad37fe49cd59",
+      "face_orientation": "front",
+      "visibility": "clear",
+      "note": "按本次重新打开的原图标记；面部可辨，统计标签不取自模型回答。",
+      "reviewer": "assistant"
+    },
+    {
+      "sample_id": "gongfunvzu_0021",
+      "annotation_id": "gongfunvzu_0021_inherited",
+      "person_id": 2,
       "image_sha256": "8c72fefa7c815664e8f22e04f23bae2bd67dc5c86e089566d417ad37fe49cd59",
       "face_orientation": "front",
       "visibility": "clear",
@@ -2178,9 +2208,9 @@
       "reviewer": "assistant"
     }
   ],
-  "updated_at": "2026-11-15T16:49:15.427414+00:00",
+  "updated_at": "2026-11-16T02:29:10.081888+00:00",
   "review_revision": {
-    "revision_id": "user_identity_scope_review_20261116_v1",
+    "revision_id": "user_identity_scope_review_20261116_v4",
     "manifest": "reports/2026-11-16-annotation-review/revision.json"
   }
 }
