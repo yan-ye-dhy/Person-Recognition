@@ -306,6 +306,20 @@ tests/           pytest 离线测试
 
 `python scripts/export_c_search.py --run-id 实际运行ID --output reports/2026-11-15-c-search`生成可分享的独立离线HTML。报告区分姓名命中、坐标/格式及严格位置姓名评分，进行中保留1120项计划分母，并显示实际检索证据。旧无搜索基线及接口探测记录独立保留。
 
+### 每模型5张的实际费用核对
+
+`scripts/run_cost_probe.py`固定使用相同5张跨作品C组图片，沿用七个模型最新选定的联网协议，全局串行且关闭自动HTTP重试。默认只生成离线计划；`--execute`执行35个图片任务。重复执行跳过已经启动的批次，包括失败或中断，防止不确定请求被重复扣费。GLM正常工具循环中的多轮推理及独立搜索分别记录。
+
+```bash
+.venv/bin/python scripts/run_cost_probe.py
+.venv/bin/python scripts/run_cost_probe.py --execute
+.venv/bin/python scripts/run_cost_probe.py --report-only
+```
+
+报告为`reports/2026-11-16-cost-probe/index.html`，含北京时间调用窗口、实际HTTP次数和厂商回报的工具计量。真实金额只从官方费用明细导入；缺账单显示待核，不用Token价格或余额差代替实付。按批次金额除以已提交图片数计算均价，失败请求也在分母中。推理费和搜索费都核齐后才确认完整费用，跨模型汇总搜索费不能按次数分摊成“实际费用”。
+
+`results/cost_probe/latest.json`指向本地批次；原始账单、余额快照及请求ID保留在忽略同步的`results/cost_probe/`。`scripts/import_cost_probe_bill.py --help`提供离线账单映射模板、导入和报告更新命令。小批测试仍继承累计500元本地保护及全部历史记录。
+
 ### Flash 联网协议修订（完整重测已完成）
 
 Qwen3.8 Flash 的 Anthropic 兼容搜索出现服务端重复检索循环；改为 AUTO 后，固定四张跨作品预检仍有三张失败，因此没有据单张成功结果直接扩量。原厂多模态 SSE 搜索的同四张预检 `multi_v2_20261115_155421_2bb424` 全部接口成功且返回真实搜索来源，据此选择该协议，**Flash 整个型号的160张已在独立新run `multi_v2_20261115_160357_5cd4d6` 完成重测，160项接口成功**；不逐图选择旧、新协议中更好的回答。业务提示词、图片、角色真值及关闭思考设置不变，接口协议差异单独记录；所有旧响应、诊断及失败费用保留，仍共享累计500元本地保护上限。

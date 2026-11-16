@@ -14,6 +14,7 @@ from .errors import classify_exception, error_summary
 from .native_search_common import APIConnectionError, NativeSearchHTTPError, https_endpoint
 from .openai_compat import OpenAICompatProvider, _dump_mapping, _safe_json, _usage_mapping
 from .search_evidence import normalize_search_evidence
+from .http_audit import response_identity
 from ..config import require_api_key
 
 _conversation: ContextVar[Any] = ContextVar('zhipu_search_conversation', default=None)
@@ -60,6 +61,7 @@ class ZhipuSearchProvider(OpenAICompatProvider):
             result = ProviderResult(ok=False, served_model=raw.get('model'),
                 usage=_usage_mapping(raw.get('usage')), attempts=attempts, latency_ms=latency_ms,
                 http_status=200, error_type=kind, error_message=json.dumps(_safe_json(error), ensure_ascii=False)[:400])
+            result.http_metadata = response_identity(resp)
         else:
             result = OpenAICompatProvider._parse_response(resp, attempts, latency_ms)
         result.search_metadata = normalize_search_evidence('zhipu', raw)
@@ -202,6 +204,7 @@ class ZhipuSearchProvider(OpenAICompatProvider):
             receipt = observer.before_search(model, image_data_url, user_prompt, attempt) if observer else None
             error = None
             data = None
+            response_headers = None
             state['requests'] += 1
             started = time.monotonic()
             try:
@@ -211,6 +214,7 @@ class ZhipuSearchProvider(OpenAICompatProvider):
                         headers={'Authorization': 'Bearer ' + api_key},
                         json={'search_engine': 'search_pro', 'search_query': query,
                               'count': 10, 'content_size': 'medium', 'search_recency_filter': 'noLimit'})
+                    response_headers = response.headers
                     if response.status_code >= 400:
                         raise NativeSearchHTTPError(response)
                     data = response.json()
@@ -229,6 +233,9 @@ class ZhipuSearchProvider(OpenAICompatProvider):
                                      'error': error_summary(error) if isinstance(error, Exception) else
                                               type(error).__name__ if error else None})
             if observer:
+                capture = getattr(observer, 'observe_search_response', None)
+                if callable(capture):
+                    capture(receipt, model, response=data, headers=response_headers)
                 observer.after_search(receipt, model, units=1, error=error)
             if error is None:
                 return data

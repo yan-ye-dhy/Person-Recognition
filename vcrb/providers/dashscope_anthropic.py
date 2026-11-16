@@ -18,6 +18,7 @@ import httpx
 from ..config import require_api_key
 from ..models import ModelSpec, ProviderSpec
 from .base import GenerationParams
+from .http_audit import response_identity
 from .openai_compat import OpenAICompatProvider, _safe_json
 
 CLIENT_MARKER = "x-anthropic-billing-header: cc_entrypoint=cli;"
@@ -219,7 +220,10 @@ class DashScopeAnthropicProvider(OpenAICompatProvider):
                         raise APIConnectionError('Anthropic-compatible connection failed') from error
                     if response.status_code>=400:
                         raise DashScopeHTTPError(response)
-                    return completion_from_native(response.json())
+                    data=response.json()
+                    completion=completion_from_native(data)
+                    completion._http_audit_identity=response_identity(data,headers=response.headers)
+                    return completion
                 self._client=SimpleNamespace(chat=SimpleNamespace(completions=SimpleNamespace(create=create)))
         return self._client
 

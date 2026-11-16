@@ -28,6 +28,7 @@ from ..config import require_api_key
 from ..models import ModelSpec, ProviderSpec
 from .base import GenerationParams, ProviderResult, VisionProvider
 from .errors import classify_exception, error_summary
+from .http_audit import response_identity
 
 
 _SEARCH_FIELDS = (
@@ -147,8 +148,13 @@ def consume_chat_stream(stream: Any) -> Any:
     """Collect one HTTP stream inside its attempt boundary and always close it."""
     content, reasoning, usage, events = [], [], {}, []
     model = finish_reason = None
+    identity = response_identity(stream)
     try:
         for chunk in stream:
+            chunk_identity = response_identity(chunk)
+            for key, value in chunk_identity.items():
+                if value is not None and identity.get(key) is None:
+                    identity[key] = value
             model = _field(chunk, "model") or model
             _merge_mapping(usage, _usage_mapping(_field(chunk, "usage")))
             metadata = extract_search_metadata(chunk)
@@ -176,7 +182,7 @@ def consume_chat_stream(stream: Any) -> Any:
     return SimpleNamespace(
         choices=[SimpleNamespace(message=SimpleNamespace(content="".join(content), reasoning_content="".join(reasoning)),
                                  finish_reason=finish_reason)],
-        model=model, usage=usage, _stream_search_events=events,
+        model=model, usage=usage, _stream_search_events=events, _http_audit_identity=identity,
     )
 
 
@@ -436,4 +442,5 @@ class OpenAICompatProvider(VisionProvider):
             reasoning_text=reasoning_text,
             output_issue=output_issue,
             search_metadata=search_metadata,
+            http_metadata=response_identity(resp),
         )

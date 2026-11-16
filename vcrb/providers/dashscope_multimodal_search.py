@@ -14,6 +14,7 @@ import httpx
 from ..config import require_api_key
 from .native_search_common import APIConnectionError, NativeSearchHTTPError, NativeSearchProvider, https_endpoint, validate_image_data_url
 from .openai_compat import _merge_mapping, _safe_json
+from .http_audit import response_identity
 
 
 NATIVE_PATH = '/api/v1/services/aigc/multimodal-generation/generation'
@@ -187,8 +188,11 @@ class DashScopeMultimodalSearchProvider(NativeSearchProvider):
                                 raise NativeSearchHTTPError(response)
                             if 'application/json' in response.headers.get('content-type', ''):
                                 response.read()
-                                return completion_from_multimodal_events([response.json()])
-                            return consume_multimodal_stream(response.iter_lines())
+                                completion=completion_from_multimodal_events([response.json()])
+                            else:
+                                completion=consume_multimodal_stream(response.iter_lines())
+                            completion._http_audit_identity=response_identity(completion,headers=response.headers)
+                            return completion
                     except httpx.TimeoutException as error:
                         raise TimeoutError('Multimodal search stream timed out') from error
                     except httpx.RequestError as error:

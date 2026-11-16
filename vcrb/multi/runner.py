@@ -659,8 +659,9 @@ class _RollingBudget:
                           json.dumps({"billing": billing} if "tool_unit_cny" in rate else {}), reservation, self.run_id))
             self._sync(conn)
 
-    def wrap(self, provider, model_id):
+    def wrap(self, provider, model_id, *, attempt_observer=None):
         ledger = self
+        observer = attempt_observer if attempt_observer is not None else ledger
         class BudgetedProvider:
             name = getattr(provider, "name", "budgeted")
 
@@ -671,7 +672,7 @@ class _RollingBudget:
             def recognize(self, model, image_data_url, system_prompt, user_prompt, gen):
                 if getattr(provider, "supports_attempt_observer", False):
                     return provider.recognize(model, image_data_url, system_prompt, user_prompt, gen,
-                                              attempt_observer=ledger)
+                                              attempt_observer=observer)
                 reservation = ledger.reserve(model_id, image_data_url, user_prompt)
                 try:
                     result = provider.recognize(model, image_data_url, system_prompt, user_prompt, gen)
@@ -752,7 +753,8 @@ def _run_multi(dataset, *, experiments=("A", "B", "C"), model_ids=None, mock=Tru
               pricing=None, per_work=0, limit=0, run_id=None, retry_failed=False, retry_failed_models=None,
               retry_failed_error_types=None,
               db_path=MULTI_DB, output_root=MULTI_ROOT, provider_overrides=None,
-              budget_parent_run_id=None, sample_ids: list[str] | None = None, on_run_ready=None):
+              budget_parent_run_id=None, sample_ids: list[str] | None = None, on_run_ready=None,
+              attempt_audit_path: Path | None = None):
     """An explicit --yes is insufficient without approved annotations and budget.
 
     Mock accepts drafts to exercise the workflow, but their identities are not
@@ -1023,7 +1025,13 @@ def _run_multi(dataset, *, experiments=("A", "B", "C"), model_ids=None, mock=Tru
                 store.upsert_record(record)
                 attempted.add((record["model_id"], record["experiment"], record["sample_id"]))
         invocation_store = InvocationStore()
-        wrapped = {m.id: budget.wrap(p, m.id) for m, p in zip(models, providers)}
+        audit = None
+        if attempt_audit_path is not None:
+            from ..providers.http_audit import AttemptAuditObserver
+            if any(not getattr(p, "supports_attempt_observer", False) for p in providers):
+                raise ValueError("Per-HTTP audit requires attempt-observer providers; no HTTP sent")
+            audit = AttemptAuditObserver(attempt_audit_path, rid, delegate=budget)
+        wrapped = {m.id: budget.wrap(p, m.id, attempt_observer=audit) for m, p in zip(models, providers)}
         admission_costs = {m.id: execution_plan["cost_upper_bound_per_task_cny"][m.id] /
                            (budget.attempts if getattr(p, "supports_attempt_observer", False) else 1)
                            for m, p in zip(models, providers)}

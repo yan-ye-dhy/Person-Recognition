@@ -14,6 +14,11 @@ htmlcov/
 # 环境变量（绝不提交 API Key）
 .env
 
+# 平台原始账单导出含账号信息，保留本地
+/amount-*.csv
+/cost-*.csv
+/billing_exports/
+
 # 运行时数据：只同步最终160张测试图及标注清单；缓存/视频/数据库仍忽略
 data/*
 !data/final/
